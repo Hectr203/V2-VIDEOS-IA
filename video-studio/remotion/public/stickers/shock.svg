@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+      <circle cx="100" cy="100" r="80" fill="#FDE047" stroke="#111111" stroke-width="8"/>
+      <!-- Ojos gigantes saltones -->
+      <circle cx="70" cy="75" r="24" fill="#FFFFFF" stroke="#111111" stroke-width="6"/>
+      <circle cx="75" cy="75" r="10" fill="#111111"/>
+      <circle cx="130" cy="75" r="24" fill="#FFFFFF" stroke="#111111" stroke-width="6"/>
+      <circle cx="125" cy="75" r="10" fill="#111111"/>
+      <!-- Boca abierta O -->
+      <ellipse cx="100" cy="135" rx="22" ry="30" fill="#7F1D1D" stroke="#111111" stroke-width="6"/>
+      <!-- Manos a la cara estilo el grito -->
+      <path d="M35 110 Q40 140 55 160" stroke="#111111" stroke-width="7" stroke-linecap="round" fill="none"/>
+      <path d="M165 110 Q160 140 145 160" stroke="#111111" stroke-width="7" stroke-linecap="round" fill="none"/>
+    </svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- Copo de nieve azul cian -->
+  <line x1="100" y1="20" x2="100" y2="180" stroke="#06B6D4" stroke-width="10" stroke-linecap="round"/>
+  <line x1="20" y1="100" x2="180" y2="100" stroke="#06B6D4" stroke-width="10" stroke-linecap="round"/>
+  <line x1="40" y1="40" x2="160" y2="160" stroke="#06B6D4" stroke-width="10" stroke-linecap="round"/>
+  <line x1="160" y1="40" x2="40" y2="160" stroke="#06B6D4" stroke-width="10" stroke-linecap="round"/>
+  <!-- Ramitas -->
+  <path d="M80 40 L100 60 L120 40" fill="none" stroke="#06B6D4" stroke-width="8" stroke-linecap="round"/>
+  <path d="M80 160 L100 140 L120 160" fill="none" stroke="#06B6D4" stroke-width="8" stroke-linecap="round"/>
+  <path d="M40 80 L60 100 L40 120" fill="none" stroke="#06B6D4" stroke-width="8" stroke-linecap="round"/>
+  <path d="M160 80 L140 100 L160 120" fill="none" stroke="#06B6D4" stroke-width="8" stroke-linecap="round"/>
+  <circle cx="100" cy="100" r="18" fill="#CFFAFE" stroke="#111111" stroke-width="6"/>
+</svg>

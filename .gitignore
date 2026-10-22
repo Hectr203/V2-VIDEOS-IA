@@ -1,0 +1,115 @@
+# ==============================================================================
+# SEGURIDAD Y SECRETOS (Zero-Leakage Policy)
+# ==============================================================================
+.env
+.env.*
+*.env
+!.env.example
+*.key
+*.pem
+*.enc
+.mem_palace_key
+.mem_palace.key
+.memoria_palacio_cifrada
+.hitl_audit.jsonl
+
+# ==============================================================================
+# PYTHON Y ENTORNOS VIRTUALES
+# ==============================================================================
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# Pruebas y cobertura
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+.tox/
+.nox/
+.cache/
+.ruff_cache/
+.mypy_cache/
+
+# ==============================================================================
+# JAVASCRIPT, NODE Y FRAMEWORKS WEB
+# ==============================================================================
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-store/
+dist/
+dist-ssr/
+.next/
+.turbo/
+coverage/
+
+# ==============================================================================
+# MEDIA GENERADA, RENDERS Y PROYECTOS TEMPORALES (VIDEO STUDIO)
+# ==============================================================================
+video-studio/output/*
+!video-studio/output/.gitkeep
+video-studio/projects/*
+!video-studio/projects/.gitkeep
+video-studio/remotion/public/voice_*
+
+# ==============================================================================
+# MODELOS, PESOS Y CHECKPOINTS PESADOS
+# ==============================================================================
+*.pt
+*.pth
+*.bin
+*.onnx
+*.safetensors
+checkpoint/
+checkpoints/
+proc_data/
+
+# ==============================================================================
+# SISTEMA, EDITORES E IDEs
+# ==============================================================================
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~
+.idea/
+.vscode/*
+!.vscode/extensions.json
+.vs/
+*.local
+
+# Evidencia volátil local
+.agencia/verificacion-local.json
+
+# CodeGraph index cache
+.codegraph/

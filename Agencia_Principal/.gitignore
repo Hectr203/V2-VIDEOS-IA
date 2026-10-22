@@ -1,0 +1,32 @@
+# Secretos y claves criptográficas (Zero-Leakage Policy)
+*.key
+*.enc
+.mem_palace_key
+.mem_palace.key
+.memoria_palacio_cifrada
+.hitl_audit.jsonl
+.env
+.env.*
+!.env.example
+
+# Cachés de Python y tests
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Dependencias y compilación
+node_modules/
+dist/
+build/
+.cache/
+
+# Sistema y logs
+*.log
+.DS_Store
+Thumbs.db
+
+# Evidencia de ejecución local; se regenera para cada contenido.
+.agencia/verificacion-local.json

@@ -1,0 +1,21 @@
+{
+  "name": "doodle-video-remotion",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "remotion preview src/index.ts",
+    "build": "remotion render src/index.ts DoodleReel out.mp4"
+  },
+  "dependencies": {
+    "@remotion/cli": "^4.0.218",
+    "@remotion/media-utils": "^4.0.218",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.218"
+  },
+  "devDependencies": {
+    "@types/react": "^18.3.1",
+    "@types/react-dom": "^18.3.1",
+    "typescript": "^5.4.5"
+  }
+}

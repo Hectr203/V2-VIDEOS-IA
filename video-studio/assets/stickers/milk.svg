@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <path d="M70 65 L80 35 L120 35 L130 65 Z" fill="#93C5FD" stroke="#111111" stroke-width="7" stroke-linejoin="round"/>
+  <rect x="60" y="65" width="80" height="115" rx="14" fill="#FFFFFF" stroke="#111111" stroke-width="7"/>
+  <rect x="70" y="90" width="60" height="50" rx="8" fill="#3B82F6"/>
+  <text x="100" y="122" font-family="Arial, sans-serif" font-weight="bold" font-size="20" fill="#FFFFFF" text-anchor="middle">MILK</text>
+  <ellipse cx="78" cy="80" rx="5" ry="8" fill="#E2E8F0"/>
+  <circle cx="100" cy="25" r="12" fill="#EF4444" stroke="#111111" stroke-width="6"/>
+</svg>

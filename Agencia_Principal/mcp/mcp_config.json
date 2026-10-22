@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "agencia": {
+      "command": "python3",
+      "args": [
+        "scripts/agencia_mcp.py"
+      ]
+    }
+  }
+}

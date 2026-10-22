@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+      <path d="M100 20 C65 20 40 45 40 80 C40 105 60 120 70 140 L130 140 C140 120 160 105 160 80 C160 45 135 20 100 20 Z" fill="#FFE600" stroke="#111111" stroke-width="8" stroke-linejoin="round"/>
+      <rect x="75" y="145" width="50" height="12" rx="6" fill="#E2E8F0" stroke="#111111" stroke-width="6"/>
+      <rect x="80" y="162" width="40" height="10" rx="5" fill="#CBD5E1" stroke="#111111" stroke-width="6"/>
+      <path d="M90 176 L110 176" stroke="#111111" stroke-width="6" stroke-linecap="round"/>
+      <path d="M70 70 Q100 50 100 80 Q100 110 130 90" fill="none" stroke="#F59E0B" stroke-width="6" stroke-linecap="round"/>
+      <!-- Chispas / rayos -->
+      <line x1="100" y1="5" x2="100" y2="-10" stroke="#F59E0B" stroke-width="8" stroke-linecap="round"/>
+      <line x1="25" y1="25" x2="10" y2="10" stroke="#F59E0B" stroke-width="8" stroke-linecap="round"/>
+      <line x1="175" y1="25" x2="190" y2="10" stroke="#F59E0B" stroke-width="8" stroke-linecap="round"/>
+      <line x1="15" y1="80" x2="-2" y2="80" stroke="#F59E0B" stroke-width="8" stroke-linecap="round"/>
+      <line x1="185" y1="80" x2="202" y2="80" stroke="#F59E0B" stroke-width="8" stroke-linecap="round"/>
+    </svg>

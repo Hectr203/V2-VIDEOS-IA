@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+      <!-- Cerebro doodle rosa -->
+      <path d="M60 80 C40 80 30 110 45 130 C30 150 60 170 80 160 C90 175 120 175 130 160 C150 170 175 150 165 130 C180 110 165 80 145 80 C150 60 125 45 105 55 C90 40 65 55 60 80 Z" fill="#F472B6" stroke="#111111" stroke-width="8" stroke-linejoin="round"/>
+      <path d="M70 100 Q90 90 95 115 Q100 140 80 145" fill="none" stroke="#BE185D" stroke-width="6" stroke-linecap="round"/>
+      <path d="M135 100 Q115 90 110 115 Q105 140 125 145" fill="none" stroke="#BE185D" stroke-width="6" stroke-linecap="round"/>
+      <path d="M102 60 L102 160" stroke="#111111" stroke-width="6" stroke-linecap="round"/>
+    </svg>
