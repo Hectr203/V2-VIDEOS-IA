@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Everything the bundle declares, including the groups `standard` leaves off: the
+  Frida Stalker relaxations, the hv_vmm_present concealment, and the iPhone17,3
+  identity rewrites.
+
+  Read this as the catalogue and standard as the safe subset — the two name the
+  same patch sets and differ only in their selection. Each patch's own version gate
+  still applies, so the Frida pair lands only on cloudOS 26.4 and newer.
+
+  The hv_vmm_present pair is here and nowhere else for a reason: on a freshly
+  restored 26.4 guest it is a brick. Renaming the OID makes bluetoothd's cached
+  sysctl lookup fail, bluetoothd crash-loops, locationd blocks on its throttled
+  XPC service, the data migrator never finishes and SpringBoard never draws.
+  Choose this preset for VM-detection work on a guest that already booted, not to
+  create one.
+-->
+<plist version="1.0">
+<dict>
+	<key>Identifier</key>
+	<string>experimental</string>
+	<key>Title</key>
+	<string>Experimental</string>
+	<key>Summary</key>
+	<string>Every patch this bundle declares, including the Frida Stalker relaxations, the iPhone17,3 identity rewrites, and the hv_vmm_present concealment that a freshly restored 26.4 guest does not survive.</string>
+	<key>PatchSets</key>
+	<array>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.bootchain</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.kernel.base</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.kernel.cfw</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.kernel.hypervisor</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.kernel.frida</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.devicetree</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.guest.system</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.guest.display</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.guest.identity</string>
+		</dict>
+	</array>
+	<key>Selection</key>
+	<dict>
+		<key>Kind</key>
+		<string>All</string>
+	</dict>
+</dict>
+</plist>

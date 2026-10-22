@@ -1,0 +1,51 @@
+# Downloads
+
+Each [release](https://github.com/Lakr233/vphone-cli/releases) has up to three files:
+
+| File | Contents |
+| --- | --- |
+| `vphone-launchpad-<version>-notarized.zip` | Launchpad, signed and notarized by Apple. Download this one when it is available. |
+| `vphone-launchpad-<version>.zip` | Launchpad, not notarized. macOS blocks it the first time you open it. |
+| `VPhone-<version>.zip` | `VPhone.bundle`. Launchpad downloads and installs it for you, so you do not need this file. |
+
+## Notarized Launchpad Versions
+
+| Series | Notarized | Not Notarized |
+| --- | --- | --- |
+| 2.9 | 2.9.0 | — |
+| 2.8 | 2.8.0 | — |
+| 2.7 | 2.7.0 | — |
+| 2.6 | 2.6.0 | — |
+| 2.5 | 2.5.0 | — |
+| 2.4 | 2.4.0, 2.4.1 | — |
+| 2.3 | 2.3.0 | — |
+| 2.2 | 2.2.0, 2.2.2, 2.2.3, 2.2.4, 2.2.5 | 2.2.1 |
+| 2.1 | 2.1.0, 2.1.1, 2.1.2 | 2.1.3, 2.1.4, 2.1.5, 2.1.6, 2.1.7 |
+| 2.0 | 2.0.4, 2.0.5, 2.0.6, 2.0.8, 2.0.9 | — |
+
+There is no 2.0.7 release.
+
+To open a version that is not notarized, open it once, then go to **System Settings > Privacy & Security** and click **Open Anyway**.
+
+## Matching Launchpad and VPhone.bundle
+
+Use a `VPhone.bundle` from the same series as Launchpad. The series is the first two numbers of the version: Launchpad 2.2.3 belongs to 2.2 and works with any `VPhone.bundle` 2.2.x.
+
+| Launchpad | VPhone.bundle |
+| --- | --- |
+| 2.9.x | 2.9.x |
+| 2.8.x | 2.8.x |
+| 2.7.x | 2.7.x |
+| 2.6.x | 2.6.x |
+| 2.5.x | 2.5.x |
+| 2.4.x | 2.4.x |
+| 2.3.x | 2.3.x |
+| 2.2.x | 2.2.x |
+| 2.1.x | 2.1.x |
+| 2.0.x | 2.0.x |
+
+Within a series, install the newest `VPhone.bundle`. Patch releases fix problems without changing how Launchpad and the bundle work together.
+
+Launchpad refuses a `VPhone.bundle` that is too old for it, but it may still list bundles from a newer series. Do not install those; update Launchpad to that series first. Launchpad does not update itself: download the new version from the release page and replace the old app.
+
+VMs created by 1.x do not start in 2.x. For 1.x, see the [1.0.14 release](https://github.com/Lakr233/vphone-cli/releases/tag/1.0.14).

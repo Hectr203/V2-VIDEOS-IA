@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  Manifest.plist — what VPhonePatchSetExample.vphonepatchset declares.
+
+  This is read before any of the set's code is mapped, so everything the resolver
+  needs to reject a bad combination is here: the identity a preset pins, the
+  PatchKit version the code was built against, and one entry per selectable patch.
+
+  Identifier is the contract twice over. A preset names it, and the loader refuses
+  the bundle if the file at the pinned path declares a different one. Each patch
+  identifier is also the prefix of the PatchRecord identifiers that patch emits,
+  which is how a per-VM checkmark reaches the patch site.
+
+  Target must be Firmware for a loaded set. A guest-side patch would have to run
+  inside `cfw install`, which is the privileged step and loads no external set, so
+  declaring one is refused at import rather than promising a patch that never runs.
+-->
+<plist version="1.0">
+<dict>
+	<key>Identifier</key>
+	<string>com.vphone.patchset.example</string>
+	<key>Name</key>
+	<string>Example</string>
+	<key>Version</key>
+	<string>1.0</string>
+	<key>Summary</key>
+	<string>Template patch set: one in-place iBEC string rewrite, driven by preset parameters</string>
+
+	<!-- The PatchKit API this set was built against. A bundle asking for a newer
+	     one than the running framework is refused before it is loaded. -->
+	<key>MinimumPatchKitVersion</key>
+	<string>1.0</string>
+
+	<key>Patches</key>
+	<array>
+		<dict>
+			<key>Identifier</key>
+			<string>ibec-exp-string_rewrite</string>
+			<key>Title</key>
+			<string>Example string rewrite</string>
+			<key>Summary</key>
+			<string>Rewrites the ASCII string named by the preset's ExampleFindString parameter as ExampleReplaceString, in place. Does nothing until a preset sets both.</string>
+			<key>Target</key>
+			<dict>
+				<key>Kind</key>
+				<string>Firmware</string>
+				<key>Component</key>
+				<string>iBEC</string>
+			</dict>
+			<!-- No Applicability key means every OS pairing. A real patch that only
+			     holds on one release states it, and no preset or checkmark can
+			     widen that. -->
+		</dict>
+	</array>
+</dict>
+</plist>

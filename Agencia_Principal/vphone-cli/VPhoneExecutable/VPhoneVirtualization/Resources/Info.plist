@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.vphone.bundle</string>
+	<key>CFBundleName</key>
+	<string>VPhone</string>
+	<key>CFBundlePackageType</key>
+	<string>BNDL</string>
+	<key>CFBundleVersion</key>
+	<string>38</string>
+	<key>CFBundleShortVersionString</key>
+	<string>2.9.2</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Shares this Mac's microphone with the virtual iPhone so apps running inside it can record.</string>
+</dict>
+</plist>

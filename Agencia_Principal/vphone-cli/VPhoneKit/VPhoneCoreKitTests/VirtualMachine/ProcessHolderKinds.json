@@ -1,0 +1,17 @@
+{
+  "about": "Which process holding a machine's disk runs the machine, judged by its executable path (proc_pidpath). The CLI's rule is VPhoneProcessHolder.kind(executablePath:) in VPhoneCoreKit; Launchpad, which does not link VPhoneCoreKit, has its own copy in VPhoneLaunchpadDiskHolder.runsMachine. VPhoneCoreKitTests (LaunchLayoutTests) and VPhoneLaunchpad/Tests/TemplatesTests.sh both run every case here against their copy, so a change to one copy fails the other's test until both agree. Kind is virtualMachine, virtualizationService or other; Launchpad counts the first two as running the machine. A null path is a process that is gone or cannot be inspected.",
+  "cases": [
+    { "path": "/Library/Application Support/vphone-launchpad/Bundles/2.9.0/VPhone.bundle/Contents/MacOS/vphone-vm", "kind": "virtualMachine" },
+    { "path": "/Users/me/vphone-cli/.build/XcodeBundle/Build/Products/Release/VPhone.bundle/Contents/MacOS/vphone-vm", "kind": "virtualMachine" },
+    { "path": "/System/Library/Frameworks/Virtualization.framework/Versions/A/XPCServices/com.apple.Virtualization.VirtualMachine.xpc/Contents/MacOS/com.apple.Virtualization.VirtualMachine", "kind": "virtualizationService" },
+    { "path": "/Applications/vphone-launchpad.app/Contents/MacOS/vphone-launchpad", "kind": "other" },
+    { "path": "/System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Versions/A/Support/mds_stores", "kind": "other" },
+    { "path": "/usr/bin/tail", "kind": "other" },
+    { "path": "/usr/sbin/lsof", "kind": "other" },
+    { "path": "/Library/Application Support/vphone-launchpad/Bundles/2.9.0/VPhone.bundle/Contents/MacOS/vphone-cli", "kind": "other" },
+    { "path": "/tmp/com.apple.Virtualization.VirtualMachine", "kind": "other" },
+    { "path": "/tmp/vphone-vm-helper", "kind": "other" },
+    { "path": "", "kind": "other" },
+    { "path": null, "kind": "other" }
+  ]
+}

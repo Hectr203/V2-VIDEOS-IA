@@ -1,0 +1,88 @@
+import Foundation
+
+/// A GitHub release that carries a `VPhone-<tag>.zip` asset. GitHub records a
+/// SHA-256 digest for every asset, which is what the download is checked
+/// against, here and again in the helper.
+nonisolated struct VPhoneLaunchpadRelease: Identifiable, Hashable, Codable, Sendable {
+    let version: String
+    let publishedAt: Date
+    let isPrerelease: Bool
+    let assetName: String
+    let downloadURL: URL
+    let size: Int64
+    let sha256: String
+
+    var id: String {
+        version
+    }
+
+    static let endpoint = URL(string: "https://api.github.com/repos/Lakr233/vphone-cli/releases?per_page=30")!
+
+    // MARK: - Listing
+
+    static func fetch() async throws -> [VPhoneLaunchpadRelease] {
+        var request = URLRequest(url: endpoint)
+        request.setValue("application/vnd.github+json", forHTTPHeaderField: "Accept")
+        request.setValue("vphone-launchpad", forHTTPHeaderField: "User-Agent")
+        let (data, response) = try await URLSession.shared.data(for: request)
+        guard let http = response as? HTTPURLResponse, http.statusCode == 200 else {
+            throw VPhoneLaunchpadError(String(localized: "Unable to load releases from GitHub. Try again later."))
+        }
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        let payload = try decoder.decode([Payload].self, from: data)
+        return payload.compactMap { release in
+            guard !release.draft, VPhoneLaunchpadNames.isCompatibleBundleVersion(release.tag_name) else {
+                return nil
+            }
+            let asset = release.assets.first {
+                $0.name.range(of: "^VPhone-.+\\.zip$", options: .regularExpression) != nil
+                    && ($0.digest ?? "").hasPrefix("sha256:")
+            }
+            guard let asset, let digest = asset.digest else {
+                return nil
+            }
+            return VPhoneLaunchpadRelease(
+                version: release.tag_name,
+                publishedAt: release.published_at ?? .distantPast,
+                isPrerelease: release.prerelease,
+                assetName: asset.name,
+                downloadURL: asset.browser_download_url,
+                size: asset.size,
+                sha256: String(digest.dropFirst("sha256:".count)),
+            )
+        }
+        .sorted { $0.publishedAt > $1.publishedAt }
+    }
+
+    private struct Payload: Decodable {
+        struct Asset: Decodable {
+            let name: String
+            let size: Int64
+            let digest: String?
+            let browser_download_url: URL
+        }
+
+        let tag_name: String
+        let draft: Bool
+        let prerelease: Bool
+        let published_at: Date?
+        let assets: [Asset]
+    }
+
+    // MARK: - Download
+
+    /// Downloads the asset into a fresh temporary directory. Returns the file
+    /// and its hex SHA-256.
+    @concurrent func download(progress: @escaping @Sendable (Int64) -> Void) async throws -> (URL, String) {
+        let name = assetName
+        return try await VPhoneLaunchpadDownload.fetch(
+            URLRequest(url: downloadURL),
+            as: name,
+            refused: { _ in
+                VPhoneLaunchpadError(String(localized: "Unable to download \(name). Check your connection and try again."))
+            },
+            progress: progress,
+        )
+    }
+}

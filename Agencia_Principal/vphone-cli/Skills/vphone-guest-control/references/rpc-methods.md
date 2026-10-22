@@ -1,0 +1,213 @@
+# vphoned methods
+
+`guest rpc <machine> <method> '<params-json>'` calls a method in the guest's
+daemon, through the machine's `vphone.sock`. Params are one JSON object (omit
+for none). The reply is `{"ok":true,"result":{…}}`. On `ok:false` the CLI exits 1 with
+"The machine refused the request. Try again." and puts the guest's own error
+(for example `guest not connected` or `Unknown method: …`) on stderr. When
+vphoned itself refused, the last stderr line is its whole error object as JSON
+(`code`, `message` and fields such as `results`, `reason`, `errno`,
+`retryable`); `vphone.sock` carries the same object as `guest_error`. Add `--screen` to also get the small grayscale screen image.
+
+The complete catalog, with REST routes and result details, is
+`Research/vphoned_http_api.md` ("Method catalog"). This file is the working
+subset with parameter names checked against the daemon source
+(`VPhoneDaemon/Daemon/GuestAPI*.swift`). When a call fails with an
+invalid-request error, read the source named there instead of guessing keys.
+
+## Contents
+
+- Conventions
+- Device and screen
+- Input
+- UI inspection
+- Apps
+- Installing an app
+- Files
+- Processes, logs, services
+- System and preferences
+- Bootstrap
+- Raw HTTP and WebSocket
+
+## Conventions
+
+- Coordinates for `input.*` and `ui.element_at` are **screen points** as
+  `device.screen` reports, not the pixels used by the socket's `tap`.
+- **force methods** refuse to run unless the params carry `"force":true`:
+  `processes.kill`, `services.stop|disable|remove|signal|unload`,
+  `apps.uninstall|unregister|unregister_dir`, `system.respring`,
+  `system.reboot`, `system.shutdown`, `setup.skip`. The flag is the
+  confirmation: use it only for what the user asked.
+- Results can be large. Methods that read data take `limit`, `max_lines`,
+  `max_elements` or a `filter`; use them. A reply in the 8–16 KiB band can be
+  lost on close (see [troubleshooting](troubleshooting.md)).
+- Capability flags in `/v1/health` tell which areas this vphoned supports. An
+  `unknown method` error against an older guest means update its environment
+  ([machines](machines.md)).
+
+## Device and screen
+
+| Method | Params | Notes |
+| --- | --- | --- |
+| `device.info` | none | Snapshot plus network, screen, rotation, brightness, volume, low power, Developer Mode. Start here |
+| `device.snapshot`, `device.screen`, `device.network` | none | Smaller views of the same |
+| `screen.screenshot` | none | Base64 JPEG with `mime_type`, `width`, `height` (1290×2796) |
+| `display.brightness`, `audio.volume` | `value?` | Omit `value` to read |
+| `audio.host_latency` | `seconds?` (0-1) | The Mac output latency the guest speaker adds; omit to read. The VM sends it on every connect and output change |
+| `display.rotation`, `display.orientation` | `orientation?` | |
+| `display.auto_lock` | none | Auto-Lock in seconds (`never` when it is Never) and the Lock Screen timeout vphoned sets to match |
+| `screen.unlock` | `passcode?`, `timeout?` (10) | Display on and Lock Screen passed, from any state; `guest unlock <machine>` calls it. `passcode` only for a guest that has one, entered once |
+| `device.ioreg` | `plane` | e.g. `IODeviceTree` |
+
+## Input
+
+| Method | Params |
+| --- | --- |
+| `input.tap` | `x`, `y` |
+| `input.double_tap` | `x`, `y`, `interval?` (0.1) |
+| `input.long_press` | `x`, `y`, `seconds?` (1) |
+| `input.swipe` | `x1`, `y1`, `x2`, `y2`, `seconds?` (0.3), `steps?` (20) |
+| `input.drag` | `points` (≥2 `[x,y]` pairs), `seconds?`, `hold?`, `steps?` |
+| `input.touch_sequence` | `events` (`{phase,x,y,delay_ms}`), `normalized?` (true) |
+| `input.button` | `name` (hardware button) |
+| `input.key` | `name` (`return`, `cmd+v`, …) |
+| `input.type` | `text`, `delay_ms?` (30) |
+| `input.paste` | `text` |
+
+## UI inspection
+
+Prefer these to coordinates.
+
+| Method | Params | Notes |
+| --- | --- | --- |
+| `ui.describe` | none | Short description of the screen; cheapest orientation |
+| `ui.tree` | `max_elements?` (500), `visible_only?` (true), `clickable_only?`, `limit?` | Accessibility elements with positions |
+| `ui.element_at` | `x`, `y` | |
+| `ui.tap_element` | selector | Taps the match |
+| `ui.wait`, `ui.wait_gone` | selector, `timeout?` (10 s) | Wait for an element to appear or go |
+| `ui.ocr` | `languages?` (`["en-US"]`), `min_confidence?` (0.3) | Text with boxes; use for non-accessible UI |
+
+Selector keys: `text`, `identifier`, `role`, `match` (`contains` by default),
+`index` (0). Example:
+`ui.tap_element '{"text":"General","match":"contains"}'`.
+
+## Apps
+
+| Method | Params |
+| --- | --- |
+| `apps.list` | `filter?` (`all` default) |
+| `apps.search` | `query` |
+| `apps.launch` | `bundle_id`, `url?`. Returns `pid` and `frontmost_verified` |
+| `apps.foreground` | none; reports the verified front app |
+| `apps.terminate` | `bundle_id` |
+| `apps.open_url` | `url`, `bundle_id?` |
+| `apps.info`, `apps.binary`, `apps.data_dir` | `bundle_id` |
+| `apps.refresh` | `directory?`; same as `system.uicache` for registration |
+| `apps.register`, `apps.registration` | `path` |
+| `apps.uninstall` (force) | `bundle_id` |
+
+`frontmost_verified:false` on a launch means the process started but no unique
+foreground app could be confirmed. Check with a screenshot.
+
+## Installing an app
+
+Never `xcrun devicectl`: it times out against these guests. Two routes with
+different meaning:
+
+- **Through installd** (what Xcode does, and the only route that exercises the
+  install gate): `ideviceinstaller -u <UDID> install App.ipa`. The UDID comes
+  from `idevice_id -l` or `vm list`.
+- **Through vphoned:** `apps.install '{"path":"/private/var/tmp/App.ipa"}'`,
+  optional `registration:"System"` and `cert_path`. `path` is a **guest** path,
+  and vphoned **deletes the file after installing**. It re-signs and places the
+  bundle itself, bypassing installd and the profile checks, and keeps the app's
+  own entitlements (so `get-task-allow` survives, which is the way to get a
+  debuggable test app in). Its `PlugIns/*.appex` are registered with the app,
+  so extensions (packet tunnels, share sheets, widgets) launch; the result's
+  `plugins` lists them and `unregistered_plugins` any LaunchServices did not
+  take. It proves nothing about installd. To get the file
+  into the guest, see [guest-layout](guest-layout.md) ("Handing a file to
+  vphoned").
+
+Then launch with `apps.launch`.
+
+## Files
+
+Paths are real-root paths. All take `path` unless noted.
+
+| Method | Params |
+| --- | --- |
+| `files.list` | `path` |
+| `files.read` | `path`, `limit?`, `binary?` (base64) |
+| `files.write` | `path`, `content`, `encoding?` (`utf8`) |
+| `files.mkdir` | `path` |
+| `files.remove` | `path`, `recursive?` |
+| `files.rename` | `from`, `to` |
+| `files.copy` | `from`, `to` |
+| `files.find` | `root`, `pattern` |
+| `files.symlink` | `target`, `link`, `replace?` |
+| `files.chmod` | `path`, `mode` |
+| `files.chown` | `path`, `owner` |
+| `files.plist` | `path` |
+| `files.plist_set` | `path`, `key`, and `value` or `remove:true` |
+
+Use `files.read` with `binary:true` to pull guest binaries and crash reports
+without ssh. Keep `limit` small; large reads are the usual way to hit the reply
+size problem.
+
+## Processes, logs, services
+
+| Method | Params | Notes |
+| --- | --- | --- |
+| `processes.list` | `filter?` | `cpu_seconds`, `start_time`, footprint, jetsam band; a stuck SpringBoard shows ~0 CPU |
+| `processes.kill` (force) | `pid`, `signal?` | |
+| `memory.jetsam`, `memory.pressure` | none | |
+| `logs.syslog` | `seconds?` (2, max 60), `process?`, `level?` (`all`), `max_lines?` (500) | A bounded capture |
+| `logs.crashes` | `bundle_id?` | Lists reports: `path`, `process`, `size`, `mtime` |
+| `logs.crash` | `path` | Reads one report |
+| `services.list` | none | launchd |
+| `services.status`, `services.print` | `label` | |
+| `services.start`, `services.enable` | `label` | |
+| `services.stop`, `disable`, `remove`, `unload` (force) | `label` | |
+| `launchd.getenv` / `setenv` / `unsetenv` | `key`, `value?` | |
+
+## System and preferences
+
+| Method | Params |
+| --- | --- |
+| `system.uicache` | none; re-registers apps |
+| `system.respring` (force), `system.reboot` (force) | `userspace?` for reboot |
+| `system.shutdown` (force) | none; shuts the guest down, which stops the VM (capability `system_shutdown`) |
+| `setup.status` | none; `setup.skip` (force) skips Setup Assistant |
+| `developer_mode.status` / `enable` | none |
+| `settings.get` | `domain`, `key?` |
+| `settings.set` | `domain`, `key`, `value`, `type?` |
+| `settings.delete` | `domain`, `key` |
+| `clipboard.get` / `set` / `clear` | `set` takes `text` |
+| `location.set` / `clear` / `current` | `set` takes latitude/longitude; `set` and `current` fail with `location_services_off` while the guest's Location Services switch is off (vphoned never turns it on); read-back can fail on some guests |
+| `time.timezone` | none reads `{identifier, automatic, seconds_from_gmt}`; `identifier` (Olson name) pins the zone and turns automatic off; `automatic: true` hands it back to timed. The VM sends the Mac's zone on every connect |
+| `notify.post` / `notify.state` | `name`, `state?` |
+| `keychain.*` | Lists, adds and edits secrets; use only on request and never print values |
+
+## Bootstrap
+
+`bootstrap.install {layout, package_path?}`, `bootstrap.status`,
+`bootstrap.inspect`, `bootstrap.uninstall {roots, force, reboot?}`,
+`bootstrap.firmware`. Behavior and the install flow: [guest-layout](guest-layout.md).
+
+## Raw HTTP and WebSocket
+
+The same methods are served as HTTP/WebSocket on guest VSOCK 1339. A host
+listener exists only if the VM was launched with `vphone-cli vm launch
+--api-listen host:port` (the launch prints `[api] token: …`); `vm start` has no
+such option, so an agent cannot enable it through the CLI. Use it on loopback only:
+
+```sh
+curl -H "Authorization: Bearer $TOKEN" -H "Content-Type: application/json" \
+  -d '{"method":"device.snapshot","params":{}}' http://127.0.0.1:8765/v1/rpc
+```
+
+It adds streaming file transfer (`GET/PUT /v1/files/content?path=`), a TCP
+tunnel to a guest port (`/v1/ports/<port>` over WebSocket) and an event stream
+(`/v1/events`). Every `POST` needs `Content-Type: application/json`. Details
+and the 401/403/415 rules: `Research/vphoned_http_api.md` ("Access control").

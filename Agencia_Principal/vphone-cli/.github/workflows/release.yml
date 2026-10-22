@@ -1,0 +1,138 @@
+name: release
+
+# Build the self-contained VPhone.bundle and vphone-launchpad.app and attach
+# both to a published GitHub Release. The Xcode scheme signs and validates the
+# bundle. Launchpad ships unsigned: nothing is signed at build time, and
+# Build/SignLaunchpad.sh is a separate step with a Developer ID identity.
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to build and upload
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+
+      - name: Install xcbeautify
+        run: command -v xcbeautify >/dev/null || brew install xcbeautify
+
+      - name: Toolchain versions
+        run: |
+          swift --version
+          xcodebuild -version
+          xcbeautify --version
+
+      - name: Build VPhone.bundle
+        env:
+          SWIFT_JOBS: "4"
+        run: |
+          set -o pipefail
+          mkdir -p .build
+          xcodebuild -workspace VPhone.xcworkspace -scheme VPhone \
+            -configuration Release -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath .build/XcodeBundle -jobs 4 build 2>&1 \
+            | tee .build/xcodebuild.log \
+            | xcbeautify --quiet --disable-logging --renderer github-actions
+
+      # Quiet mode hides unannotated build-phase output, including the reason
+      # a script phase failed. Keep the full log for that case.
+      - name: Show raw build log
+        if: failure()
+        run: tail -n 300 .build/xcodebuild.log
+
+      - name: Upload raw build log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcodebuild-log
+          path: .build/xcodebuild.log
+
+      - name: Verify bundle
+        run: |
+          set -euo pipefail
+          zsh VPhoneExecutable/VPhoneVirtualization/Build/ValidateBundle.sh \
+            .build/XcodeBundle/Build/Products/Release/VPhone.bundle
+
+      - name: Package bundle
+        env:
+          TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        run: |
+          ditto -c -k --keepParent \
+            .build/XcodeBundle/Build/Products/Release/VPhone.bundle \
+            "VPhone-${TAG}.zip"
+
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        run: gh release upload "$TAG" "VPhone-${TAG}.zip" --clobber
+
+  launchpad:
+    runs-on: macos-26
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.event.release.tag_name || inputs.tag }}
+
+      - name: Install xcbeautify
+        run: command -v xcbeautify >/dev/null || brew install xcbeautify
+
+      - name: Toolchain versions
+        run: |
+          xcodebuild -version
+          xcbeautify --version
+
+      - name: Build vphone-launchpad.app
+        run: |
+          set -o pipefail
+          mkdir -p .build
+          xcodebuild -project VPhoneLaunchpad/VPhoneLaunchpad.xcodeproj \
+            -scheme VPhoneLaunchpad -configuration Release \
+            -destination 'platform=macOS,arch=arm64' \
+            -derivedDataPath .build/XcodeLaunchpad build 2>&1 \
+            | tee .build/xcodebuild.log \
+            | xcbeautify --quiet --disable-logging --renderer github-actions
+
+      # Quiet mode hides unannotated build-phase output, including the reason
+      # a script phase failed. Keep the full log for that case.
+      - name: Show raw build log
+        if: failure()
+        run: tail -n 300 .build/xcodebuild.log
+
+      - name: Upload raw build log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: xcodebuild-log-launchpad
+          path: .build/xcodebuild.log
+
+      # The asset name must not match Launchpad's own `^VPhone-.+\.zip$`
+      # bundle asset pattern.
+      - name: Package app
+        env:
+          TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        run: |
+          ditto -c -k --keepParent \
+            .build/XcodeLaunchpad/Build/Products/Release/vphone-launchpad.app \
+            "vphone-launchpad-${TAG}.zip"
+
+      - name: Upload to release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.event.release.tag_name || inputs.tag }}
+        run: gh release upload "$TAG" "vphone-launchpad-${TAG}.zip" --clobber

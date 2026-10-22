@@ -1,0 +1,4 @@
+interface:
+  display_name: "Kernel Analysis vphone600"
+  short_description: "Use vphone600 kernel symbol DB and XNU source for analysis."
+  default_prompt: "Analyze vphone600 kernel artifacts using the local symbol database and XNU reference tree."

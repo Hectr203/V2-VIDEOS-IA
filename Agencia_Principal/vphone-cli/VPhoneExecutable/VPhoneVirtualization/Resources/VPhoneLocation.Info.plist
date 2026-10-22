@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleIdentifier</key>
+	<string>com.vphone.bundle.location</string>
+	<key>CFBundleName</key>
+	<string>VPhone</string>
+	<key>CFBundleExecutable</key>
+	<string>vphone-location</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<key>LSUIElement</key>
+	<true/>
+	<key>LSMinimumSystemVersion</key>
+	<string>15.0</string>
+	<!-- Localized by InfoPlist.xcstrings, compiled into this app by StageBundle.sh. -->
+	<key>NSLocationUsageDescription</key>
+	<string>Shares your location with the virtual iPhone so apps running inside it see the same location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Shares your location with the virtual iPhone so apps running inside it see the same location.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Shares your location with the virtual iPhone so apps running inside it see the same location.</string>
+</dict>
+</plist>

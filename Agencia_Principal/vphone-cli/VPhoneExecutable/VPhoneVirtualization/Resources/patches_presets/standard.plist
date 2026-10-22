@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+  The preset every VM gets unless another is named.
+
+  It is the CFW baseline plus the virtual camera. It draws on every patch set the
+  bundle ships and turns on all of their patches bar five groups. The Frida
+  Stalker pair widens what any process in the guest may do and nothing needs it in
+  order to boot. The hv_vmm_present concealment — the kernel OID rename, the
+  shared-cache mangle and the watchdogd patch — leaves a freshly restored 26.4
+  guest on a black screen: bluetoothd caches the failed sysctl lookup,
+  crash-loops, and the data migrator SpringBoard waits on never finishes. Each of
+  those groups is all-or-nothing; see FirmwareKernelHypervisorPatchSet for the
+  whole chain. The iPhone17,3 identity rewrites — eight device tree properties and
+  the Preboot root model / target-type / compatible — are the rest of the former
+  EXP variant; the camera does not need them, and with the concealment they left
+  guests without location (issue #438). The fourth is the MIS
+  online-authorization short-circuit: libmisfix.dylib declines the same check from
+  userspace in installd, misagent and SpringBoard, so editing the shared cache for
+  it buys nothing there, costs an iOS 27 guest its boot (issue #532), and on 24A435 cannot
+  even be applied. See FirmwarePatchSetCatalog.misTrustAuthPatch.
+  The fifth is the Settings row hiding (system-preferences-exp-root_rows and
+  dyld-exp-settings_software_update_row), a preference.
+  ProMotion, the 120 Hz display timing (kernel-cfw-display_promotion), is on: the
+  guest renders at the rate its display advertises, and the host shows every frame.
+  See FirmwarePatchSetCatalog.proMotionPatch.
+  The narrow paravirtual user-client allowlist (kernel-cfw-paravirt_user_clients) is
+  on: without it a daemon on a 26.x or 18.x base cannot open the paravirtual GPU,
+  and cameracaptured crash-loops on it. See
+  FirmwarePatchSetCatalog.paravirtUserClientsPatch.
+
+  Each patch's own version gate still decides whether it lands on this pairing of
+  iPhone base and cloudOS.
+
+  Prewritten and reviewed. Nothing in the tool edits a preset: a VM records which
+  boxes its owner changed, and those compose on top of this.
+
+  FirmwarePatchSetCatalog.standardPreset is the in-code copy a dev build without a
+  staged bundle falls back to. FirmwarePatchSetTests checks the two agree.
+-->
+<plist version="1.0">
+<dict>
+	<key>Identifier</key>
+	<string>standard</string>
+	<key>Title</key>
+	<string>Standard</string>
+	<key>Summary</key>
+	<string>The patches every vphone VM needs to boot custom firmware, with a working display and camera.</string>
+	<key>PatchSets</key>
+	<array>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.bootchain</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.kernel.base</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.kernel.cfw</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.kernel.hypervisor</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.kernel.frida</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.devicetree</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.guest.system</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.guest.display</string>
+		</dict>
+		<dict>
+			<key>Kind</key>
+			<string>Bundled</string>
+			<key>Identifier</key>
+			<string>com.vphone.patchset.guest.identity</string>
+		</dict>
+	</array>
+	<key>Selection</key>
+	<dict>
+		<key>Kind</key>
+		<string>Block</string>
+		<key>Patches</key>
+		<array>
+			<string>kernel-exp-frida_thread_set_state_entitlement_flag</string>
+			<string>kernel-exp-frida_vm_map_delete_immutable_code</string>
+			<string>kernel-exp-hv_vmm</string>
+			<string>dyld-exp-hv_vmm</string>
+			<string>system-watchdogd-exp-hv_vmm_cache</string>
+			<string>devicetree-exp-target_sub_type</string>
+			<string>devicetree-exp-compatible_secondary</string>
+			<string>devicetree-exp-product_fdr_product_type</string>
+			<string>devicetree-exp-product_sub_product_type</string>
+			<string>devicetree-exp-product_unique_model</string>
+			<string>devicetree-exp-product_gestalt_variants_rename</string>
+			<string>devicetree-exp-arm_io_device_type</string>
+			<string>devicetree-exp-arm_io_soc_generation</string>
+			<string>preboot-exp-devicetree_identity</string>
+			<string>dyld-exp-mis_trust_auth</string>
+			<string>system-preferences-exp-root_rows</string>
+			<string>dyld-exp-settings_software_update_row</string>
+		</array>
+	</dict>
+</dict>
+</plist>

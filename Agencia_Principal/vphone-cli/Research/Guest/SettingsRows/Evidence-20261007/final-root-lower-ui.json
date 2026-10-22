@@ -1,0 +1,263 @@
+{
+  "ok" : true,
+  "result" : {
+    "count" : 14,
+    "elements" : [
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 20.666666666666671,
+          "width" : 66.666666666666657,
+          "x" : 181.66666666666666,
+          "y" : 70.666666666666657
+        },
+        "identifier" : "",
+        "label" : "Settings",
+        "role" : "element",
+        "traits" : 8590000128,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 81
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 114
+        },
+        "identifier" : "com.apple.settings.standBy",
+        "label" : "StandBy",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 140
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 166
+        },
+        "identifier" : "com.apple.settings.wallpaper",
+        "label" : "Wallpaper",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 192
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 253
+        },
+        "identifier" : "com.apple.settings.notifications",
+        "label" : "Notifications",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 279
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 305
+        },
+        "identifier" : "com.apple.settings.sounds",
+        "label" : "Sounds",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 331
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 357
+        },
+        "identifier" : "com.apple.settings.focus",
+        "label" : "Focus",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 383
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 409
+        },
+        "identifier" : "com.apple.settings.screenTime",
+        "label" : "Screen Time",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 435
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 496
+        },
+        "identifier" : "com.apple.settings.passcodeAndBiometrics",
+        "label" : "Passcode",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 522
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 548
+        },
+        "identifier" : "com.apple.settings.sos",
+        "label" : "Emergency SOS",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 574
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 600
+        },
+        "identifier" : "com.apple.settings.privacyAndSecurity",
+        "label" : "Privacy & Security",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 626
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 687
+        },
+        "identifier" : "com.apple.settings.apps",
+        "label" : "Apps",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 713
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 774
+        },
+        "identifier" : "com.apple.settings.developer",
+        "label" : "Developer",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 800
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 28,
+          "width" : 374,
+          "x" : 28,
+          "y" : 866
+        },
+        "identifier" : "",
+        "label" : "Search",
+        "role" : "element",
+        "traits" : 146029151232,
+        "value" : "Search",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 880
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 22,
+          "width" : 17.333333333333314,
+          "x" : 369.66666666666669,
+          "y" : 869
+        },
+        "identifier" : "Dictate",
+        "label" : "Dictate",
+        "role" : "button",
+        "traits" : 8589934593,
+        "value" : "",
+        "visible" : 1,
+        "x" : 378.33333333333337,
+        "y" : 879.83333333333337
+      }
+    ],
+    "pid" : 377,
+    "source" : "ax",
+    "truncated" : false
+  }
+}

@@ -1,0 +1,29 @@
+{
+  "skill_name": "vphone-guest-control",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "I just downloaded vphone-launchpad 2.2.3 on a fresh Mac. Get me from here to a running machine called test01 using the newest firmware you can find. Show me the exact commands you would run and in what order; do not run them.",
+      "expected_output": "Checks status first; links the CLI; installs a 2.2.x bundle (not a newer series); checks disk; vm create without hard-coded IPSWs (catalog default) or with explicit ones; vm start --wait; does not touch SIP/boot-args; mentions the admin password prompt.",
+      "files": []
+    },
+    {
+      "id": 2,
+      "prompt": "myphone is running. Open Settings, tell me what the screen shows, then read /etc/hosts from the guest. Show me the commands you would run; do not run them.",
+      "expected_output": "Uses guest rpc apps.launch with bundle_id com.apple.Preferences, a screenshot to a file or ui.describe/ui.ocr (not the attached grayscale image), files.read for /etc/hosts; no ssh, no devicectl.",
+      "files": []
+    },
+    {
+      "id": 3,
+      "prompt": "myphone boots to a black screen but I can hear it is running. Plan how you would diagnose it. Do not create any new machines.",
+      "expected_output": "processes.list for SpringBoard, logs.crashes, reads the datamigrator stackshot, follows turnstileInfo, points at Research/Patches/hv_vmm_present_usermode_xrefs.md and Documents/Guides/troubleshooting.md; does not vm create to reproduce; stops and reports rather than changing host settings.",
+      "files": []
+    },
+    {
+      "id": 4,
+      "prompt": "I want ssh into myphone and a debuggable test IPA installed. It was just created. How do you do that, and where do I put the IPA so vphoned can read it?",
+      "expected_output": "Notes a fresh guest has no sshd; installs the roothide bootstrap (bootstrap.install or Apps > Install Bootstrap), then installs owngoal-bootstrap-vphone (which pulls in apt, openssh-server, uikittools, launchctl) via Irisin Bootstrap Install; iproxy + ssh mobile; ssh lands in the jbroot, real root is /rootfs; scp to /tmp then mv to /rootfs/private/var/tmp and apps.install with /private/var/tmp/<file>; warns apps.install deletes the file.",
+      "files": []
+    }
+  ]
+}

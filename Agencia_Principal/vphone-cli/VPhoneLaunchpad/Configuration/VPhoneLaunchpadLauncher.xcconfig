@@ -1,0 +1,14 @@
+// The VM launcher. It ships in the app's Contents/MacOS and is the process
+// macOS holds responsible for each VM Launchpad starts. Privacy requests are
+// attributed to the enclosing app, whose Developer ID signature stays the same
+// across VPhone.bundle builds. It links nothing but the system and has no
+// entitlements and no Info.plist of its own.
+
+PRODUCT_NAME = vphone-launchpad-launcher
+PRODUCT_MODULE_NAME = VPhoneLaunchpadLauncher
+PRODUCT_BUNDLE_IDENTIFIER = com.vphone.launchpad.launcher
+// Embedded in the app, never installed on its own.
+SKIP_INSTALL = YES
+
+// Top-level code that waits on a child: nothing here is UI.
+SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated

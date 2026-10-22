@@ -1,0 +1,11 @@
+// The command line tool. It ships in the app's Contents/MacOS and talks to
+// the running app over its control socket; it links nothing but the system.
+
+PRODUCT_NAME = vphone-launchpad-cli
+PRODUCT_MODULE_NAME = VPhoneLaunchpadCLI
+PRODUCT_BUNDLE_IDENTIFIER = com.vphone.launchpad.cli
+// Embedded in the app, never installed on its own.
+SKIP_INSTALL = YES
+
+// Top-level code and blocking socket reads: nothing here is UI.
+SWIFT_DEFAULT_ACTOR_ISOLATION = nonisolated

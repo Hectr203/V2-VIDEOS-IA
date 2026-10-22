@@ -1,0 +1,263 @@
+{
+  "ok" : true,
+  "result" : {
+    "count" : 14,
+    "elements" : [
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 40.666666666666671,
+          "width" : 133,
+          "x" : 20,
+          "y" : 116.66666666666667
+        },
+        "identifier" : "",
+        "label" : "Settings",
+        "role" : "element",
+        "traits" : 8590000128,
+        "value" : "",
+        "visible" : 1,
+        "x" : 86.5,
+        "y" : 137
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 90.333333333333314,
+          "width" : 390,
+          "x" : 20,
+          "y" : 165
+        },
+        "identifier" : "com.apple.settings.primaryAppleAccount",
+        "label" : "Apple Account, Sign in to access your iCloud data, the App Store, Apple services and more.",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 210.16666666666666
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 290.33333333333331
+        },
+        "identifier" : "com.apple.settings.airplaneMode",
+        "label" : "Airplane Mode",
+        "role" : "button",
+        "traits" : 9007207844675649,
+        "value" : "0",
+        "visible" : 1,
+        "x" : 360.5,
+        "y" : 316.33333333333331
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 342.33333333333337
+        },
+        "identifier" : "com.apple.settings.wifi",
+        "label" : "Wi-Fi, Off",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 368.33333333333337
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 394.33333333333337
+        },
+        "identifier" : "com.apple.settings.ethernet",
+        "label" : "Ethernet",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 420.33333333333337
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 446.33333333333331
+        },
+        "identifier" : "com.apple.settings.bluetooth",
+        "label" : "Bluetooth, On",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 472.33333333333331
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 51.999999999999943,
+          "width" : 390,
+          "x" : 20,
+          "y" : 498.33333333333331
+        },
+        "identifier" : "com.apple.settings.battery",
+        "label" : "Battery",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 524.33333333333326
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 585.33333333333326
+        },
+        "identifier" : "com.apple.settings.general",
+        "label" : "General",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 611.33333333333326
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 637.33333333333326
+        },
+        "identifier" : "com.apple.settings.accessibility",
+        "label" : "Accessibility",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 663.33333333333326
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 689.33333333333337
+        },
+        "identifier" : "com.apple.settings.actionButton",
+        "label" : "Action Button",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 715.33333333333337
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 741.33333333333337
+        },
+        "identifier" : "com.apple.settings.appearance",
+        "label" : "Appearance",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 767.33333333333337
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 793.33333333333337
+        },
+        "identifier" : "com.apple.settings.camera",
+        "label" : "Camera",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 819.33333333333337
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 28,
+          "width" : 374,
+          "x" : 28,
+          "y" : 866
+        },
+        "identifier" : "",
+        "label" : "Search",
+        "role" : "element",
+        "traits" : 146029151232,
+        "value" : "Search",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 880
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 22,
+          "width" : 17.333333333333314,
+          "x" : 369.66666666666669,
+          "y" : 869
+        },
+        "identifier" : "Dictate",
+        "label" : "Dictate",
+        "role" : "button",
+        "traits" : 8589934593,
+        "value" : "",
+        "visible" : 1,
+        "x" : 378.33333333333337,
+        "y" : 879.83333333333337
+      }
+    ],
+    "pid" : 629,
+    "source" : "ax",
+    "truncated" : false
+  }
+}

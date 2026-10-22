@@ -1,0 +1,227 @@
+{
+  "ok" : true,
+  "result" : {
+    "count" : 12,
+    "elements" : [
+      {
+        "clickable" : false,
+        "enabled" : true,
+        "frame" : {
+          "height" : 26.333333333333314,
+          "width" : 80,
+          "x" : 40,
+          "y" : 238
+        },
+        "identifier" : "",
+        "label" : "General",
+        "role" : "text",
+        "traits" : 8590000192,
+        "value" : "",
+        "visible" : 1,
+        "x" : 80,
+        "y" : 251.16666666666666
+      },
+      {
+        "clickable" : false,
+        "enabled" : true,
+        "frame" : {
+          "height" : 64.333333333333314,
+          "width" : 344.66666666666663,
+          "x" : 40,
+          "y" : 268.33333333333331
+        },
+        "identifier" : "",
+        "label" : "Manage your overall setup and preferences for iPhone, such as software updates, device language, CarPlay, AirDrop and more.",
+        "role" : "text",
+        "traits" : 8590000192,
+        "value" : "",
+        "visible" : 1,
+        "x" : 212.33333333333331,
+        "y" : 300.5
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 382.66666666666669
+        },
+        "identifier" : "com.apple.settings.general.about",
+        "label" : "About",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 408.66666666666669
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 434.66666666666669
+        },
+        "identifier" : "com.apple.settings.general.softwareUpdate",
+        "label" : "Software Update",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 460.66666666666669
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52.000000000000057,
+          "width" : 390,
+          "x" : 20,
+          "y" : 486.66666666666669
+        },
+        "identifier" : "com.apple.settings.general.deviceStorage",
+        "label" : "iPhone Storage",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 512.66666666666674
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 573.66666666666674
+        },
+        "identifier" : "com.apple.settings.general.appleCareAndWarranty",
+        "label" : "AppleCare & Warranty",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 599.66666666666674
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 660.66666666666663
+        },
+        "identifier" : "com.apple.settings.general.airDrop",
+        "label" : "AirDrop",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 686.66666666666663
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 712.66666666666663
+        },
+        "identifier" : "com.apple.settings.general.airPlayAndContinuity",
+        "label" : "AirPlay & Continuity",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 738.66666666666663
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 764.66666666666663
+        },
+        "identifier" : "com.apple.settings.general.pictureInPicture",
+        "label" : "Picture in Picture",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 790.66666666666663
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 816.66666666666663
+        },
+        "identifier" : "com.apple.settings.general.screenCapture",
+        "label" : "Screen Capture",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 842.66666666666663
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 52,
+          "width" : 390,
+          "x" : 20,
+          "y" : 868.66666666666663
+        },
+        "identifier" : "com.apple.settings.general.carPlay",
+        "label" : "CarPlay",
+        "role" : "button",
+        "traits" : 8589934657,
+        "value" : "",
+        "visible" : 1,
+        "x" : 215,
+        "y" : 894.66666666666663
+      },
+      {
+        "clickable" : true,
+        "enabled" : true,
+        "frame" : {
+          "height" : 44,
+          "width" : 44,
+          "x" : 20,
+          "y" : 59
+        },
+        "identifier" : "BackButton",
+        "label" : "Settings",
+        "role" : "button",
+        "traits" : 8724152321,
+        "value" : "",
+        "visible" : 1,
+        "x" : 42,
+        "y" : 81
+      }
+    ],
+    "pid" : 385,
+    "source" : "ax",
+    "truncated" : false
+  }
+}

@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>en</string>
+	<!-- These two stay the file name, vphone-launchpad.app: Finder and the
+	     Dock show the localized name only while the file name matches
+	     CFBundleDisplayName here. VPhoneLaunchpad/InfoPlist.xcstrings gives
+	     both as "VPhone Launchpad" in every language. -->
+	<key>CFBundleDisplayName</key>
+	<string>vphone-launchpad</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>$(PRODUCT_BUNDLE_IDENTIFIER)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>vphone-launchpad</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>$(MARKETING_VERSION)</string>
+	<key>CFBundleVersion</key>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
+	<key>LSApplicationCategoryType</key>
+	<string>public.app-category.developer-tools</string>
+	<key>LSMinimumSystemVersion</key>
+	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
+	<key>NSPrincipalClass</key>
+	<string>NSApplication</string>
+	<!-- vphone-vm reads the host location for the guest (through
+	     VPhoneLocation.app). Launchpad starts each VM through
+	     Contents/MacOS/vphone-launchpad-launcher, the responsible process for
+	     vphone-cli, vphone-vm and their children. A tool in this app's
+	     Contents/MacOS is attributed to this app, so TCC asks on the app's
+	     behalf, shows these descriptions from this bundle and stores the grant
+	     for the app. Under the hardened runtime the app also needs the
+	     location entitlement in VPhoneLaunchpad.entitlements. Same text as
+	     VPhone.bundle, localized by VPhoneLaunchpad/InfoPlist.xcstrings. -->
+	<key>NSLocationUsageDescription</key>
+	<string>Shares your location with the virtual iPhone so apps running inside it see the same location.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Shares your location with the virtual iPhone so apps running inside it see the same location.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Shares your location with the virtual iPhone so apps running inside it see the same location.</string>
+	<!-- The guest's microphone is this Mac's, opened by vphone-vm while the
+	     guest records. Same arrangement as the location descriptions above. -->
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Shares this Mac's microphone with the virtual iPhone so apps running inside it can record.</string>
+	<!-- A machine exported by Launchpad: a gnutar of the machine folder,
+	     zstd compressed, the same archive `vphone-cli vm export` writes.
+	     Launchpad owns the type, so opening one in Finder imports it. -->
+	<key>UTExportedTypeDeclarations</key>
+	<array>
+		<dict>
+			<key>UTTypeIdentifier</key>
+			<string>com.vphone.exported-archive</string>
+			<key>UTTypeDescription</key>
+			<string>VPhone Exported Archive</string>
+			<key>UTTypeConformsTo</key>
+			<array>
+				<string>public.data</string>
+				<string>public.archive</string>
+			</array>
+			<key>UTTypeTagSpecification</key>
+			<dict>
+				<key>public.filename-extension</key>
+				<array>
+					<string>vpea</string>
+				</array>
+			</dict>
+		</dict>
+	</array>
+	<key>CFBundleDocumentTypes</key>
+	<array>
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>VPhone Exported Archive</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Owner</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.vphone.exported-archive</string>
+			</array>
+		</dict>
+		<!-- An IPSW opened with Launchpad is copied into the IPSW cache.
+		     Alternate: Launchpad is offered in Open With, not made the default. -->
+		<dict>
+			<key>CFBundleTypeName</key>
+			<string>IPSW</string>
+			<key>CFBundleTypeRole</key>
+			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Alternate</string>
+			<key>LSItemContentTypes</key>
+			<array>
+				<string>com.apple.itunes.ipsw</string>
+			</array>
+		</dict>
+	</array>
+	<key>SMPrivilegedExecutables</key>
+	<dict>
+		<key>com.vphone.launchpad.helper</key>
+		<string>anchor apple generic and identifier "com.vphone.launchpad.helper" and certificate leaf[subject.OU] = "$(VPHONE_LAUNCHPAD_TEAM)"</string>
+	</dict>
+</dict>
+</plist>

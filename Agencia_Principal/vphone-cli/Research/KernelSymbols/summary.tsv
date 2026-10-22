@@ -1,0 +1,3 @@
+kernelcache	matched	missed	percent	total	json	log
+kernelcache.release.vphone600	4327	1398	75.5808%	5725	/Users/qaq/Documents/GitHub/kernelcache_symbolication_20260305/json/kernelcache.release.vphone600.bin.symbols.json	/Users/qaq/Documents/GitHub/kernelcache_symbolication_20260305/logs/kernelcache.release.vphone600.log
+kernelcache.research.vphone600	4327	1398	75.5808%	5725	/Users/qaq/Documents/GitHub/kernelcache_symbolication_20260305/json/kernelcache.research.vphone600.bin.symbols.json	(stats captured from initial run; no retained log)

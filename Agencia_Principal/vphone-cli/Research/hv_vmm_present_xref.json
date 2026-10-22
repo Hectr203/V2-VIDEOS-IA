@@ -1,0 +1,1351 @@
+[
+ {
+  "path": "Applications/CheckerBoard.app/CheckerBoard",
+  "consumers": [
+   {
+    "string_vma": "0x10006fb56",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x10006fb56",
+      "sect": "__text",
+      "xref_at": "0x1000192e8",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1000192d8  stur     wzr, [x29, #-4]",
+       "0x1000192dc  mov      w8, #4",
+       "0x1000192e0  str      x8, [sp]",
+       "0x1000192e4  adrp     x0, #0x10006f000",
+       "0x1000192e8  add      x0, x0, #0xb56",
+       "0x1000192ec  sub      x1, x29, #4",
+       "0x1000192f0  mov      x2, sp",
+       "0x1000192f4  mov      x3, #0",
+       "0x1000192f8  mov      x4, #0",
+       "0x1000192fc  bl       #0x100048fa4"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "Applications/Family.app/Family",
+  "consumers": []
+ },
+ {
+  "path": "Applications/PeopleMessageService.app/PeopleMessageService",
+  "consumers": []
+ },
+ {
+  "path": "Applications/PeopleViewService.app/PeopleViewService",
+  "consumers": []
+ },
+ {
+  "path": "Applications/StoreKitUISceneService.app/StoreKitUISceneService",
+  "consumers": [
+   {
+    "string_vma": "0x1000a2ca0",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1000a2ca0",
+      "sect": "__text",
+      "xref_at": "0x100083f04",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x100083ef4  mov      x1, #-1",
+       "0x100083ef8  bl       #0x100090090",
+       "0x100083efc  mov      x21, x0",
+       "0x100083f00  adrp     x0, #0x1000a2000",
+       "0x100083f04  add      x0, x0, #0xca0",
+       "0x100083f08  mov      x1, x19",
+       "0x100083f0c  mov      x2, x21",
+       "0x100083f10  mov      x3, #0",
+       "0x100083f14  mov      x4, #0",
+       "0x100083f18  bl       #0x100090200"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/CoreServices/ClarityBoard.app/ClarityBoard",
+  "consumers": []
+ },
+ {
+  "path": "System/Library/DataClassMigrators/MobileActivationMigrator.migrator/MobileActivationMigrator",
+  "consumers": [
+   {
+    "string_vma": "0x72aa",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x72aa",
+      "sect": "__text",
+      "xref_at": "0x3024",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x3014  stur     wzr, [x29, #-4]",
+       "0x3018  mov      w8, #4",
+       "0x301c  str      x8, [sp]",
+       "0x3020  adrp     x0, #0x7000",
+       "0x3024  add      x0, x0, #0x2aa",
+       "0x3028  sub      x1, x29, #4",
+       "0x302c  mov      x2, sp",
+       "0x3030  mov      x3, #0",
+       "0x3034  mov      x4, #0",
+       "0x3038  bl       #0x3788"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/ExtensionKit/Extensions/HostInferenceProviderService.appex/HostInferenceProviderService",
+  "consumers": [
+   {
+    "string_vma": "0x1000112b0",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1000112b0",
+      "sect": "__text",
+      "xref_at": "0x10000b890",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x10000b880  str      x8, [sp, #0x18]",
+       "0x10000b884  mov      w8, #8",
+       "0x10000b888  stp      x8, xzr, [sp, #8]",
+       "0x10000b88c  adrp     x0, #0x100011000",
+       "0x10000b890  add      x0, x0, #0x2b0",
+       "0x10000b894  add      x1, sp, #0x10",
+       "0x10000b898  add      x2, sp, #8",
+       "0x10000b89c  mov      x3, #0",
+       "0x10000b8a0  mov      x4, #0",
+       "0x10000b8a4  bl       #0x1000103a4"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/Frameworks/CoreVideo.framework/CoreVideo",
+  "consumers": [
+   {
+    "string_vma": "0x19d17a4bb",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x19d17a4bb",
+      "sect": "__text",
+      "xref_at": "0x19d122eb8",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x19d122ea8  add      x29, sp, #0x10",
+       "0x19d122eac  mov      w8, #4",
+       "0x19d122eb0  str      x8, [sp, #8]",
+       "0x19d122eb4  adrp     x0, #0x19d17a000",
+       "0x19d122eb8  add      x0, x0, #0x4bb",
+       "0x19d122ebc  adrp     x1, #0x1ed568000",
+       "0x19d122ec0  add      x1, x1, #0x5bc",
+       "0x19d122ec4  add      x2, sp, #8",
+       "0x19d122ec8  mov      x3, #0",
+       "0x19d122ecc  mov      x4, #0",
+       "0x19d122ed0  bl       #0x19eaf7f30"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/Frameworks/ManagedAppDistribution.framework/Support/managedappdistributiond",
+  "consumers": [
+   {
+    "string_vma": "0x1006c25eb",
+    "section": "__TEXT,__cstring",
+    "class": "DEAD",
+    "xrefs": []
+   }
+  ]
+ },
+ {
+  "path": "System/Library/Frameworks/MediaToolbox.framework/MediaToolbox",
+  "consumers": [
+   {
+    "string_vma": "0x196ee0991",
+    "section": "__TEXT,__cstring",
+    "class": "DEAD",
+    "xrefs": []
+   }
+  ]
+ },
+ {
+  "path": "System/Library/Frameworks/SoundAnalysis.framework/SoundAnalysis",
+  "consumers": [
+   {
+    "string_vma": "0x1c9ad7cf0",
+    "section": "__TEXT,__cstring",
+    "class": "REFERENCED",
+    "xrefs": [
+     {
+      "string_vma": "0x1c9ad7cf0",
+      "sect": "__text",
+      "xref_at": "0x1c989ba18",
+      "class": "REFERENCED",
+      "snippet": [
+       "0x1c989ba08  stp      x20, x19, [sp, #0x20]",
+       "0x1c989ba0c  stp      x29, x30, [sp, #0x30]",
+       "0x1c989ba10  add      x29, sp, #0x30",
+       "0x1c989ba14  adrp     x8, #0x1c9ad7000",
+       "0x1c989ba18  add      x8, x8, #0xcf0",
+       "0x1c989ba1c  sub      x20, x8, #0x20",
+       "0x1c989ba20  mov      w0, #4",
+       "0x1c989ba24  mov      x1, #-1",
+       "0x1c989ba28  bl       #0x1cca93270"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/Frameworks/StoreKit.framework/Support/storekitd",
+  "consumers": [
+   {
+    "string_vma": "0x10031a890",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x10031a890",
+      "sect": "__text",
+      "xref_at": "0x100176f6c",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x100176f5c  mov      x1, #-1",
+       "0x100176f60  bl       #0x1002d586c",
+       "0x100176f64  mov      x21, x0",
+       "0x100176f68  adrp     x0, #0x10031a000",
+       "0x100176f6c  add      x0, x0, #0x890",
+       "0x100176f70  mov      x1, x19",
+       "0x100176f74  mov      x2, x21",
+       "0x100176f78  mov      x3, #0",
+       "0x100176f7c  mov      x4, #0",
+       "0x100176f80  bl       #0x1002d59ec"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/AAAFoundation.framework/AAAFoundation",
+  "consumers": [
+   {
+    "string_vma": "0x1c86581a1",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1c86581a1",
+      "sect": "__text",
+      "xref_at": "0x1c8650ee4",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1c8650ed4  stur     wzr, [x29, #-4]",
+       "0x1c8650ed8  mov      w8, #4",
+       "0x1c8650edc  str      x8, [sp]",
+       "0x1c8650ee0  adrp     x0, #0x1c8658000",
+       "0x1c8650ee4  add      x0, x0, #0x1a1",
+       "0x1c8650ee8  sub      x1, x29, #4",
+       "0x1c8650eec  mov      x2, sp",
+       "0x1c8650ef0  mov      x3, #0",
+       "0x1c8650ef4  mov      x4, #0",
+       "0x1c8650ef8  bl       #0x1cca79c30"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/AirPlaySupport.framework/AirPlaySupport",
+  "consumers": [
+   {
+    "string_vma": "0x2223618a0",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x2223618a0",
+      "sect": "__text",
+      "xref_at": "0x222306a28",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x222306a18  stur     wzr, [x29, #-0x14]",
+       "0x222306a1c  mov      w8, #4",
+       "0x222306a20  str      x8, [sp, #0x10]",
+       "0x222306a24  adrp     x0, #0x222361000",
+       "0x222306a28  add      x0, x0, #0x8a0",
+       "0x222306a2c  sub      x1, x29, #0x14",
+       "0x222306a30  add      x2, sp, #0x10",
+       "0x222306a34  mov      x3, #0",
+       "0x222306a38  mov      x4, #0",
+       "0x222306a3c  bl       #0x223db21c0"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/AppStoreUtilities.framework/AppStoreUtilities",
+  "consumers": [
+   {
+    "string_vma": "0x23ff916d7",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x23ff916d7",
+      "sect": "__text",
+      "xref_at": "0x23ff8bfe4",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x23ff8bfd4  str      x8, [sp, #0x18]",
+       "0x23ff8bfd8  mov      w8, #4",
+       "0x23ff8bfdc  str      x8, [sp, #8]",
+       "0x23ff8bfe0  adrp     x0, #0x23ff91000",
+       "0x23ff8bfe4  add      x0, x0, #0x6d7",
+       "0x23ff8bfe8  adrp     x1, #0x27e2bb000",
+       "0x23ff8bfec  add      x1, x1, #0x2b8",
+       "0x23ff8bff0  add      x2, sp, #8",
+       "0x23ff8bff4  mov      x3, #0",
+       "0x23ff8bff8  mov      x4, #0",
+       "0x23ff8bffc  bl       #0x245f81640"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/ApplePushService.framework/ApplePushService",
+  "consumers": [
+   {
+    "string_vma": "0x1b235fd50",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1b235fd50",
+      "sect": "__text",
+      "xref_at": "0x1b2358d10",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1b2358d00  stur     wzr, [x29, #-4]",
+       "0x1b2358d04  mov      w8, #4",
+       "0x1b2358d08  str      x8, [sp]",
+       "0x1b2358d0c  adrp     x0, #0x1b235f000",
+       "0x1b2358d10  add      x0, x0, #0xd50",
+       "0x1b2358d14  sub      x1, x29, #4",
+       "0x1b2358d18  mov      x2, sp",
+       "0x1b2358d1c  mov      x3, #0",
+       "0x1b2358d20  mov      x4, #0",
+       "0x1b2358d24  bl       #0x1b2746fb0"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/ApplePushService.framework/apsd",
+  "consumers": [
+   {
+    "string_vma": "0x10015254a",
+    "section": "__TEXT,__cstring",
+    "class": "DEAD",
+    "xrefs": []
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/AppleNeuralEngine.framework/AppleNeuralEngine",
+  "consumers": [
+   {
+    "string_vma": "0x1ad297375",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1ad297375",
+      "sect": "__text",
+      "xref_at": "0x1ad248248",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1ad248238  stur     wzr, [x29, #-4]",
+       "0x1ad24823c  mov      w8, #4",
+       "0x1ad248240  str      x8, [sp]",
+       "0x1ad248244  adrp     x0, #0x1ad297000",
+       "0x1ad248248  add      x0, x0, #0x375",
+       "0x1ad24824c  sub      x1, x29, #4",
+       "0x1ad248250  mov      x2, sp",
+       "0x1ad248254  mov      x3, #0",
+       "0x1ad248258  mov      x4, #0",
+       "0x1ad24825c  bl       #0x1b26f3a40"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/CoreALD.framework/CoreALD",
+  "consumers": []
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/CoreCDP.framework/CoreCDP",
+  "consumers": [
+   {
+    "string_vma": "0x1dedfa62d",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1dedfa62d",
+      "sect": "__text",
+      "xref_at": "0x1dedbb724",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1dedbb714  stur     wzr, [x29, #-4]",
+       "0x1dedbb718  mov      w8, #4",
+       "0x1dedbb71c  str      x8, [sp]",
+       "0x1dedbb720  adrp     x0, #0x1dedfa000",
+       "0x1dedbb724  add      x0, x0, #0x62d",
+       "0x1dedbb728  sub      x1, x29, #4",
+       "0x1dedbb72c  mov      x2, sp",
+       "0x1dedbb730  mov      x3, #0",
+       "0x1dedbb734  mov      x4, #0",
+       "0x1dedbb738  bl       #0x1e12ca690"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/CMCapture.framework/CMCapture",
+  "consumers": [
+   {
+    "string_vma": "0x1ad0e79d1",
+    "section": "__TEXT,__cstring",
+    "class": "DEAD",
+    "xrefs": []
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/AuthKit.framework/AuthKit",
+  "consumers": [
+   {
+    "string_vma": "0x1933c11de",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1933c11de",
+      "sect": "__text",
+      "xref_at": "0x19322f7e8",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x19322f7d8  mov      x2, sp",
+       "0x19322f7dc  mov      x8, #4",
+       "0x19322f7e0  str      x8, [sp]",
+       "0x19322f7e4  adrp     x0, #0x1933c1000",
+       "0x19322f7e8  add      x0, x0, #0x1de",
+       "0x19322f7ec  mov      x3, #0",
+       "0x19322f7f0  mov      x4, #0",
+       "0x19322f7f4  bl       #0x193b16710"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/AppStoreDaemon.framework/Support/appstored",
+  "consumers": [
+   {
+    "string_vma": "0x10046dae6",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x10046dae6",
+      "sect": "__text",
+      "xref_at": "0x1003e25b8",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1003e25a8  str      x8, [sp, #0x18]",
+       "0x1003e25ac  mov      w8, #4",
+       "0x1003e25b0  str      x8, [sp, #8]",
+       "0x1003e25b4  adrp     x0, #0x10046d000",
+       "0x1003e25b8  add      x0, x0, #0xae6",
+       "0x1003e25bc  adrp     x1, #0x1005aa000",
+       "0x1003e25c0  add      x1, x1, #0xfd0",
+       "0x1003e25c4  add      x2, sp, #8",
+       "0x1003e25c8  mov      x3, #0",
+       "0x1003e25cc  mov      x4, #0",
+       "0x1003e25d0  bl       #0x1004115c8"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/CorePrescription.framework/CorePrescription",
+  "consumers": [
+   {
+    "string_vma": "0x2471fe6ed",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x2471fe6ed",
+      "sect": "__text",
+      "xref_at": "0x2471ebc18",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x2471ebc08  stur     wzr, [x29, #-4]",
+       "0x2471ebc0c  mov      w8, #4",
+       "0x2471ebc10  str      x8, [sp]",
+       "0x2471ebc14  adrp     x0, #0x2471fe000",
+       "0x2471ebc18  add      x0, x0, #0x6ed",
+       "0x2471ebc1c  sub      x1, x29, #4",
+       "0x2471ebc20  mov      x2, sp",
+       "0x2471ebc24  mov      x3, #0",
+       "0x2471ebc28  mov      x4, #0",
+       "0x2471ebc2c  bl       #0x24c021520"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/DataDetectorsUI.framework/PlugIns/com.apple.DataDetectorsUI.ActionsExtension.appex/com.apple.DataDetectorsUI.ActionsExtension",
+  "consumers": []
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/DeviceCheckInternal.framework/DeviceCheckInternal",
+  "consumers": [
+   {
+    "string_vma": "0x2487a018c",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x2487a018c",
+      "sect": "__text",
+      "xref_at": "0x24878d10c",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x24878d0fc  stur     wzr, [x29, #-4]",
+       "0x24878d100  mov      w8, #4",
+       "0x24878d104  str      x8, [sp]",
+       "0x24878d108  adrp     x0, #0x2487a0000",
+       "0x24878d10c  add      x0, x0, #0x18c",
+       "0x24878d110  sub      x1, x29, #4",
+       "0x24878d114  mov      x2, sp",
+       "0x24878d118  mov      x3, #0",
+       "0x24878d11c  mov      x4, #0",
+       "0x24878d120  bl       #0x24c05d440"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/DVTInstrumentsUtilities.framework/DVTInstrumentsUtilities",
+  "consumers": [
+   {
+    "string_vma": "0x247f42ad0",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x247f42ad0",
+      "sect": "__text",
+      "xref_at": "0x247f1154c",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x247f1153c  stur     wzr, [x29, #-4]",
+       "0x247f11540  mov      w8, #4",
+       "0x247f11544  str      x8, [sp]",
+       "0x247f11548  adrp     x0, #0x247f42000",
+       "0x247f1154c  add      x0, x0, #0xad0",
+       "0x247f11550  sub      x1, x29, #4",
+       "0x247f11554  mov      x2, sp",
+       "0x247f11558  mov      x3, #0",
+       "0x247f1155c  mov      x4, #0",
+       "0x247f11560  bl       #0x24c046270"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/DeviceIdentity.framework/DeviceIdentity",
+  "consumers": [
+   {
+    "string_vma": "0x2260a4b25",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x2260a4b25",
+      "sect": "__text",
+      "xref_at": "0x2260862a4",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x226086294  stur     wzr, [x29, #-4]",
+       "0x226086298  mov      w8, #4",
+       "0x22608629c  str      x8, [sp]",
+       "0x2260862a0  adrp     x0, #0x2260a4000",
+       "0x2260862a4  add      x0, x0, #0xb25",
+       "0x2260862a8  sub      x1, x29, #4",
+       "0x2260862ac  mov      x2, sp",
+       "0x2260862b0  mov      x3, #0",
+       "0x2260862b4  mov      x4, #0",
+       "0x2260862b8  bl       #0x22ac14380"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/CorePrescription.framework/XPCServices/CorePrescriptionService.xpc/CorePrescriptionService",
+  "consumers": [
+   {
+    "string_vma": "0x100092175",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x100092175",
+      "sect": "__text",
+      "xref_at": "0x100005064",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x100005054  stur     wzr, [x29, #-4]",
+       "0x100005058  mov      w8, #4",
+       "0x10000505c  str      x8, [sp]",
+       "0x100005060  adrp     x0, #0x100092000",
+       "0x100005064  add      x0, x0, #0x175",
+       "0x100005068  sub      x1, x29, #4",
+       "0x10000506c  mov      x2, sp",
+       "0x100005070  mov      x3, #0",
+       "0x100005074  mov      x4, #0",
+       "0x100005078  bl       #0x100082668"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/IDS.framework/identityservicesd.app/identityservicesd",
+  "consumers": []
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/IOSurfaceAccelerator.framework/IOSurfaceAccelerator",
+  "consumers": [
+   {
+    "string_vma": "0x2547cd71c",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x2547cd71c",
+      "sect": "__text",
+      "xref_at": "0x2547caa48",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x2547caa38  str      wzr, [sp, #0xc]",
+       "0x2547caa3c  mov      w8, #4",
+       "0x2547caa40  str      x8, [sp]",
+       "0x2547caa44  adrp     x0, #0x2547cd000",
+       "0x2547caa48  add      x0, x0, #0x71c",
+       "0x2547caa4c  add      x1, sp, #0xc",
+       "0x2547caa50  mov      x2, sp",
+       "0x2547caa54  mov      x3, #0",
+       "0x2547caa58  mov      x4, #0",
+       "0x2547caa5c  bl       #0x259aa0060"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/EmailFoundation.framework/EmailFoundation",
+  "consumers": [
+   {
+    "string_vma": "0x1c61cd1f7",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1c61cd1f7",
+      "sect": "__text",
+      "xref_at": "0x1c6165e88",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1c6165e78  stur     wzr, [x29, #-4]",
+       "0x1c6165e7c  mov      w8, #4",
+       "0x1c6165e80  str      x8, [sp]",
+       "0x1c6165e84  adrp     x0, #0x1c61cd000",
+       "0x1c6165e88  add      x0, x0, #0x1f7",
+       "0x1c6165e8c  sub      x1, x29, #4",
+       "0x1c6165e90  mov      x2, sp",
+       "0x1c6165e94  mov      x3, #0",
+       "0x1c6165e98  mov      x4, #0",
+       "0x1c6165e9c  bl       #0x1c6957f00"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/FindMyBase.framework/FindMyBase",
+  "consumers": [
+   {
+    "string_vma": "0x1df635420",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1df635420",
+      "sect": "__text",
+      "xref_at": "0x1df5fb8d4",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1df5fb8c4  stur     wzr, [x29, #-0xc]",
+       "0x1df5fb8c8  mov      w8, #4",
+       "0x1df5fb8cc  str      x8, [sp, #8]",
+       "0x1df5fb8d0  adrp     x0, #0x1df635000",
+       "0x1df5fb8d4  add      x0, x0, #0x420",
+       "0x1df5fb8d8  sub      x1, x29, #0xc",
+       "0x1df5fb8dc  add      x2, sp, #8",
+       "0x1df5fb8e0  mov      x3, #0",
+       "0x1df5fb8e4  mov      x4, #0",
+       "0x1df5fb8e8  bl       #0x1e12d9f10"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/IDSFoundation.framework/IDSFoundation",
+  "consumers": [
+   {
+    "string_vma": "0x1a7ea0fe4",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1a7ea0fe4",
+      "sect": "__text",
+      "xref_at": "0x1a7c65dc4",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1a7c65db4  str      wzr, [sp, #0x1c]",
+       "0x1a7c65db8  mov      w8, #4",
+       "0x1a7c65dbc  str      x8, [sp, #0x10]",
+       "0x1a7c65dc0  adrp     x0, #0x1a7ea0000",
+       "0x1a7c65dc4  add      x0, x0, #0xfe4",
+       "0x1a7c65dc8  add      x1, sp, #0x1c",
+       "0x1a7c65dcc  add      x2, sp, #0x10",
+       "0x1a7c65dd0  mov      x3, #0",
+       "0x1a7c65dd4  mov      x4, #0",
+       "0x1a7c65dd8  bl       #0x1ac565650"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/MagnifierSupport.framework/MagnifierSupport",
+  "consumers": [
+   {
+    "string_vma": "0x257d83670",
+    "section": "__TEXT,__cstring",
+    "class": "DEAD",
+    "xrefs": []
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/MobileActivation.framework/MobileActivation",
+  "consumers": [
+   {
+    "string_vma": "0x2598f06c6",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x2598f06c6",
+      "sect": "__text",
+      "xref_at": "0x2598e2618",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x2598e2608  stur     wzr, [x29, #-4]",
+       "0x2598e260c  mov      w8, #4",
+       "0x2598e2610  str      x8, [sp]",
+       "0x2598e2614  adrp     x0, #0x2598f0000",
+       "0x2598e2618  add      x0, x0, #0x6c6",
+       "0x2598e261c  sub      x1, x29, #4",
+       "0x2598e2620  mov      x2, sp",
+       "0x2598e2624  mov      x3, #0",
+       "0x2598e2628  mov      x4, #0",
+       "0x2598e262c  bl       #0x259b2a0d0"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/PhotoFoundation.framework/PhotoFoundation",
+  "consumers": [
+   {
+    "string_vma": "0x1d8ba907c",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1d8ba907c",
+      "sect": "__text",
+      "xref_at": "0x1d8b9e7fc",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1d8b9e7ec  stur     wzr, [x29, #-4]",
+       "0x1d8b9e7f0  mov      w8, #4",
+       "0x1d8b9e7f4  str      x8, [sp]",
+       "0x1d8b9e7f8  adrp     x0, #0x1d8ba9000",
+       "0x1d8b9e7fc  add      x0, x0, #0x7c",
+       "0x1d8b9e800  sub      x1, x29, #4",
+       "0x1d8b9e804  mov      x2, sp",
+       "0x1d8b9e808  mov      x3, #0",
+       "0x1d8b9e80c  mov      x4, #0",
+       "0x1d8b9e810  bl       #0x1da721db0"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/Recon3D.framework/Recon3D",
+  "consumers": [
+   {
+    "string_vma": "0x1cc912676",
+    "section": "__TEXT,__cstring",
+    "class": "DEAD",
+    "xrefs": []
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/NeuralNetworks.framework/NeuralNetworks",
+  "consumers": [
+   {
+    "string_vma": "0x25bb594c0",
+    "section": "__TEXT,__cstring",
+    "class": "DEAD",
+    "xrefs": []
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/SonicKit.framework/SonicKit",
+  "consumers": []
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/VideosUI.framework/VideosUI",
+  "consumers": []
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/VFX.framework/VFX",
+  "consumers": [
+   {
+    "string_vma": "0x1aff31940",
+    "section": "__TEXT,__cstring",
+    "class": "DEAD",
+    "xrefs": []
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/RenderBox.framework/RenderBox",
+  "consumers": [
+   {
+    "string_vma": "0x195e54555",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x195e54555",
+      "sect": "__text",
+      "xref_at": "0x195d344a0",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x195d34490  stur     wzr, [x29, #-4]",
+       "0x195d34494  mov      w8, #4",
+       "0x195d34498  str      x8, [sp]",
+       "0x195d3449c  adrp     x0, #0x195e54000",
+       "0x195d344a0  add      x0, x0, #0x555",
+       "0x195d344a4  sub      x1, x29, #4",
+       "0x195d344a8  mov      x2, sp",
+       "0x195d344ac  mov      x3, #0",
+       "0x195d344b0  mov      x4, #0",
+       "0x195d344b4  bl       #0x19a8c1300"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/TrialServer.framework/TrialServer",
+  "consumers": [
+   {
+    "string_vma": "0x26f32471e",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x26f32471e",
+      "sect": "__text",
+      "xref_at": "0x26f224120",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x26f224110  str      wzr, [sp, #0xc]",
+       "0x26f224114  mov      w8, #4",
+       "0x26f224118  str      x8, [sp]",
+       "0x26f22411c  adrp     x0, #0x26f324000",
+       "0x26f224120  add      x0, x0, #0x71e",
+       "0x26f224124  add      x1, sp, #0xc",
+       "0x26f224128  mov      x2, sp",
+       "0x26f22412c  mov      x3, #0",
+       "0x26f224130  mov      x4, #0",
+       "0x26f224134  bl       #0x274313ed0"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/VisionKitCore.framework/VisionKitCore",
+  "consumers": [
+   {
+    "string_vma": "0x1b442d9cf",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1b442d9cf",
+      "sect": "__text",
+      "xref_at": "0x1b435f0a4",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1b435f094  stur     wzr, [x29, #-4]",
+       "0x1b435f098  mov      w8, #4",
+       "0x1b435f09c  str      x8, [sp]",
+       "0x1b435f0a0  adrp     x0, #0x1b442d000",
+       "0x1b435f0a4  add      x0, x0, #0x9cf",
+       "0x1b435f0a8  sub      x1, x29, #4",
+       "0x1b435f0ac  mov      x2, sp",
+       "0x1b435f0b0  mov      x3, #0",
+       "0x1b435f0b4  mov      x4, #0",
+       "0x1b435f0b8  bl       #0x1b8c77210"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/WatchdogServiceManagement.framework/WatchdogServiceManagement",
+  "consumers": [
+   {
+    "string_vma": "0x272725b23",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x272725b23",
+      "sect": "__text",
+      "xref_at": "0x272725114",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x272725104  stur     wzr, [x29, #-4]",
+       "0x272725108  mov      w8, #4",
+       "0x27272510c  str      x8, [sp]",
+       "0x272725110  adrp     x0, #0x272725000",
+       "0x272725114  add      x0, x0, #0xb23",
+       "0x272725118  sub      x1, x29, #4",
+       "0x27272511c  mov      x2, sp",
+       "0x272725120  mov      x3, #0",
+       "0x272725124  mov      x4, #0",
+       "0x272725128  bl       #0x274352f80"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "usr/sbin/absd",
+  "consumers": []
+ },
+ {
+  "path": "usr/lib/libMobileGestalt.dylib",
+  "consumers": [
+   {
+    "string_vma": "0x1b0201c60",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1b0201c60",
+      "sect": "__text",
+      "xref_at": "0x1b0198d00",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1b0198cf0  stur     wzr, [x29, #-4]",
+       "0x1b0198cf4  mov      w8, #4",
+       "0x1b0198cf8  str      x8, [sp]",
+       "0x1b0198cfc  adrp     x0, #0x1b0201000",
+       "0x1b0198d00  add      x0, x0, #0xc60",
+       "0x1b0198d04  sub      x1, x29, #4",
+       "0x1b0198d08  mov      x2, sp",
+       "0x1b0198d0c  mov      x3, #0",
+       "0x1b0198d10  mov      x4, #0",
+       "0x1b0198d14  bl       #0x1b27216f0"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "usr/sbin/fairplayd.H2",
+  "consumers": []
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/caulk.framework/caulk",
+  "consumers": [
+   {
+    "string_vma": "0x27512204f",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x27512204f",
+      "sect": "__text",
+      "xref_at": "0x275112808",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x2751127f8  stur     wzr, [x29, #-4]",
+       "0x2751127fc  mov      w8, #4",
+       "0x275112800  str      x8, [sp]",
+       "0x275112804  adrp     x0, #0x275122000",
+       "0x275112808  add      x0, x0, #0x4f",
+       "0x27511280c  sub      x1, x29, #4",
+       "0x275112810  mov      x2, sp",
+       "0x275112814  mov      x3, #0",
+       "0x275112818  mov      x4, #0",
+       "0x27511281c  bl       #0x277e067e0"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "usr/sbin/bluetoothd",
+  "consumers": [
+   {
+    "string_vma": "0x1009c2a7f",
+    "section": "__TEXT,__cstring",
+    "class": "DEAD",
+    "xrefs": []
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/WebGPU.framework/WebGPU",
+  "consumers": [
+   {
+    "string_vma": "0x225722b6c",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x225722b6c",
+      "sect": "__text",
+      "xref_at": "0x22552c2bc",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x22552c2ac  str      wzr, [sp, #0xc]",
+       "0x22552c2b0  mov      w8, #4",
+       "0x22552c2b4  str      x8, [sp]",
+       "0x22552c2b8  adrp     x0, #0x225722000",
+       "0x22552c2bc  add      x0, x0, #0xb6c",
+       "0x22552c2c0  add      x1, sp, #0xc",
+       "0x22552c2c4  mov      x2, sp",
+       "0x22552c2c8  mov      x3, #0",
+       "0x22552c2cc  mov      x4, #0",
+       "0x22552c2d0  bl       #0x22ac033e0"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/Frameworks/CoreML.framework/CoreML",
+  "consumers": [
+   {
+    "string_vma": "0x1950ed0d0",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1950ed0d0",
+      "xref_at": "0x194c3c754",
+      "sect": "__text",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x194c3c744  stur     wzr, [x29, #-0xc]",
+       "0x194c3c748  mov      w8, #4",
+       "0x194c3c74c  str      x8, [sp, #8]",
+       "0x194c3c750  adrp     x0, #0x1950ed000",
+       "0x194c3c754  add      x0, x0, #0xd0",
+       "0x194c3c758  sub      x1, x29, #0xc",
+       "0x194c3c75c  add      x2, sp, #8",
+       "0x194c3c760  mov      x3, #0",
+       "0x194c3c764  mov      x4, #0",
+       "0x194c3c768  bl       #0x19a8b2010",
+       "0x194c3c76c  cmp      w0, #0",
+       "0x194c3c770  ldur     w8, [x29, #-0xc]",
+       "0x194c3c774  ccmp     w8, #0, #4, eq",
+       "0x194c3c778  cset     w8, ne",
+       "0x194c3c77c  adrp     x9, #0x1eaec5000",
+       "0x194c3c780  strb     w8, [x9, #0x198]",
+       "0x194c3c784  ldur     x8, [x29, #-8]",
+       "0x194c3c788  adrp     x9, #0x1e69e9000",
+       "0x194c3c78c  ldr      x9, [x9, #0x840]",
+       "0x194c3c790  ldr      x9, [x9]",
+       "0x194c3c794  cmp      x9, x8",
+       "0x194c3c798  b.ne     #0x194c3c7a8",
+       "0x194c3c79c  ldp      x29, x30, [sp, #0x20]",
+       "0x194c3c7a0  add      sp, sp, #0x30",
+       "0x194c3c7a4  retab    ",
+       "0x194c3c7a8  bl       #0x19a8b0300",
+       "0x194c3c7ac  pacibsp  ",
+       "0x194c3c7b0  stp      x20, x19, [sp, #-0x20]!"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/CoreRE.framework/CoreRE",
+  "consumers": [
+   {
+    "string_vma": "0x1e3171b20",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1e3171b20",
+      "xref_at": "0x1e2790f28",
+      "sect": "__text",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1e2790f18  stur     wzr, [x29, #-4]",
+       "0x1e2790f1c  mov      w8, #4",
+       "0x1e2790f20  str      x8, [sp]",
+       "0x1e2790f24  adrp     x0, #0x1e3171000",
+       "0x1e2790f28  add      x0, x0, #0xb20",
+       "0x1e2790f2c  sub      x1, x29, #4",
+       "0x1e2790f30  mov      x2, sp",
+       "0x1e2790f34  mov      x3, #0",
+       "0x1e2790f38  mov      x4, #0",
+       "0x1e2790f3c  bl       #0x1e6908200",
+       "0x1e2790f40  cbnz     w0, #0x1e2790f58",
+       "0x1e2790f44  ldur     w8, [x29, #-4]",
+       "0x1e2790f48  cmp      w8, #0",
+       "0x1e2790f4c  cset     w8, eq",
+       "0x1e2790f50  adrp     x9, #0x1ee186000",
+       "0x1e2790f54  strb     w8, [x9, #0xc8]",
+       "0x1e2790f58  ldp      x29, x30, [sp, #0x10]",
+       "0x1e2790f5c  add      sp, sp, #0x20",
+       "0x1e2790f60  retab    ",
+       "0x1e2790f64  pacibsp  ",
+       "0x1e2790f68  stp      x20, x19, [sp, #-0x20]!",
+       "0x1e2790f6c  stp      x29, x30, [sp, #0x10]",
+       "0x1e2790f70  add      x29, sp, #0x10",
+       "0x1e2790f74  adrp     x8, #0x1e6974000",
+       "0x1e2790f78  ldr      x0, [x8]",
+       "0x1e2790f7c  bl       #0x1e323d4c0",
+       "0x1e2790f80  bl       #0x1e69076d0",
+       "0x1e2790f84  mov      x19, x0"
+      ]
+     }
+    ]
+   }
+  ]
+ },
+ {
+  "path": "System/Library/PrivateFrameworks/Espresso.framework/Espresso",
+  "consumers": [
+   {
+    "string_vma": "0x1949204e5",
+    "section": "__TEXT,__cstring",
+    "class": "CANONICAL",
+    "xrefs": [
+     {
+      "string_vma": "0x1949204e5",
+      "xref_at": "0x193bef83c",
+      "sect": "__text",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x193bef82c  stur     wzr, [x29, #-4]",
+       "0x193bef830  mov      w8, #4",
+       "0x193bef834  str      x8, [sp]",
+       "0x193bef838  adrp     x0, #0x194920000",
+       "0x193bef83c  add      x0, x0, #0x4e5",
+       "0x193bef840  sub      x1, x29, #4",
+       "0x193bef844  mov      x2, sp",
+       "0x193bef848  mov      x3, #0",
+       "0x193bef84c  mov      x4, #0",
+       "0x193bef850  bl       #0x19a8ac6e0",
+       "0x193bef854  cbz      w0, #0x193bef864",
+       "0x193bef858  ldp      x29, x30, [sp, #0x10]",
+       "0x193bef85c  add      sp, sp, #0x20",
+       "0x193bef860  retab    ",
+       "0x193bef864  ldur     w8, [x29, #-4]",
+       "0x193bef868  cmp      w8, #0",
+       "0x193bef86c  cset     w8, ne",
+       "0x193bef870  adrp     x9, #0x1eaeaf000",
+       "0x193bef874  strb     w8, [x9, #0x4f8]",
+       "0x193bef878  ldp      x29, x30, [sp, #0x10]",
+       "0x193bef87c  add      sp, sp, #0x20",
+       "0x193bef880  retab    ",
+       "0x193bef884  pacibsp  ",
+       "0x193bef888  sub      sp, sp, #0x20",
+       "0x193bef88c  stp      x29, x30, [sp, #0x10]",
+       "0x193bef890  add      x29, sp, #0x10",
+       "0x193bef894  add      x8, sp, #8",
+       "0x193bef898  mov      x1, #0"
+      ]
+     },
+     {
+      "string_vma": "0x1949204e5",
+      "xref_at": "0x194236a24",
+      "sect": "__text",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x194236a14  stur     wzr, [x29, #-4]",
+       "0x194236a18  mov      w8, #4",
+       "0x194236a1c  str      x8, [sp]",
+       "0x194236a20  adrp     x0, #0x194920000",
+       "0x194236a24  add      x0, x0, #0x4e5",
+       "0x194236a28  sub      x1, x29, #4",
+       "0x194236a2c  mov      x2, sp",
+       "0x194236a30  mov      x3, #0",
+       "0x194236a34  mov      x4, #0",
+       "0x194236a38  bl       #0x19a8ac6e0",
+       "0x194236a3c  cbnz     w0, #0x194236a4c",
+       "0x194236a40  ldur     w8, [x29, #-4]",
+       "0x194236a44  adrp     x9, #0x1ed6d6000",
+       "0x194236a48  str      w8, [x9, #0x350]",
+       "0x194236a4c  ldp      x29, x30, [sp, #0x10]",
+       "0x194236a50  add      sp, sp, #0x20",
+       "0x194236a54  retab    ",
+       "0x194236a58  pacibsp  ",
+       "0x194236a5c  stp      x29, x30, [sp, #-0x10]!",
+       "0x194236a60  mov      x29, sp",
+       "0x194236a64  adrp     x8, #0x1e698c000",
+       "0x194236a68  ldr      x0, [x8, #0xd58]",
+       "0x194236a6c  bl       #0x1949b2400",
+       "0x194236a70  adrp     x8, #0x1ed6d6000",
+       "0x194236a74  strb     w0, [x8, #0x368]",
+       "0x194236a78  ldp      x29, x30, [sp], #0x10",
+       "0x194236a7c  retab    ",
+       "0x194236a80  adrp     x8, #0x1ed6d6000"
+      ]
+     },
+     {
+      "string_vma": "0x1949204e5",
+      "xref_at": "0x1942873cc",
+      "sect": "__text",
+      "class": "CANONICAL",
+      "snippet": [
+       "0x1942873bc  stur     wzr, [x29, #-4]",
+       "0x1942873c0  mov      w8, #4",
+       "0x1942873c4  str      x8, [sp]",
+       "0x1942873c8  adrp     x0, #0x194920000",
+       "0x1942873cc  add      x0, x0, #0x4e5",
+       "0x1942873d0  sub      x1, x29, #4",
+       "0x1942873d4  mov      x2, sp",
+       "0x1942873d8  mov      x3, #0",
+       "0x1942873dc  mov      x4, #0",
+       "0x1942873e0  bl       #0x19a8ac6e0",
+       "0x1942873e4  cbnz     w0, #0x1942873f4",
+       "0x1942873e8  ldur     w8, [x29, #-4]",
+       "0x1942873ec  adrp     x9, #0x1ed6d6000",
+       "0x1942873f0  str      w8, [x9, #0x1d8]",
+       "0x1942873f4  ldp      x29, x30, [sp, #0x10]",
+       "0x1942873f8  add      sp, sp, #0x20",
+       "0x1942873fc  retab    ",
+       "0x194287400  b        #0x19a8aad90",
+       "0x194287404  b        #0x19a8aad90",
+       "0x194287408  b        #0x19a8aad90",
+       "0x19428740c  b        #0x19a8aad90",
+       "0x194287410  b        #0x19a8aad90",
+       "0x194287414  pacibsp  ",
+       "0x194287418  sub      sp, sp, #0x60",
+       "0x19428741c  stp      x22, x21, [sp, #0x30]",
+       "0x194287420  stp      x20, x19, [sp, #0x40]",
+       "0x194287424  stp      x29, x30, [sp, #0x50]",
+       "0x194287428  add      x29, sp, #0x50"
+      ]
+     }
+    ]
+   }
+  ]
+ }
+]

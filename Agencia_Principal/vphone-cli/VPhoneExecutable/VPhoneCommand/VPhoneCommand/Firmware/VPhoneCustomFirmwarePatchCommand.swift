@@ -1,0 +1,571 @@
+// VPhoneCustomFirmwarePatchCommand.swift — the `cfw` subcommands that replace the Python patchers.
+//
+// Each one is a thin face over a type in `FirmwarePatcher/CustomFirmware/`. The Python they
+// replace (`scripts/patchers/cfw.py` and friends) was removed once the
+// installers switched to these verbs — `git show 78cbeea:scripts/patchers` to
+// read it. The bar every command here had to clear is that its stdout is the
+// Python's stdout — `cfw_install.sh:207-208` reads
+// `cryptex-paths` with `head -1`/`tail -1`, and a human reads the rest out of an
+// install log. Where the library already prints (build-version, campo,
+// post-restore-dt), the command passes `verbose: true` and prints nothing of its
+// own rather than inventing a second voice.
+
+import ArgumentParser
+import FirmwarePatcher
+import Foundation
+
+// MARK: - cryptex-paths
+
+struct VPhoneCustomFirmwareCryptexPathsCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "cryptex-paths",
+        abstract: "Print the SystemOS and AppOS Cryptex DMG paths from a BuildManifest",
+        discussion: """
+        Two lines, SystemOS first then AppOS, relative to the IPSW root. The
+        installer reads them with `head -1` and `tail -1`, so nothing else may
+        be printed on success.
+
+        Every BuildIdentity is searched, not just the first: a vResearch IPSW
+        carries its Cryptex entries in a later identity, and the last identity
+        in a real manifest has none at all. The first identity carrying both
+        wins. When no identity carries both, this exits non-zero rather than
+        printing a blank line the caller would read as a path.
+        """,
+    )
+
+    @Argument(help: "Path to BuildManifest.plist", transform: URL.init(fileURLWithPath:))
+    var buildManifest: URL
+
+    func run() throws {
+        let paths = try CustomFirmwareDaemons.cryptexPaths(buildManifest: buildManifest)
+        print(paths.systemOS)
+        print(paths.appOS)
+    }
+}
+
+// MARK: - inject-daemons
+
+struct VPhoneCustomFirmwareInjectDaemonsCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "inject-daemons",
+        abstract: "Merge the staged LaunchDaemons into a launchd.plist",
+        discussion: """
+        Looks for bash, dropbear, trollvnc, vphoned and rpcserver_ios in the
+        staging directory — a fixed list, in that order, so what gets injected
+        does not depend on what else a variant leaves lying around — and writes
+        each one into the target's `LaunchDaemons` dictionary under
+        `/System/Library/LaunchDaemons/<name>.plist`.
+
+        A daemon that is not staged is skipped, not an error: a variant that
+        does not ship rpcserver_ios still installs. An entry already present is
+        replaced, which is what makes re-running an install over an
+        already-patched volume safe.
+
+        dropbear's ProgramArguments are rewritten on the way through to point at
+        the /var/dropbear host keys — see `patch-dropbear-plist`.
+        """,
+    )
+
+    @Argument(help: "Path to the guest's /System/Library/xpc/launchd.plist", transform: URL.init(fileURLWithPath:))
+    var launchdPlist: URL
+
+    @Argument(help: "Directory holding the staged <name>.plist daemons", transform: URL.init(fileURLWithPath:))
+    var daemonDirectory: URL
+
+    func run() throws {
+        for entry in try CustomFirmwareDaemons.injectDaemons(into: launchdPlist, fromDirectory: daemonDirectory) {
+            switch entry {
+            case let .present(daemon): print("  [+] Injected \(daemon.name)")
+            case let .absent(source): print("  [!] Missing \(source), skipping")
+            }
+        }
+    }
+}
+
+// MARK: - inject-daemon
+
+struct VPhoneCustomFirmwareInjectDaemonCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "inject-daemon",
+        abstract: "Merge one LaunchDaemon plist into a launchd.plist under a given label",
+        discussion: """
+        The single-file form of `inject-daemons`, replacing the inline plistlib
+        snippet that `cfw_install_jb.sh` and `cfw_install_exp.sh` each carry a
+        copy of.
+
+        --name is the label the daemon installs under, which is not the source
+        file's name: the JB setup daemon ships as `vphone_jb_setup.plist` and
+        installs as `com.vphone.jb-setup.plist`. It is the key launchd looks the
+        daemon up by, so it has to match the file written into
+        /System/Library/LaunchDaemons.
+        """,
+    )
+
+    @Argument(help: "Path to the guest's /System/Library/xpc/launchd.plist", transform: URL.init(fileURLWithPath:))
+    var launchdPlist: URL
+
+    @Argument(help: "The daemon plist to merge in", transform: URL.init(fileURLWithPath:))
+    var source: URL
+
+    @Option(name: .customLong("name"), help: "Label to install under, without .plist (e.g. com.vphone.jb-setup)")
+    var name: String
+
+    func run() throws {
+        try CustomFirmwareDaemons.injectDaemon(into: launchdPlist, name: name, from: source)
+    }
+}
+
+// MARK: - patch-dropbear-plist
+
+struct VPhoneCustomFirmwarePatchDropbearPlistCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-dropbear-plist",
+        abstract: "Point dropbear at the /var/dropbear host keys instead of generating its own",
+        discussion: """
+        Drops `-R` (generate defaults under /etc/dropbear, which is on the
+        read-only root during a normal VM boot) and every `-r <path>` pair, so a
+        stale explicit key path cannot survive, then appends the two keys
+        cfw_install seeds on the writable Data volume.
+
+        An empty or missing ProgramArguments list is left alone: there is
+        nothing there to point at a key.
+        """,
+    )
+
+    @Argument(help: "Path to dropbear.plist", transform: URL.init(fileURLWithPath:))
+    var plist: URL
+
+    func run() throws {
+        try CustomFirmwareDaemons.patchDropbearPlist(at: plist)
+    }
+}
+
+// MARK: - inject-dylib
+
+struct VPhoneCustomFirmwareInjectDylibCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "inject-dylib",
+        abstract: "Insert a weak LC_LOAD_DYLIB into every slice of a Mach-O",
+        discussion: """
+        Replaces `insert_dylib --weak --inplace --all-yes`, which is how the CFW
+        and EXP installers get launchd to load /b (the short launchdhook alias)
+        at boot.
+
+        The load is weak, so a guest that reaches launchd without the dylib in
+        place boots instead of panicking, and the existing LC_CODE_SIGNATURE and
+        its blob are removed — exactly what insert_dylib does by default. The
+        binary is not left unsigned: the install re-signs it on the next line.
+        """,
+    )
+
+    @Argument(help: "The Mach-O to patch, in place", transform: URL.init(fileURLWithPath:))
+    var binary: URL
+
+    @Argument(help: "Path the guest will load the dylib from (e.g. /b)")
+    var dylibPath: String
+
+    func run() throws {
+        let injections = try CustomFirmwareInjectDylib.inject(
+            dylibPath: dylibPath,
+            into: binary,
+            weak: true,
+            policy: .strip,
+        )
+        for injection in injections {
+            let stripped = injection.removedCodeSignature ? ", signature stripped" : ""
+            print("  [+] LC_LOAD_WEAK_DYLIB \(dylibPath) -> \(binary.lastPathComponent) "
+                + "(slice +0x\(String(injection.sliceOffset, radix: 16))\(stripped))")
+        }
+    }
+}
+
+// MARK: - patch-locationd-cohorting
+
+struct VPhoneCustomFirmwarePatchLocationdCohortingCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-locationd-cohorting",
+        abstract: "Disable automatic CoreLocation cohort queues in a staged iOS 27 feature plist",
+        shouldDisplay: false,
+    )
+
+    @Argument(transform: URL.init(fileURLWithPath:))
+    var plist: URL
+
+    @Flag(name: .customLong("dry-run"))
+    var dryRun = false
+
+    func run() throws {
+        let changed = try CustomFirmwareLocationdCohorting.patch(at: plist, dryRun: dryRun)
+        print("  [\(changed ? "+" : ".")] CLAutoCohort.Enabled = false\(dryRun ? " (dry-run)" : "")")
+    }
+}
+
+// MARK: - patch-build-version
+
+struct VPhoneCustomFirmwarePatchBuildVersionCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-build-version",
+        abstract: "Rewrite ProductBuildVersion in a SystemVersion.plist",
+        discussion: """
+        Settings → General → About shows this string as "Build Version", and
+        most of userland — libMobileGestalt, CoreFoundation's
+        _CFCopyServerVersionDictionary, App Store telemetry — reads it from
+        SystemVersion.plist rather than from the kernel. The EXP install
+        rewrites both copies: the one on the system volume and the one under
+        /private/preboot/Cryptexes/OS.
+
+        It does not touch `sysctl kern.osversion` (a kernel global set from boot
+        args), ProductVersion (the marketing version, deliberately left alone)
+        or any DSC constant. The file's format is preserved: XML in, XML out.
+
+        Idempotent — a re-run on an already-patched plist reports and exits
+        without rewriting.
+        """,
+    )
+
+    @Argument(help: "Path to SystemVersion.plist", transform: URL.init(fileURLWithPath:))
+    var plist: URL
+
+    @Argument(help: "The build identifier to write (e.g. 23B85)")
+    var buildID: String
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwareBuildVersion.patch(at: plist, to: buildID, dryRun: dryRun, verbose: true)
+    }
+}
+
+// MARK: - patch-virtualaudio-graph-configurations
+
+struct VPhoneCustomFirmwarePatchVirtualAudioGraphConfigurationsCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-virtualaudio-graph-configurations",
+        abstract: "Move VirtualAudio's speaker chains onto the generic graph path",
+        discussion: """
+        graph_configurations.plist gives every route configuration a
+        chainType, and the DSP chain factory switches on it: `clhs` builds the
+        HAL SpeakerProtection chain, which looks the physical "Speaker" device
+        up in the device registry and throws when a VM has none — the throw
+        RoutingManager answers by abandoning every speaker route. `dflt`
+        builds the generic graph chain the mic configurations already use,
+        which needs no device.
+
+        Every speaker_* entry's chainType is flipped `clhs` -> `dflt`; the
+        entries' graph and austrip tunings are left alone. The plist sits on
+        the sealed system volume, so the install stages a copy and this
+        patches the copy.
+
+        Idempotent — a re-run on an already-patched plist reports and exits
+        without rewriting.
+        """,
+    )
+
+    @Argument(help: "Path to graph_configurations.plist", transform: URL.init(fileURLWithPath:))
+    var plist: URL
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwareVirtualAudioGraphConfigurations.patch(at: plist, dryRun: dryRun, verbose: true)
+    }
+}
+
+// MARK: - patch-virtualaudio-speaker-raw
+
+struct VPhoneCustomFirmwarePatchVirtualAudioSpeakerRawCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-virtualaudio-speaker-raw",
+        abstract: "Play through VirtualAudio's raw speaker chain",
+        discussion: """
+        Every speaker_* entry in graph_configurations.plist other than
+        speaker_raw and speaker_measurement takes speaker_raw's graph, austrip,
+        propstrip and volumeCommands. The general speaker chain is a loudness
+        normalizer, a virtual bass, equalizers, a multiband compressor and a
+        limiter tuned to the board's own speaker; through the Mac's speakers
+        it turns the quiet low end of what plays into noise. The raw chain is
+        the volume and a limiter.
+
+        Idempotent — a re-run, or a set with no speaker_raw, reports and exits
+        without rewriting.
+        """,
+    )
+
+    @Argument(help: "Path to graph_configurations.plist", transform: URL.init(fileURLWithPath:))
+    var plist: URL
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwareVirtualAudioGraphConfigurations.useRawSpeakerChain(at: plist, dryRun: dryRun, verbose: true)
+    }
+}
+
+// MARK: - patch-virtualaudio-microphone-chains
+
+struct VPhoneCustomFirmwarePatchVirtualAudioMicrophoneChainsCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-virtualaudio-microphone-chains",
+        abstract: "Record through VirtualAudio's measurement microphone chains",
+        discussion: """
+        graph_configurations.plist gives each built-in microphone a
+        <mic>_general configuration for ordinary recording and a
+        <mic>_measurement one. The general chain adds a loudness normalizer, a
+        multiband compressor and a limiter tuned to the board's own
+        microphone; on the Mac's microphone they raise everything by about
+        8 dB, the noise floor with it, and a recording sounds like wind.
+
+        Every <mic>_general entry with a <mic>_measurement sibling takes the
+        sibling's graph, austrip and propstrip; the rest of the entry and the
+        tuning files are left alone. The plist sits on the sealed system
+        volume, so the install stages a copy and this patches the copy.
+
+        Idempotent — a re-run on an already-patched plist, or on a set with no
+        such pairs, reports and exits without rewriting.
+        """,
+    )
+
+    @Argument(help: "Path to graph_configurations.plist", transform: URL.init(fileURLWithPath:))
+    var plist: URL
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwareVirtualAudioMicrophoneChains.patch(at: plist, dryRun: dryRun, verbose: true)
+    }
+}
+
+// MARK: - patch-virtualaudio-microphone-gain
+
+struct VPhoneCustomFirmwarePatchVirtualAudioMicrophoneGainCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-virtualaudio-microphone-gain",
+        abstract: "Remove the board microphone's gain from a measurement tuning strip",
+        discussion: """
+        A <mic>_measurement.austrip carries the digital gain of the board's own
+        microphone as the global gain of an AUNBandEQ: +18 dB on an
+        iPhone17,3. The Mac's microphone arrives at the level macOS set, so
+        with that gain a recording clips. Every AUNBandEQ's global gain in the
+        strip is set to 0 dB; nothing else in it changes.
+
+        Idempotent — a strip with no gain left reports and exits without
+        rewriting.
+        """,
+    )
+
+    @Argument(help: "Path to a <mic>_measurement.austrip", transform: URL.init(fileURLWithPath:))
+    var strip: URL
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwareVirtualAudioMicrophoneChains.neutralizeGain(at: strip, dryRun: dryRun, verbose: true)
+    }
+}
+
+// MARK: - patch-campo-entitlements
+
+struct VPhoneCustomFirmwarePatchCampoEntitlementsCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-campo-entitlements",
+        abstract: "Merge the backboard/frontboard mach-lookup exceptions Campo needs",
+        discussion: """
+        iOS 27's temporary sandbox denies Campo.app the services it needs to put
+        a window on screen. The install dumps Campo's entitlements, runs this to
+        merge the missing global-name lookups into the mach-lookup exception
+        array, and re-signs with the merged plist.
+
+        The merge is append-only and order-preserving: an entry already present
+        keeps its position, and anything the binary carried that is not in this
+        list survives. That matters because the result goes straight back to the
+        signer, and dropping an entitlement Campo already had would be a silent
+        downgrade.
+
+        The file is written back as XML, which is what the signer expects.
+        """,
+    )
+
+    @Argument(help: "Path to the dumped entitlements plist", transform: URL.init(fileURLWithPath:))
+    var plist: URL
+
+    func run() throws {
+        try CustomFirmwareMachLookupExceptions.merge(at: plist, verbose: true)
+    }
+}
+
+// MARK: - patch-post-restore-dt
+
+struct VPhoneCustomFirmwarePatchPostRestoreDeviceTreeCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-post-restore-dt",
+        abstract: "Rewrite the restore-fatal identity properties in a device tree",
+        discussion: """
+        Rewrites the three identity properties that make the guest look like a
+        real iPhone17,3 to the services that ask, in place, preserving the
+        container's compression, manifest and restore info.
+
+        Every rewrite lands in the property's existing slot, so the blob's size
+        cannot change; if it did, the parser and the serializer would have
+        drifted apart and the IM4P's recorded uncompressed size would no longer
+        match its payload. That is checked, and it refuses rather than writing a
+        device tree the guest will not load.
+
+        Takes a devicetree.img4 (preferred) or a bare .im4p. An encrypted
+        payload is refused, not guessed at.
+        """,
+    )
+
+    @Argument(help: "Path to devicetree.img4 or devicetree.im4p", transform: URL.init(fileURLWithPath:))
+    var deviceTree: URL
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwarePostRestoreDeviceTree.patch(at: deviceTree, dryRun: dryRun, verbose: true)
+    }
+}
+
+// MARK: - patch-dt-board-audio
+
+struct VPhoneCustomFirmwarePatchBoardAudioCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-dt-board-audio",
+        abstract: "Give an iPad guest's device tree the iPad's own audio node",
+        discussion: """
+        Replaces /product/audio in a restored device tree with the audio node of
+        the iPad's own tree (DeviceTree.<board>.im4p from its IPSW), in place,
+        preserving the container's compression, manifest and restore info. The
+        node earlier device tree patches added is the D47 iPhone's, whose
+        acoustic ID names tunings an iPad image does not ship; iOS's VirtualAudio
+        then fails to initialize and the guest has no audio device. A tree that
+        already matches is left as it is.
+
+        Takes a devicetree.img4 (preferred) or a bare .im4p, and the board's
+        DeviceTree .im4p.
+        """,
+    )
+
+    @Argument(help: "Path to devicetree.img4 or devicetree.im4p", transform: URL.init(fileURLWithPath:))
+    var deviceTree: URL
+
+    @Argument(help: "Path to the iPad's DeviceTree.<board>.im4p", transform: URL.init(fileURLWithPath:))
+    var board: URL
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwarePostRestoreDeviceTree.presentBoardAudio(
+            at: deviceTree,
+            board: board,
+            dryRun: dryRun,
+            verbose: true,
+        )
+    }
+}
+
+// MARK: - patch-dt-iphone-product
+
+struct VPhoneCustomFirmwarePatchIPhoneProductCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-dt-iphone-product",
+        abstract: "Give an iPhone guest's device tree the iPhone's own product description",
+        discussion: """
+        Fills the /product placeholders vphone600 carries (model name, Siri and
+        dictation, button and display geometry), adds Camera Control and the
+        Action Button's geometry, and fills /buttons/function-button_ringeren,
+        all from the iPhone's own tree (DeviceTree.<board>.im4p from its IPSW),
+        in place, preserving the container's compression, manifest and restore
+        info. MobileGestalt reads a placeholder as absent, so without this
+        Settings has no Siri, Camera Control or Action Button. A tree that
+        already has them is left as it is.
+
+        Takes a devicetree.img4 (preferred) or a bare .im4p, and the board's
+        DeviceTree .im4p.
+        """,
+    )
+
+    @Argument(help: "Path to devicetree.img4 or devicetree.im4p", transform: URL.init(fileURLWithPath:))
+    var deviceTree: URL
+
+    @Argument(help: "Path to the iPhone's DeviceTree.<board>.im4p", transform: URL.init(fileURLWithPath:))
+    var board: URL
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwarePostRestoreDeviceTree.presentPhoneProduct(
+            at: deviceTree,
+            board: board,
+            dryRun: dryRun,
+            verbose: true,
+        )
+    }
+}
+
+// MARK: - patch-dt-haptics
+
+struct VPhoneCustomFirmwarePatchHapticsCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-dt-haptics",
+        abstract: "Remove the haptics node from a guest's device tree",
+        discussion: """
+        Removes /product/haptics from a restored device tree, in place,
+        preserving the container's compression, manifest and restore info. No
+        VM has a haptic actuator or the haptic server behind it: with the node,
+        iOS believes the guest has a Taptic Engine, plays every tone with its
+        haptic track, and drops the tone when the haptic engine fails to start.
+        That holds for an iPhone guest and an iPad guest alike. A tree without
+        the node is left as it is.
+
+        Takes a devicetree.img4 (preferred) or a bare .im4p.
+        """,
+    )
+
+    @Argument(help: "Path to devicetree.img4 or devicetree.im4p", transform: URL.init(fileURLWithPath:))
+    var deviceTree: URL
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwarePostRestoreDeviceTree.removeHaptics(at: deviceTree, dryRun: dryRun, verbose: true)
+    }
+}
+
+// MARK: - patch-dt-microphone-array
+
+struct VPhoneCustomFirmwarePatchMicrophoneArrayCommand: ParsableCommand {
+    static let configuration = CommandConfiguration(
+        commandName: "patch-dt-microphone-array",
+        abstract: "Remove the microphone array claims from a guest's device tree",
+        discussion: """
+        Removes supports-spatial-audio-capture and supports-audio-mix from
+        /product/audio in a restored device tree, in place, preserving the
+        container's compression, manifest and restore info. Both stand for a
+        four-microphone array; a VM's microphone is the Mac's, one or two
+        channels. With them iOS 27's Voice Memos records through the spatial
+        capture route and its Audio Mix analysis, and the recording is silent.
+        A tree with neither property is left as it is.
+
+        Takes a devicetree.img4 (preferred) or a bare .im4p.
+        """,
+    )
+
+    @Argument(help: "Path to devicetree.img4 or devicetree.im4p", transform: URL.init(fileURLWithPath:))
+    var deviceTree: URL
+
+    @Flag(name: .customLong("dry-run"), help: "Report what would change and exit")
+    var dryRun = false
+
+    func run() throws {
+        try CustomFirmwarePostRestoreDeviceTree.removeMicrophoneArrayClaims(at: deviceTree, dryRun: dryRun, verbose: true)
+    }
+}

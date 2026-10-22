@@ -1,0 +1,177 @@
+import Foundation
+
+struct VPhoneKeychainItem: Identifiable, Hashable {
+    let id: String
+    let itemClass: String
+    let account: String
+    let service: String
+    let label: String
+    let accessGroup: String
+    let protection: String
+    let server: String
+    /// Filled in when the browser reads one accessible item's value.
+    var value: String
+    let valueEncoding: String
+    let valueSize: Int
+    let protectedMetadata: Bool
+    /// Security.framework answered for this row, so the guest can read, edit
+    /// and delete it. A row that only came from the keychain database carries
+    /// encrypted attributes and cannot be named in a query.
+    let isAccessible: Bool
+    let created: Date?
+    let modified: Date?
+
+    var identity: VPhoneGuestControl.KeychainIdentity {
+        .init(
+            itemClass: itemClass,
+            account: account,
+            service: service,
+            server: server,
+            accessGroup: accessGroup,
+        )
+    }
+
+    var displayClass: String {
+        switch itemClass {
+        case "genp": VPhoneLocalization.text("Password")
+        case "inet": VPhoneLocalization.text("Internet")
+        case "cert": VPhoneLocalization.text("Certificate")
+        case "keys": VPhoneLocalization.text("Cryptographic Key")
+        case "idnt": VPhoneLocalization.text("Identity")
+        default: itemClass
+        }
+    }
+
+    var classIcon: String {
+        switch itemClass {
+        case "genp": "key.fill"
+        case "inet": "globe"
+        case "cert": "checkmark.seal.fill"
+        case "keys": "lock.fill"
+        case "idnt": "person.badge.key.fill"
+        default: "questionmark.circle"
+        }
+    }
+
+    var displayValue: String {
+        if valueEncoding == "protected" {
+            return VPhoneLocalization.text("Protected")
+        }
+        if valueEncoding == "hidden", value.isEmpty {
+            return VPhoneLocalization.text("Hidden")
+        }
+        if value.isEmpty {
+            return "-"
+        }
+        if valueEncoding == "base64" {
+            return VPhoneLocalization.format(
+                "Binary data (%@)",
+                ByteCountFormatter.string(fromByteCount: Int64(valueSize), countStyle: .file),
+            )
+        }
+        return value
+    }
+
+    var displayName: String {
+        if !label.isEmpty {
+            return label
+        }
+        if !account.isEmpty {
+            return account
+        }
+        if !service.isEmpty {
+            return service
+        }
+        if !server.isEmpty {
+            return server
+        }
+        if protectedMetadata {
+            return VPhoneLocalization.text("(protected)")
+        }
+        return VPhoneLocalization.text("(unnamed)")
+    }
+
+    var protectionDescription: String {
+        switch protection {
+        case "ak": VPhoneLocalization.text("When Unlocked")
+        case "ck": VPhoneLocalization.text("After First Unlock")
+        case "dk": VPhoneLocalization.text("Always")
+        case "aku": VPhoneLocalization.text("When Unlocked (This Device Only)")
+        case "cku": VPhoneLocalization.text("After First Unlock (This Device Only)")
+        case "dku": VPhoneLocalization.text("Always (This Device Only)")
+        case "akpu": VPhoneLocalization.text("When Passcode Set (This Device Only)")
+        default: protection
+        }
+    }
+
+    var displayDate: String {
+        if let modified {
+            return Self.dateFormatter.string(from: modified)
+        }
+        if let created {
+            return Self.dateFormatter.string(from: created)
+        }
+        return "-"
+    }
+
+    private static let dateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateStyle = .short
+        f.timeStyle = .short
+        return f
+    }()
+
+    private static let sqliteDateFormatter: DateFormatter = {
+        let f = DateFormatter()
+        f.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        f.locale = Locale(identifier: "en_US_POSIX")
+        f.timeZone = TimeZone(identifier: "UTC")
+        return f
+    }()
+}
+
+extension VPhoneKeychainItem {
+    init?(index: Int, entry: [String: Any]) {
+        guard let cls = entry["class"] as? String else { return nil }
+
+        itemClass = cls
+        account = entry["account"] as? String ?? ""
+        service = entry["service"] as? String ?? ""
+        label = entry["label"] as? String ?? ""
+        accessGroup = entry["accessGroup"] as? String ?? ""
+        protection = entry["protection"] as? String ?? ""
+        server = entry["server"] as? String ?? ""
+        value = entry["value"] as? String ?? ""
+        valueEncoding = entry["valueEncoding"] as? String ?? ""
+        valueSize = (entry["valueSize"] as? NSNumber)?.intValue ?? 0
+        protectedMetadata = (entry["protectedMetadata"] as? NSNumber)?.boolValue ?? false
+
+        if let ts = entry["created"] as? Double {
+            created = Date(timeIntervalSince1970: ts)
+        } else if let ts = entry["created"] as? NSNumber {
+            created = Date(timeIntervalSince1970: ts.doubleValue)
+        } else if let str = entry["createdStr"] as? String {
+            created = Self.sqliteDateFormatter.date(from: str)
+        } else {
+            created = nil
+        }
+
+        if let ts = entry["modified"] as? Double {
+            modified = Date(timeIntervalSince1970: ts)
+        } else if let ts = entry["modified"] as? NSNumber {
+            modified = Date(timeIntervalSince1970: ts.doubleValue)
+        } else if let str = entry["modifiedStr"] as? String {
+            modified = Self.sqliteDateFormatter.date(from: str)
+        } else {
+            modified = nil
+        }
+
+        isAccessible = entry["source"] as? String == "security"
+        if isAccessible {
+            id = "\(cls)-security-\(index)"
+        } else {
+            let rowid = (entry["_rowid"] as? NSNumber)?.intValue ?? index
+            id = "\(cls)-database-\(rowid)"
+        }
+    }
+}
