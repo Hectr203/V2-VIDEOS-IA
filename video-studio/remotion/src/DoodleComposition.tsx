@@ -7,6 +7,7 @@ export interface SceneTimingItem extends SceneData {
   start_frame: number;
   duration_in_frames: number;
   audio_data_uri?: string;
+  audio_src?: string;
 }
 
 export interface DoodleCompositionProps {
@@ -88,8 +89,8 @@ export const DoodleComposition: React.FC<DoodleCompositionProps> = ({
           <Scene scene={scene} durationInFrames={scene.duration_in_frames} />
 
           {/* Audio narrado propio de la escena */}
-          {scene.audio_data_uri && (
-            <Audio src={scene.audio_data_uri} volume={1.0} />
+          {!scene.source_audio_enabled && (scene.audio_src || scene.audio_data_uri) && (
+            <Audio src={scene.audio_src ? staticFile(scene.audio_src) : scene.audio_data_uri!} volume={1.0} />
           )}
 
           {/* Efecto de sonido SFX al inicio de la escena */}
