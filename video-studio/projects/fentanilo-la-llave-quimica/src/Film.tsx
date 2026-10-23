@@ -278,18 +278,44 @@ const getAsset = (file: string) => {
   return staticFile(base);
 };
 
-export const FentanylFilm: React.FC = () => {
+export const FentanylFilm: React.FC<{aspectRatio?: '9:16' | '16:9'}> = ({aspectRatio = '9:16'}) => {
+  const isHorizontal = aspectRatio === '16:9';
   const [handle]=useState(()=>delayRender('Loading bundled typeface'));
   useEffect(()=>{
     const font=new FontFace('StudioSans',`url(${getAsset('UbuntuSans.ttf')})`,{weight:'100 900'});
     font.load().then(loaded=>{document.fonts.add(loaded);continueRender(handle);}).catch(cancelRender);
   },[handle]);
   return <AbsoluteFill style={{background:'#21153b',fontFamily:'StudioSans, sans-serif'}}>
-    <div style={{position:'absolute',width:720,height:1280,transform:'scale(1.5)',transformOrigin:'top left'}}>
-      {timeline.scenes.map((scene,i)=><Sequence key={scene.id} from={scene.start} durationInFrames={scene.frames}>
-        <Shot scene={scene} index={i}/><Audio src={getAsset(scene.audio)} volume={.95}/>
-      </Sequence>)}
-    </div>
+    {isHorizontal ? (
+      <div style={{
+        position: 'absolute',
+        inset: 0,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        background: 'radial-gradient(ellipse at center, #2e1a54 0%, #110924 100%)'
+      }}>
+        <div style={{
+          position: 'relative',
+          width: 720,
+          height: 1280,
+          transform: 'scale(0.84375)',
+          boxShadow: '0 0 120px rgba(0,0,0,0.7)',
+          borderRadius: 24,
+          overflow: 'hidden'
+        }}>
+          {timeline.scenes.map((scene,i)=><Sequence key={scene.id} from={scene.start} durationInFrames={scene.frames}>
+            <Shot scene={scene} index={i}/><Audio src={getAsset(scene.audio)} volume={.95}/>
+          </Sequence>)}
+        </div>
+      </div>
+    ) : (
+      <div style={{position:'absolute',width:720,height:1280,transform:'scale(1.5)',transformOrigin:'top left'}}>
+        {timeline.scenes.map((scene,i)=><Sequence key={scene.id} from={scene.start} durationInFrames={scene.frames}>
+          <Shot scene={scene} index={i}/><Audio src={getAsset(scene.audio)} volume={.95}/>
+        </Sequence>)}
+      </div>
+    )}
     <Audio src={getAsset('score.wav')} volume={.8}/>
   </AbsoluteFill>;
 };

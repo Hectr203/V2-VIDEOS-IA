@@ -299,7 +299,7 @@ if __name__ == "__main__":
 '''
     (proj_dir / "prepare.py").write_text(prepare_script, encoding="utf-8")
 
-    # 5. render.mjs autónomo con bundling externo y generación automática de contact-sheet
+    # 5. render.mjs autónomo multi-aspecto (9:16 y 16:9)
     render_script = f'''import {{createRequire}} from 'node:module';
 import {{fileURLToPath}} from 'node:url';
 import path from 'node:path';
@@ -320,9 +320,11 @@ await fs.mkdir(stillsDir, {{recursive: true}});
 
 const stills = process.argv.includes('--stills');
 const draft = process.argv.includes('--draft');
-const compositionId = '{prod_id}';
+const horizontal = process.argv.includes('--horizontal') || process.argv.includes('--aspect=horizontal');
+const bothAspects = process.argv.includes('--both') || process.argv.includes('--aspect=both');
+const baseId = '{prod_id}';
 
-console.log(`[Proyecto: ${{compositionId}}] Compilando bundle Remotion autónomo...`);
+console.log(`[Proyecto: ${{baseId}}] Compilando bundle Remotion autónomo...`);
 const serveUrl = await bundle({{
   entryPoint: path.join(here, 'src/index.tsx'),
   publicDir: path.join(here, 'public'),
@@ -336,9 +338,9 @@ const serveUrl = await bundle({{
 }});
 
 const chromiumOptions = {{gl: 'angle'}};
-const composition = await selectComposition({{serveUrl, id: compositionId, chromiumOptions}});
 
 if (stills) {{
+  const composition = await selectComposition({{serveUrl, id: baseId, chromiumOptions}});
   console.log(`Generando stills de verificación para ${{timeline.scenes.length}} escenas...`);
   for (const scene of timeline.scenes) {{
     const frame = scene.start + Math.floor(scene.frames * 0.67);
@@ -357,31 +359,43 @@ if (stills) {{
     console.warn(`No se pudo generar contact-sheet.jpg: ${{err.message}}`);
   }}
 }} else {{
-  const name = draft ? 'preview-720p.mp4' : 'master-1080p.mp4';
-  const final = path.join(renders, name);
-  const partial = path.join(renders, `partial-${{name}}`);
-  let progress = -1;
+  const targets = [];
+  if (bothAspects) {{
+    targets.push({{ id: baseId, name: draft ? 'preview-720p.mp4' : 'master-1080p.mp4', label: '9:16 Vertical' }});
+    targets.push({{ id: `${{baseId}}-16x9`, name: draft ? 'preview-16x9-720p.mp4' : 'master-16x9-1080p.mp4', label: '16:9 Horizontal' }});
+  }} else if (horizontal) {{
+    targets.push({{ id: `${{baseId}}-16x9`, name: draft ? 'preview-16x9-720p.mp4' : 'master-16x9-1080p.mp4', label: '16:9 Horizontal' }});
+  }} else {{
+    targets.push({{ id: baseId, name: draft ? 'preview-720p.mp4' : 'master-1080p.mp4', label: '9:16 Vertical' }});
+  }}
 
-  console.log(`Renderizando ${{name}} (${{draft ? '720p Borrador' : '1080p Master'}})...`);
-  await renderMedia({{
-    serveUrl, composition, outputLocation: partial, codec: 'h264', crf: draft ? 23 : 17,
-    pixelFormat: 'yuv420p', audioCodec: 'aac', audioBitrate: '192k',
-    scale: draft ? 2/3 : 1, concurrency: 4, chromiumOptions,
-    onProgress: ({{progress: p}}) => {{
-      const n = Math.floor(p * 20) * 5;
-      if (n !== progress) {{ progress = n; console.log(`RENDER ${{n}}%`); }}
-    }}
-  }});
+  for (const target of targets) {{
+    console.log(`\\nRenderizando ${{target.name}} [${{target.label}}] (${{draft ? '720p Borrador' : '1080p Master'}})...`);
+    const composition = await selectComposition({{serveUrl, id: target.id, chromiumOptions}});
+    const final = path.join(renders, target.name);
+    const partial = path.join(renders, `partial-${{target.name}}`);
+    let progress = -1;
 
-  const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_streams', '-show_format', '-of', 'json', partial], {{encoding: 'utf8'}}));
-  await fs.rename(partial, final);
-  console.log(`\\n[ÉXITO] Video guardado en: ${{final}}`);
-  console.log(`Duración: ${{probe.format.duration}}s | Tamaño: ${{(Number(probe.format.size) / 1024 / 1024).toFixed(1)}} MB`);
+    await renderMedia({{
+      serveUrl, composition, outputLocation: partial, codec: 'h264', crf: draft ? 23 : 17,
+      pixelFormat: 'yuv420p', audioCodec: 'aac', audioBitrate: '192k',
+      scale: draft ? 2/3 : 1, concurrency: 4, chromiumOptions,
+      onProgress: ({{progress: p}}) => {{
+        const n = Math.floor(p * 20) * 5;
+        if (n !== progress) {{ progress = n; console.log(`RENDER [${{target.label}}] ${{n}}%`); }}
+      }}
+    }});
+
+    const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_streams', '-show_format', '-of', 'json', partial], {{encoding: 'utf8'}}));
+    await fs.rename(partial, final);
+    console.log(`[ÉXITO] Video guardado en: ${{final}}`);
+    console.log(`Duración: ${{probe.format.duration}}s | Tamaño: ${{(Number(probe.format.size) / 1024 / 1024).toFixed(1)}} MB | Resolución: ${{probe.streams[0].width}}x${{probe.streams[0].height}}`);
+  }}
 }}
 '''
     (proj_dir / "render.mjs").write_text(render_script, encoding="utf-8")
 
-    # 6. src/index.tsx (Entrypoint autónomo de Remotion)
+    # 6. src/index.tsx (Entrypoint autónomo con 9:16 y 16:9)
     component_name = "".join(p.capitalize() for p in prod_id.split("-")) + "Film"
     index_tsx = f'''import React from 'react';
 import {{ registerRoot, Composition }} from 'remotion';
@@ -389,14 +403,26 @@ import {{ {component_name}, timeline }} from './Film';
 
 export const ProjectRoot: React.FC = () => {{
   return (
-    <Composition
-      id="{prod_id}"
-      component={{{component_name}}}
-      durationInFrames={{timeline.durationInFrames}}
-      fps={{30}}
-      width={{1080}}
-      height={{1920}}
-    />
+    <>
+      <Composition
+        id="{prod_id}"
+        component={{{component_name}}}
+        durationInFrames={{timeline.durationInFrames}}
+        fps={{30}}
+        width={{1080}}
+        height={{1920}}
+        defaultProps={{{{ aspectRatio: '9:16' as const }}}}
+      />
+      <Composition
+        id="{prod_id}-16x9"
+        component={{{component_name}}}
+        durationInFrames={{timeline.durationInFrames}}
+        fps={{30}}
+        width={{1920}}
+        height={{1080}}
+        defaultProps={{{{ aspectRatio: '16:9' as const }}}}
+      />
+    </>
   );
 }};
 
@@ -555,7 +581,8 @@ function Shot({{scene, index}}: {{scene: Scene; index: number}}) {{
   );
 }}
 
-export const {component_name}: React.FC = () => {{
+export const {component_name}: React.FC<{{aspectRatio?: '9:16' | '16:9'}}> = ({{aspectRatio = '9:16'}}) => {{
+  const isHorizontal = aspectRatio === '16:9';
   const [handle] = useState(() => delayRender('Cargando tipografía'));
   useEffect(() => {{
     const font = new FontFace('StudioSans', `url(${{getAsset('UbuntuSans.ttf')}})`, {{weight: '100 900'}});
@@ -564,14 +591,42 @@ export const {component_name}: React.FC = () => {{
 
   return (
     <AbsoluteFill style={{{{background: '#21153b', fontFamily: 'StudioSans, sans-serif'}}}}>
-      <div style={{{{position: 'absolute', width: 720, height: 1280, transform: 'scale(1.5)', transformOrigin: 'top left'}}}}>
-        {{timeline.scenes.map((scene, i) => (
-          <Sequence key={{scene.id}} from={{scene.start}} durationInFrames={{scene.frames}}>
-            <Shot scene={{scene}} index={{i}} />
-            <Audio src={{getAsset(scene.audio)}} volume={{0.95}} />
-          </Sequence>
-        ))}}
-      </div>
+      {{isHorizontal ? (
+        <div style={{{{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'radial-gradient(ellipse at center, #2e1a54 0%, #110924 100%)'
+        }}}}>
+          <div style={{{{
+            position: 'relative',
+            width: 720,
+            height: 1280,
+            transform: 'scale(0.84375)',
+            boxShadow: '0 0 120px rgba(0,0,0,0.7)',
+            borderRadius: 24,
+            overflow: 'hidden'
+          }}}}>
+            {{timeline.scenes.map((scene, i) => (
+              <Sequence key={{scene.id}} from={{scene.start}} durationInFrames={{scene.frames}}>
+                <Shot scene={{scene}} index={{i}} />
+                <Audio src={{getAsset(scene.audio)}} volume={{0.95}} />
+              </Sequence>
+            ))}}
+          </div>
+        </div>
+      ) : (
+        <div style={{{{position: 'absolute', width: 720, height: 1280, transform: 'scale(1.5)', transformOrigin: 'top left'}}}}>
+          {{timeline.scenes.map((scene, i) => (
+            <Sequence key={{scene.id}} from={{scene.start}} durationInFrames={{scene.frames}}>
+              <Shot scene={{scene}} index={{i}} />
+              <Audio src={{getAsset(scene.audio)}} volume={{0.95}} />
+            </Sequence>
+          ))}}
+        </div>
+      )}}
       <Audio src={{getAsset('score.wav')}} volume={{0.8}} />
     </AbsoluteFill>
   );

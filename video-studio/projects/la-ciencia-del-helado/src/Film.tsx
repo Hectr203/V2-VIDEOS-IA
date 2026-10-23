@@ -238,7 +238,8 @@ const getAsset = (file: string) => {
   return staticFile(base);
 };
 
-export const Helado2dV2Film: React.FC = () => {
+export const Helado2dV2Film: React.FC<{aspectRatio?: '9:16' | '16:9'}> = ({aspectRatio = '9:16'}) => {
+  const isHorizontal = aspectRatio === '16:9';
   const [handle] = useState(() => delayRender('Cargando tipografía'));
   useEffect(() => {
     const font = new FontFace('StudioSans', `url(${getAsset('UbuntuSans.ttf')})`, {weight: '100 900'});
@@ -247,15 +248,44 @@ export const Helado2dV2Film: React.FC = () => {
 
   return (
     <AbsoluteFill style={{background: '#1f1338', fontFamily: 'StudioSans, sans-serif'}}>
-      <div style={{position: 'absolute', width: 720, height: 1280, transform: 'scale(1.5)', transformOrigin: 'top left'}}>
-        {timeline.scenes.map((scene, i) => (
-          <Sequence key={scene.id} from={scene.start} durationInFrames={scene.frames}>
-            <Shot scene={scene} index={i} />
-            <Audio src={getAsset(scene.audio)} volume={0.95} />
-          </Sequence>
-        ))}
-      </div>
+      {isHorizontal ? (
+        <div style={{
+          position: 'absolute',
+          inset: 0,
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'radial-gradient(ellipse at center, #2e1a54 0%, #110924 100%)'
+        }}>
+          <div style={{
+            position: 'relative',
+            width: 720,
+            height: 1280,
+            transform: 'scale(0.84375)',
+            boxShadow: '0 0 120px rgba(0,0,0,0.7)',
+            borderRadius: 24,
+            overflow: 'hidden'
+          }}>
+            {timeline.scenes.map((scene, i) => (
+              <Sequence key={scene.id} from={scene.start} durationInFrames={scene.frames}>
+                <Shot scene={scene} index={i} />
+                <Audio src={getAsset(scene.audio)} volume={0.95} />
+              </Sequence>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div style={{position: 'absolute', width: 720, height: 1280, transform: 'scale(1.5)', transformOrigin: 'top left'}}>
+          {timeline.scenes.map((scene, i) => (
+            <Sequence key={scene.id} from={scene.start} durationInFrames={scene.frames}>
+              <Shot scene={scene} index={i} />
+              <Audio src={getAsset(scene.audio)} volume={0.95} />
+            </Sequence>
+          ))}
+        </div>
+      )}
       <Audio src={getAsset('score.wav')} volume={0.8} />
     </AbsoluteFill>
   );
 };
+
