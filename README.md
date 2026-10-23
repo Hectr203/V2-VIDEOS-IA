@@ -132,3 +132,87 @@ cd video-studio
 * **Frontend Dashboard**: `http://localhost:5173` (con pestaña dedicada **"Proyectos 2D"**).
 * **Backend API Docs**: `http://localhost:8000/docs` (endpoints `/api/v2/projects`).
 * **Editor Multipista videoAssembler**: `http://localhost:5174`.
+
+---
+
+## 🤖 Prompt Maestro Universal para Agentes de IA (Copiar y Pegar)
+
+> [!TIP]
+> Puedes copiar y pegar el siguiente prompt directamente en cualquier asistente de Inteligencia Artificial (Claude, ChatGPT, Gemini, Cursor, Antigravity, etc.) junto con el tema de tu video. La IA sabrá exactamente qué archivos consultar, cómo inicializar la producción, aplicar las reglas cinematográficas y entregar el video listo para publicación sin alucinar dependencias ni romper la estructura del repositorio.
+
+```markdown
+Actúa como el Agente Especialista en Animación 2D y Producción Audiovisual de este repositorio (V2-VIDEOS-IA).
+Tu misión es crear una producción de video 2D animada completa, auto-contenida y de calidad cinematográfica en Remotion para el siguiente requerimiento:
+
+- NOMBRE_PROYECTO (slug): [ejemplo: cafeina-cerebro-2d]
+- TITULO: [Título descriptivo del video]
+- TEMA / GUION: [Explica aquí el tema, los conceptos clave o el guion detallado]
+- FORMATO: [9:16 vertical (Shorts/TikTok/Reels) | 16:9 horizontal (YouTube) | ambos]
+
+=== REGLAS CRÍTICAS Y MAPA DE DEPENDENCIAS (NO ALUCINAR) ===
+1. Lectura OBLIGATORIA antes de escribir código:
+   - docs/GUIA_COMPLETA_PRODUCCION_2D.md
+   - Agencia_Principal/reglas/estandar-animacion-2d.md
+2. Arquitectura auto-contenida:
+   - Todo el proyecto vive exclusivamente en: video-studio/projects/<slug>/
+   - NUNCA crees archivos o directorios dispersos fuera de projects/<slug>/.
+3. Herramientas y dependencias reales:
+   - Remotion/React están instalados en: video-studio/remotion/node_modules/
+   - Python y Edge-TTS están en: video-studio/backend/.venv/bin/python o python3 del sistema.
+   - NUNCA busques ni instales Three.js, Blender, GSAP, framer-motion ni librerías 3D externas. Toda la animación se resuelve en React con SVG procedural, interpolate(), spring() y funciones matemáticas en el frame (f).
+4. Estándar de arte cinematográfico:
+   - PROHIBIDO el uso de emojis, iconos de fuentes genéricas o cajas rectangulares toscas.
+   - Todo elemento visual relevante debe ser arte vectorial SVG original con gradientes multicapa, sombras proyectadas y filtros.
+   - Rigging de personajes: extremidades con cinemática inversa joint(), ciclo de respiración wave(), ojos con parpadeo estocástico y cabello con retardo físico.
+   - Rigs anatómicos universales: puedes importarlos desde video-studio/shared-art/.
+
+=== RECETA DE EJECUCIÓN PASO A PASO ===
+
+PASO 1: INICIALIZACIÓN (SCAFFOLDING)
+Ejecuta el script generador desde la raíz del repositorio:
+python3 video-studio/scripts/crear_produccion_2d.py <slug> --title "<TITULO>"
+
+PASO 2: STORYBOARD NARRATIVO (storyboard.json)
+Edita video-studio/projects/<slug>/storyboard.json:
+- Diseña entre 10 y 16 escenas cortas con un arco en 5 actos (Gancho, Fundamento, Escalamiento, Riesgo/Inflexión, Cierre).
+- Asigna paletas cromáticas contrastantes por escena (purple, teal, gold, crimson, etc.).
+- Escribe locuciones concisas y define minSeconds (entre 1.5s y 4.0s por escena).
+
+PASO 3: LOCUCIÓN Y AUDIO PROCEDURAL (prepare.py)
+Ejecuta el pipeline de audio y sincronización:
+python3 video-studio/projects/<slug>/prepare.py
+(Esto generará las voces Edge-TTS con WordBoundary en public/<scene_id>.mp3, la música procedural en public/score.wav y el timeline.json exacto a 30 FPS).
+
+PASO 4: ARTE VECTORIAL Y RIGGING SVG (src/art.tsx)
+Personaliza video-studio/projects/<slug>/src/art.tsx:
+- Ilustra los personajes, metáforas conceptuales y diagramas en SVG con capas y gradientes específicos para el tema.
+- Implementa cinemática inversa y funciones reactivas (clamp, ease, mix, wave).
+
+PASO 5: MONTAJE, CÁMARA Y SUBTÍTULOS (src/Film.tsx)
+En video-studio/projects/<slug>/src/Film.tsx:
+- Conecta cada escena mediante <Sequence> sincronizada con timeline.json.
+- Integra subtítulos cinéticos con resaltado dinámico de la palabra activa.
+- Aplica dinamismo sutil de cámara (scale y traslación) para evitar planos estáticos.
+- Asegura que src/index.tsx registre el Root correctamente.
+
+PASO 6: PUERTA OBLIGATORIA DE CONTROL VISUAL (CONTACT SHEET GATE)
+Antes de cualquier render final, genera e inspecciona la hoja de contactos:
+node video-studio/projects/<slug>/render.mjs --stills
+Inspecciona renders/contact-sheet.jpg asegurando:
+- Cero desbordamientos o solapamiento de textos y subtítulos.
+- Composición balanceada y centrado de personajes y diagramas.
+- Contrastes cromáticos y legibilidad óptima.
+
+PASO 7: RENDERIZADO FINAL MULTIFORMATO
+Genera el render de entrega:
+- Vertical 9:16 (Shorts/TikTok): node video-studio/projects/<slug>/render.mjs
+- Horizontal 16:9 (YouTube): node video-studio/projects/<slug>/render.mjs --horizontal
+- Ambos formatos: node video-studio/projects/<slug>/render.mjs --aspect=both
+Valida con ffprobe la duración del MP4 resultante en renders/.
+
+PASO 8: VERIFICACIÓN Y CONTROL DE CALIDAD
+- Limpieza: Verifica que renders/ esté ignorado por Git y no queden archivos basura.
+- Tipado: npx --prefix video-studio/remotion tsc -p ../tsconfig.json --noEmit
+- Commits: Si realizas commits en Git, redacta los mensajes estrictamente en ESPAÑOL (convención commits-espanol).
+```
+

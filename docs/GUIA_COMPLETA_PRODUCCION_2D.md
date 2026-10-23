@@ -257,3 +257,7 @@ El estudio cuenta con una interfaz gráfica para visualizar y gestionar proyecto
 
 ### P: ¿Cómo asegurar que los commits sean válidos?
 > **R:** Siguiendo la regla institucional `commits-espanol`: todos los mensajes y descripciones de commit deben redactarse estrictamente en **español**, con prefijos convencionales (`feat:`, `fix:`, `chore:`, `docs:`).
+
+### P: ¿Cómo pedirle a un nuevo agente o LLM que cree un video desde cero?
+> **R:** Utiliza el **Prompt Maestro Universal para Agentes de IA** incluido al final del [`README.md`](../README.md#--prompt-maestro-universal-para-agentes-de-ia-copiar-y-pegar). Solo copia y pega ese bloque en el chat de la IA indicando el tema, slug y formato deseado.
+
