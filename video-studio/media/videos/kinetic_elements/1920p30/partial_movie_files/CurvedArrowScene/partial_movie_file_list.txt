@@ -1,5 +1,0 @@
-# This file records the segment order used by Manim.
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/CurvedArrowScene/6b436e7703caf5987c3d32ed785312aee65d29cba8c7cd56064fadc97d23cb62.mov'
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/CurvedArrowScene/9ab9ba1e2021dbc35c5115dd7a28853f3e75e2905f4a2b5d3bcfa7879de4ea8a.mov'
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/CurvedArrowScene/65a5637127b5d314090878089950eed4c6308cabab7655af9b6022fbf7f2a598.mov'
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/CurvedArrowScene/fa5a484bf4e732bfb309edec9ffe0cc92b9c9503cc76eb1683f50c81769936d2.mov'

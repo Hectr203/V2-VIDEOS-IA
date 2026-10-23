@@ -1,0 +1,30 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "jsx": "react-jsx",
+    "strict": true,
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "forceConsistentCasingInFileNames": true,
+    "baseUrl": ".",
+    "paths": {
+      "shared-art": ["shared-art/index.ts"],
+      "shared-art/*": ["shared-art/*"],
+      "react": ["remotion/node_modules/@types/react"],
+      "react/jsx-runtime": ["remotion/node_modules/@types/react/jsx-runtime"],
+      "remotion": ["remotion/node_modules/remotion"],
+      "*": ["remotion/node_modules/*"]
+    },
+    "typeRoots": [
+      "remotion/node_modules/@types"
+    ]
+  },
+  "include": [
+    "projects/*/src/**/*",
+    "remotion/src/**/*",
+    "shared-art/**/*"
+  ]
+}

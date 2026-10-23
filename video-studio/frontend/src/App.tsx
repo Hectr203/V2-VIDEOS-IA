@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Sliders, Film, Video, Cpu, ExternalLink } from 'lucide-react';
+import { Sparkles, Sliders, Film, Video, Cpu, ExternalLink, Layers } from 'lucide-react';
 import { QuickGenerator } from './components/QuickGenerator';
 import { StoryboardStudio } from './components/StoryboardStudio';
+import { ProjectDashboard } from './components/ProjectDashboard';
 import { VideoGallery } from './components/VideoGallery';
 import { VideoPlayerModal } from './components/VideoPlayerModal';
 import { ToolsEcosystem } from './components/ToolsEcosystem';
@@ -9,7 +10,7 @@ import { VoiceProvider, RenderResult } from './types';
 
 export const App: React.FC = () => {
   const assemblerUrl = import.meta.env.VITE_VIDEO_ASSEMBLER_URL;
-  const [activeTab, setActiveTab] = useState<'quick' | 'storyboard' | 'gallery' | 'tools'>('quick');
+  const [activeTab, setActiveTab] = useState<'quick' | 'storyboard' | 'projects2d' | 'gallery' | 'tools'>('projects2d');
   const [voiceProviders, setVoiceProviders] = useState<VoiceProvider[]>([
     {
       provider: 'edge-tts',
@@ -63,6 +64,18 @@ export const App: React.FC = () => {
 
           {/* Navegación */}
           <nav className="flex items-center gap-1.5 bg-slate-950 p-1.5 rounded-2xl border border-slate-800">
+            <button
+              onClick={() => setActiveTab('projects2d')}
+              className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
+                activeTab === 'projects2d'
+                  ? 'bg-amber-400 text-slate-950 shadow-md shadow-amber-400/20'
+                  : 'text-slate-400 hover:text-white'
+              }`}
+            >
+              <Layers className="w-4 h-4" />
+              <span>Proyectos 2D</span>
+            </button>
+
             <button
               onClick={() => setActiveTab('quick')}
               className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition ${
@@ -127,6 +140,10 @@ export const App: React.FC = () => {
 
       {/* Cuerpo principal */}
       <main className="max-w-7xl mx-auto px-6 py-10 flex-1 w-full">
+        {activeTab === 'projects2d' && (
+          <ProjectDashboard onSelectVideo={(video) => setCurrentVideo(video)} />
+        )}
+
         {activeTab === 'quick' && (
           <QuickGenerator
             voiceProviders={voiceProviders}

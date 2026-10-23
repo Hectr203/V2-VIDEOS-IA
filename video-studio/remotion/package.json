@@ -6,7 +6,9 @@
     "start": "remotion preview src/index.ts",
     "build": "remotion render src/index.ts DoodleReel out.mp4",
     "render:reference": "remotion render src/index.ts ReferenceReplica ../projects/referencia-2d/output/referencia-2d.mp4 --codec=h264 --crf=18",
-    "render:fentanilo-v2": "node ../productions/fentanilo-2d-v2/render.mjs"
+    "render:fentanilo": "node ../projects/fentanilo-la-llave-quimica/render.mjs",
+    "render:helado": "node ../projects/la-ciencia-del-helado/render.mjs",
+    "render:cafeina-cerebro-2d": "node ../projects/cafeina-cerebro-2d/render.mjs"
   },
   "dependencies": {
     "@remotion/cli": "^4.0.218",

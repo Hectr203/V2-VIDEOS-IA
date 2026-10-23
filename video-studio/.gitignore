@@ -19,10 +19,17 @@ npm-debug.log*
 output/*
 !output/.gitkeep
 /render_checkpoints/
-projects/*
-!projects/.gitkeep
+projects/*/renders/
+projects/*/audio_cache/
+projects/*/__pycache__/
+projects/*/*.partial.mp3
 video_studio.sqlite3*
 remotion/public/voice_*
+remotion/out.mp4
+test_laptop_alpha*.webm
+test_overlay.png
+productions/
+remotion/src/projects/
 
 # OS & Editor
 .DS_Store

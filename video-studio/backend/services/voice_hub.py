@@ -159,10 +159,12 @@ class VoiceHub:
         with open(output_audio_path, "wb") as audio_file:
             async for chunk in communicate.stream():
                 if chunk.get("type") == "audio":
-                    audio_file.write(chunk["data"])
+                    cdata = chunk.get("data")
+                    if cdata:
+                        audio_file.write(cdata)
                 elif chunk.get("type") == "SentenceBoundary":
-                    start_sec = chunk["offset"] / 10_000_000.0
-                    dur_sec = chunk["duration"] / 10_000_000.0
+                    start_sec = float(chunk.get("offset") or 0) / 10_000_000.0
+                    dur_sec = float(chunk.get("duration") or 0) / 10_000_000.0
                     sentence_cues.append({
                         "text": chunk.get("text", "").strip(),
                         "start": round(start_sec, 3),
@@ -268,7 +270,7 @@ class VoiceHub:
                     if current_word:
                         word_timestamps.append({
                             "word": "".join(current_word),
-                            "start": round(word_start, 3),
+                            "start": round(word_start, 3) if word_start is not None else 0.0,
                             "end": round(prev_end, 3)
                         })
                         current_word = []
@@ -281,7 +283,7 @@ class VoiceHub:
             if current_word:
                 word_timestamps.append({
                     "word": "".join(current_word),
-                    "start": round(word_start, 3),
+                    "start": round(word_start, 3) if word_start is not None else 0.0,
                     "end": round(prev_end, 3)
                 })
 

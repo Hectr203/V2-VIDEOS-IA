@@ -1,0 +1,120 @@
+{
+  "title": "La Ciencia Secreta del Helado",
+  "voice": "es-MX-JorgeNeural",
+  "rate": "+18%",
+  "scenes": [
+    {
+      "id": "hook",
+      "chapter": "EL GRAN SECRETO",
+      "palette": "gold",
+      "text": "¿Sabías que casi la mitad de cada bote de helado que compras es simplemente aire?",
+      "minSeconds": 4.2
+    },
+    {
+      "id": "overrun",
+      "chapter": "EL INGREDIENTE INVISIBLE",
+      "palette": "teal",
+      "text": "En la industria esto se llama overrun: el aire atrapado es lo que le da su textura ligera.",
+      "minSeconds": 4.3
+    },
+    {
+      "id": "rock",
+      "chapter": "SIN AIRE: UNA ROCA",
+      "palette": "purple",
+      "text": "Sin ese aire inyectado durante el batido, el helado sería un bloque de hielo duro como una roca.",
+      "minSeconds": 4.5
+    },
+    {
+      "id": "ingredients",
+      "chapter": "LA FÓRMULA BASE",
+      "palette": "teal",
+      "text": "Todo comienza combinando tres elementos clave: agua, crema rica en grasa y azúcares.",
+      "minSeconds": 4.3
+    },
+    {
+      "id": "antifreeze",
+      "chapter": "AZÚCAR ANTICONGELANTE",
+      "palette": "purple",
+      "text": "El azúcar no solo endulza: funciona como un potente anticongelante natural que evita cristales gigantes.",
+      "minSeconds": 4.8
+    },
+    {
+      "id": "emulsion",
+      "chapter": "EL RETO MOLECULAR",
+      "palette": "purple",
+      "text": "Pero la grasa y el agua se repelen. Para unirlas de forma inseparable, se añaden emulsionantes.",
+      "minSeconds": 4.6
+    },
+    {
+      "id": "pasteurization",
+      "chapter": "PASTEURIZACIÓN",
+      "palette": "gold",
+      "text": "La mezcla se calienta a ochenta grados para eliminar bacterias y disolver cada ingrediente.",
+      "minSeconds": 4.2
+    },
+    {
+      "id": "pressure",
+      "chapter": "ALTA PRESIÓN",
+      "palette": "teal",
+      "text": "Luego se dispara a dos mil libras de presión para pulverizar las gotas de grasa en microesferas.",
+      "minSeconds": 4.4
+    },
+    {
+      "id": "ripening",
+      "chapter": "EL REPOSO CLAVE",
+      "palette": "purple",
+      "text": "Reposa a cuatro grados durante horas para que las proteínas lácteas se hidraten por completo.",
+      "minSeconds": 4.2
+    },
+    {
+      "id": "churning",
+      "chapter": "EL CILINDRO HELADOR",
+      "palette": "teal",
+      "text": "Llega al freezer continuo: un cilindro a treinta bajo cero donde cuchillas de acero giran a gran velocidad.",
+      "minSeconds": 4.8
+    },
+    {
+      "id": "crystals",
+      "chapter": "MICROCRISTALES",
+      "palette": "purple",
+      "text": "Las cuchillas raspan miles de microcristales. Si superan cincuenta micras, tu lengua los notará arenosos.",
+      "minSeconds": 4.7
+    },
+    {
+      "id": "soft",
+      "chapter": "TEXTURA CREMOSA",
+      "palette": "gold",
+      "text": "Al salir del congelador, tiene la consistencia suave de un helado cremoso recién servido.",
+      "minSeconds": 4.2
+    },
+    {
+      "id": "polar_tunnel",
+      "chapter": "EL TÚNEL POLAR",
+      "palette": "purple",
+      "text": "Se envasa velozmente y viaja por un túnel a menos cuarenta grados para congelar el centro exacto.",
+      "minSeconds": 4.5
+    },
+    {
+      "id": "brain_freeze",
+      "chapter": "BRAIN FREEZE",
+      "palette": "purple",
+      "text": "¿El famoso dolor de cerebro al comer rápido? Tus vasos del paladar se contraen de golpe por el frío.",
+      "minSeconds": 4.6
+    },
+    {
+      "id": "ideal_temp",
+      "chapter": "TEMPERATURA IDEAL",
+      "palette": "teal",
+      "text": "La temperatura perfecta para saborearlo es a menos catorce grados, cuando los aromas se liberan.",
+      "minSeconds": 4.5
+    },
+    {
+      "id": "call_to_action",
+      "chapter": "EL ARTE DEL HELADO",
+      "palette": "gold",
+      "text": "La próxima vez que disfrutes tu helado favorito, recuerda: estás comiendo física y química deliciosa.",
+      "minSeconds": 4.6
+    }
+  ],
+  "editorialNotes": "Producción 2D original sobre la ciencia y fabricación del helado. Arte vectorial SVG puro, cinemática inversa, dinámicas moleculares y paletas semánticas."
+}

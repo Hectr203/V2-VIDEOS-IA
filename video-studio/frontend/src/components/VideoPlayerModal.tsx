@@ -27,16 +27,16 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ video, onClo
           <X className="w-5 h-5" />
         </button>
 
-        {/* Reproductor Vertical 9:16 */}
+        {/* Reproductor (Vertical 9:16 o Horizontal 16:9) */}
         <div className="bg-black flex items-center justify-center p-6 md:w-1/2 flex-shrink-0">
-          <div className="w-[270px] h-[480px] bg-slate-950 rounded-2xl overflow-hidden border-2 border-slate-800 shadow-2xl flex items-center justify-center relative">
+          <div className={`${video.is_horizontal ? 'w-full max-w-[480px] aspect-video' : 'w-[270px] h-[480px]'} bg-slate-950 rounded-2xl overflow-hidden border-2 border-slate-800 shadow-2xl flex items-center justify-center relative`}>
             <video
               src={video.video_url}
               controls
               autoPlay
               playsInline
               loop
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain bg-black"
             />
           </div>
         </div>
@@ -46,7 +46,7 @@ export const VideoPlayerModal: React.FC<VideoPlayerModalProps> = ({ video, onClo
           <div>
             <div className="flex items-center gap-2 text-amber-400 font-bold text-xs uppercase tracking-wider mb-2">
               <Film className="w-4 h-4" />
-              <span>Video Listo para Redes</span>
+              <span>{video.is_horizontal ? 'Video Horizontal 16:9 (YouTube)' : 'Video Vertical 9:16 (Shorts / Reels)'}</span>
             </div>
             <h3 className="text-2xl font-black text-white tracking-tight break-all">
               {video.filename}

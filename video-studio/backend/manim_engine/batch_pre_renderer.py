@@ -1,6 +1,7 @@
 import os
 import sys
 import subprocess
+from typing import Optional
 from pathlib import Path
 
 BASE_DIR = Path(__file__).resolve().parent.parent.parent
@@ -11,7 +12,7 @@ TEMPLATES_DIR = BASE_DIR / "backend" / "manim_engine" / "templates"
 
 DOCKER_IMAGE = "manimcommunity/manim:latest"
 
-def render_scene(script_rel: str, scene_name: str, out_filename: str, extra_env: dict = None):
+def render_scene(script_rel: str, scene_name: str, out_filename: str, extra_env: Optional[dict] = None):
     """
     Invoca Manim en el contenedor Docker para renderizar con transparencia (formato MOV argb y conversión rápida a WebM).
     """

@@ -1,7 +1,7 @@
 import os
 import json
 import subprocess
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 
 ASSEMBLER_DIR = "/mnt/nvme/V2-VIDEOS-IA/videoAssembler"
 
@@ -62,7 +62,7 @@ class VideoAssemblerBridge:
         return manifest
 
     @classmethod
-    def run_cli_render(cls, manifest_path: str, media_dir: str, output_path: str = None) -> Dict[str, Any]:
+    def run_cli_render(cls, manifest_path: str, media_dir: str, output_path: Optional[str] = None) -> Dict[str, Any]:
         """Ejecuta el renderizador nativo de videoAssembler vía node cli/render.ts."""
         if not cls.is_available():
             raise RuntimeError(f"videoAssembler no está disponible en {ASSEMBLER_DIR}")

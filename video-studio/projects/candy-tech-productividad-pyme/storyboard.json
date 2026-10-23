@@ -1,0 +1,23 @@
+{
+  "title": "Menos caos, más claridad: digitaliza tu pyme",
+  "voice": "es-MX-DaliaNeural",
+  "rate": "+0%",
+  "targetSeconds": 100,
+  "scenes": [
+    {"id":"hook_owner","act":"Gancho","chapter":"¿NO SABES QUÉ ESTÁ PASANDO?","palette":"navy","art":"hook","text":"¿Tienes una pequeña empresa y a veces no sabes qué está pasando realmente en tu negocio?","minSeconds":4},
+    {"id":"daily_friction","act":"Gancho","chapter":"EL TRABAJO SE ATORA","palette":"coral","art":"friction","text":"¿Hay tareas que se repiten, información que se pierde o decisiones que dependen de estar preguntando a todos?","minSeconds":4},
+    {"id":"clarity_first","act":"Fundamento","chapter":"PRIMERO, ENTENDER","palette":"navy","art":"listen","text":"Es difícil mejorar lo que no puedes ver con claridad.","minSeconds":4},
+    {"id":"not_tools","act":"Fundamento","chapter":"LA TECNOLOGÍA NO ES EL PRIMER PASO","palette":"teal","art":"map","text":"Y digitalizar no significa comprar herramientas porque están de moda.","minSeconds":4},
+    {"id":"business_map","act":"Fundamento","chapter":"CONOCER TU NEGOCIO","palette":"navy","art":"map","text":"Primero hay que entender cómo trabaja tu empresa, qué necesita tu equipo y qué quieres lograr.","minSeconds":4},
+    {"id":"we_listen","act":"Fundamento","chapter":"TE ESCUCHAMOS","palette":"teal","art":"listen","text":"En Candy Tech Solutions queremos escucharte. Analizamos contigo tus procesos.","minSeconds":4},
+    {"id":"find_bottlenecks","act":"Escalamiento","chapter":"ENCONTRAMOS LOS ATASCOS","palette":"coral","art":"bottleneck","text":"Encontramos dónde se atora el trabajo y aclaramos qué información te hace falta para tomar mejores decisiones.","minSeconds":4},
+    {"id":"clear_process","act":"Escalamiento","chapter":"DISEÑADO PARA TU REALIDAD","palette":"teal","art":"workflow","text":"Después diseñamos una solución para tu realidad: procesos más claros, herramientas conectadas, software a la medida y automatización de tareas repetitivas.","minSeconds":4},
+    {"id":"ai_purpose","act":"Escalamiento","chapter":"INTELIGENCIA ARTIFICIAL CON PROPÓSITO","palette":"navy","art":"ai","text":"Y cuando la inteligencia artificial puede ayudar de verdad, la integramos con un propósito concreto.","minSeconds":4},
+    {"id":"ai_team","act":"Escalamiento","chapter":"ÚTIL PARA TU EQUIPO","palette":"teal","art":"ai","text":"Cuidando que sea útil para tu equipo y tu negocio.","minSeconds":4},
+    {"id":"implement_together","act":"Riesgo / inflexión","chapter":"TE ACOMPAÑAMOS","palette":"coral","art":"implement","text":"No llegamos con una receta genérica y te dejamos solo.","minSeconds":4},
+    {"id":"from_problem","act":"Riesgo / inflexión","chapter":"DEL PROBLEMA A LA IMPLEMENTACIÓN","palette":"navy","art":"implement","text":"Te acompañamos desde entender el problema hasta implementar, aprender de su uso y ajustar lo necesario.","minSeconds":4},
+    {"id":"team_creates","act":"Cierre","chapter":"MÁS CLARIDAD PARA AVANZAR","palette":"teal","art":"growth","text":"Así tu equipo puede dedicar menos tiempo a lo repetitivo y más a crear, decidir y hacer crecer el negocio.","minSeconds":4},
+    {"id":"cta_contact","act":"Cierre","chapter":"HABLEMOS DE TU EMPRESA","palette":"navy","art":"brand","text":"Si quieres entender mejor qué pasa en tu empresa y empezar a digitalizar tus procesos, hablemos. Escríbenos por nuestras redes sociales o envíanos un mensaje. Candy Tech Solutions: tecnología fácil para tu negocio.","minSeconds":8}
+  ],
+  "editorialNotes":"Video de presentación comercial para pymes. Arco de 5 actos: gancho, entendimiento, diagnóstico, solución e invitación. Voz Edge-TTS es-MX-DaliaNeural. Paleta de marca basada en logo adjunto: navy #082e5b, teal #049d9a, coral #f26349, blanco cálido. Duración objetivo exacta 100 segundos."
+}

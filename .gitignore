@@ -78,9 +78,20 @@ coverage/
 # ==============================================================================
 video-studio/output/*
 !video-studio/output/.gitkeep
-video-studio/projects/*
-!video-studio/projects/.gitkeep
+video-studio/projects/*/renders/
+video-studio/projects/*/audio_cache/
+video-studio/projects/*/__pycache__/
+video-studio/projects/*/*.partial.mp3
 video-studio/remotion/public/voice_*
+video-studio/remotion/out.mp4
+video-studio/test_laptop_alpha*.webm
+video-studio/test_overlay.png
+video-studio/productions/
+video-studio/remotion/src/projects/
+video-studio/media/
+video-studio/public/original_assets/
+video-studio/render_checkpoints/
+
 
 # ==============================================================================
 # MODELOS, PESOS Y CHECKPOINTS PESADOS
@@ -105,6 +116,7 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .vs/
 *.local
 
@@ -115,6 +127,7 @@ Thumbs.db
 .codegraph/
 
 # Remotion local cache and browser downloads
+.remotion
 .remotion/
 
 # Bases de datos SQLite locales y análisis temporales
