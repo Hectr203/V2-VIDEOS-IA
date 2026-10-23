@@ -107,7 +107,13 @@ async def main():
             if scene["status"] != "audio_ready" or not scene["audio_path"] or not os.path.exists(scene["audio_path"]):
                 await ProjectManager.synthesize_scene_audio(args.proyecto, args.escena)
                 proj = ProjectManager.get_project(args.proyecto)
+                if not proj:
+                    print(f"Error: Proyecto '{args.proyecto}' no encontrado.")
+                    sys.exit(1)
                 scene = next((s for s in proj["scenes"] if s["id"] == args.escena), None)
+                if not scene:
+                    print(f"Error: Escena #{args.escena} no encontrada.")
+                    sys.exit(1)
 
             filename = f"preview_{args.proyecto}_s{args.escena}_{int(time.time())}.mp4"
             res = render_single_scene(scene, filename)

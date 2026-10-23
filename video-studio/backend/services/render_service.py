@@ -373,7 +373,7 @@ def render_project(
                 raise RuntimeError("Remotion terminó sin crear el archivo de video esperado")
             _publish_validated_output(render_mp4_path, final_mp4_path, total_frames / fps, fps)
         else:
-            if not re.fullmatch(r"render_[A-Za-z0-9_-]{1,100}", checkpoint_id):
+            if not checkpoint_id or not re.fullmatch(r"render_[A-Za-z0-9_-]{1,100}", checkpoint_id):
                 raise ValueError("ID de checkpoint inválido")
             if os.path.islink(CHECKPOINTS_DIR):
                 raise ValueError("Directorio de checkpoints inválido")

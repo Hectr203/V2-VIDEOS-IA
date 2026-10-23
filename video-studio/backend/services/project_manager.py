@@ -6,6 +6,7 @@ import uuid
 import re
 import json
 import xml.etree.ElementTree as ET
+import subprocess
 from typing import Dict, Any, List, Optional
 import math
 from services.omniroute_client import OmniRouteClient
@@ -75,7 +76,6 @@ class ProjectManager:
                 "duration_seconds": None, "has_audio": False, "created_at": time.time(),
             }
             try:
-                import subprocess
                 probe = await asyncio.to_thread(
                     subprocess.run,
                     ["ffprobe", "-v", "error", "-show_entries", "format=duration:stream=codec_type", "-of", "json", target],
@@ -563,7 +563,10 @@ class ProjectManager:
             if s["status"] != "audio_ready" or not s["audio_path"] or not os.path.exists(s["audio_path"]):
                 await cls.synthesize_scene_audio(project_id, s["id"])
 
-        return cls.get_project(project_id)
+        res = cls.get_project(project_id)
+        if not res:
+            raise FileNotFoundError(f"Proyecto {project_id} no encontrado")
+        return res
 
     @classmethod
     async def regenerate_scene(cls, project_id: str, scene_id: int, mode: str = "all") -> Dict[str, Any]:
@@ -594,4 +597,7 @@ class ProjectManager:
         if mode in ["all", "voice"]:
             await cls.synthesize_scene_audio(project_id, scene_id)
 
-        return cls.get_project(project_id)
+        res = cls.get_project(project_id)
+        if not res:
+            raise FileNotFoundError(f"Proyecto {project_id} no encontrado")
+        return res

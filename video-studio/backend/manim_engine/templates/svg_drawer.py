@@ -18,7 +18,7 @@ class GenericSVGDrawScene(Scene):
         svg.move_to(ORIGIN)
 
         # 1. Efecto de dibujado / trazado de bordes
-        self.play(DrawBorderThenFill(svg, run_time=run_time, stroke_color=WHITE))
+        self.play(DrawBorderThenFill(svg, run_time=run_time, stroke_color="#FFFFFF"))
         
         # 2. Pulso elástico al terminar
         self.play(svg.animate.scale(1.08), run_time=0.2, rate_func=rush_into)

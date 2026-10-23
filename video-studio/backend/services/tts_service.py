@@ -46,11 +46,13 @@ async def synthesize_speech(
         async for chunk in communicate.stream():
             chunk_type = chunk.get("type")
             if chunk_type == "audio":
-                audio_file.write(chunk["data"])
+                cdata = chunk.get("data")
+                if cdata:
+                    audio_file.write(cdata)
             elif chunk_type == "SentenceBoundary":
                 # offset y duration en cientos de nanosegundos (10^-7 segundos)
-                start_sec = chunk["offset"] / 10_000_000.0
-                dur_sec = chunk["duration"] / 10_000_000.0
+                start_sec = float(chunk.get("offset") or 0) / 10_000_000.0
+                dur_sec = float(chunk.get("duration") or 0) / 10_000_000.0
                 sentence_cues.append({
                     "text": chunk.get("text", "").strip(),
                     "start": round(start_sec, 3),

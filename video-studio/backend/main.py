@@ -345,7 +345,7 @@ async def upload_project_source_media(project_id: str, request: Request, filenam
 @app.put("/api/projects/{project_id}/scenes/{scene_id}")
 def update_scene(project_id: str, scene_id: int, req: UpdateSceneRequest):
     try:
-        updates = {k: v for k, v in req.dict().items() if v is not None}
+        updates = {k: v for k, v in req.model_dump().items() if v is not None}
         res = ProjectManager.update_scene(project_id, scene_id, updates)
         return {"success": True, "data": res}
     except FileNotFoundError as error:
@@ -431,14 +431,16 @@ def _run_render_job(job_id: str, project_id: str) -> None:
         project = ProjectManager.get_project(project_id)
         if not project:
             raise FileNotFoundError("Proyecto no encontrado")
-        if render_jobs.get(job_id).get("cancel_requested"):
+        job = render_jobs.get(job_id) or {}
+        if job.get("cancel_requested"):
             render_jobs.update(job_id, status="cancelled", message="Cancelado")
             return
         render_jobs.update(job_id, status="preparing", progress=2, message="Preparando audios")
         proj = asyncio.run(ProjectManager.synthesize_all_project_audio(project_id))
         meta = proj["project"]
         scenes = proj["scenes"]
-        if render_jobs.get(job_id).get("cancel_requested"):
+        job = render_jobs.get(job_id) or {}
+        if job.get("cancel_requested"):
             render_jobs.update(job_id, status="cancelled", message="Cancelado")
             return
         render_jobs.update(job_id, status="rendering", progress=10, message="Render local con Remotion")
@@ -449,14 +451,14 @@ def _run_render_job(job_id: str, project_id: str) -> None:
             progress_callback=lambda pct: render_jobs.update(
                 job_id, progress=10 + int(pct * 0.88), message=f"Renderizando: {pct}%"
             ),
-            cancel_check=lambda: bool(render_jobs.get(job_id).get("cancel_requested")),
+            cancel_check=lambda: bool((render_jobs.get(job_id) or {}).get("cancel_requested")),
         )
         meta["final_video_url"] = res["video_url"]
         meta["status"] = "completed"
         ProjectManager._save_project(project_id, meta, scenes)
         render_jobs.update(job_id, status="completed", progress=100, message="Render completado", result=res)
     except Exception as e:
-        status = "cancelled" if render_jobs.get(job_id).get("cancel_requested") else "failed"
+        status = "cancelled" if (render_jobs.get(job_id) or {}).get("cancel_requested") else "failed"
         render_jobs.update(job_id, status=status, message="Cancelado" if status == "cancelled" else str(e))
     finally:
         _render_execution_lock.release()
@@ -516,7 +518,11 @@ async def preview_single_scene_render(project_id: str, scene_id: int):
         if scene["status"] != "audio_ready" or not scene["audio_path"] or not os.path.exists(scene["audio_path"]):
             await ProjectManager.synthesize_scene_audio(project_id, scene_id)
             proj = ProjectManager.get_project(project_id)
+            if not proj:
+                raise HTTPException(status_code=404, detail="Proyecto no encontrado")
             scene = next((s for s in proj["scenes"] if s["id"] == scene_id), None)
+            if not scene:
+                raise HTTPException(status_code=404, detail="Escena no encontrada")
 
         filename = f"preview_{project_id}_s{scene_id}_{int(time.time())}.mp4"
         res = render_single_scene(scene, output_filename=filename)

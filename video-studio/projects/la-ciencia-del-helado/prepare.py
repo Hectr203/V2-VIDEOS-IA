@@ -38,10 +38,16 @@ async def generate_narration(scene, config, sem):
                 tts = edge_tts.Communicate(scene['text'], config['voice'], rate=config['rate'], boundary='WordBoundary')
                 with partial.open('wb') as stream:
                     async for chunk in tts.stream():
-                        if chunk['type'] == 'audio':
-                            stream.write(chunk['data'])
-                        elif chunk['type'] == 'WordBoundary':
-                            words.append({'word': chunk['text'], 'start': chunk['offset'] / 1e7, 'end': (chunk['offset'] + chunk['duration']) / 1e7})
+                        ctype = chunk.get('type')
+                        if ctype == 'audio':
+                            cdata = chunk.get('data')
+                            if cdata:
+                                stream.write(cdata)
+                        elif ctype == 'WordBoundary':
+                            ctext = str(chunk.get('text') or '')
+                            coffset = float(chunk.get('offset') or 0)
+                            cduration = float(chunk.get('duration') or 0)
+                            words.append({'word': ctext, 'start': coffset / 1e7, 'end': (coffset + cduration) / 1e7})
                 seconds = get_duration(partial)
                 partial.replace(target)
                 data = {'key': key, 'duration': seconds, 'words': words}
@@ -52,6 +58,7 @@ async def generate_narration(scene, config, sem):
                 if attempt == 2:
                     raise
                 await asyncio.sleep(1 + attempt)
+    raise RuntimeError(f"Fallo al sintetizar audio para la escena {scene['id']}")
 
 
 def generate_procedural_score(scenes, total_seconds):
@@ -99,13 +106,13 @@ async def main():
     timeline_scenes = []
     current_frame = 0
     for sc, nar in zip(storyboard["scenes"], narrations):
-        dur = max(sc.get("minSeconds", 2.0), nar["duration"] + 0.3)
+        dur = max(float(sc.get("minSeconds", 2.0)), float(nar["duration"]) + 0.3) if nar else float(sc.get("minSeconds", 2.0))
         frames = math.ceil(dur * FPS)
         timeline_scenes.append({
             **sc,
             "start": current_frame,
             "frames": frames,
-            "words": nar["words"],
+            "words": nar.get("words", []) if nar else [],
             "audio": f"{sc['id']}.mp3"
         })
         current_frame += frames
