@@ -1,6 +1,7 @@
 {
   "accessibility": "skills/accessibility/SKILL.md",
   "ahorro-contexto": "skills/ahorro-contexto/SKILL.md",
+  "animacion-2d-remotion": "skills/animacion-2d-remotion/SKILL.md",
   "animate": "skills/emilkowalski-skills/skills/animate/SKILL.md",
   "animate-expo": "skills/emilkowalski-skills/skills/animate-expo/SKILL.md",
   "animation-vocabulary": "skills/emilkowalski-skills/skills/animation-vocabulary/SKILL.md",
@@ -58,6 +59,7 @@
   "mobile-native": "skills/emilkowalski-skills/skills/mobile-native/SKILL.md",
   "performance-optimization": "skills/agent-skills/skills/performance-optimization/SKILL.md",
   "pick-ui-library": "skills/emilkowalski-skills/skills/pick-ui-library/SKILL.md",
+  "pipeline-produccion-video": "skills/pipeline-produccion-video/SKILL.md",
   "pipeline-setup": "skills/crm/pipeline-setup/SKILL.md",
   "planning-and-task-breakdown": "skills/agent-skills/skills/planning-and-task-breakdown/SKILL.md",
   "playwright-mcp-testing": "skills/playwright-mcp-testing/SKILL.md",

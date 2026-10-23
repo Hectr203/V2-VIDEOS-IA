@@ -11,7 +11,9 @@
     },
     "agente-base-datos": {
       "archivo": "agentes/agente-base-datos.md",
-      "skills": ["ponytail"]
+      "skills": [
+        "ponytail"
+      ]
     },
     "agente-contexto": {
       "archivo": "agentes/agente-contexto.md",
@@ -59,15 +61,26 @@
     },
     "agente-frontend": {
       "archivo": "agentes/agente-frontend.md",
-      "skills": ["ponytail"]
+      "skills": [
+        "ponytail"
+      ]
     },
     "agente-backend": {
       "archivo": "agentes/agente-backend.md",
-      "skills": ["ponytail"]
+      "skills": [
+        "ponytail"
+      ]
     },
     "agente-despliegue-azure": {
       "archivo": "agentes/agente-despliegue-azure.md",
       "skills": []
+    },
+    "agente-animador-2d": {
+      "archivo": "agentes/agente-animador-2d.md",
+      "skills": [
+        "animacion-2d-remotion",
+        "pipeline-produccion-video"
+      ]
     }
   }
 }
