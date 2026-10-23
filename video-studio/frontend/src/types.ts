@@ -18,6 +18,12 @@ export interface SceneItem {
   visual_asset_url?: string;
   svg_prompt?: string;
   svg_markup?: string;
+  source_media_id?: string | null;
+  source_video_src?: string | null;
+  source_start_seconds?: number;
+  source_media_duration_seconds?: number | null;
+  source_audio_enabled?: boolean;
+  source_clip_duration_seconds?: number | null;
   sticker: string;
   sfx: string;
   bg_color: string;
@@ -27,7 +33,7 @@ export interface SceneItem {
   audio_url?: string;
   audio_duration: number;
   words?: { word: string; start: number; end: number }[];
-  status: 'pending_audio' | 'audio_ready' | 'outdated_audio' | 'error';
+  status: 'pending_audio' | 'audio_ready' | 'source_audio_ready' | 'outdated_audio' | 'error';
   versions: SceneVersion[];
 }
 
@@ -49,6 +55,7 @@ export interface ProjectMeta {
   script?: { title?: string; narration?: string; duration_seconds?: number; acts?: { title: string; summary: string }[] };
   script_approved?: boolean;
   storyboard_approved?: boolean;
+  storyboard_error?: string | null;
 }
 
 export interface VoiceItem {

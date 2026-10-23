@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Sparkles, Sliders, Film, Video, Cpu } from 'lucide-react';
+import { Sparkles, Sliders, Film, Video, Cpu, ExternalLink } from 'lucide-react';
 import { QuickGenerator } from './components/QuickGenerator';
 import { StoryboardStudio } from './components/StoryboardStudio';
 import { VideoGallery } from './components/VideoGallery';
@@ -8,6 +8,7 @@ import { ToolsEcosystem } from './components/ToolsEcosystem';
 import { VoiceProvider, RenderResult } from './types';
 
 export const App: React.FC = () => {
+  const assemblerUrl = import.meta.env.VITE_VIDEO_ASSEMBLER_URL;
   const [activeTab, setActiveTab] = useState<'quick' | 'storyboard' | 'gallery' | 'tools'>('quick');
   const [voiceProviders, setVoiceProviders] = useState<VoiceProvider[]>([
     {
@@ -110,6 +111,17 @@ export const App: React.FC = () => {
               <span>Ecosistema</span>
             </button>
           </nav>
+          {assemblerUrl && (
+            <a
+              href={assemblerUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-2 rounded-xl border border-slate-700 px-3 py-2 text-xs font-bold text-slate-300 transition hover:border-amber-400 hover:text-amber-300"
+            >
+              <ExternalLink className="h-4 w-4" />
+              Editor avanzado
+            </a>
+          )}
         </div>
       </header>
 

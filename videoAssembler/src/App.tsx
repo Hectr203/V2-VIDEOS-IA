@@ -51,6 +51,11 @@ export default function App() {
   const [dropError, setDropError] = useState('')
   const [folder, setFolder] = useState<DirHandle | null>(null)
   const [folderPrompt, setFolderPrompt] = useState(false)
+  const [projectLoadMessage, setProjectLoadMessage] = useState('')
+  const projectIdRef = useRef<string | undefined>(undefined)
+  const [projectReady, setProjectReady] = useState(false)
+  const [persistenceState, setPersistenceState] = useState<'idle' | 'saving' | 'saved' | 'error'>('idle')
+  const lastSavedManifest = useRef('')
   const folderRef = useRef<DirHandle | null>(null)
   folderRef.current = folder
 
@@ -440,9 +445,13 @@ export default function App() {
   // ---- manifiesto ----
 
   const loadManifest = (m: Manifest) => {
+    if (m.projectId && !projectIdRef.current) projectIdRef.current = m.projectId
     setName(m.name || 'mi-video')
     setOutputs(m.outputs?.length ? m.outputs : ['vertical'])
 
+    const resolveProjectRef = (ref: string) => projectIdRef.current && !ref.startsWith('/') && !ref.includes('://')
+      ? `/projects/${projectIdRef.current}/${ref}`
+      : ref
     const findLoaded = (ref: string) => bin.find((b) => b.media && b.name === baseName(ref))
     const refs: Array<{ name: string; kind: 'video' | 'audio' }> = m.clips.map((c) => ({
       name: baseName(c.file),
@@ -459,7 +468,7 @@ export default function App() {
 
     setClips(
       m.clips.map((spec) => {
-        const s = clipFromSpec(spec)
+        const s = clipFromSpec({ ...spec, file: resolveProjectRef(spec.file) })
         const b = findLoaded(spec.file)
         return b
           ? {
@@ -475,7 +484,7 @@ export default function App() {
       }),
     )
     const loadTrack = (spec: NonNullable<Manifest['voice']>) => {
-      const t = trackFromSpec(spec)
+      const t = trackFromSpec({ ...spec, file: resolveProjectRef(spec.file) })
       const b = findLoaded(spec.file)
       return b ? { ...t, media: b.media, url: b.url, duration: b.duration } : t
     }
@@ -483,22 +492,103 @@ export default function App() {
     setMusic(m.music ? loadTrack(m.music) : null)
     setOverlays(
       (m.overlays ?? []).map((spec) => {
-        const o = overlayFromSpec(spec)
+        const o = overlayFromSpec({ ...spec, file: resolveProjectRef(spec.file) })
         const b = findLoaded(spec.file)
         return b ? { ...o, media: b.media, url: b.url, duration: b.duration } : o
       }),
     )
     setSelection(null)
     setPlayhead(0)
+    setBin((prev) => {
+      const next = [...prev]
+      const refsWithKind: Array<{ ref: string; kind: 'video' | 'audio' }> = [
+        ...m.clips.map((clip) => ({ ref: clip.file, kind: 'video' as const })),
+        ...(m.voice ? [{ ref: m.voice.file, kind: 'audio' as const }] : []),
+        ...(m.music ? [{ ref: m.music.file, kind: 'audio' as const }] : []),
+        ...(m.overlays ?? []).map((overlay) => ({ ref: overlay.file, kind: 'video' as const })),
+      ]
+      const loadedMedia: Array<{ ref: string; filename: string; kind: 'video' | 'audio'; stableUrl: string; placeholder: BinItem }> = []
+      for (const { ref, kind } of refsWithKind) {
+        const resolvedRef = resolveProjectRef(ref)
+        const url = new URL(resolvedRef, window.location.origin)
+        if (url.origin !== window.location.origin || !url.pathname.startsWith('/projects/')) continue
+        const filename = decodeURIComponent(url.pathname.split('/').pop() || '')
+        if (!filename || next.some((item) => item.url === url.toString() && item.media)) continue
+        const stableUrl = url.toString()
+        const placeholder = { id: newId(), name: filename, media: null, url: stableUrl, kind, duration: 0, width: 0, height: 0 }
+        next.push(placeholder)
+        loadedMedia.push({ ref: resolvedRef, filename, kind, stableUrl, placeholder })
+      }
+      queueMicrotask(() => {
+        for (const { ref, filename, kind, stableUrl, placeholder } of loadedMedia) {
+          void fetch(stableUrl)
+          .then((response) => {
+            if (!response.ok) throw new Error(`No se pudo leer ${filename}`)
+            return response.blob()
+          })
+          .then((blob) => {
+            const file = new File([blob], filename, { type: blob.type })
+            const objectUrl = URL.createObjectURL(file)
+            setBin((current) => {
+              const item = current.find((entry) => entry.url === stableUrl)
+              if (!item) { URL.revokeObjectURL(objectUrl); return current }
+              void probeMedia(objectUrl, kind).then((info) => {
+                const playable = { ...placeholder, media: file, url: objectUrl, duration: info.duration, width: info.width, height: info.height }
+                setBin((items) => items.map((entry) => entry.id === placeholder.id ? playable : entry))
+                setClips((items) => items.map((clip) => clip.file === ref ? { ...clip, media: file, url: objectUrl, duration: info.duration, width: info.width, height: info.height, trimOut: clip.trimOut || info.duration } : clip))
+                setOverlays((items) => items.map((overlay) => overlay.file === ref ? { ...overlay, media: file, url: objectUrl, duration: info.duration } : overlay))
+                setVoice((track) => track?.file === ref ? { ...track, media: file, url: objectUrl, duration: info.duration } : track)
+                setMusic((track) => track?.file === ref ? { ...track, media: file, url: objectUrl, duration: info.duration } : track)
+              }).catch((error: unknown) => {
+                URL.revokeObjectURL(objectUrl)
+                setProjectLoadMessage(error instanceof Error ? error.message : String(error))
+              })
+              return current
+            })
+          })
+            .catch((error: unknown) => setProjectLoadMessage(error instanceof Error ? error.message : String(error)))
+        }
+      })
+      return next
+    })
     // si hay carpeta conectada, carga los archivos referenciados sin intervención
     setTimeout(() => void resolveFromFolder(refs.map((r) => r.name)), 0)
   }
+
+  useEffect(() => {
+    const projectId = new URLSearchParams(window.location.search).get('projectId')
+    if (!projectId) return
+    projectIdRef.current = projectId
+    setProjectReady(false)
+    let cancelled = false
+    void fetch(`/api/projects/${encodeURIComponent(projectId)}/export-assembler`)
+      .then(async (response) => {
+        const payload = await response.json()
+        if (!response.ok) throw new Error(payload.detail || 'No se pudo abrir el proyecto')
+        const initialManifest = payload.projectManifest || payload.manifest
+        if (!Array.isArray(initialManifest?.clips)) throw new Error('El proyecto no contiene un montaje compatible')
+        if (!cancelled) {
+          loadManifest(initialManifest as Manifest)
+          lastSavedManifest.current = JSON.stringify(initialManifest)
+          setPersistenceState(payload.projectManifest ? 'saved' : 'idle')
+          setProjectReady(true)
+          setProjectLoadMessage(`Clips fuente de ${initialManifest.name} cargados; los SVG de Remotion permanecen en Video Studio.`)
+        }
+      })
+      .catch((error: unknown) => {
+        if (!cancelled) setProjectLoadMessage(error instanceof Error ? error.message : String(error))
+      })
+    return () => { cancelled = true }
+    // Project entry is intentionally loaded once from the URL.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   // ---- autoguardado en el navegador ----
 
   const AUTOSAVE_KEY = 'videassembler-autosave'
 
   useEffect(() => {
+    if (projectIdRef.current && !projectReady) return
     try {
       const raw = localStorage.getItem(AUTOSAVE_KEY)
       if (!raw) return
@@ -511,15 +601,44 @@ export default function App() {
       localStorage.removeItem(AUTOSAVE_KEY)
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  }, [projectReady])
 
   useEffect(() => {
+    if (projectIdRef.current && !projectReady) return
     const id = setTimeout(() => {
       if (clips.length === 0 && !voice && !music && overlays.length === 0) localStorage.removeItem(AUTOSAVE_KEY)
-      else localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(buildManifest(name, clips, voice, music, overlays, outputs)))
+      else localStorage.setItem(AUTOSAVE_KEY, JSON.stringify(buildManifest(name, clips, voice, music, overlays, outputs, projectIdRef.current)))
     }, 400)
     return () => clearTimeout(id)
-  }, [clips, voice, music, overlays, name, outputs])
+  }, [clips, voice, music, overlays, name, outputs, projectReady])
+
+  useEffect(() => {
+    const projectId = projectIdRef.current
+    if (!projectId || !projectReady || clips.length === 0) return
+    const manifest = buildManifest(name, clips, voice, music, overlays, outputs, projectId)
+    const snapshot = JSON.stringify(manifest)
+    if (snapshot === lastSavedManifest.current || !snapshot) return
+    const controller = new AbortController()
+    const timeout = window.setTimeout(() => {
+      setPersistenceState('saving')
+      void fetch(`/api/projects/${encodeURIComponent(projectId)}/assembler-manifest`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: snapshot,
+        signal: controller.signal,
+      }).then(async (response) => {
+        const payload = await response.json()
+        if (!response.ok) throw new Error(payload.detail || 'No se pudo guardar el montaje')
+        lastSavedManifest.current = snapshot
+        setPersistenceState('saved')
+      }).catch((error: unknown) => {
+        if (error instanceof DOMException && error.name === 'AbortError') return
+        setPersistenceState('error')
+        setProjectLoadMessage(error instanceof Error ? error.message : String(error))
+      })
+    }, 700)
+    return () => { window.clearTimeout(timeout); controller.abort() }
+  }, [clips, voice, music, overlays, name, outputs, projectReady])
 
   const resetProject = () => {
     localStorage.removeItem(AUTOSAVE_KEY)
@@ -584,7 +703,9 @@ export default function App() {
         overlays={overlays}
         missing={missing}
         onLoadManifest={loadManifest}
+        persistenceState={persistenceState}
       />
+      {projectLoadMessage && <div className="topbar-status" role="status">{projectLoadMessage}</div>}
 
       {folderPrompt && missing.length > 0 && folder && (
         <div className="banner banner-info">

@@ -11,8 +11,14 @@ interface ToolInfo {
 }
 
 export const ToolsEcosystem: React.FC = () => {
-  const [, setTools] = useState<Record<string, ToolInfo>>({});
+  const [tools, setTools] = useState<Record<string, ToolInfo>>({});
   const [loading, setLoading] = useState(true);
+  const statusLabels: Record<string, string> = {
+    available: 'Disponible localmente', active: 'Activo', connected: 'Instalado', detected: 'Código detectado',
+    not_found: 'No encontrado', configured: 'Clave configurada · conexión no verificada',
+    not_configured: 'Sin clave API', integrated: 'Integrado en código',
+  };
+  const statusLabel = (status?: string) => statusLabels[status || ''] || 'Estado desconocido';
 
   useEffect(() => {
     fetch('/api/tools-status')
@@ -54,7 +60,7 @@ export const ToolsEcosystem: React.FC = () => {
               </div>
               <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
-                <span>Activo (Principal)</span>
+                <span>{statusLabel(tools.remotion?.status)}</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
@@ -74,11 +80,11 @@ export const ToolsEcosystem: React.FC = () => {
               </div>
               <span className="bg-sky-500/10 text-sky-400 border border-sky-500/20 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
-                <span>Conectado (Puente)</span>
+                <span>{statusLabel(tools.video_assembler?.status)}</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Localizado en <code>/mnt/nvme/V2-VIDEOS-IA/videoAssembler</code>. Ensamblador mínimo con FFmpeg nativo y manifiesto JSON.
+              Localizado en <code>{tools.video_assembler?.path || 'ruta no detectada'}</code>. Ensamblador con FFmpeg nativo y manifiesto JSON.
             </p>
             <div className="bg-slate-950 p-3 rounded-xl text-xs text-slate-300">
               <strong className="text-sky-400">¿Cuándo conviene?:</strong> Excelente para unir clips pesados pregrabados (iPhone 4K, B-roll de video real). Menos conveniente para animar texto/karaoke complejo.
@@ -94,11 +100,11 @@ export const ToolsEcosystem: React.FC = () => {
               </div>
               <span className="bg-purple-500/10 text-purple-400 border border-purple-500/20 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
-                <span>Detectado Local (CPU)</span>
+                <span>{statusLabel(tools.vibevoice?.status)}</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Localizado en <code>/mnt/nvme/V2-VIDEOS-IA/VibeVoice</code>. Framework de síntesis en tiempo real y ASR de Microsoft. Entorno PyTorch 2.14 en CPU.
+              {tools.vibevoice?.description || 'No se confirmó la instalación local.'} <code>{tools.vibevoice?.path || ''}</code>
             </p>
             <div className="bg-slate-950 p-3 rounded-xl text-xs text-slate-300">
               <strong className="text-purple-400">¿Cuándo conviene?:</strong> Ideal para transcripción con diarización (quién dijo qué). Para TTS rápido sin GPU, Edge-TTS es 20x más veloz y ligero.
@@ -114,11 +120,11 @@ export const ToolsEcosystem: React.FC = () => {
               </div>
               <span className="bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
-                <span>Conectado (Azure)</span>
+                <span>{statusLabel(tools.omniroute?.status)}</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              Desplegado en <code>https://omniroute-api.azurewebsites.net</code> con 39 conexiones activas. Gestiona rotación de proveedores, balanceo y fallback.
+              Endpoint configurado: <code>{tools.omniroute?.url || 'no detectado'}</code>. La conectividad se confirma al solicitar una generación; no se reportan conexiones no verificadas.
             </p>
             <div className="bg-slate-950 p-3 rounded-xl text-xs text-slate-300">
               <strong className="text-amber-400">¿Cuándo conviene?:</strong> Imprescindible para el guion largo y la dirección de arte con IA sin preocuparse por cuotas de un único proveedor.

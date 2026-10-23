@@ -119,11 +119,21 @@ export function buildManifest(
   music: TrackState | null,
   overlays: OverlayState[],
   outputs: OutputFormat[],
+  projectId?: string,
 ): Manifest {
+  const portableFile = (file: string) => {
+    if (!projectId) return file
+    const url = new URL(file, window.location.origin)
+    const prefix = `/projects/${projectId}/`
+    return url.origin === window.location.origin && url.pathname.startsWith(prefix)
+      ? decodeURIComponent(url.pathname.slice(prefix.length))
+      : file
+  }
   return {
     name: name.trim() || 'video',
+    ...(projectId ? { projectId } : {}),
     clips: clips.map((c) => ({
-      file: c.file,
+      file: portableFile(c.file),
       trimIn: c.trimIn,
       trimOut: c.trimOut || c.duration,
       speed: c.speed,
@@ -131,12 +141,12 @@ export function buildManifest(
       audioVolume: c.audioVolume,
       ...(c.cuts.length > 0 ? { cuts: c.cuts } : {}),
     })),
-    voice: voice ? trackSpec(voice) : null,
-    music: music ? trackSpec(music) : null,
+    voice: voice ? { ...trackSpec(voice), file: portableFile(voice.file) } : null,
+    music: music ? { ...trackSpec(music), file: portableFile(music.file) } : null,
     ...(overlays.length > 0
       ? {
           overlays: overlays.map((o) => ({
-            file: o.file,
+            file: portableFile(o.file),
             start: Math.round(o.start * 1000) / 1000,
             end: Math.round(o.end * 1000) / 1000,
             trimIn: Math.round(o.trimIn * 1000) / 1000,

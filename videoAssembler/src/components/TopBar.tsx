@@ -17,9 +17,10 @@ interface Props {
   overlays: OverlayState[]
   missing: string[]
   onLoadManifest: (m: Manifest) => void
+  persistenceState?: 'idle' | 'saving' | 'saved' | 'error'
 }
 
-export function TopBar({ name, onName, outputs, onOutputs, clips, voice, music, overlays, missing, onLoadManifest }: Props) {
+export function TopBar({ name, onName, outputs, onOutputs, clips, voice, music, overlays, missing, onLoadManifest, persistenceState = 'idle' }: Props) {
   const [busy, setBusy] = useState(false)
   const [status, setStatus] = useState('')
   const [ratio, setRatio] = useState(0)
@@ -146,6 +147,7 @@ export function TopBar({ name, onName, outputs, onOutputs, clips, voice, music, 
           {error && <span className="error">{error}</span>}
         </div>
       )}
+      {persistenceState !== 'idle' && <div className="topbar-status" role="status">{persistenceState === 'saving' ? 'Guardando montaje en SQLite…' : persistenceState === 'saved' ? 'Montaje guardado en el proyecto' : 'No se pudo sincronizar el montaje con el proyecto'}</div>}
       {showHelp && <ManifestHelp onClose={() => setShowHelp(false)} />}
     </header>
   )
