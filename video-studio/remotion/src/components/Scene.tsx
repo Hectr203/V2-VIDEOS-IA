@@ -1,6 +1,7 @@
 import React from 'react';
 import { interpolate, useCurrentFrame, useVideoConfig } from 'remotion';
 import { AnimatedSticker } from './AnimatedSticker';
+import { ManimLayer } from './ManimLayer';
 
 export interface SceneData {
   id: number;
@@ -10,6 +11,8 @@ export interface SceneData {
   sticker: string;
   sfx: string;
   bg_color: string;
+  motion_type?: 'sticker' | 'manim';
+  manim_clip?: string;
 }
 
 interface SceneProps {
@@ -83,7 +86,7 @@ export const Scene: React.FC<SceneProps> = ({ scene, durationInFrames }) => {
         {scene.callout}
       </div>
 
-      {/* Ilustración / Sticker animado central */}
+      {/* Ilustración / Sticker animado central o Capa Manim */}
       <div
         style={{
           flex: 1,
@@ -94,7 +97,11 @@ export const Scene: React.FC<SceneProps> = ({ scene, durationInFrames }) => {
           zIndex: 5,
         }}
       >
-        <AnimatedSticker stickerName={scene.sticker} size={460} />
+        {scene.manim_clip || scene.motion_type === 'manim' ? (
+          <ManimLayer clipSrc={scene.manim_clip || `motion/${scene.sticker}.webm`} size={520} />
+        ) : (
+          <AnimatedSticker stickerName={scene.sticker} size={460} />
+        )}
       </div>
     </div>
   );

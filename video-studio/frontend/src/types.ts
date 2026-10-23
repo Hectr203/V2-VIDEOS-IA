@@ -19,6 +19,8 @@ export interface SceneItem {
   sticker: string;
   sfx: string;
   bg_color: string;
+  motion_type?: 'sticker' | 'manim';
+  manim_clip?: string;
   audio_path?: string;
   audio_url?: string;
   audio_duration: number;

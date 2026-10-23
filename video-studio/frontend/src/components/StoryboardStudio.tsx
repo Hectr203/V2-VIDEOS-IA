@@ -34,9 +34,25 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
   const [error, setError] = useState<string | null>(null);
   const [previewVideoUrl, setPreviewVideoUrl] = useState<string | null>(null);
 
-  const stickersList = ['idea', 'question', 'brain', 'money', 'danger', 'shock', 'arrow_up', 'eye_patch'];
+  const [motionLibrary, setMotionLibrary] = useState<Record<string, any[]>>({});
+  const [generatingManimSceneId, setGeneratingManimSceneId] = useState<number | null>(null);
+
+  const defaultStickers = ['idea', 'question', 'brain', 'money', 'danger', 'shock', 'arrow_up', 'eye_patch'];
   const sfxList = ['whoosh', 'pop', 'ding', 'click'];
   const bgColors = ['#FEF3C7', '#EDE9FE', '#E0F2FE', '#FCE7F3', '#DCFCE7', '#F8FAFC'];
+
+  // Cargar biblioteca de motion/SVGs categorizados
+  const loadMotionLibrary = async () => {
+    try {
+      const res = await fetch('/api/motion/library');
+      const data = await res.json();
+      if (data.categories) {
+        setMotionLibrary(data.categories);
+      }
+    } catch (e) {
+      console.error('Error cargando biblioteca de movimiento', e);
+    }
+  };
 
   // Cargar lista de proyectos
   const loadProjects = async () => {
@@ -77,6 +93,7 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
 
   useEffect(() => {
     loadProjects();
+    loadMotionLibrary();
   }, []);
 
   useEffect(() => {
@@ -157,6 +174,37 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
       setError(err.message || 'Error previsualizando escena');
     } finally {
       setProcessingSceneId(null);
+    }
+  };
+
+  // Generar escena única de Manim con IA
+  const handleGenerateCustomManimScene = async (scene: SceneItem) => {
+    if (!selectedProjectId) return;
+    setGeneratingManimSceneId(scene.id);
+    setError(null);
+
+    try {
+      const res = await fetch('/api/motion/render-custom', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          project_id: selectedProjectId,
+          scene_id: scene.id,
+          prompt: scene.visual_description || scene.narrative_text || scene.title,
+          sticker_hint: scene.sticker ? `assets/stickers/${scene.sticker}.svg` : undefined,
+        }),
+      });
+
+      const data = await res.json();
+      if (data.success) {
+        await loadProjectDetails(selectedProjectId);
+      } else {
+        throw new Error(data.detail || 'Fallo generando animación Manim');
+      }
+    } catch (err: any) {
+      setError(err.message || 'Error generando escena Manim');
+    } finally {
+      setGeneratingManimSceneId(null);
     }
   };
 
@@ -370,20 +418,32 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
                     </div>
                   )}
 
-                  {/* Parámetros visuales (Sticker, SFX, Color) */}
+                  {/* Parámetros visuales (Sticker/Animación, SFX, Color) */}
                   <div className="grid grid-cols-3 gap-3 pt-1">
-                    <div>
-                      <label className="block text-[11px] text-slate-400 mb-1">Sticker:</label>
+                    <div className="col-span-1">
+                      <label className="block text-[11px] text-slate-400 mb-1">Elemento Visual:</label>
                       <select
                         value={scene.sticker}
                         onChange={(e) => handleUpdateScene(scene.id, 'sticker', e.target.value)}
-                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-white text-xs"
+                        className="w-full bg-slate-950 border border-slate-700 rounded-lg px-2 py-1.5 text-white text-xs truncate"
                       >
-                        {stickersList.map((stk) => (
-                          <option key={stk} value={stk}>
-                            {stk}
-                          </option>
-                        ))}
+                        {Object.keys(motionLibrary).length > 0 ? (
+                          Object.entries(motionLibrary).map(([cat, items]) => (
+                            <optgroup key={cat} label={cat.toUpperCase()} className="bg-slate-900 text-amber-400 font-bold">
+                              {items.map((item: any) => (
+                                <option key={item.id} value={item.id} className="text-white font-normal">
+                                  {item.has_motion ? '✨ ' : ''}{item.name}
+                                </option>
+                              ))}
+                            </optgroup>
+                          ))
+                        ) : (
+                          defaultStickers.map((stk) => (
+                            <option key={stk} value={stk}>
+                              {stk}
+                            </option>
+                          ))
+                        )}
                       </select>
                     </div>
 
@@ -403,7 +463,7 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
                     </div>
 
                     <div>
-                      <label className="block text-[11px] text-slate-400 mb-1">Color:</label>
+                      <label className="block text-[11px] text-slate-400 mb-1">Color Fondo:</label>
                       <select
                         value={scene.bg_color}
                         onChange={(e) => handleUpdateScene(scene.id, 'bg_color', e.target.value)}
@@ -417,6 +477,70 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
                       </select>
                     </div>
                   </div>
+
+                  {/* Selector de Modo de Animación (Rebote vs Trazado Manim) */}
+                  <div className="bg-slate-950/80 border border-slate-800 rounded-xl p-3 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold text-slate-300">Modo de Animación:</span>
+                      <div className="inline-flex rounded-lg border border-slate-800 p-0.5 bg-slate-900">
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleUpdateScene(scene.id, 'motion_type', 'sticker');
+                            handleUpdateScene(scene.id, 'manim_clip', null);
+                          }}
+                          className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-colors ${
+                            !scene.motion_type || scene.motion_type === 'sticker'
+                              ? 'bg-amber-400 text-slate-950'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Rebote Elástico (Sticker)
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => {
+                            handleUpdateScene(scene.id, 'motion_type', 'manim');
+                            handleUpdateScene(scene.id, 'manim_clip', `motion/${scene.sticker}.webm`);
+                          }}
+                          className={`px-2.5 py-1 text-[11px] font-bold rounded-md transition-colors ${
+                            scene.motion_type === 'manim'
+                              ? 'bg-purple-600 text-white shadow-sm'
+                              : 'text-slate-400 hover:text-white'
+                          }`}
+                        >
+                          Trazado Manim (Dibujo Vectorial)
+                        </button>
+                      </div>
+                    </div>
+
+                    <button
+                      type="button"
+                      disabled={generatingManimSceneId === scene.id}
+                      onClick={() => handleGenerateCustomManimScene(scene)}
+                      className="px-3 py-1.5 bg-indigo-600/30 hover:bg-indigo-600/50 text-indigo-300 border border-indigo-500/30 rounded-lg text-xs font-bold flex items-center gap-1.5 transition-all disabled:opacity-50"
+                      title="Usa IA para generar código Manim exclusivo para esta escena"
+                    >
+                      {generatingManimSceneId === scene.id ? (
+                        <>
+                          <Loader2 className="w-3.5 h-3.5 animate-spin text-indigo-400" />
+                          <span>Animando con Manim...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Sparkles className="w-3.5 h-3.5 text-indigo-400" />
+                          <span>Escena Única IA (Manim)</span>
+                        </>
+                      )}
+                    </button>
+                  </div>
+
+                  {scene.manim_clip && (
+                    <div className="text-[11px] bg-purple-950/40 border border-purple-800/40 text-purple-300 px-3 py-1.5 rounded-lg flex items-center justify-between">
+                      <span>Clip Manim asignado: <strong className="text-white font-mono">{scene.manim_clip}</strong></span>
+                      <span className="text-[10px] bg-purple-800/60 px-1.5 py-0.5 rounded font-bold uppercase">Transparente</span>
+                    </div>
+                  )}
 
                   {/* Historial de versiones */}
                   {scene.versions && scene.versions.length > 0 && (

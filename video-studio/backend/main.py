@@ -15,6 +15,8 @@ from services.script_generator import (
     AVAILABLE_SFX,
     BG_PALETTE
 )
+from services.motion_service import MotionService
+from manim_engine.ai_scene_generator import generate_manim_code_heuristic, render_custom_scene
 
 app = FastAPI(
     title="Video Studio IA Enterprise API",
@@ -31,13 +33,21 @@ app.add_middleware(
 )
 
 OUTPUT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../output"))
+ASSETS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../assets"))
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(PROJECTS_DIR, exist_ok=True)
 
 app.mount("/output", StaticFiles(directory=OUTPUT_DIR), name="output")
 app.mount("/projects", StaticFiles(directory=PROJECTS_DIR), name="projects")
+app.mount("/assets", StaticFiles(directory=ASSETS_DIR), name="assets")
 
 # Modelos Pydantic
+class CustomSceneRequest(BaseModel):
+    project_id: str
+    scene_id: int
+    prompt: str
+    sticker_hint: Optional[str] = None
+    custom_code: Optional[str] = None
 class CreateProjectRequest(BaseModel):
     topic: str
     target_duration: Optional[int] = 60
@@ -71,6 +81,35 @@ def get_assets():
         "sfx": AVAILABLE_SFX,
         "bg_palette": BG_PALETTE
     }
+
+# ── Endpoints de Movimiento y Manim ───────────────────
+
+@app.get("/api/motion/library")
+def get_motion_library():
+    """Retorna los recursos vectoriales SVG y animaciones Manim clasificados por categorías."""
+    return MotionService.get_library()
+
+@app.post("/api/motion/render-custom")
+def render_custom_manim_scene(req: CustomSceneRequest):
+    """Genera y renderiza una escena Manim exclusiva para un proyecto."""
+    code = req.custom_code
+    if not code:
+        code = generate_manim_code_heuristic(req.prompt, req.sticker_hint)
+        
+    out_dir = Path(PROJECTS_DIR) / req.project_id / "motion"
+    out_file = out_dir / f"scene_{req.scene_id}.webm"
+    
+    result = render_custom_scene(code, out_file)
+    if not result.get("success"):
+        raise HTTPException(status_code=500, detail=result.get("error", "Fallo al renderizar escena Manim"))
+        
+    # Actualizar la escena del proyecto si existe
+    ProjectManager.update_scene(req.project_id, req.scene_id, {
+        "motion_type": "manim",
+        "manim_clip": result["relative_url"]
+    })
+    
+    return result
 
 # ── Endpoints de Proyectos ─────────────────────────────
 

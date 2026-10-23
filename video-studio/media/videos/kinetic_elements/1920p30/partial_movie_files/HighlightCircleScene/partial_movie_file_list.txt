@@ -1,0 +1,4 @@
+# This file records the segment order used by Manim.
+file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/HighlightCircleScene/4db9a974001f75506d0adb0377bb3531c3794693962d97e373288ec19bf1ee96.mov'
+file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/HighlightCircleScene/24af7c5f1f9625e6be364b8c384220c5390d32eba234a6b3b7ba95cb7e945ace.mov'
+file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/HighlightCircleScene/7b4cdab8cff24811889d7d8427a2eca097dc72f42fc1655142f928cd53a2a12c.mov'

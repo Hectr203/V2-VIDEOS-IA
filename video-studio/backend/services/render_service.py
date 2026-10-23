@@ -57,6 +57,8 @@ def render_project(
             "sticker": s.get("sticker", "question"),
             "sfx": s.get("sfx", "pop"),
             "bg_color": s.get("bg_color", "#FEF3C7"),
+            "motion_type": s.get("motion_type", "sticker"),
+            "manim_clip": s.get("manim_clip"),
             "audio_data_uri": audio_data_uri,
             "start_frame": start_frame,
             "duration_in_frames": dur_frames
@@ -151,6 +153,8 @@ def render_video(
             "sticker": s.get("sticker", "question"),
             "sfx": s.get("sfx", "pop"),
             "bg_color": s.get("bg_color", "#FEF3C7"),
+            "motion_type": s.get("motion_type", "sticker"),
+            "manim_clip": s.get("manim_clip"),
             "audio_data_uri": "",
             "start_frame": start_frame,
             "duration_in_frames": dur_frames
