@@ -78,6 +78,7 @@ export interface RenderResult {
   duration_frames: number;
   size_mb: number;
   render_time_seconds: number;
+  is_horizontal?: boolean;
 }
 
 export interface VideoItem {
@@ -86,3 +87,36 @@ export interface VideoItem {
   size_mb: number;
   created_at: number;
 }
+
+export interface Project2D {
+  id: string;
+  title: string;
+  description: string;
+  created_at: string;
+  version: string;
+  fps: number;
+  scene_count: number;
+  duration_seconds: number;
+  chapters: string[];
+  voice: string;
+  has_contact_sheet: boolean;
+  contact_sheet_url: string | null;
+  has_master: boolean;
+  master_url: string | null;
+  master_size_mb: number | null;
+  has_preview: boolean;
+  preview_url: string | null;
+  preview_size_mb: number | null;
+  has_master_16x9: boolean;
+  master_16x9_url: string | null;
+  master_16x9_size_mb: number | null;
+  has_preview_16x9: boolean;
+  preview_16x9_url: string | null;
+  preview_16x9_size_mb: number | null;
+  has_vertical: boolean;
+  vertical_video_url: string | null;
+  has_horizontal: boolean;
+  horizontal_video_url: string | null;
+  stills_count: number;
+}
+

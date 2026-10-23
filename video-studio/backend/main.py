@@ -165,6 +165,156 @@ def get_project(project_id: str):
         raise HTTPException(status_code=404, detail="Proyecto no encontrado")
     return {"success": True, "data": p}
 
+# ── Endpoints de Proyectos 2D Auto-Contenidos (Dashboard V2) ──
+
+class Create2DProjectRequest(BaseModel):
+    id: str = Field(min_length=3, max_length=60)
+    title: str = Field(min_length=3, max_length=150)
+    theme: Optional[str] = ""
+
+class Render2DProjectRequest(BaseModel):
+    stills: bool = False
+    draft: bool = False
+    aspect: str = "vertical"  # "vertical", "horizontal", "both"
+
+@app.get("/api/v2/projects")
+def list_2d_projects():
+    """Escanea el directorio projects/ y lista todos los proyectos auto-contenidos."""
+    import json
+    results = []
+    projects_dir = Path(PROJECTS_DIR)
+    if not projects_dir.exists():
+        return {"projects": []}
+
+    for p in sorted(projects_dir.iterdir()):
+        if not p.is_dir() or p.name.startswith(('.', '_')) or p.name == "node_modules":
+            continue
+
+        meta_path = p / "project.json"
+        storyboard_path = p / "storyboard.json"
+        timeline_path = p / "timeline.json"
+        renders_dir = p / "renders"
+
+        if not (meta_path.exists() or storyboard_path.exists()):
+            continue
+
+        meta = {}
+        if meta_path.exists():
+            try:
+                meta = json.loads(meta_path.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+
+        storyboard = {}
+        if storyboard_path.exists():
+            try:
+                storyboard = json.loads(storyboard_path.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+
+        duration_sec = 0.0
+        fps = 30
+        if timeline_path.exists():
+            try:
+                tl = json.loads(timeline_path.read_text(encoding="utf-8"))
+                fps = tl.get("fps", 30)
+                duration_sec = round(tl.get("durationInFrames", 0) / fps, 2)
+            except Exception:
+                pass
+
+        scenes = storyboard.get("scenes", [])
+        chapters = [sc.get("chapter") for sc in scenes if sc.get("chapter")]
+
+        contact_sheet = renders_dir / "contact-sheet.jpg"
+        master_mp4 = renders_dir / "master-1080p.mp4"
+        master_16x9_mp4 = renders_dir / "master-16x9-1080p.mp4"
+        preview_mp4 = renders_dir / "preview-720p.mp4"
+        preview_16x9_mp4 = renders_dir / "preview-16x9-720p.mp4"
+        stills_dir = renders_dir / "stills"
+
+        master_size_mb = round(master_mp4.stat().st_size / (1024 * 1024), 1) if master_mp4.exists() else None
+        master_16x9_size_mb = round(master_16x9_mp4.stat().st_size / (1024 * 1024), 1) if master_16x9_mp4.exists() else None
+        preview_size_mb = round(preview_mp4.stat().st_size / (1024 * 1024), 1) if preview_mp4.exists() else None
+        preview_16x9_size_mb = round(preview_16x9_mp4.stat().st_size / (1024 * 1024), 1) if preview_16x9_mp4.exists() else None
+
+        vertical_url = f"/projects/{p.name}/renders/master-1080p.mp4" if master_mp4.exists() else (f"/projects/{p.name}/renders/preview-720p.mp4" if preview_mp4.exists() else None)
+        horizontal_url = f"/projects/{p.name}/renders/master-16x9-1080p.mp4" if master_16x9_mp4.exists() else (f"/projects/{p.name}/renders/preview-16x9-720p.mp4" if preview_16x9_mp4.exists() else None)
+
+        results.append({
+            "id": p.name,
+            "title": meta.get("title") or storyboard.get("title") or p.name.replace("-", " ").title(),
+            "description": meta.get("description") or storyboard.get("editorialNotes") or "",
+            "created_at": meta.get("created_at") or time.strftime("%Y-%m-%dT%H:%M:%S", time.gmtime(p.stat().st_ctime)),
+            "version": meta.get("version", "1.0.0"),
+            "fps": fps,
+            "scene_count": len(scenes),
+            "duration_seconds": duration_sec,
+            "chapters": chapters[:5],
+            "voice": storyboard.get("voice", "es-MX-JorgeNeural"),
+            "has_contact_sheet": contact_sheet.exists(),
+            "contact_sheet_url": f"/projects/{p.name}/renders/contact-sheet.jpg" if contact_sheet.exists() else None,
+            "has_master": master_mp4.exists(),
+            "master_url": f"/projects/{p.name}/renders/master-1080p.mp4" if master_mp4.exists() else None,
+            "master_size_mb": master_size_mb,
+            "has_preview": preview_mp4.exists(),
+            "preview_url": f"/projects/{p.name}/renders/preview-720p.mp4" if preview_mp4.exists() else None,
+            "preview_size_mb": preview_size_mb,
+            "has_master_16x9": master_16x9_mp4.exists(),
+            "master_16x9_url": f"/projects/{p.name}/renders/master-16x9-1080p.mp4" if master_16x9_mp4.exists() else None,
+            "master_16x9_size_mb": master_16x9_size_mb,
+            "has_preview_16x9": preview_16x9_mp4.exists(),
+            "preview_16x9_url": f"/projects/{p.name}/renders/preview-16x9-720p.mp4" if preview_16x9_mp4.exists() else None,
+            "preview_16x9_size_mb": preview_16x9_size_mb,
+            "has_vertical": bool(vertical_url),
+            "vertical_video_url": vertical_url,
+            "has_horizontal": bool(horizontal_url),
+            "horizontal_video_url": horizontal_url,
+            "stills_count": len(list(stills_dir.glob("*.png"))) if stills_dir.exists() else 0,
+        })
+
+    return {"projects": results}
+
+@app.post("/api/v2/projects")
+def create_2d_project(req: Create2DProjectRequest):
+    import subprocess
+    script = os.path.abspath(os.path.join(os.path.dirname(__file__), "../scripts/crear_produccion_2d.py"))
+    cmd = ["python3", script, "--id", req.id, "--titulo", req.title]
+    if req.theme:
+        cmd.extend(["--tema", req.theme])
+    try:
+        proc = subprocess.run(cmd, capture_output=True, text=True, check=True)
+        return {"success": True, "project_id": req.id, "output": proc.stdout}
+    except subprocess.CalledProcessError as err:
+        raise HTTPException(status_code=400, detail=err.stderr or err.stdout or "Error al crear proyecto")
+
+@app.post("/api/v2/projects/{project_id}/render")
+async def trigger_2d_render(project_id: str, req: Render2DProjectRequest, background_tasks: BackgroundTasks):
+    import subprocess
+    proj_dir = Path(PROJECTS_DIR) / project_id
+    render_script = proj_dir / "render.mjs"
+    if not render_script.exists():
+        raise HTTPException(status_code=404, detail=f"Script de render no encontrado para {project_id}")
+
+    cmd = ["node", str(render_script)]
+    if req.stills:
+        cmd.append("--stills")
+    if req.draft:
+        cmd.append("--draft")
+    if req.aspect == "horizontal":
+        cmd.append("--aspect=horizontal")
+    elif req.aspect == "both":
+        cmd.append("--aspect=both")
+
+    def run_render():
+        subprocess.run(cmd, cwd=str(proj_dir), check=False)
+
+    background_tasks.add_task(run_render)
+    return {
+        "success": True,
+        "message": f"Renderizado iniciado para {project_id}",
+        "command": " ".join(cmd)
+    }
+
 @app.get("/api/projects/{project_id}/source-media")
 def list_project_source_media(project_id: str):
     try:
