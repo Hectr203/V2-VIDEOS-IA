@@ -1,4 +1,0 @@
-# This file records the segment order used by Manim.
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/VSBadgeScene/1ed15b01f727c5434bdc233b4ce5795334e2a6091a9bff89ccfe5cdd3fb65530.mov'
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/VSBadgeScene/bc208bd0e697f8dc6be4717e61d8a57cc4697504c7044d101a0b0d7d87e1ba09.mov'
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/VSBadgeScene/ead962c777ef4abca7c80a0a5258ebd8a2940efa13a9558015eb356ee34fa6c3.mov'

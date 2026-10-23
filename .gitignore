@@ -88,6 +88,10 @@ video-studio/test_laptop_alpha*.webm
 video-studio/test_overlay.png
 video-studio/productions/
 video-studio/remotion/src/projects/
+video-studio/media/
+video-studio/public/original_assets/
+video-studio/render_checkpoints/
+
 
 # ==============================================================================
 # MODELOS, PESOS Y CHECKPOINTS PESADOS
@@ -123,6 +127,7 @@ Thumbs.db
 .codegraph/
 
 # Remotion local cache and browser downloads
+.remotion
 .remotion/
 
 # Bases de datos SQLite locales y análisis temporales

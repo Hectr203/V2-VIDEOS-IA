@@ -1,5 +1,0 @@
-# This file records the segment order used by Manim.
-file 'file:/workspace/media/videos/svg_drawer/1920p30/partial_movie_files/GenericSVGDrawScene/3a4769f5a1c938c3f5b8bdacb4ddc2657616cdd52a7e1d83b27d11da7fa61ba8.mov'
-file 'file:/workspace/media/videos/svg_drawer/1920p30/partial_movie_files/GenericSVGDrawScene/aa177fedb82e5111aaea987fe1bbef9c34a9ea69095c7f842ef52a7d8611f7b7.mov'
-file 'file:/workspace/media/videos/svg_drawer/1920p30/partial_movie_files/GenericSVGDrawScene/4bac11e6bac04837136d4bebda16e0a654cbcf224d170531aa81deb993d6b20b.mov'
-file 'file:/workspace/media/videos/svg_drawer/1920p30/partial_movie_files/GenericSVGDrawScene/e2d4b643328c29d38960c09b6a8d3e41eb6acd0f1b0cb69836b1f4ffccd9e2e4.mov'

@@ -1,5 +1,0 @@
-# This file records the segment order used by Manim.
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/CrossMarkScene/a5be4a9148bb110c279e6c0becc1faf49b132aca22735981f134530cfb0fac56.mov'
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/CrossMarkScene/d3f45ba4851a5c92424686afe8e853eeb569436d747bf89f431c59300104ed42.mov'
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/CrossMarkScene/5dbb5f8c95b075a5aea80ca03bb76103bf0c6920cb55be7cfa11a8cea25e7f52.mov'
-file 'file:/workspace/media/videos/kinetic_elements/1920p30/partial_movie_files/CrossMarkScene/d9782658e2a12a02010a5b0a412c5022957d0c051342b31fc143fab41ae94c2b.mov'
