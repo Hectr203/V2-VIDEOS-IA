@@ -1,0 +1,4 @@
+renders/
+audio/
+*.log
+__pycache__/
