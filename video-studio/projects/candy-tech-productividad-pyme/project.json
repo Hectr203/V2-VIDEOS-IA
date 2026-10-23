@@ -1,0 +1,24 @@
+{
+  "id": "candy-tech-productividad-pyme",
+  "title": "Menos caos, más claridad: digitaliza tu pyme",
+  "description": "Candy Tech Solutions ayuda a pequeñas empresas a entender sus procesos, digitalizar operaciones e implementar software e inteligencia artificial con propósito para mejorar productividad y creatividad",
+  "created_at": "2026-10-23T17:30:58.670251",
+  "type": "2d-animation",
+  "fps": 30,
+  "resolution": {
+    "width": 1080,
+    "height": 1920
+  },
+  "author": "VideoStudio Agent",
+  "version": "1.0.0",
+  "duration_seconds": 100,
+  "voice_provider": "edge-tts",
+  "voice": "es-MX-DaliaNeural",
+  "brand": "Candy Tech Solutions",
+  "brand_palette": {
+    "navy": "#082e5b",
+    "teal": "#049d9a",
+    "coral": "#f26349"
+  },
+  "target_audience": "Pymes y pequeñas empresas"
+}

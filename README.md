@@ -52,13 +52,13 @@ Plataforma integral y arquitectura de producción de video con Inteligencia Arti
 
 Para evitar buscar herramientas inexistentes o fallar por rutas incorrectas:
 
-| Herramienta | Ubicación Exacta | Estado / Modo de Uso |
-| :--- | :--- | :--- |
-| **Node / Remotion** | `video-studio/remotion/node_modules/` | Contiene `@remotion/bundler`, `@remotion/renderer` y `react`. Ejecutar scripts con `node`. |
-| **Python Venv** | `video-studio/backend/.venv/bin/python` | Entorno virtual con `fastapi`, `edge-tts`, `numpy`, `uvicorn`. |
-| **Scaffolding 2D** | `video-studio/scripts/crear_produccion_2d.py` | Generador oficial de proyectos autónomos. |
-| **Validación Agencia** | `python3 Agencia_Principal/scripts/agencia.py validar` | Comprueba la integridad del sistema de agentes y habilidades. |
-| **Compilador TS** | `video-studio/tsconfig.json` | Mapea paths limpios para `projects` y `shared-art`. Verificar con `tsc --noEmit`. |
+| Herramienta                   | Ubicación Exacta                                        | Estado / Modo de Uso                                                                               |
+| :---------------------------- | :------------------------------------------------------- | :------------------------------------------------------------------------------------------------- |
+| **Node / Remotion**     | `video-studio/remotion/node_modules/`                  | Contiene `@remotion/bundler`, `@remotion/renderer` y `react`. Ejecutar scripts con `node`. |
+| **Python Venv**         | `video-studio/backend/.venv/bin/python`                | Entorno virtual con `fastapi`, `edge-tts`, `numpy`, `uvicorn`.                             |
+| **Scaffolding 2D**      | `video-studio/scripts/crear_produccion_2d.py`          | Generador oficial de proyectos autónomos.                                                         |
+| **Validación Agencia** | `python3 Agencia_Principal/scripts/agencia.py validar` | Comprueba la integridad del sistema de agentes y habilidades.                                      |
+| **Compilador TS**       | `video-studio/tsconfig.json`                           | Mapea paths limpios para `projects` y `shared-art`. Verificar con `tsc --noEmit`.            |
 
 * ❌ **NO BUSCAR**: Herramientas externas inventadas como Three.js, Blender, Lottie, convertidores de After Effects o paquetes físicos 2D externos. Todo se ilustra y anima con SVG nativo y Remotion.
 * ❌ **NO USAR**: Las carpetas `video-studio/productions/` y `video-studio/remotion/src/projects/` son enlaces simbólicos de retrocompatibilidad. **Todos los proyectos nuevos y existentes residen en `video-studio/projects/<slug>/`**.
@@ -70,6 +70,7 @@ Para evitar buscar herramientas inexistentes o fallar por rutas incorrectas:
 Sigue estos 4 pasos exactos:
 
 #### Paso 1: Generar el Proyecto Autónomo
+
 ```bash
 python3 video-studio/scripts/crear_produccion_2d.py \
   --id "mi-nuevo-video" \
@@ -78,20 +79,27 @@ python3 video-studio/scripts/crear_produccion_2d.py \
 ```
 
 #### Paso 2: Generar Voces y Banda Sonora
+
 Edita `video-studio/projects/mi-nuevo-video/storyboard.json` con los textos y escenas, y luego ejecuta:
+
 ```bash
 python3 video-studio/projects/mi-nuevo-video/prepare.py
 ```
+
 *Genera los archivos `.mp3` de voz sincronizados palabra por palabra, el `timeline.json` exacto a 30 FPS y la música procedural `public/score.wav`.*
 
 #### Paso 3: Puerta Obligatoria de Control Visual (Contact Sheet)
+
 **REGLA:** Nunca entregues un video sin generar e inspeccionar visualmente la hoja de contactos:
+
 ```bash
 node video-studio/projects/mi-nuevo-video/render.mjs --stills
 ```
+
 *Genera `renders/contact-sheet.jpg` con una cuadrícula 4x4 de todas las escenas para validar que no haya desbordamiento de textos ni desproporciones.*
 
 #### Paso 4: Renderizado Final Multiformato
+
 ```bash
 # Renderizar vertical 9:16 (Shorts/Reels)
 node video-studio/projects/mi-nuevo-video/render.mjs
@@ -215,4 +223,3 @@ PASO 8: VERIFICACIÓN Y CONTROL DE CALIDAD
 - Tipado: npx --prefix video-studio/remotion tsc -p ../tsconfig.json --noEmit
 - Commits: Si realizas commits en Git, redacta los mensajes estrictamente en ESPAÑOL (convención commits-espanol).
 ```
-
