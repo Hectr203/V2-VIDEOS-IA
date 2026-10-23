@@ -10,7 +10,7 @@ Guarda aquí cada Architectural Decision Record con el formato `ADR-001-<slug>.m
 - Fecha:
 - Contexto:
 - Opciones consideradas:
-- Alternativa mas simple evaluada y motivo si se descarta ([politica de simplicidad](../reglas/simplicidad-ponytail.md)):
+- Alternativa mas simple evaluada y motivo si se descarta ([politica de simplicidad](../../../../reglas/simplicidad-ponytail.md)):
 - Decision:
 - Consecuencias:
 - Evidencia / reversibilidad:

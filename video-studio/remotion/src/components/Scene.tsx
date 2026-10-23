@@ -13,6 +13,7 @@ export interface SceneData {
   bg_color: string;
   motion_type?: 'sticker' | 'manim';
   manim_clip?: string;
+  svg_markup?: string;
 }
 
 interface SceneProps {
@@ -22,7 +23,8 @@ interface SceneProps {
 
 export const Scene: React.FC<SceneProps> = ({ scene, durationInFrames }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const landscape = width > height;
 
   // Animación del Callout superior (banner de impacto)
   const bannerScale = interpolate(frame, [0, 8], [0.8, 1], {
@@ -48,7 +50,7 @@ export const Scene: React.FC<SceneProps> = ({ scene, durationInFrames }) => {
         justifyContent: 'flex-start',
         position: 'relative',
         overflow: 'hidden',
-        paddingTop: 180,
+        paddingTop: landscape ? 90 : 180,
       }}
     >
       {/* Marco estilo cómic */}
@@ -75,18 +77,18 @@ export const Scene: React.FC<SceneProps> = ({ scene, durationInFrames }) => {
           padding: '16px 36px',
           borderRadius: '16px',
           fontFamily: '"Impact", "Montserrat", sans-serif',
-          fontSize: '44px',
+          fontSize: landscape ? '52px' : '44px',
           letterSpacing: '1px',
           textTransform: 'uppercase',
           boxShadow: '8px 8px 0px rgba(0, 0, 0, 0.3)',
-          marginBottom: 100,
+          marginBottom: landscape ? 24 : 100,
           zIndex: 10,
         }}
       >
         {scene.callout}
       </div>
 
-      {/* Ilustración / Sticker animado central o Capa Manim */}
+      {/* Ilustración SVG original generada por IA y animada con Remotion */}
       <div
         style={{
           flex: 1,
@@ -97,7 +99,17 @@ export const Scene: React.FC<SceneProps> = ({ scene, durationInFrames }) => {
           zIndex: 5,
         }}
       >
-        {scene.manim_clip || scene.motion_type === 'manim' ? (
+        {scene.svg_markup ? (
+          <div
+            style={{
+              width: landscape ? 1120 : 780,
+              height: landscape ? 650 : 900,
+              transform: `translateY(${Math.sin(frame * 0.08) * 10}px) scale(${interpolate(frame, [0, 12], [0.88, 1], { extrapolateRight: 'clamp' })})`,
+              filter: 'drop-shadow(0 24px 22px rgba(0,0,0,.22))',
+            }}
+            dangerouslySetInnerHTML={{ __html: scene.svg_markup }}
+          />
+        ) : scene.manim_clip || scene.motion_type === 'manim' ? (
           <ManimLayer clipSrc={scene.manim_clip || `motion/${scene.sticker}.webm`} size={520} />
         ) : (
           <AnimatedSticker stickerName={scene.sticker} size={460} />

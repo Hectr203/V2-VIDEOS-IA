@@ -1,11 +1,13 @@
 import os
 import glob
 import time
+from pathlib import Path
 from typing import Dict, Any, Optional
+from typing import Literal
 from fastapi import FastAPI, HTTPException, BackgroundTasks
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 
 from services.voice_hub import VoiceHub
 from services.project_manager import ProjectManager, PROJECTS_DIR
@@ -49,16 +51,21 @@ class CustomSceneRequest(BaseModel):
     sticker_hint: Optional[str] = None
     custom_code: Optional[str] = None
 class CreateProjectRequest(BaseModel):
-    topic: str
-    target_duration: Optional[int] = 60
+    topic: str = Field(min_length=3, max_length=500)
+    target_duration: Optional[int] = Field(default=60, ge=30, le=3600)
     style: Optional[str] = "curiosity"
     voice_provider: Optional[str] = "edge-tts"
     voice_id: Optional[str] = "es-ES-AlvaroNeural"
+    output_format: Literal["vertical", "horizontal"] = "vertical"
+
+class UpdateScriptRequest(BaseModel):
+    narration: str
 
 class UpdateSceneRequest(BaseModel):
     narrative_text: Optional[str] = None
     callout: Optional[str] = None
     visual_description: Optional[str] = None
+    svg_prompt: Optional[str] = None
     sticker: Optional[str] = None
     sfx: Optional[str] = None
     bg_color: Optional[str] = None
@@ -121,11 +128,12 @@ def create_project(req: CreateProjectRequest):
             target_duration=req.target_duration or 60,
             style=req.style or "curiosity",
             voice_provider=req.voice_provider or "edge-tts",
-            voice_id=req.voice_id or "es-ES-AlvaroNeural"
+            voice_id=req.voice_id or "es-ES-AlvaroNeural",
+            output_format=req.output_format,
         )
         return {"success": True, "data": data}
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        raise HTTPException(status_code=502, detail=str(e))
 
 @app.get("/api/projects")
 def list_projects():
@@ -155,6 +163,38 @@ async def synthesize_scene(project_id: str, scene_id: int):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
+@app.post("/api/projects/{project_id}/approve-script")
+def approve_script(project_id: str):
+    try:
+        return {"success": True, "data": ProjectManager.approve_script(project_id)}
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e))
+
+@app.put("/api/projects/{project_id}/script")
+def update_script(project_id: str, req: UpdateScriptRequest):
+    try:
+        return {"success": True, "data": ProjectManager.update_script(project_id, req.narration)}
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=409, detail=str(e))
+
+@app.post("/api/projects/{project_id}/approve-storyboard")
+def approve_storyboard(project_id: str):
+    try:
+        return {"success": True, "data": ProjectManager.approve_storyboard(project_id)}
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=409, detail=str(e))
+
+@app.post("/api/projects/{project_id}/scenes/{scene_id}/generate-svg")
+def generate_scene_svg(project_id: str, scene_id: int):
+    try:
+        return {"success": True, "data": ProjectManager.generate_scene_svg(project_id, scene_id)}
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e))
+
 @app.post("/api/projects/{project_id}/scenes/{scene_id}/regenerate")
 async def regenerate_scene(project_id: str, scene_id: int, req: RegenerateSceneRequest):
     try:
@@ -174,6 +214,11 @@ async def synthesize_all_scenes(project_id: str):
 @app.post("/api/projects/{project_id}/render")
 async def render_full_project(project_id: str):
     try:
+        project = ProjectManager.get_project(project_id)
+        if not project or not project["project"].get("storyboard_approved"):
+            raise HTTPException(status_code=409, detail="Aprueba el storyboard antes del render")
+        if not project["scenes"] or any(not scene.get("svg_markup") for scene in project["scenes"]):
+            raise HTTPException(status_code=409, detail="Genera las ilustraciones SVG de todas las escenas antes del render")
         # Asegurar que todas las escenas tengan audio
         proj = await ProjectManager.synthesize_all_project_audio(project_id)
         meta = proj["project"]
@@ -191,6 +236,8 @@ async def render_full_project(project_id: str):
             json.dump(meta, f, ensure_ascii=False, indent=2)
 
         return {"success": True, "result": res}
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

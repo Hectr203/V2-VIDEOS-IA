@@ -33,6 +33,8 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
   const [isRenderingFull, setIsRenderingFull] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [previewVideoUrl, setPreviewVideoUrl] = useState<string | null>(null);
+  const [workflowBusy, setWorkflowBusy] = useState(false);
+  const [scriptDraft, setScriptDraft] = useState('');
 
   const [motionLibrary, setMotionLibrary] = useState<Record<string, any[]>>({});
   const [generatingManimSceneId, setGeneratingManimSceneId] = useState<number | null>(null);
@@ -80,6 +82,7 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
       const data = await res.json();
       if (data.success && data.data) {
         setProjectMeta(data.data.project);
+        setScriptDraft(data.data.project.script?.narration || '');
         setScenes(data.data.scenes);
       } else {
         throw new Error(data.detail || 'Fallo cargando proyecto');
@@ -88,6 +91,51 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
       setError(err.message || 'Error al cargar detalles del proyecto');
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleWorkflowAction = async (action: 'save-script' | 'approve-script' | 'approve-storyboard' | 'generate-svg') => {
+    if (!selectedProjectId) return;
+    setWorkflowBusy(true);
+    setError(null);
+    try {
+      if (action === 'save-script' || action === 'approve-script') {
+        const save = await fetch(`/api/projects/${selectedProjectId}/script`, {
+          method: 'PUT', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ narration: scriptDraft }),
+        });
+        const saved = await save.json();
+        if (!save.ok) throw new Error(saved.detail || 'No se pudo guardar el guion');
+        if (action === 'approve-script') {
+          const response = await fetch(`/api/projects/${selectedProjectId}/approve-script`, { method: 'POST' });
+          const payload = await response.json();
+          if (!response.ok) throw new Error(payload.detail || 'No se pudo aprobar el guion');
+          setProjectMeta(payload.data.project);
+          setScenes(payload.data.scenes);
+          setScriptDraft(payload.data.project.script?.narration || '');
+        }
+      } else if (action === 'generate-svg') {
+        for (const scene of scenes) {
+          if (scene.svg_markup) continue;
+          const result = await fetch(`/api/projects/${selectedProjectId}/scenes/${scene.id}/generate-svg`, { method: 'POST' });
+          const payload = await result.json();
+          if (!result.ok) throw new Error(payload.detail || `Falló el SVG de la escena ${scene.id}`);
+          setScenes((current) => current.map((item) => item.id === scene.id ? { ...item, ...payload.data.scene } : item));
+        }
+      } else {
+        const endpoint = 'approve-storyboard';
+        const response = await fetch(`/api/projects/${selectedProjectId}/${endpoint}`, { method: 'POST' });
+        const payload = await response.json();
+        if (!response.ok) throw new Error(payload.detail || 'No se pudo avanzar de etapa');
+        setProjectMeta(payload.data.project);
+        setScenes(payload.data.scenes);
+        setScriptDraft(payload.data.project.script?.narration || '');
+      }
+      await loadProjectDetails(selectedProjectId);
+    } catch (err: any) {
+      setError(err.message || 'Falló el flujo de producción');
+    } finally {
+      setWorkflowBusy(false);
     }
   };
 
@@ -276,7 +324,7 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
 
             <button
               onClick={handleRenderFullProject}
-              disabled={isRenderingFull}
+              disabled={isRenderingFull || !projectMeta.storyboard_approved || scenes.length === 0 || scenes.some((scene) => !scene.svg_markup)}
               className="bg-amber-400 hover:bg-amber-300 disabled:opacity-50 text-slate-950 font-black px-6 py-3 rounded-2xl flex items-center gap-2 shadow-lg shadow-amber-400/20 transition active:scale-95"
             >
               {isRenderingFull ? (
@@ -300,6 +348,45 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
           <AlertCircle className="w-5 h-5 flex-shrink-0" />
           <span>{error}</span>
         </div>
+      )}
+
+      {projectMeta && (
+        <section className="bg-slate-900 border border-slate-800 rounded-3xl p-6 space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div>
+              <h3 className="text-lg font-black text-white">Flujo de producción</h3>
+              <p className="text-xs text-slate-400">Guion → aprobación → storyboard → aprobación → SVG → Remotion local</p>
+            </div>
+            <span className="rounded-full border border-amber-400/30 bg-amber-400/10 px-3 py-1 text-xs font-bold text-amber-300">
+              {projectMeta.status}
+            </span>
+          </div>
+
+          {!projectMeta.script_approved && projectMeta.script && (
+            <div className="space-y-3">
+              <label className="block text-sm font-bold text-slate-300" htmlFor="script-draft">Guion generado por OmniRoute (editable)</label>
+              <textarea id="script-draft" rows={12} value={scriptDraft} onChange={(event) => setScriptDraft(event.target.value)}
+                className="w-full rounded-2xl border border-slate-700 bg-slate-950 p-4 text-sm leading-6 text-white focus:border-amber-400 focus:outline-none" />
+              <div className="flex flex-wrap gap-3">
+                <button type="button" disabled={workflowBusy} onClick={() => handleWorkflowAction('save-script')} className="rounded-xl border border-slate-700 px-4 py-2 text-sm font-bold text-slate-200 disabled:opacity-50">Guardar cambios</button>
+                <button type="button" disabled={workflowBusy} onClick={() => handleWorkflowAction('approve-script')} className="rounded-xl bg-amber-400 px-4 py-2 text-sm font-black text-slate-950 disabled:opacity-50">Aprobar guion y crear storyboard</button>
+              </div>
+            </div>
+          )}
+
+          {projectMeta.script_approved && scenes.length > 0 && !projectMeta.storyboard_approved && (
+            <button type="button" disabled={workflowBusy} onClick={() => handleWorkflowAction('approve-storyboard')} className="rounded-xl bg-amber-400 px-4 py-2 text-sm font-black text-slate-950 disabled:opacity-50">
+              Aprobar storyboard y permitir generación SVG
+            </button>
+          )}
+
+          {projectMeta.storyboard_approved && scenes.some((scene) => !scene.svg_markup) && (
+            <button type="button" disabled={workflowBusy} onClick={() => handleWorkflowAction('generate-svg')} className="rounded-xl bg-purple-500 px-4 py-2 text-sm font-black text-white disabled:opacity-50">
+              {workflowBusy ? 'Generando ilustraciones SVG…' : `Generar SVG originales (${scenes.filter((scene) => !scene.svg_markup).length} pendientes)`}
+            </button>
+          )}
+          {projectMeta.storyboard_approved && scenes.length > 0 && scenes.every((scene) => scene.svg_markup) && <p className="text-sm font-bold text-emerald-300">SVG listos. El render local con Remotion ya está habilitado.</p>}
+        </section>
       )}
 
       {/* Modal de previsualización de escena individual */}
@@ -397,10 +484,10 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
                     />
                   </div>
 
-                  {/* Descripción Visual */}
+                  {/* Descripción de escena */}
                   <div>
                     <label className="block text-xs font-semibold text-slate-400 mb-1">
-                      Instrucción / Prompt Visual:
+                      Descripción visual:
                     </label>
                     <input
                       type="text"
@@ -409,6 +496,25 @@ export const StoryboardStudio: React.FC<StoryboardStudioProps> = ({
                       className="w-full bg-slate-950 border border-slate-700 rounded-xl px-3 py-2 text-slate-300 text-xs focus:outline-none focus:border-amber-400"
                     />
                   </div>
+
+                  <div>
+                    <label className="block text-xs font-semibold text-slate-400 mb-1">
+                      Instrucción para el SVG original:
+                    </label>
+                    <textarea
+                      rows={3}
+                      value={scene.svg_prompt || ''}
+                      onChange={(e) => handleUpdateScene(scene.id, 'svg_prompt', e.target.value)}
+                      className="w-full rounded-xl border border-slate-700 bg-slate-950 px-3 py-2 text-xs text-slate-200 focus:border-amber-400 focus:outline-none"
+                    />
+                  </div>
+
+                  {scene.svg_markup && (
+                    <div className="rounded-2xl border border-slate-800 bg-slate-950 p-3">
+                      <p className="mb-2 text-xs font-bold text-emerald-300">Ilustración SVG original</p>
+                      <div className="mx-auto h-64 max-w-64 overflow-hidden rounded-xl bg-slate-900 p-2" dangerouslySetInnerHTML={{ __html: scene.svg_markup }} />
+                    </div>
+                  )}
 
                   {/* Reproductor de audio si ya está sintetizado */}
                   {scene.audio_url && (

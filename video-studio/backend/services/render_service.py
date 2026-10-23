@@ -59,6 +59,7 @@ def render_project(
             "bg_color": s.get("bg_color", "#FEF3C7"),
             "motion_type": s.get("motion_type", "sticker"),
             "manim_clip": s.get("manim_clip"),
+            "svg_markup": s.get("svg_markup", ""),
             "audio_data_uri": audio_data_uri,
             "start_frame": start_frame,
             "duration_in_frames": dur_frames
@@ -71,7 +72,9 @@ def render_project(
     props = {
         "scenes": scenes_props,
         "words": all_words,
-        "durationInFrames": total_frames
+        "durationInFrames": total_frames,
+        "width": 1920 if project_meta.get("output_format") == "horizontal" else 1080,
+        "height": 1080 if project_meta.get("output_format") == "horizontal" else 1920,
     }
 
     props_path = os.path.join(REMOTION_DIR, "project_props.json")

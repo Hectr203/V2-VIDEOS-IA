@@ -1,22 +1,21 @@
 import React, { useState } from 'react';
-import { Sparkles, Play, Sliders, Clock, Mic, Loader2, AlertCircle } from 'lucide-react';
-import { VoiceProvider, RenderResult } from '../types';
+import { Sparkles, Play, Clock, Mic, Loader2, AlertCircle } from 'lucide-react';
+import { VoiceProvider } from '../types';
 
 interface QuickGeneratorProps {
   voiceProviders: VoiceProvider[];
   onProjectCreated: (projectId: string) => void;
-  onVideoGenerated: (result: RenderResult) => void;
 }
 
 export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
   voiceProviders,
   onProjectCreated,
-  onVideoGenerated,
 }) => {
   const [topic, setTopic] = useState('');
   const [targetDuration, setTargetDuration] = useState<number>(60);
   const [selectedProvider, setSelectedProvider] = useState('edge-tts');
   const [selectedVoice, setSelectedVoice] = useState('es-ES-AlvaroNeural');
+  const [outputFormat, setOutputFormat] = useState<'vertical' | 'horizontal'>('vertical');
   const [selectedStyle, _setSelectedStyle] = useState('curiosity');
   const [isGenerating, setIsGenerating] = useState(false);
   const [statusMessage, setStatusMessage] = useState('');
@@ -27,6 +26,7 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
     { label: '3 Min', seconds: 180 },
     { label: '5 Min (Estándar)', seconds: 300 },
     { label: '10 Min (Largo)', seconds: 600 },
+    { label: '60 Min', seconds: 3600 },
   ];
 
   const sampleTopics = [
@@ -39,13 +39,13 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
   const currentProviderVoices =
     voiceProviders.find((p) => p.provider === selectedProvider)?.voices || [];
 
-  const handleCreateAndRender = async (e: React.FormEvent) => {
+  const handleGenerateScript = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!topic.trim()) return;
 
     setIsGenerating(true);
     setError(null);
-    setStatusMessage('1/3 Creando estructura narrativa, escenas y persistencia...');
+    setStatusMessage('Generando el guion con OmniRoute...');
 
     try {
       // 1. Crear proyecto
@@ -58,59 +58,16 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
           style: selectedStyle,
           voice_provider: selectedProvider,
           voice_id: selectedVoice,
+          output_format: outputFormat,
         }),
       });
 
       const projData = await projRes.json();
       if (!projData.success) throw new Error(projData.detail || 'Fallo creando proyecto');
 
-      const projectId = projData.data.project.id;
-      setStatusMessage('2/3 Sintetizando audios de escenas con sincronización karaoke...');
-
-      // 2. Renderizar proyecto completo
-      setStatusMessage('3/3 Renderizando producción en Remotion a 1080x1920...');
-      const renderRes = await fetch(`/api/projects/${projectId}/render`, {
-        method: 'POST',
-      });
-      const renderData = await renderRes.json();
-
-      if (renderData.success && renderData.result) {
-        onVideoGenerated(renderData.result);
-      } else {
-        throw new Error(renderData.detail || 'Fallo en renderizado');
-      }
+      onProjectCreated(projData.data.project.id);
     } catch (err: any) {
       setError(err.message || 'Error en el proceso');
-    } finally {
-      setIsGenerating(false);
-    }
-  };
-
-  const handleOnlyCreateStoryboard = async () => {
-    if (!topic.trim()) return;
-    setIsGenerating(true);
-    setError(null);
-
-    try {
-      const projRes = await fetch('/api/projects', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          topic: topic.trim(),
-          target_duration: targetDuration,
-          style: selectedStyle,
-          voice_provider: selectedProvider,
-          voice_id: selectedVoice,
-        }),
-      });
-      const projData = await projRes.json();
-      if (projData.success) {
-        onProjectCreated(projData.data.project.id);
-      } else {
-        throw new Error(projData.detail || 'Error al crear storyboard');
-      }
-    } catch (err: any) {
-      setError(err.message || 'Error al crear storyboard');
     } finally {
       setIsGenerating(false);
     }
@@ -127,12 +84,12 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
             Orquestador de Video con IA
           </h2>
           <p className="text-slate-400 text-sm">
-            Crea producciones completas de 1 a 10 minutos con guion adaptativo, múltiples motores de voz y storyboard editable.
+            Revisa el guion, aprueba el storyboard y genera ilustraciones SVG animadas antes del render local.
           </p>
         </div>
       </div>
 
-      <form onSubmit={handleCreateAndRender} className="space-y-6">
+      <form onSubmit={handleGenerateScript} className="space-y-6">
         {/* Input del tema */}
         <div>
           <label className="block text-sm font-bold text-slate-300 mb-2">
@@ -186,6 +143,12 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
               </button>
             ))}
           </div>
+          <label className="mt-3 flex items-center gap-3 text-xs text-slate-400">
+            Duración personalizada (minutos)
+            <input type="number" min={0.5} max={60} step={0.5} value={targetDuration / 60}
+              onChange={(event) => setTargetDuration(Math.round(Number(event.target.value) * 60))}
+              className="w-24 rounded-lg border border-slate-700 bg-slate-950 px-3 py-2 text-white" />
+          </label>
         </div>
 
         {/* Proveedor de Voz y Modelo */}
@@ -232,6 +195,15 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
           </div>
         </div>
 
+        <div>
+          <label htmlFor="output-format" className="mb-2 block text-sm font-bold text-slate-300">Formato de salida</label>
+          <select id="output-format" value={outputFormat} onChange={(event) => setOutputFormat(event.target.value as 'vertical' | 'horizontal')}
+            disabled={isGenerating} className="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-sm text-white focus:border-amber-400 focus:outline-none">
+            <option value="vertical">Vertical 9:16 (Reels, TikTok, Shorts)</option>
+            <option value="horizontal">Horizontal 16:9 (YouTube)</option>
+          </select>
+        </div>
+
         {error && (
           <div className="flex items-center gap-3 bg-red-950/60 border border-red-500/30 text-red-300 px-4 py-3 rounded-2xl text-sm">
             <AlertCircle className="w-5 h-5 flex-shrink-0" />
@@ -244,9 +216,7 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
             <Loader2 className="w-6 h-6 text-amber-400 animate-spin flex-shrink-0" />
             <div>
               <p className="text-sm font-bold text-amber-300">{statusMessage}</p>
-              <p className="text-xs text-amber-400/70">
-                La IA está orquestando escenas, voces, stickers y montaje en Remotion...
-              </p>
+              <p className="text-xs text-amber-400/70">El flujo continuará en el editor para revisión y aprobación por etapas.</p>
             </div>
           </div>
         )}
@@ -261,25 +231,16 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
             {isGenerating ? (
               <>
                 <Loader2 className="w-5 h-5 animate-spin" />
-                <span>Orquestando Video...</span>
+                <span>Generando guion...</span>
               </>
             ) : (
               <>
                 <Play className="w-5 h-5 fill-current" />
-                <span>Crear y Producir Video</span>
+                <span>Generar guion con OmniRoute</span>
               </>
             )}
           </button>
 
-          <button
-            type="button"
-            disabled={isGenerating || !topic.trim()}
-            onClick={handleOnlyCreateStoryboard}
-            className="w-full sm:w-auto px-6 py-4 rounded-2xl border border-slate-700 hover:border-slate-500 text-slate-300 hover:text-white font-bold text-sm transition flex items-center gap-2"
-          >
-            <Sliders className="w-4 h-4 text-amber-400" />
-            <span>Abrir en Storyboard Studio</span>
-          </button>
         </div>
       </form>
     </div>

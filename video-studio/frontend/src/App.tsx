@@ -119,7 +119,6 @@ export const App: React.FC = () => {
           <QuickGenerator
             voiceProviders={voiceProviders}
             onProjectCreated={handleProjectCreated}
-            onVideoGenerated={(video) => setCurrentVideo(video)}
           />
         )}
 

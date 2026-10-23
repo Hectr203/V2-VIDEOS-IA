@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sequence, Audio, staticFile } from 'remotion';
+import { Sequence, Audio, staticFile, useVideoConfig } from 'remotion';
 import { Scene, SceneData } from './components/Scene';
 import { KaraokeSubtitles, WordTimestamp } from './components/KaraokeSubtitles';
 
@@ -60,11 +60,12 @@ export const DoodleComposition: React.FC<DoodleCompositionProps> = ({
   musicSrc = staticFile('music/ambient_curiosity.mp3'),
   durationInFrames,
 }) => {
+  const { width, height } = useVideoConfig();
   return (
     <div
       style={{
-        width: 1080,
-        height: 1920,
+        width,
+        height,
         position: 'relative',
         backgroundColor: '#0F172A',
         overflow: 'hidden',

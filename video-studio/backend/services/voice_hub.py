@@ -1,6 +1,7 @@
 import os
 import asyncio
 import subprocess
+import urllib.request
 from typing import Dict, Any, List, Optional
 import edge_tts
 
@@ -85,7 +86,33 @@ class VoiceHub:
 
     @classmethod
     def get_catalog(cls) -> List[Dict[str, Any]]:
-        return AVAILABLE_VOICE_PROVIDERS
+        catalog = [{**provider, "voices": list(provider["voices"])} for provider in AVAILABLE_VOICE_PROVIDERS]
+        elevenlabs = next(provider for provider in catalog if provider["provider"] == "elevenlabs")
+        api_key = os.getenv("ELEVENLABS_API_KEY")
+        if not api_key:
+            elevenlabs["voices"] = []
+            elevenlabs["name"] = "ElevenLabs (configura ELEVENLABS_API_KEY)"
+            return catalog
+        request = urllib.request.Request(
+            "https://api.elevenlabs.io/v1/voices",
+            headers={"xi-api-key": api_key, "Accept": "application/json"},
+        )
+        try:
+            with urllib.request.urlopen(request, timeout=15) as response:
+                data = json.loads(response.read().decode("utf-8"))
+            elevenlabs["voices"] = [
+                {
+                    "id": voice["voice_id"],
+                    "name": voice.get("name", voice["voice_id"]),
+                    "gender": (voice.get("labels") or {}).get("gender", "Unknown"),
+                }
+                for voice in data.get("voices", [])
+                if voice.get("voice_id")
+            ]
+        except Exception as error:
+            elevenlabs["voices"] = []
+            elevenlabs["name"] = f"ElevenLabs (no disponible: {error})"
+        return catalog
 
     @classmethod
     async def synthesize(
@@ -103,11 +130,10 @@ class VoiceHub:
         """
         os.makedirs(os.path.dirname(output_audio_path), exist_ok=True)
 
-        if provider == "elevenlabs" and os.getenv("ELEVENLABS_API_KEY"):
-            try:
-                return await cls._synthesize_elevenlabs(text, output_audio_path, voice_id)
-            except Exception as e:
-                print(f"[VoiceHub Aviso] Falló ElevenLabs ({e}). Fallback a Edge-TTS.")
+        if provider == "elevenlabs":
+            if not os.getenv("ELEVENLABS_API_KEY"):
+                raise RuntimeError("ELEVENLABS_API_KEY no está configurada")
+            return await cls._synthesize_elevenlabs(text, output_audio_path, voice_id)
 
         if provider == "vibevoice":
             try:

@@ -1,10 +1,20 @@
-# 🎬 Video Studio IA — Automatización de Videos Estilo Resultaaquee
+# 🎬 Video Studio IA — Producción local de videos asistida por IA
 
-Plataforma completa y 100% gratuita para generar videos verticales de alta retención (Instagram Reels, TikTok y YouTube Shorts) con animaciones 2D estilo doodle/stickers con física de rebote elástico, subtítulos dinámicos palabra por palabra estilo karaoke y efectos de sonido sincronizados.
+Plataforma para planificar videos con IA y producirlos localmente con SVG animados, Remotion, voz, subtítulos y FFmpeg. OmniRoute y algunos proveedores de voz requieren conexión y credenciales.
 
 ---
 
 ## 🚀 Inicio Rápido
+
+## Flujo actual de producción
+
+1. El usuario define tema, duración y voz; OmniRoute genera el guion.
+2. El guion se puede editar y debe aprobarse explícitamente.
+3. OmniRoute convierte el guion aprobado en un storyboard editable.
+4. Tras aprobar el storyboard, OmniRoute genera una ilustración SVG original por escena. El backend valida el SVG y lo guarda en el proyecto.
+5. Remotion anima y compone las ilustraciones; el render se ejecuta localmente.
+
+El render está bloqueado hasta que el storyboard esté aprobado y cada escena tenga un SVG válido. El objetivo es sustituir los stickers predeterminados como visual principal. OmniRoute requiere `OMNIROUTE_API_KEY` configurada en `backend/.env`; no hay clave integrada en el código.
 
 Para iniciar tanto la **aplicación web en React** como el **backend en FastAPI**, ejecuta en la terminal:
 
@@ -94,12 +104,6 @@ video-studio/
 
 ---
 
-## 💡 Uso de LLM Opcional (OpenAI / Claude / Gemini)
+## Configuración de OmniRoute
 
-Por defecto, la herramienta incluye un motor heurístico de alta retención que no requiere internet ni claves. Si deseas generar guiones infinitos con un LLM, simplemente define la variable en tu entorno:
-
-```bash
-export OPENAI_API_KEY="tu-clave-aqui"
-```
-
-El sistema detectará automáticamente la clave y usará GPT-4o-mini para crear guiones aún más variados.
+El flujo web requiere `OMNIROUTE_API_KEY` y usa `OMNIROUTE_MODEL` desde `backend/.env`; consulta `backend/.env.example`. Las llamadas generan guion, storyboard y SVG. El contenido y el render se guardan localmente. Las voces ElevenLabs se consultan dinámicamente con `ELEVENLABS_API_KEY`.

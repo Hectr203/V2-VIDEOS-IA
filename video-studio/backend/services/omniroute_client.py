@@ -5,8 +5,17 @@ import urllib.error
 import time
 from typing import Dict, Any, List, Optional
 
+_env_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.env"))
+if os.path.exists(_env_file):
+    with open(_env_file, "r", encoding="utf-8") as _file:
+        for _line in _file:
+            _line = _line.strip()
+            if _line and not _line.startswith("#") and "=" in _line:
+                _key, _value = _line.split("=", 1)
+                os.environ.setdefault(_key.strip(), _value.strip())
+
 OMNIROUTE_BASE_URL = os.getenv("OMNIROUTE_BASE_URL", "https://omniroute-api.azurewebsites.net").rstrip("/")
-OMNIROUTE_API_KEY = os.getenv("OMNIROUTE_API_KEY", "sk-de64cf6a3f2c5474-ef49ce-d1963d20")
+OMNIROUTE_API_KEY = os.getenv("OMNIROUTE_API_KEY", "")
 OMNIROUTE_MODEL = os.getenv("OMNIROUTE_MODEL", "auto/best-fast")
 
 class OmniRouteClient:
@@ -27,8 +36,69 @@ class OmniRouteClient:
             return 14
         elif target_seconds <= 300: # 5 minutos
             return 24
-        else: # hasta 10 minutos (600s)
+        else:
             return min(45, max(30, target_seconds // 12))
+
+    @classmethod
+    def _chat(cls, prompt: str, *, json_output: bool = False, max_tokens: int = 6000) -> str:
+        """Llama al modelo configurado en OmniRoute; no oculta fallos con contenido ficticio."""
+        if not OMNIROUTE_API_KEY:
+            raise RuntimeError("OMNIROUTE_API_KEY no está configurada")
+        payload: Dict[str, Any] = {
+            "model": OMNIROUTE_MODEL,
+            "messages": [
+                {"role": "system", "content": "Eres un asistente de producción audiovisual. Sigue el formato solicitado exactamente."},
+                {"role": "user", "content": prompt},
+            ],
+            "temperature": 0.7,
+            "max_tokens": max_tokens,
+        }
+        if json_output:
+            payload["response_format"] = {"type": "json_object"}
+        req = urllib.request.Request(
+            f"{OMNIROUTE_BASE_URL}/v1/chat/completions",
+            data=json.dumps(payload).encode("utf-8"),
+            headers={"Authorization": f"Bearer {OMNIROUTE_API_KEY}", "Content-Type": "application/json"},
+        )
+        with urllib.request.urlopen(req, timeout=90) as response:
+            data = json.loads(response.read().decode("utf-8"))
+        return data["choices"][0]["message"]["content"].strip()
+
+    @classmethod
+    def generate_script(cls, topic: str, duration_seconds: int, style: str) -> Dict[str, Any]:
+        words = round(duration_seconds * 2.2)
+        prompt = f"""Escribe un guion audiovisual en español sobre: {topic!r}.
+Duración objetivo: {duration_seconds} segundos. Extensión orientativa: {words} palabras (130 palabras por minuto).
+Estilo: {style}. Estructura con gancho, desarrollo progresivo, transiciones y cierre. Usa afirmaciones verificables, evita inventar datos y marca [VERIFICAR] donde falte fuente.
+Devuelve JSON con campos title, topic, duration_seconds, narration (guion completo) y acts (lista de objetos con title y summary). No crees storyboard ni recursos visuales todavía."""
+        result = json.loads(cls._chat(prompt, json_output=True, max_tokens=max(3000, min(12000, words * 3))))
+        narration = result.get("narration")
+        if not isinstance(narration, str) or not narration.strip():
+            raise ValueError("OmniRoute devolvió un guion vacío o inválido")
+        return result
+
+    @classmethod
+    def generate_storyboard_from_script(cls, script: Dict[str, Any], style: str) -> Dict[str, Any]:
+        scene_count = cls.calculate_scene_count(int(script.get("duration_seconds", 60)))
+        prompt = f"""Convierte el guion aprobado en un storyboard de exactamente {scene_count} escenas para animación 2D SVG en Remotion.
+Estilo: {style}. Guion: {json.dumps(script, ensure_ascii=False)}
+Cada escena debe cubrir una parte consecutiva de la narración e incluir id, act, title, narrative_text (fragmento literal del guion), visual_description, svg_prompt (descripción precisa de una ilustración vectorial original, formas sólidas, composición clara), callout y bg_color.
+No uses stickers existentes ni referencias a SVG predeterminados. Devuelve JSON con visual_theme y scenes."""
+        result = json.loads(cls._chat(prompt, json_output=True, max_tokens=12000))
+        scenes = result.get("scenes")
+        if not isinstance(scenes, list) or len(scenes) != scene_count:
+            raise ValueError(f"Storyboard inválido: se esperaban {scene_count} escenas")
+        return result
+
+    @classmethod
+    def generate_scene_svg(cls, description: str, theme: str) -> str:
+        raw = cls._chat(
+            f"Genera SOLO un elemento SVG completo (sin Markdown ni explicación), viewBox='0 0 1080 900', para esta escena: {description}\nEstilo común: {theme}. Ilustración vectorial original con varios elementos diferenciados y colores expresivos. No incluyas texto, scripts, enlaces, imágenes raster ni recursos externos.",
+            max_tokens=5000,
+        )
+        if raw.startswith("```"):
+            raw = raw.split("\n", 1)[-1].rsplit("```", 1)[0].strip()
+        return raw
 
     @classmethod
     def generate_storyboard(

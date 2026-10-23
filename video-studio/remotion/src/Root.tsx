@@ -16,6 +16,8 @@ export const Root: React.FC = () => {
         calculateMetadata={({ props }: any) => {
           return {
             durationInFrames: props?.durationInFrames || defaultProps.durationInFrames,
+            width: props?.width || 1080,
+            height: props?.height || 1920,
           };
         }}
       />

@@ -16,6 +16,8 @@ export interface SceneItem {
   callout: string;
   visual_type: string;
   visual_asset_url?: string;
+  svg_prompt?: string;
+  svg_markup?: string;
   sticker: string;
   sfx: string;
   bg_color: string;
@@ -36,6 +38,7 @@ export interface ProjectMeta {
   style: string;
   voice_provider: string;
   voice_id: string;
+  output_format?: 'vertical' | 'horizontal';
   visual_theme?: string;
   status: string;
   total_real_duration: number;
@@ -43,6 +46,9 @@ export interface ProjectMeta {
   created_at: number;
   updated_at: number;
   final_video_url?: string;
+  script?: { title?: string; narration?: string; duration_seconds?: number; acts?: { title: string; summary: string }[] };
+  script_approved?: boolean;
+  storyboard_approved?: boolean;
 }
 
 export interface VoiceItem {

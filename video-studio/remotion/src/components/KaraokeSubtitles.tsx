@@ -13,7 +13,8 @@ interface KaraokeSubtitlesProps {
 
 export const KaraokeSubtitles: React.FC<KaraokeSubtitlesProps> = ({ words }) => {
   const frame = useCurrentFrame();
-  const { fps } = useVideoConfig();
+  const { fps, width, height } = useVideoConfig();
+  const landscape = width > height;
 
   const currentTime = frame / fps;
 
@@ -49,7 +50,7 @@ export const KaraokeSubtitles: React.FC<KaraokeSubtitlesProps> = ({ words }) => 
     <div
       style={{
         position: 'absolute',
-        bottom: 340,
+        bottom: landscape ? 90 : 340,
         left: 0,
         right: 0,
         display: 'flex',

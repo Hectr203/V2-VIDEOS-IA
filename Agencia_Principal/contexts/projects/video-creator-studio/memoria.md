@@ -2,26 +2,36 @@
 
 - **ID de Proyecto:** `video-creator-studio`
 - **Fecha de creación:** 2026-10-22T19:00:02+00:00
-- **Estado general:** Inicializado
+- **Estado general:** Implementación inicial en progreso
 
 ---
 
 ## 1. Estado Activo y Criterios Vigentes
-- **Objetivo actual:** Estructura de proyecto y memoria inicializadas con éxito.
-- **Hito/Sprint:** Inicialización
-- **Tarea en curso:** Ninguna
+- **Objetivo actual:** Flujo IA de guion aprobado → storyboard editable/aprobado → SVG originales → animación y render local Remotion.
+- **Hito/Sprint:** Primer flujo vertical del producto
+- **Tarea en curso:** Implementación de etapas con gates, generación SVG vía OmniRoute y composición vertical/horizontal.
 - **Restricciones y bloqueos:** Ninguno
 - **Pendientes consolidados:**
-  - [ ] Completar `manifiesto.md` y definir requerimientos iniciales.
-  - [ ] Ninguno. Frontend y Backend en ejecución activa.
-  - [ ] Ninguno. Verificación completa superada.
-- **Siguiente acción:** Completar manifiesto del proyecto.
+  - [x] Completar el manifiesto y registrar el flujo acordado.
+  - [x] Añadir estados de aprobación de guion y storyboard, generación SVG validada y render condicionado.
+  - [x] Añadir selección de formato vertical/horizontal y catálogo dinámico de voces ElevenLabs.
+  - [ ] Probar generación y render reales con credenciales OmniRoute/ElevenLabs configuradas.
+  - [ ] Añadir trabajos de fondo/reanudables para renders largos y completar edición de material fuente en el nuevo flujo.
+- **Siguiente acción:** Ejecutar un proyecto de prueba real y ajustar el estilo SVG según el video de referencia.
 
 ---
 
 ## 2. Decisiones Técnicas y ADRs
 - Uso de Edge-TTS gratis con timestamps de karaoke y Remotion con física elástica de resortes
 - Persistencia desacoplada por escena, VoiceHub multiproveedor con Edge-TTS fallback y renderizado individual de escenas
+
+### [2026-10-23T03:05:51+00:00] Sesión: flujo de producción SVG con Remotion
+- **Agente:** Asistente Principal
+- **Tareas completadas:** Guion editable con gate de aprobación; storyboard creado tras aprobación; SVG originales generados por OmniRoute, validados y guardados por escena; gates antes de generación visual y render; animación SVG en Remotion; selección vertical/horizontal; consulta de voces ElevenLabs en su API.
+- **Archivos afectados:** `video-studio/backend`, `video-studio/frontend`, `video-studio/remotion`, manifiesto y README del proyecto.
+- **Decisiones técnicas:** OmniRoute genera SVG en texto; se valida con allowlist XML; el render se ejecuta localmente; cambios al storyboard invalidan su aprobación y los SVG afectados.
+- **Pendientes:** No se ejecutó una llamada real a proveedores ni un render de video de punta a punta. Render de una hora aún requiere cola/trabajo reanudable y pruebas de recursos.
+- **Riesgos:** El render sigue síncrono; duración larga depende de capacidad de hardware y del tiempo límite del servidor.
 
 ---
 
