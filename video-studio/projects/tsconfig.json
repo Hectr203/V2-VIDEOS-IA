@@ -11,6 +11,8 @@
     "forceConsistentCasingInFileNames": true,
     "baseUrl": ".",
     "paths": {
+      "shared-art": ["../shared-art/index.ts"],
+      "shared-art/*": ["../shared-art/*"],
       "react": ["../remotion/node_modules/@types/react"],
       "react/jsx-runtime": ["../remotion/node_modules/@types/react/jsx-runtime"],
       "remotion": ["../remotion/node_modules/remotion"],
@@ -21,6 +23,7 @@
     ]
   },
   "include": [
-    "*/src/**/*"
+    "*/src/**/*",
+    "../shared-art/**/*"
   ]
 }
