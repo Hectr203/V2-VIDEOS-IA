@@ -27,17 +27,10 @@ class OmniRouteClient:
 
     @classmethod
     def calculate_scene_count(cls, target_seconds: int) -> int:
-        """Calcula el número de escenas óptimo para mantener un ritmo dinámico de 8 a 15 segundos por escena."""
-        if target_seconds <= 45:
-            return 4
-        elif target_seconds <= 90:
-            return 7
-        elif target_seconds <= 180:
-            return 14
-        elif target_seconds <= 300: # 5 minutos
-            return 24
-        else:
-            return min(45, max(30, target_seconds // 12))
+        """Planifica unas escenas cada 12 s, manteniendo manejable un storyboard de una hora."""
+        if target_seconds <= 0:
+            raise ValueError("La duración objetivo debe ser positiva")
+        return min(300, max(4, (target_seconds + 11) // 12))
 
     @classmethod
     def _chat(cls, prompt: str, *, json_output: bool = False, max_tokens: int = 6000) -> str:
@@ -71,6 +64,10 @@ class OmniRouteClient:
 Duración objetivo: {duration_seconds} segundos. Extensión orientativa: {words} palabras (130 palabras por minuto).
 Estilo: {style}. Estructura con gancho, desarrollo progresivo, transiciones y cierre. Usa afirmaciones verificables, evita inventar datos y marca [VERIFICAR] donde falte fuente.
 Devuelve JSON con campos title, topic, duration_seconds, narration (guion completo) y acts (lista de objetos con title y summary). No crees storyboard ni recursos visuales todavía."""
+        # Más de cinco minutos: un solo JSON tiende a exceder los límites de salida
+        # habituales. Generamos por actos en fragmentos acotados y los unimos.
+        if duration_seconds > 300:
+            return cls._generate_long_script(topic, duration_seconds, style)
         result = json.loads(cls._chat(prompt, json_output=True, max_tokens=max(3000, min(12000, words * 3))))
         narration = result.get("narration")
         if not isinstance(narration, str) or not narration.strip():
@@ -78,22 +75,70 @@ Devuelve JSON con campos title, topic, duration_seconds, narration (guion comple
         return result
 
     @classmethod
+    def _generate_long_script(cls, topic: str, duration_seconds: int, style: str) -> Dict[str, Any]:
+        act_seconds = 300
+        act_count = (duration_seconds + act_seconds - 1) // act_seconds
+        acts = []
+        narration_parts = []
+        remaining_words = round(duration_seconds * 130 / 60)
+        for index in range(act_count):
+            seconds = min(act_seconds, duration_seconds - index * act_seconds)
+            target_words = round(remaining_words * seconds / (duration_seconds - index * act_seconds))
+            remaining_words -= target_words
+            prompt = f"""Escribe el acto {index + 1} de {act_count} de un guion audiovisual en español sobre {topic!r}.
+Duración de este acto: {seconds} segundos; aproximadamente {target_words} palabras.
+Estilo: {style}. Mantén continuidad narrativa, no repitas introducción/cierre salvo en primer/último acto. Divide en bloques breves con transiciones naturales. Usa afirmaciones verificables y marca [VERIFICAR] cuando aplique.
+Devuelve JSON con title, summary y narration (texto completo del acto)."""
+            part = json.loads(cls._chat(prompt, json_output=True, max_tokens=6000))
+            narration = part.get("narration")
+            if not isinstance(narration, str) or not narration.strip():
+                raise ValueError(f"OmniRoute devolvió vacío el acto {index + 1} del guion")
+            acts.append({"title": str(part.get("title") or f"Acto {index + 1}"), "summary": str(part.get("summary") or "")})
+            narration_parts.append(narration.strip())
+        return {"title": topic, "topic": topic, "duration_seconds": duration_seconds,
+                "narration": "\n\n".join(narration_parts), "acts": acts}
+
+    @classmethod
     def generate_storyboard_from_script(cls, script: Dict[str, Any], style: str) -> Dict[str, Any]:
         scene_count = cls.calculate_scene_count(int(script.get("duration_seconds", 60)))
-        prompt = f"""Convierte el guion aprobado en un storyboard de exactamente {scene_count} escenas para animación 2D SVG en Remotion.
-Estilo: {style}. Guion: {json.dumps(script, ensure_ascii=False)}
-Cada escena debe cubrir una parte consecutiva de la narración e incluir id, act, title, narrative_text (fragmento literal del guion), visual_description, svg_prompt (descripción precisa de una ilustración vectorial original, formas sólidas, composición clara), callout y bg_color.
-No uses stickers existentes ni referencias a SVG predeterminados. Devuelve JSON con visual_theme y scenes."""
-        result = json.loads(cls._chat(prompt, json_output=True, max_tokens=12000))
-        scenes = result.get("scenes")
-        if not isinstance(scenes, list) or len(scenes) != scene_count:
-            raise ValueError(f"Storyboard inválido: se esperaban {scene_count} escenas")
-        return result
+        narration = script.get("narration", "")
+        if not isinstance(narration, str) or not narration.strip():
+            raise ValueError("El guion aprobado no contiene narración")
+        # Storyboards grandes se generan en lotes de 20 escenas para evitar truncado JSON.
+        acts = script.get("acts") or []
+        scenes = []
+        visual_theme = ""
+        batch_size = 20
+        narration_words = narration.split()
+        for batch_start in range(0, scene_count, batch_size):
+            batch_count = min(batch_size, scene_count - batch_start)
+            word_start = len(narration_words) * batch_start // scene_count
+            word_end = len(narration_words) * (batch_start + batch_count) // scene_count
+            text = " ".join(narration_words[word_start:word_end])
+            continuity = json.dumps(scenes[-5:], ensure_ascii=False) if scenes else "ninguna; este es el primer lote"
+            prompt = f"""Crea el lote de escenas {batch_start + 1} a {batch_start + batch_count} de un storyboard completo de {scene_count} escenas para animación 2D SVG en Remotion.
+Estilo: {style}. Tema: {script.get('topic', script.get('title', ''))}. Actos: {json.dumps(acts, ensure_ascii=False)}.
+Fragmento consecutivo asignado exclusivamente a este lote (divide este fragmento de forma consecutiva y fiel; no inventes ni omitas contenido): {text}
+Mantén continuidad con las cinco escenas anteriores, sin repetirlas: {continuity}
+Devuelve exactamente {batch_count} escenas con id global consecutivo desde {batch_start + 1}, act, title, narrative_text (fragmento literal consecutivo), visual_description, svg_prompt (ilustración vectorial original, formas sólidas y composición clara), callout y bg_color.
+Cada escena representa unos 12 segundos. No uses stickers existentes ni referencias a SVG predeterminados. Responde JSON con visual_theme y scenes."""
+            result = json.loads(cls._chat(prompt, json_output=True, max_tokens=12000))
+            batch = result.get("scenes")
+            if not isinstance(batch, list) or len(batch) != batch_count:
+                raise ValueError(f"Storyboard inválido en lote {batch_start // batch_size + 1}: se esperaban {batch_count} escenas")
+            if not visual_theme:
+                visual_theme = str(result.get("visual_theme") or "")
+            scenes.extend(batch)
+        for index, scene in enumerate(scenes, 1):
+            if not isinstance(scene, dict) or not all(isinstance(scene.get(key), str) and scene[key].strip() for key in ("title", "narrative_text", "visual_description")):
+                raise ValueError(f"Escena {index} incompleta en el storyboard")
+            scene["id"] = index
+        return {"visual_theme": visual_theme, "scenes": scenes}
 
     @classmethod
     def generate_scene_svg(cls, description: str, theme: str) -> str:
         raw = cls._chat(
-            f"Genera SOLO un elemento SVG completo (sin Markdown ni explicación), viewBox='0 0 1080 900', para esta escena: {description}\nEstilo común: {theme}. Ilustración vectorial original con varios elementos diferenciados y colores expresivos. No incluyas texto, scripts, enlaces, imágenes raster ni recursos externos.",
+            f"Genera SOLO un elemento SVG completo (sin Markdown ni explicación), viewBox='0 0 1080 900', para esta escena: {description}\nEstilo común: {theme}. Ilustración vectorial original con varios elementos diferenciados y colores expresivos. Organiza la ilustración en 4 a 8 grupos <g> directos dentro de <svg>, separando fondo, sujeto, objetos y detalles para permitir parallax determinista por capas. No incluyas texto, scripts, enlaces, imágenes raster ni recursos externos.",
             max_tokens=5000,
         )
         if raw.startswith("```"):

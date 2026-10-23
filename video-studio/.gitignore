@@ -18,8 +18,10 @@ npm-debug.log*
 # Render outputs & temporary project files
 output/*
 !output/.gitkeep
+/render_checkpoints/
 projects/*
 !projects/.gitkeep
+video_studio.sqlite3*
 remotion/public/voice_*
 
 # OS & Editor

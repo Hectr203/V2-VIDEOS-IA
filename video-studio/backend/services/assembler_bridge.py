@@ -17,46 +17,49 @@ class VideoAssemblerBridge:
         return os.path.exists(ASSEMBLER_DIR) and os.path.exists(os.path.join(ASSEMBLER_DIR, "cli/render.ts"))
 
     @classmethod
-    def export_manifest(cls, project_meta: Dict[str, Any], scenes: list, output_manifest_path: str) -> str:
-        """Genera un manifiesto.json 100% compatible con la especificación de videoAssembler."""
+    def export_manifest(cls, project_meta: Dict[str, Any], scenes: list, output_manifest_path: str | None = None) -> Dict[str, Any]:
+        """Exporta solo clips fuente reales; Remotion/SVG sigue siendo el render maestro."""
         clips = []
         for s in scenes:
-            clip_file = s.get("visual_asset_url") or s.get("video_file") or "scene_placeholder.mp4"
-            dur = max(s.get("audio_duration", 5.0), 3.0)
+            clip_file = s.get("source_video_src")
+            if not clip_file:
+                continue
+            dur = float(s.get("source_media_duration_seconds") or s.get("source_clip_duration_seconds") or s.get("audio_duration") or 0)
+            if dur <= 0:
+                continue
+            start = float(s.get("source_start_seconds") or 0)
             clips.append({
                 "file": clip_file,
-                "trimIn": 0.0,
-                "trimOut": dur,
+                "trimIn": start,
+                "trimOut": float(s.get("source_start_seconds") or 0) + float(s.get("source_clip_duration_seconds") or dur),
                 "speed": 1.0,
-                "keepAudio": False,
+                "keepAudio": bool(s.get("source_audio_enabled")),
                 "audioVolume": 1.0
             })
-
-        voice_file = scenes[0].get("audio_path") if scenes and scenes[0].get("audio_path") else "voice.mp3"
+        if not clips:
+            raise ValueError("Asigna al menos un clip fuente a una escena antes de abrir el montaje avanzado")
+        if project_meta.get("assembler_manifest"):
+            manifest = project_meta["assembler_manifest"]
+            if output_manifest_path:
+                os.makedirs(os.path.dirname(output_manifest_path), exist_ok=True)
+                with open(output_manifest_path, "w", encoding="utf-8") as stream:
+                    json.dump(manifest, stream, ensure_ascii=False, indent=2)
+            return manifest
 
         manifest = {
             "name": project_meta.get("id", "video-export"),
-            "clips": clips if clips else [{"file": "sample.mp4", "trimIn": 0, "trimOut": 10}],
-            "voice": {
-                "file": voice_file,
-                "trimIn": 0,
-                "trimOut": None,
-                "volume": 1.0
-            },
-            "music": {
-                "file": "ambient_curiosity.mp3",
-                "trimIn": 0,
-                "trimOut": None,
-                "volume": 0.15
-            },
-            "outputs": ["vertical"]
+            "clips": clips,
+            "voice": None,
+            "music": None,
+            "outputs": [project_meta.get("output_format", "vertical")],
+            "projectId": project_meta.get("id"),
         }
 
-        os.makedirs(os.path.dirname(output_manifest_path), exist_ok=True)
-        with open(output_manifest_path, "w", encoding="utf-8") as f:
-            json.dump(manifest, f, ensure_ascii=False, indent=2)
-
-        return output_manifest_path
+        if output_manifest_path:
+            os.makedirs(os.path.dirname(output_manifest_path), exist_ok=True)
+            with open(output_manifest_path, "w", encoding="utf-8") as f:
+                json.dump(manifest, f, ensure_ascii=False, indent=2)
+        return manifest
 
     @classmethod
     def run_cli_render(cls, manifest_path: str, media_dir: str, output_path: str = None) -> Dict[str, Any]:

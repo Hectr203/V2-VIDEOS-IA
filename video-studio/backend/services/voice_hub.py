@@ -32,13 +32,6 @@ AVAILABLE_VOICE_PROVIDERS = [
         ]
     },
     {
-        "provider": "vibevoice",
-        "name": "Microsoft VibeVoice (Modelo Local)",
-        "voices": [
-            {"id": "vibevoice-es-speaker-1", "name": "VibeVoice Español Nativo (0.5B)", "gender": "Neutral"}
-        ]
-    },
-    {
         "provider": "elevenlabs",
         "name": "ElevenLabs (API Key Requerida)",
         "voices": [
@@ -136,16 +129,13 @@ class VoiceHub:
             return await cls._synthesize_elevenlabs(text, output_audio_path, voice_id)
 
         if provider == "vibevoice":
-            try:
-                return await cls._synthesize_vibevoice(text, output_audio_path, voice_id)
-            except Exception as e:
-                print(f"[VoiceHub Aviso] Falló VibeVoice local ({e}). Fallback a Edge-TTS.")
+            return await cls._synthesize_vibevoice(text, output_audio_path, voice_id)
 
         if provider in ["google", "google-tts", "gtts"]:
-            try:
-                return await cls._synthesize_google_tts(text, output_audio_path, voice_id)
-            except Exception as e:
-                print(f"[VoiceHub Aviso] Falló Google TTS ({e}). Fallback a Edge-TTS.")
+            return await cls._synthesize_google_tts(text, output_audio_path, voice_id)
+
+        if provider != "edge-tts":
+            raise ValueError(f"Proveedor de voz no soportado: {provider}")
 
         # Por defecto o fallback: Edge-TTS (alta calidad y sin cuotas)
         return await cls._synthesize_edge_tts(text, output_audio_path, voice_id, rate, pitch)
@@ -219,12 +209,10 @@ class VoiceHub:
 
     @classmethod
     async def _synthesize_vibevoice(cls, text: str, output_path: str, voice_id: str) -> Dict[str, Any]:
-        """Integración con VibeVoice local si está presente."""
-        vibevoice_dir = os.getenv("VIBEVOICE_DIR", "/mnt/nvme/Video IA-studio/Agencia_de_videos_con_IA/VibeVoice")
-        if not os.path.exists(vibevoice_dir):
-            raise FileNotFoundError(f"Directorio VibeVoice no encontrado en {vibevoice_dir}")
-        # Si no hay script de inferencia CLI expuesto en el repo, fallback a Edge-TTS
-        return await cls._synthesize_edge_tts(text, output_path, "es-ES-AlvaroNeural", "+3%", "+0Hz")
+        """Fail explicitly until a real local VibeVoice inference adapter is configured."""
+        raise NotImplementedError(
+            "VibeVoice está listado como integración futura; no hay adaptador de inferencia configurado."
+        )
 
     @classmethod
     async def _synthesize_elevenlabs(cls, text: str, output_path: str, voice_id: str) -> Dict[str, Any]:
@@ -235,8 +223,8 @@ class VoiceHub:
         if not api_key:
             raise ValueError("ELEVENLABS_API_KEY no configurada")
 
-        if not voice_id or len(voice_id) < 15:
-            voice_id = "pNInz6obpgDQGcFmaJgB"  # Adam (Voz #1 de Varón)
+        if not voice_id or len(voice_id) < 10:
+            raise ValueError("Selecciona una voz válida de ElevenLabs desde el catálogo")
 
         url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps"
         payload = json.dumps({

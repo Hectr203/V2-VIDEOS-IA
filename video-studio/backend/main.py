@@ -1,16 +1,20 @@
 import os
 import glob
 import time
+import threading
+import asyncio
 from pathlib import Path
 from typing import Dict, Any, Optional
 from typing import Literal
-from fastapi import FastAPI, HTTPException, BackgroundTasks
+from fastapi import FastAPI, HTTPException, BackgroundTasks, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
+from services.render_jobs import RenderJobStore
 
 from services.voice_hub import VoiceHub
 from services.project_manager import ProjectManager, PROJECTS_DIR
+from services.omniroute_client import OMNIROUTE_API_KEY, OMNIROUTE_BASE_URL
 from services.render_service import render_project, render_single_scene
 from services.script_generator import (
     AVAILABLE_STICKERS,
@@ -28,8 +32,10 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
+    allow_origins=[origin.strip() for origin in os.getenv(
+        "VIDEO_STUDIO_CORS_ORIGINS", "http://localhost:5173,http://127.0.0.1:5173"
+    ).split(",") if origin.strip()],
+    allow_credentials=False,
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -38,6 +44,8 @@ OUTPUT_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../output"
 ASSETS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), "../assets"))
 os.makedirs(OUTPUT_DIR, exist_ok=True)
 os.makedirs(PROJECTS_DIR, exist_ok=True)
+render_jobs = RenderJobStore(os.path.join(PROJECTS_DIR, "render_jobs"), db=ProjectManager.db)
+_render_execution_lock = threading.Lock()
 
 app.mount("/output", StaticFiles(directory=OUTPUT_DIR), name="output")
 app.mount("/projects", StaticFiles(directory=PROJECTS_DIR), name="projects")
@@ -45,11 +53,10 @@ app.mount("/assets", StaticFiles(directory=ASSETS_DIR), name="assets")
 
 # Modelos Pydantic
 class CustomSceneRequest(BaseModel):
-    project_id: str
-    scene_id: int
-    prompt: str
+    project_id: str = Field(min_length=6, max_length=100)
+    scene_id: int = Field(gt=0, le=300)
+    prompt: str = Field(min_length=1, max_length=2000)
     sticker_hint: Optional[str] = None
-    custom_code: Optional[str] = None
 class CreateProjectRequest(BaseModel):
     topic: str = Field(min_length=3, max_length=500)
     target_duration: Optional[int] = Field(default=60, ge=30, le=3600)
@@ -69,6 +76,10 @@ class UpdateSceneRequest(BaseModel):
     sticker: Optional[str] = None
     sfx: Optional[str] = None
     bg_color: Optional[str] = None
+    source_media_id: Optional[str] = None
+    source_start_seconds: Optional[float] = Field(default=None, ge=0)
+    source_audio_enabled: Optional[bool] = None
+    source_clip_duration_seconds: Optional[float] = Field(default=None, gt=0, le=3600)
 
 class RegenerateSceneRequest(BaseModel):
     mode: Optional[str] = "all"  # "all", "voice", "visual"
@@ -99,14 +110,22 @@ def get_motion_library():
 @app.post("/api/motion/render-custom")
 def render_custom_manim_scene(req: CustomSceneRequest):
     """Genera y renderiza una escena Manim exclusiva para un proyecto."""
-    code = req.custom_code
-    if not code:
-        code = generate_manim_code_heuristic(req.prompt, req.sticker_hint)
-        
-    out_dir = Path(PROJECTS_DIR) / req.project_id / "motion"
-    out_file = out_dir / f"scene_{req.scene_id}.webm"
-    
-    result = render_custom_scene(code, out_file)
+    try:
+        project = ProjectManager.get_project(req.project_id)
+        project_dir = Path(ProjectManager.get_project_dir(req.project_id))
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
+    if not project:
+        raise HTTPException(status_code=404, detail="Proyecto no encontrado")
+    if not any(scene.get("id") == req.scene_id for scene in project["scenes"]):
+        raise HTTPException(status_code=404, detail="Escena no encontrada")
+    code = generate_manim_code_heuristic(req.prompt, req.sticker_hint)
+    out_file = project_dir / "motion" / f"scene_{req.scene_id}.webm"
+
+    try:
+        result = render_custom_scene(code, out_file)
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error
     if not result.get("success"):
         raise HTTPException(status_code=500, detail=result.get("error", "Fallo al renderizar escena Manim"))
         
@@ -146,12 +165,43 @@ def get_project(project_id: str):
         raise HTTPException(status_code=404, detail="Proyecto no encontrado")
     return {"success": True, "data": p}
 
+@app.get("/api/projects/{project_id}/source-media")
+def list_project_source_media(project_id: str):
+    try:
+        return {"media": ProjectManager.list_source_media(project_id)}
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error))
+
+@app.put("/api/projects/{project_id}/source-media")
+async def upload_project_source_media(project_id: str, request: Request, filename: str):
+    content_length = request.headers.get("content-length")
+    if content_length:
+        try:
+            if int(content_length) > ProjectManager.MAX_SOURCE_MEDIA_BYTES:
+                raise HTTPException(status_code=413, detail="El video supera el límite local de 2 GiB")
+        except ValueError as error:
+            if isinstance(error, HTTPException):
+                raise
+            raise HTTPException(status_code=400, detail="Content-Length inválido")
+    try:
+        media = await ProjectManager.add_source_media_stream(project_id, filename, request.stream())
+        return {"success": True, "media": media}
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error))
+    except ValueError as error:
+        status = 413 if "2 GiB" in str(error) else 400
+        raise HTTPException(status_code=status, detail=str(error))
+
 @app.put("/api/projects/{project_id}/scenes/{scene_id}")
 def update_scene(project_id: str, scene_id: int, req: UpdateSceneRequest):
     try:
         updates = {k: v for k, v in req.dict().items() if v is not None}
         res = ProjectManager.update_scene(project_id, scene_id, updates)
         return {"success": True, "data": res}
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error))
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error))
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
@@ -167,6 +217,15 @@ async def synthesize_scene(project_id: str, scene_id: int):
 def approve_script(project_id: str):
     try:
         return {"success": True, "data": ProjectManager.approve_script(project_id)}
+    except (FileNotFoundError, ValueError) as e:
+        raise HTTPException(status_code=409, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=502, detail=str(e))
+
+@app.post("/api/projects/{project_id}/generate-storyboard")
+def generate_storyboard(project_id: str):
+    try:
+        return {"success": True, "data": ProjectManager.generate_storyboard(project_id)}
     except (FileNotFoundError, ValueError) as e:
         raise HTTPException(status_code=409, detail=str(e))
     except Exception as e:
@@ -211,35 +270,88 @@ async def synthesize_all_scenes(project_id: str):
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 
-@app.post("/api/projects/{project_id}/render")
-async def render_full_project(project_id: str):
+def _run_render_job(job_id: str, project_id: str) -> None:
+    _render_execution_lock.acquire()
     try:
+        current_job = render_jobs.get(job_id)
+        if not current_job or current_job.get("status") == "cancelled" or current_job.get("cancel_requested"):
+            if current_job and current_job.get("status") != "cancelled":
+                render_jobs.update(job_id, status="cancelled", message="Cancelado")
+            return
         project = ProjectManager.get_project(project_id)
-        if not project or not project["project"].get("storyboard_approved"):
-            raise HTTPException(status_code=409, detail="Aprueba el storyboard antes del render")
-        if not project["scenes"] or any(not scene.get("svg_markup") for scene in project["scenes"]):
-            raise HTTPException(status_code=409, detail="Genera las ilustraciones SVG de todas las escenas antes del render")
-        # Asegurar que todas las escenas tengan audio
-        proj = await ProjectManager.synthesize_all_project_audio(project_id)
+        if not project:
+            raise FileNotFoundError("Proyecto no encontrado")
+        if render_jobs.get(job_id).get("cancel_requested"):
+            render_jobs.update(job_id, status="cancelled", message="Cancelado")
+            return
+        render_jobs.update(job_id, status="preparing", progress=2, message="Preparando audios")
+        proj = asyncio.run(ProjectManager.synthesize_all_project_audio(project_id))
         meta = proj["project"]
         scenes = proj["scenes"]
-
-        filename = f"video_{project_id}_{int(time.time())}.mp4"
-        res = render_project(meta, scenes, output_filename=filename)
-        
-        # Guardar URL del video final en el proyecto
+        if render_jobs.get(job_id).get("cancel_requested"):
+            render_jobs.update(job_id, status="cancelled", message="Cancelado")
+            return
+        render_jobs.update(job_id, status="rendering", progress=10, message="Render local con Remotion")
+        filename = f"video_{project_id}_{job_id}.mp4"
+        res = render_project(
+            meta, scenes, output_filename=filename,
+            checkpoint_id=job_id,
+            progress_callback=lambda pct: render_jobs.update(
+                job_id, progress=10 + int(pct * 0.88), message=f"Renderizando: {pct}%"
+            ),
+            cancel_check=lambda: bool(render_jobs.get(job_id).get("cancel_requested")),
+        )
         meta["final_video_url"] = res["video_url"]
         meta["status"] = "completed"
-        pdir = ProjectManager.get_project_dir(project_id)
-        with open(os.path.join(pdir, "project.json"), "w", encoding="utf-8") as f:
-            import json
-            json.dump(meta, f, ensure_ascii=False, indent=2)
-
-        return {"success": True, "result": res}
-    except HTTPException:
-        raise
+        ProjectManager._save_project(project_id, meta, scenes)
+        render_jobs.update(job_id, status="completed", progress=100, message="Render completado", result=res)
     except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+        status = "cancelled" if render_jobs.get(job_id).get("cancel_requested") else "failed"
+        render_jobs.update(job_id, status=status, message="Cancelado" if status == "cancelled" else str(e))
+    finally:
+        _render_execution_lock.release()
+
+@app.post("/api/projects/{project_id}/render")
+def render_full_project(project_id: str):
+    project = ProjectManager.get_project(project_id)
+    if not project:
+        raise HTTPException(status_code=404, detail="Proyecto no encontrado")
+    if not project["project"].get("storyboard_approved"):
+        raise HTTPException(status_code=409, detail="Aprueba el storyboard antes del render")
+    if not project["scenes"] or any(not scene.get("svg_markup") and not scene.get("source_media_id") for scene in project["scenes"]):
+        raise HTTPException(status_code=409, detail="Cada escena debe tener un SVG original o un clip fuente asignado antes del render")
+    job, should_start = render_jobs.create_or_get(project_id)
+    if should_start:
+        worker = threading.Thread(target=_run_render_job, args=(job["id"], project_id), daemon=True)
+        worker.start()
+    return {"success": True, "job": job, "created": should_start and not job.get("resumed"),
+            "resumed": should_start and bool(job.get("resumed"))}
+
+@app.get("/api/projects/{project_id}/render-job")
+def get_latest_project_render_job(project_id: str):
+    if not ProjectManager.get_project(project_id):
+        raise HTTPException(status_code=404, detail="Proyecto no encontrado")
+    jobs = ProjectManager.db.list_jobs(project_id)
+    # Active jobs take precedence over a newer terminal job so the UI can always
+    # reconnect to work that is still progressing after a page reload.
+    job = next((item for item in jobs if item.get("status") in {"queued", "preparing", "rendering"}), None)
+    return {"success": True, "job": job or (jobs[0] if jobs else None)}
+
+@app.get("/api/render-jobs/{job_id}")
+def get_render_job(job_id: str):
+    job = render_jobs.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Trabajo de render no encontrado")
+    return {"success": True, "job": job}
+
+@app.post("/api/render-jobs/{job_id}/cancel")
+def cancel_render_job(job_id: str):
+    job = render_jobs.get(job_id)
+    if not job:
+        raise HTTPException(status_code=404, detail="Trabajo de render no encontrado")
+    if job["status"] == "completed":
+        raise HTTPException(status_code=409, detail="El render ya terminó")
+    return {"success": True, "job": render_jobs.request_cancel(job_id)}
 
 @app.post("/api/projects/{project_id}/scenes/{scene_id}/preview")
 async def preview_single_scene_render(project_id: str, scene_id: int):
@@ -286,30 +398,33 @@ from services.assembler_bridge import VideoAssemblerBridge
 @app.get("/api/tools-status")
 def get_tools_status():
     """Diagnóstico del estado de herramientas conectadas."""
+    repository_root = Path(__file__).resolve().parents[2]
+    remotion_package = repository_root / "video-studio" / "remotion" / "node_modules" / "remotion" / "package.json"
+    vibevoice_dir = repository_root / "VibeVoice"
     return {
         "remotion": {
             "name": "Remotion 4.x Engine",
-            "status": "active",
+            "status": "available" if remotion_package.is_file() else "not_found",
             "type": "primary_renderer",
-            "description": "Composiciones React 1080x1920 con física de resortes y subtítulos karaoke"
+            "description": "Motor de render local; disponibilidad basada en la instalación del paquete Remotion"
         },
         "video_assembler": {
             "name": "videoAssembler CLI / GUI",
             "status": "connected" if VideoAssemblerBridge.is_available() else "not_found",
-            "path": "/mnt/nvme/V2-VIDEOS-IA/videoAssembler",
+            "path": str(repository_root / "videoAssembler"),
             "description": "Ensamblado con FFmpeg nativo acelerado mediante manifiesto.json"
         },
         "vibevoice": {
             "name": "Microsoft VibeVoice",
-            "status": "detected" if os.path.exists("/mnt/nvme/V2-VIDEOS-IA/VibeVoice") else "not_found",
-            "path": "/mnt/nvme/V2-VIDEOS-IA/VibeVoice",
-            "description": "Modelo de voz y ASR local en CPU/PyTorch"
+            "status": "detected" if vibevoice_dir.is_dir() else "not_found",
+            "path": str(vibevoice_dir),
+            "description": "Detección del código local; no confirma que pesos del modelo o aceleración estén disponibles"
         },
         "omniroute": {
             "name": "OmniRoute AI Proxy (Azure)",
-            "status": "connected",
-            "url": "https://omniroute-api.azurewebsites.net",
-            "description": "Proxy multi-proveedor con rotación de credenciales y combos"
+            "status": "configured" if OMNIROUTE_API_KEY else "not_configured",
+            "url": OMNIROUTE_BASE_URL,
+            "description": "La etiqueta indica únicamente si hay una clave configurada; la conectividad se comprueba al generar contenido"
         },
         "tella_style": {
             "name": "Tella Style Engine",
@@ -323,17 +438,30 @@ def get_tools_status():
         }
     }
 
-@app.post("/api/projects/{project_id}/export-assembler")
+@app.get("/api/projects/{project_id}/export-assembler")
 def export_assembler_manifest(project_id: str):
-    """Exporta el proyecto actual como manifiesto.json para videoAssembler."""
+    """Devuelve el montaje persistido o un manifiesto inicial, sin alterar el proyecto."""
     proj = ProjectManager.get_project(project_id)
     if not proj:
         raise HTTPException(status_code=404, detail="Proyecto no encontrado")
     
-    output_manifest = os.path.join(PROJECTS_DIR, project_id, "video_assembler_manifest.json")
-    VideoAssemblerBridge.export_manifest(proj["project"], proj["scenes"], output_manifest)
-    return {
-        "success": True,
-        "manifest_path": output_manifest,
-        "manifest_url": f"/projects/{project_id}/video_assembler_manifest.json"
-    }
+    try:
+        project_manifest = proj["project"].get("assembler_manifest")
+        manifest = project_manifest or VideoAssemblerBridge.export_manifest(proj["project"], proj["scenes"])
+        manifest["projectId"] = project_id
+        if not project_manifest:
+            for clip in manifest["clips"]:
+                clip["file"] = clip["file"].replace(f"/projects/{project_id}/", "", 1)
+        return {"success": True, "manifest": manifest, "projectManifest": project_manifest}
+    except ValueError as error:
+        raise HTTPException(status_code=409, detail=str(error)) from error
+
+@app.put("/api/projects/{project_id}/assembler-manifest")
+def save_assembler_manifest(project_id: str, payload: Dict[str, Any]):
+    try:
+        manifest = ProjectManager.save_assembler_manifest(project_id, payload)
+        return {"success": True, "manifest": manifest}
+    except FileNotFoundError as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+    except ValueError as error:
+        raise HTTPException(status_code=400, detail=str(error)) from error

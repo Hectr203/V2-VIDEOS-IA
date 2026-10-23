@@ -3,7 +3,6 @@ import asyncio
 import os
 import sys
 import time
-import json
 import uuid
 
 from services.voice_hub import VoiceHub
@@ -224,11 +223,7 @@ async def main():
         "final_video_url": None
     }
 
-    with open(os.path.join(pdir, "project.json"), "w", encoding="utf-8") as f:
-        json.dump(project_meta, f, ensure_ascii=False, indent=2)
-
-    with open(os.path.join(pdir, "scenes.json"), "w", encoding="utf-8") as f:
-        json.dump(scenes_processed, f, ensure_ascii=False, indent=2)
+    ProjectManager._save_project(project_id, project_meta, scenes_processed)
 
     output_filename = "como_se_hace_el_helado_3min_elevenlabs.mp4"
     print(f"\n[2/3] Renderizando video con Remotion (1080x1920 @ 30 FPS)...")
@@ -248,8 +243,7 @@ async def main():
 
     project_meta["final_video_url"] = render_res["video_url"]
     project_meta["status"] = "completed"
-    with open(os.path.join(pdir, "project.json"), "w", encoding="utf-8") as f:
-        json.dump(project_meta, f, ensure_ascii=False, indent=2)
+    ProjectManager._save_project(project_id, project_meta, scenes_processed)
 
     print("\n" + "=" * 65)
     print("🎉 ¡VIDEO CON VOZ DE ELEVENLABS GENERADO EXITOSAMENTE!")

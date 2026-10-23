@@ -113,3 +113,17 @@ Thumbs.db
 
 # CodeGraph index cache
 .codegraph/
+
+# Remotion local cache and browser downloads
+.remotion/
+
+# Bases de datos SQLite locales y análisis temporales
+*.db
+*.sqlite
+*.sqlite3
+graphify-out/
+video_frames_detailed/
+video-studio/backend/projects/*
+video-studio/public/original_assets/
+video-studio/remotion/public/original_assets/
+resultaaquee_*.mp4

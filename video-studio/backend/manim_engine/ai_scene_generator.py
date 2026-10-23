@@ -1,6 +1,8 @@
 import os
 import re
+import json
 import subprocess
+import tempfile
 from pathlib import Path
 from typing import Dict, Any, Optional
 
@@ -32,8 +34,8 @@ def generate_manim_code_heuristic(prompt: str, sticker_hint: Optional[str] = Non
     para diagramas de conexión, ideas y flechas explicativas.
     """
     svg_line = ""
-    if sticker_hint:
-        svg_line = f'svg = SVGMobject("{sticker_hint}").scale(2.2).move_to(UP * 2)'
+    if sticker_hint and re.fullmatch(r"assets/stickers/[A-Za-z0-9_-]+\.svg", sticker_hint):
+        svg_line = f'svg = SVGMobject({json.dumps(sticker_hint)}).scale(2.2).move_to(UP * 2)'
     else:
         svg_line = 'svg = Circle(radius=1.8, color=YELLOW, fill_opacity=0.3).move_to(UP * 2)'
 
@@ -45,7 +47,7 @@ class UniqueScene(Scene):
         {svg_line}
         
         # Título conceptual
-        title = Text("{prompt[:30].upper()}", font_size=56, weight=BOLD, color=WHITE)
+        title = Text({json.dumps(prompt[:30].upper(), ensure_ascii=False)}, font_size=56, weight=BOLD, color=WHITE)
         title.next_to(svg, DOWN, buff=0.8)
         
         # Flecha indicadora
@@ -63,64 +65,56 @@ def render_custom_scene(python_code: str, output_path: Path, scene_name: str = "
     """
     Escribe el script generado en disco, lo ejecuta dentro del contenedor de Manim y exporta a WebM transparente.
     """
-    output_path.parent.mkdir(parents=True, exist_ok=True)
-    temp_script = output_path.parent / f"{output_path.stem}_script.py"
-    
-    with open(temp_script, "w", encoding="utf-8") as f:
-        f.write(python_code)
-        
-    rel_script = os.path.relpath(temp_script, BASE_DIR)
+    project_motion_dir = output_path.parent.resolve()
+    projects_root = PROJECTS_DIR.resolve()
+    if project_motion_dir.name != "motion" or project_motion_dir.parent.parent != projects_root:
+        raise ValueError("La salida de Manim debe estar dentro de motion/ de un proyecto local")
+    if not re.fullmatch(r"scene_[1-9]\d*", output_path.stem) or scene_name != "UniqueScene":
+        raise ValueError("Nombre de escena Manim inválido")
+    project_motion_dir.mkdir(parents=True, exist_ok=True)
+    stickers_dir = BASE_DIR / "video-studio" / "remotion" / "public" / "stickers"
     mov_name = f"{output_path.stem}.mov"
-    
-    cmd = [
-        "docker", "run", "--rm",
-        "-u", f"{os.getuid()}:{os.getgid()}",
-        "-v", f"{BASE_DIR}:/workspace",
-        "-w", "/workspace",
-        DOCKER_IMAGE,
-        "manim",
-        "-qm",
-        "-r", "1080,1920",
-        "--fps", "30",
-        "-t",
-        "--format", "mov",
-        "-o", mov_name,
-        rel_script,
-        scene_name
-    ]
-    
-    res = subprocess.run(cmd, capture_output=True, text=True)
-    if res.returncode != 0:
-        return {
-            "success": False,
-            "error": f"Error compilando escena Manim: {res.stderr or res.stdout}"
-        }
-        
-    # Ruta donde Manim coloca el .mov generado
-    source_mov = BASE_DIR / "media" / "videos" / temp_script.stem / "1920p30" / mov_name
-    if not source_mov.exists():
-        # Búsqueda de fallback
-        candidates = list(BASE_DIR.glob(f"media/**/{mov_name}"))
-        if candidates:
-            source_mov = candidates[0]
-            
-    if not source_mov.exists():
-        return {
-            "success": False,
-            "error": f"No se encontró el archivo MOV renderizado: {mov_name}"
-        }
-        
-    # Convertir a WebM con transparencia
-    webm_path = output_path.with_suffix(".webm")
-    conv_cmd = [
-        "ffmpeg", "-y",
-        "-i", str(source_mov),
-        "-c:v", "libvpx-vp9",
-        "-pix_fmt", "yuva420p",
-        "-auto-alt-ref", "0",
-        str(webm_path)
-    ]
-    subprocess.run(conv_cmd, capture_output=True, text=True)
+
+    # El contenedor sólo puede escribir en un workspace efímero del proyecto;
+    # se le niegan red, capabilities y recursos sin límite.
+    with tempfile.TemporaryDirectory(prefix="manim_", dir=project_motion_dir) as workspace:
+        temp_script = Path(workspace) / "scene_script.py"
+        temp_script.write_text(python_code, encoding="utf-8")
+        cmd = [
+            "docker", "run", "--rm", "--network=none", "--read-only",
+            "--memory=3g", "--cpus=2", "--pids-limit=256",
+            "--security-opt=no-new-privileges", "--cap-drop=ALL",
+            "--tmpfs", "/tmp:rw,nosuid,nodev,size=1g",
+            "-e", "HOME=/tmp", "-e", "XDG_CACHE_HOME=/tmp/.cache",
+            "-u", f"{os.getuid()}:{os.getgid()}",
+            "-v", f"{workspace}:/workspace:rw",
+            "-v", f"{stickers_dir}:/workspace/assets/stickers:ro",
+            "-w", "/workspace", DOCKER_IMAGE,
+            "manim", "-qm", "-r", "1080,1920", "--fps", "30", "-t",
+            "--format", "mov", "-o", mov_name, "scene_script.py", scene_name,
+        ]
+        try:
+            res = subprocess.run(cmd, capture_output=True, text=True, timeout=900, check=False)
+        except subprocess.TimeoutExpired:
+            return {"success": False, "error": "La generación Manim superó el límite de 15 minutos"}
+        if res.returncode != 0:
+            return {"success": False, "error": f"Error compilando escena Manim: {(res.stderr or res.stdout)[-4000:]}"}
+
+        source_mov = Path(workspace) / "media" / "videos" / "scene_script" / "1920p30" / mov_name
+        if not source_mov.exists():
+            return {"success": False, "error": f"No se encontró el MOV renderizado: {mov_name}"}
+
+        webm_path = output_path.with_suffix(".webm")
+        conv_cmd = [
+            "ffmpeg", "-y", "-i", str(source_mov), "-c:v", "libvpx-vp9",
+            "-pix_fmt", "yuva420p", "-auto-alt-ref", "0", str(webm_path),
+        ]
+        try:
+            converted = subprocess.run(conv_cmd, capture_output=True, text=True, timeout=900, check=False)
+        except subprocess.TimeoutExpired:
+            return {"success": False, "error": "La conversión WebM superó el límite de 15 minutos"}
+        if converted.returncode != 0 or not webm_path.is_file():
+            return {"success": False, "error": f"FFmpeg no pudo crear WebM: {(converted.stderr or converted.stdout)[-4000:]}"}
     
     return {
         "success": True,
