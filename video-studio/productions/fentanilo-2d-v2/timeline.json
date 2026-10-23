@@ -1,0 +1,1079 @@
+{
+  "title": "Fentanilo: la llave que cambia todo",
+  "fps": 30,
+  "durationInFrames": 2172,
+  "scenes": [
+    {
+      "id": "hook",
+      "chapter": "LA PREGUNTA",
+      "palette": "purple",
+      "text": "¿Por qué el fentanilo puede hacerte sentir tan bien… y ser tan peligroso?",
+      "minSeconds": 4.3,
+      "start": 0,
+      "frames": 131,
+      "words": [
+        {
+          "word": "Por",
+          "start": 0.092375,
+          "end": 0.230083
+        },
+        {
+          "word": "qué",
+          "start": 0.240666,
+          "end": 0.335999
+        },
+        {
+          "word": "el",
+          "start": 0.346625,
+          "end": 0.420791
+        },
+        {
+          "word": "fentanilo",
+          "start": 0.431375,
+          "end": 0.918666
+        },
+        {
+          "word": "puede",
+          "start": 0.92925,
+          "end": 1.141125
+        },
+        {
+          "word": "hacerte",
+          "start": 1.151708,
+          "end": 1.469499
+        },
+        {
+          "word": "sentir",
+          "start": 1.480083,
+          "end": 1.840249
+        },
+        {
+          "word": "tan",
+          "start": 1.850833,
+          "end": 2.009749
+        },
+        {
+          "word": "bien",
+          "start": 2.020333,
+          "end": 2.263958
+        },
+        {
+          "word": "y",
+          "start": 2.454666,
+          "end": 2.497041
+        },
+        {
+          "word": "ser",
+          "start": 2.507625,
+          "end": 2.730083
+        },
+        {
+          "word": "tan",
+          "start": 2.740666,
+          "end": 2.888957
+        },
+        {
+          "word": "peligroso",
+          "start": 2.899583,
+          "end": 3.450416
+        }
+      ],
+      "audio": "fentanilo-v2/hook.mp3"
+    },
+    {
+      "id": "balance",
+      "chapter": "DOLOR Y PLACER",
+      "palette": "purple",
+      "text": "En tu cerebro conviven dos señales: dolor y placer.",
+      "minSeconds": 3.0,
+      "start": 131,
+      "frames": 111,
+      "words": [
+        {
+          "word": "En",
+          "start": 0.092375,
+          "end": 0.251291
+        },
+        {
+          "word": "tu",
+          "start": 0.261875,
+          "end": 0.346625
+        },
+        {
+          "word": "cerebro",
+          "start": 0.357208,
+          "end": 0.706791
+        },
+        {
+          "word": "conviven",
+          "start": 0.717375,
+          "end": 1.151708
+        },
+        {
+          "word": "dos",
+          "start": 1.162291,
+          "end": 1.310582
+        },
+        {
+          "word": "señales",
+          "start": 1.321166,
+          "end": 1.808457
+        },
+        {
+          "word": "dolor",
+          "start": 2.030916,
+          "end": 2.316916
+        },
+        {
+          "word": "y",
+          "start": 2.327541,
+          "end": 2.369916
+        },
+        {
+          "word": "placer",
+          "start": 2.3805,
+          "end": 2.793625
+        }
+      ],
+      "audio": "fentanilo-v2/balance.mp3"
+    },
+    {
+      "id": "neuron",
+      "chapter": "DENTRO DEL CEREBRO",
+      "palette": "purple",
+      "text": "Tus neuronas tienen pequeñas cerraduras: los receptores opioides.",
+      "minSeconds": 3.0,
+      "start": 242,
+      "frames": 131,
+      "words": [
+        {
+          "word": "Tus",
+          "start": 0.092375,
+          "end": 0.272458
+        },
+        {
+          "word": "neuronas",
+          "start": 0.283041,
+          "end": 0.738541
+        },
+        {
+          "word": "tienen",
+          "start": 0.749166,
+          "end": 1.024582
+        },
+        {
+          "word": "pequeñas",
+          "start": 1.035166,
+          "end": 1.405916
+        },
+        {
+          "word": "cerraduras",
+          "start": 1.416541,
+          "end": 1.967374
+        },
+        {
+          "word": "los",
+          "start": 2.189833,
+          "end": 2.327541
+        },
+        {
+          "word": "receptores",
+          "start": 2.338125,
+          "end": 2.888958
+        },
+        {
+          "word": "opioides",
+          "start": 2.899583,
+          "end": 3.471624
+        }
+      ],
+      "audio": "fentanilo-v2/neuron.mp3"
+    },
+    {
+      "id": "receptor",
+      "chapter": "UNA LLAVE QUÍMICA",
+      "palette": "teal",
+      "text": "Cuando una molécula encaja, como una llave, puede reducir el dolor y producir bienestar.",
+      "minSeconds": 4.4,
+      "start": 373,
+      "frames": 161,
+      "words": [
+        {
+          "word": "Cuando",
+          "start": 0.092375,
+          "end": 0.336
+        },
+        {
+          "word": "una",
+          "start": 0.346625,
+          "end": 0.516125
+        },
+        {
+          "word": "molécula",
+          "start": 0.526708,
+          "end": 0.918666
+        },
+        {
+          "word": "encaja",
+          "start": 0.92925,
+          "end": 1.342375
+        },
+        {
+          "word": "como",
+          "start": 1.522458,
+          "end": 1.702541
+        },
+        {
+          "word": "una",
+          "start": 1.713125,
+          "end": 1.903791
+        },
+        {
+          "word": "llave",
+          "start": 1.914416,
+          "end": 2.221624
+        },
+        {
+          "word": "puede",
+          "start": 2.454666,
+          "end": 2.645332
+        },
+        {
+          "word": "reducir",
+          "start": 2.655916,
+          "end": 3.047874
+        },
+        {
+          "word": "el",
+          "start": 3.058458,
+          "end": 3.132624
+        },
+        {
+          "word": "dolor",
+          "start": 3.143208,
+          "end": 3.408041
+        },
+        {
+          "word": "y",
+          "start": 3.418625,
+          "end": 3.461
+        },
+        {
+          "word": "producir",
+          "start": 3.471625,
+          "end": 3.916541
+        },
+        {
+          "word": "bienestar",
+          "start": 3.927125,
+          "end": 4.467375
+        }
+      ],
+      "audio": "fentanilo-v2/receptor.mp3"
+    },
+    {
+      "id": "endorphins",
+      "chapter": "LAS LLAVES DEL CUERPO",
+      "palette": "purple",
+      "text": "Tu cuerpo fabrica sus propias llaves: las endorfinas. Las libera de forma regulada.",
+      "minSeconds": 4.1,
+      "start": 534,
+      "frames": 177,
+      "words": [
+        {
+          "word": "Tu",
+          "start": 0.092375,
+          "end": 0.198291
+        },
+        {
+          "word": "cuerpo",
+          "start": 0.208916,
+          "end": 0.494916
+        },
+        {
+          "word": "fabrica",
+          "start": 0.5055,
+          "end": 0.87625
+        },
+        {
+          "word": "sus",
+          "start": 0.886875,
+          "end": 1.066958
+        },
+        {
+          "word": "propias",
+          "start": 1.077541,
+          "end": 1.427124
+        },
+        {
+          "word": "llaves",
+          "start": 1.437708,
+          "end": 1.819083
+        },
+        {
+          "word": "las",
+          "start": 2.030916,
+          "end": 2.179207
+        },
+        {
+          "word": "endorfinas",
+          "start": 2.189833,
+          "end": 2.846624
+        },
+        {
+          "word": "Las",
+          "start": 3.569916,
+          "end": 3.792374
+        },
+        {
+          "word": "libera",
+          "start": 3.802958,
+          "end": 4.057208
+        },
+        {
+          "word": "de",
+          "start": 4.067791,
+          "end": 4.173707
+        },
+        {
+          "word": "forma",
+          "start": 4.184333,
+          "end": 4.480958
+        },
+        {
+          "word": "regulada",
+          "start": 4.491541,
+          "end": 4.989416
+        }
+      ],
+      "audio": "fentanilo-v2/endorphins.mp3"
+    },
+    {
+      "id": "potency",
+      "chapter": "MUCHA MÁS POTENCIA",
+      "palette": "purple",
+      "text": "El fentanilo también encaja. Es entre cincuenta y cien veces más potente que la morfina.",
+      "minSeconds": 4.4,
+      "start": 711,
+      "frames": 175,
+      "words": [
+        {
+          "word": "El",
+          "start": 0.092375,
+          "end": 0.240666
+        },
+        {
+          "word": "fentanilo",
+          "start": 0.251291,
+          "end": 0.738582
+        },
+        {
+          "word": "también",
+          "start": 0.749166,
+          "end": 1.066957
+        },
+        {
+          "word": "encaja",
+          "start": 1.077541,
+          "end": 1.522457
+        },
+        {
+          "word": "Es",
+          "start": 2.256375,
+          "end": 2.425875
+        },
+        {
+          "word": "entre",
+          "start": 2.436458,
+          "end": 2.627124
+        },
+        {
+          "word": "cincuenta",
+          "start": 2.637708,
+          "end": 3.019083
+        },
+        {
+          "word": "y",
+          "start": 3.029666,
+          "end": 3.072041
+        },
+        {
+          "word": "cien",
+          "start": 3.082625,
+          "end": 3.32625
+        },
+        {
+          "word": "veces",
+          "start": 3.336875,
+          "end": 3.66525
+        },
+        {
+          "word": "más",
+          "start": 3.675833,
+          "end": 3.855916
+        },
+        {
+          "word": "potente",
+          "start": 3.866541,
+          "end": 4.247916
+        },
+        {
+          "word": "que",
+          "start": 4.258458,
+          "end": 4.364374
+        },
+        {
+          "word": "la",
+          "start": 4.375,
+          "end": 4.438541
+        },
+        {
+          "word": "morfina",
+          "start": 4.449166,
+          "end": 4.925874
+        }
+      ],
+      "audio": "fentanilo-v2/potency.mp3"
+    },
+    {
+      "id": "flood",
+      "chapter": "EL SISTEMA SE DESBORDA",
+      "palette": "teal",
+      "text": "Puede activar intensamente esos receptores y provocar euforia.",
+      "minSeconds": 2.6,
+      "start": 886,
+      "frames": 117,
+      "words": [
+        {
+          "word": "Puede",
+          "start": 0.092375,
+          "end": 0.251291
+        },
+        {
+          "word": "activar",
+          "start": 0.261875,
+          "end": 0.5585
+        },
+        {
+          "word": "intensamente",
+          "start": 0.569083,
+          "end": 1.225874
+        },
+        {
+          "word": "esos",
+          "start": 1.236458,
+          "end": 1.480083
+        },
+        {
+          "word": "receptores",
+          "start": 1.490666,
+          "end": 2.052124
+        },
+        {
+          "word": "y",
+          "start": 2.062708,
+          "end": 2.105083
+        },
+        {
+          "word": "provocar",
+          "start": 2.115666,
+          "end": 2.539374
+        },
+        {
+          "word": "euforia",
+          "start": 2.55,
+          "end": 3.0055
+        }
+      ],
+      "audio": "fentanilo-v2/flood.mp3"
+    },
+    {
+      "id": "coffee",
+      "chapter": "LA SENSACIÓN",
+      "palette": "gold",
+      "text": "El mundo parece más agradable.",
+      "minSeconds": 1.65,
+      "start": 1003,
+      "frames": 75,
+      "words": [
+        {
+          "word": "El",
+          "start": 0.092375,
+          "end": 0.240666
+        },
+        {
+          "word": "mundo",
+          "start": 0.251291,
+          "end": 0.505541
+        },
+        {
+          "word": "parece",
+          "start": 0.516083,
+          "end": 0.833874
+        },
+        {
+          "word": "más",
+          "start": 0.8445,
+          "end": 1.056375
+        },
+        {
+          "word": "agradable",
+          "start": 1.066958,
+          "end": 1.586041
+        }
+      ],
+      "audio": "fentanilo-v2/coffee.mp3"
+    },
+    {
+      "id": "music",
+      "chapter": "LA SENSACIÓN",
+      "palette": "gold",
+      "text": "La música se siente distinta.",
+      "minSeconds": 1.65,
+      "start": 1078,
+      "frames": 74,
+      "words": [
+        {
+          "word": "La",
+          "start": 0.092375,
+          "end": 0.2195
+        },
+        {
+          "word": "música",
+          "start": 0.230083,
+          "end": 0.600833
+        },
+        {
+          "word": "se",
+          "start": 0.611458,
+          "end": 0.727999
+        },
+        {
+          "word": "siente",
+          "start": 0.738541,
+          "end": 1.045749
+        },
+        {
+          "word": "distinta",
+          "start": 1.056375,
+          "end": 1.564833
+        }
+      ],
+      "audio": "fentanilo-v2/music.mp3"
+    },
+    {
+      "id": "pain",
+      "chapter": "LA SENSACIÓN",
+      "palette": "gold",
+      "text": "Y el dolor puede apagarse.",
+      "minSeconds": 1.6,
+      "start": 1152,
+      "frames": 68,
+      "words": [
+        {
+          "word": "Y",
+          "start": 0.092375,
+          "end": 0.240666
+        },
+        {
+          "word": "el",
+          "start": 0.251291,
+          "end": 0.336041
+        },
+        {
+          "word": "dolor",
+          "start": 0.346625,
+          "end": 0.64325
+        },
+        {
+          "word": "puede",
+          "start": 0.653833,
+          "end": 0.855124
+        },
+        {
+          "word": "apagarse",
+          "start": 0.865666,
+          "end": 1.384749
+        }
+      ],
+      "audio": "fentanilo-v2/pain.mp3"
+    },
+    {
+      "id": "breathing",
+      "chapter": "EL RIESGO INVISIBLE",
+      "palette": "purple",
+      "text": "Pero esos receptores también están en las zonas del cerebro que controlan la respiración.",
+      "minSeconds": 4.3,
+      "start": 1220,
+      "frames": 147,
+      "words": [
+        {
+          "word": "Pero",
+          "start": 0.092375,
+          "end": 0.283041
+        },
+        {
+          "word": "esos",
+          "start": 0.293625,
+          "end": 0.526666
+        },
+        {
+          "word": "receptores",
+          "start": 0.537291,
+          "end": 1.077541
+        },
+        {
+          "word": "también",
+          "start": 1.088125,
+          "end": 1.374125
+        },
+        {
+          "word": "están",
+          "start": 1.38475,
+          "end": 1.649583
+        },
+        {
+          "word": "en",
+          "start": 1.660166,
+          "end": 1.734332
+        },
+        {
+          "word": "las",
+          "start": 1.744916,
+          "end": 1.840249
+        },
+        {
+          "word": "zonas",
+          "start": 1.850833,
+          "end": 2.126249
+        },
+        {
+          "word": "del",
+          "start": 2.136875,
+          "end": 2.264
+        },
+        {
+          "word": "cerebro",
+          "start": 2.274583,
+          "end": 2.634749
+        },
+        {
+          "word": "que",
+          "start": 2.645333,
+          "end": 2.761874
+        },
+        {
+          "word": "controlan",
+          "start": 2.772458,
+          "end": 3.249166
+        },
+        {
+          "word": "la",
+          "start": 3.25975,
+          "end": 3.333916
+        },
+        {
+          "word": "respiración",
+          "start": 3.3445,
+          "end": 3.980083
+        }
+      ],
+      "audio": "fentanilo-v2/breathing.mp3"
+    },
+    {
+      "id": "slow",
+      "chapter": "CUANDO LA SEÑAL FALLA",
+      "palette": "purple",
+      "text": "Una sobredosis puede hacer que respires cada vez más lento, hasta dejar de respirar.",
+      "minSeconds": 4.2,
+      "start": 1367,
+      "frames": 151,
+      "words": [
+        {
+          "word": "Una",
+          "start": 0.092375,
+          "end": 0.272458
+        },
+        {
+          "word": "sobredosis",
+          "start": 0.283041,
+          "end": 0.855082
+        },
+        {
+          "word": "puede",
+          "start": 0.865666,
+          "end": 1.056332
+        },
+        {
+          "word": "hacer",
+          "start": 1.066958,
+          "end": 1.289416
+        },
+        {
+          "word": "que",
+          "start": 1.3,
+          "end": 1.395333
+        },
+        {
+          "word": "respires",
+          "start": 1.405916,
+          "end": 1.850832
+        },
+        {
+          "word": "cada",
+          "start": 1.861458,
+          "end": 2.062749
+        },
+        {
+          "word": "vez",
+          "start": 2.073291,
+          "end": 2.253374
+        },
+        {
+          "word": "más",
+          "start": 2.264,
+          "end": 2.444083
+        },
+        {
+          "word": "lento",
+          "start": 2.454666,
+          "end": 2.772457
+        },
+        {
+          "word": "hasta",
+          "start": 2.952541,
+          "end": 3.185582
+        },
+        {
+          "word": "dejar",
+          "start": 3.196166,
+          "end": 3.492791
+        },
+        {
+          "word": "de",
+          "start": 3.503375,
+          "end": 3.588125
+        },
+        {
+          "word": "respirar",
+          "start": 3.598708,
+          "end": 4.128374
+        }
+      ],
+      "audio": "fentanilo-v2/slow.mp3"
+    },
+    {
+      "id": "tiny",
+      "chapter": "UNA CANTIDAD MUY PEQUEÑA",
+      "palette": "purple",
+      "text": "Una cantidad diminuta puede ser mortal. El riesgo cambia según la persona y la mezcla.",
+      "minSeconds": 4.5,
+      "start": 1518,
+      "frames": 173,
+      "words": [
+        {
+          "word": "Una",
+          "start": 0.092375,
+          "end": 0.272458
+        },
+        {
+          "word": "cantidad",
+          "start": 0.283041,
+          "end": 0.696166
+        },
+        {
+          "word": "diminuta",
+          "start": 0.706791,
+          "end": 1.141124
+        },
+        {
+          "word": "puede",
+          "start": 1.151708,
+          "end": 1.384749
+        },
+        {
+          "word": "ser",
+          "start": 1.395333,
+          "end": 1.585999
+        },
+        {
+          "word": "mortal",
+          "start": 1.596625,
+          "end": 2.00975
+        },
+        {
+          "word": "El",
+          "start": 2.733041,
+          "end": 2.891957
+        },
+        {
+          "word": "riesgo",
+          "start": 2.902541,
+          "end": 3.241541
+        },
+        {
+          "word": "cambia",
+          "start": 3.252125,
+          "end": 3.516958
+        },
+        {
+          "word": "según",
+          "start": 3.527541,
+          "end": 3.781791
+        },
+        {
+          "word": "la",
+          "start": 3.792375,
+          "end": 3.855916
+        },
+        {
+          "word": "persona",
+          "start": 3.866541,
+          "end": 4.290249
+        },
+        {
+          "word": "y",
+          "start": 4.300833,
+          "end": 4.353791
+        },
+        {
+          "word": "la",
+          "start": 4.364416,
+          "end": 4.449166
+        },
+        {
+          "word": "mezcla",
+          "start": 4.45975,
+          "end": 4.872875
+        }
+      ],
+      "audio": "fentanilo-v2/tiny.mp3"
+    },
+    {
+      "id": "fall",
+      "chapter": "EL MISMO MECANISMO",
+      "palette": "purple",
+      "text": "El mecanismo que alivia también puede poner tu vida en peligro.",
+      "minSeconds": 3.0,
+      "start": 1691,
+      "frames": 113,
+      "words": [
+        {
+          "word": "El",
+          "start": 0.092375,
+          "end": 0.240666
+        },
+        {
+          "word": "mecanismo",
+          "start": 0.251291,
+          "end": 0.749166
+        },
+        {
+          "word": "que",
+          "start": 0.75975,
+          "end": 0.855083
+        },
+        {
+          "word": "alivia",
+          "start": 0.865666,
+          "end": 1.172874
+        },
+        {
+          "word": "también",
+          "start": 1.183458,
+          "end": 1.533041
+        },
+        {
+          "word": "puede",
+          "start": 1.543625,
+          "end": 1.766083
+        },
+        {
+          "word": "poner",
+          "start": 1.776708,
+          "end": 2.062708
+        },
+        {
+          "word": "tu",
+          "start": 2.073291,
+          "end": 2.168624
+        },
+        {
+          "word": "vida",
+          "start": 2.17925,
+          "end": 2.380541
+        },
+        {
+          "word": "en",
+          "start": 2.391083,
+          "end": 2.454624
+        },
+        {
+          "word": "peligro",
+          "start": 2.46525,
+          "end": 2.878375
+        }
+      ],
+      "audio": "fentanilo-v2/fall.mp3"
+    },
+    {
+      "id": "pill",
+      "chapter": "NO SE VE A SIMPLE VISTA",
+      "palette": "purple",
+      "text": "Una pastilla falsificada puede contener fentanilo sin que lo sepas.",
+      "minSeconds": 3.0,
+      "start": 1804,
+      "frames": 125,
+      "words": [
+        {
+          "word": "Una",
+          "start": 0.092375,
+          "end": 0.272458
+        },
+        {
+          "word": "pastilla",
+          "start": 0.283041,
+          "end": 0.685582
+        },
+        {
+          "word": "falsificada",
+          "start": 0.696166,
+          "end": 1.289374
+        },
+        {
+          "word": "puede",
+          "start": 1.3,
+          "end": 1.533041
+        },
+        {
+          "word": "contener",
+          "start": 1.543625,
+          "end": 1.914375
+        },
+        {
+          "word": "fentanilo",
+          "start": 1.925,
+          "end": 2.412291
+        },
+        {
+          "word": "sin",
+          "start": 2.422875,
+          "end": 2.613541
+        },
+        {
+          "word": "que",
+          "start": 2.624166,
+          "end": 2.719499
+        },
+        {
+          "word": "lo",
+          "start": 2.730083,
+          "end": 2.804249
+        },
+        {
+          "word": "sepas",
+          "start": 2.814833,
+          "end": 3.270333
+        }
+      ],
+      "audio": "fentanilo-v2/pill.mp3"
+    },
+    {
+      "id": "rescue",
+      "chapter": "ACTÚA A TIEMPO",
+      "palette": "teal",
+      "text": "Si alguien no responde o no respira bien, llama a emergencias. La naloxona puede salvarle la vida.",
+      "minSeconds": 5.2,
+      "start": 1929,
+      "frames": 243,
+      "words": [
+        {
+          "word": "Si",
+          "start": 0.092375,
+          "end": 0.325416
+        },
+        {
+          "word": "alguien",
+          "start": 0.336,
+          "end": 0.600833
+        },
+        {
+          "word": "no",
+          "start": 0.611458,
+          "end": 0.717374
+        },
+        {
+          "word": "responde",
+          "start": 0.727958,
+          "end": 1.151666
+        },
+        {
+          "word": "o",
+          "start": 1.162291,
+          "end": 1.204666
+        },
+        {
+          "word": "no",
+          "start": 1.21525,
+          "end": 1.363541
+        },
+        {
+          "word": "respira",
+          "start": 1.374166,
+          "end": 1.744916
+        },
+        {
+          "word": "bien",
+          "start": 1.7555,
+          "end": 1.988541
+        },
+        {
+          "word": "llama",
+          "start": 2.200416,
+          "end": 2.497041
+        },
+        {
+          "word": "a",
+          "start": 2.507625,
+          "end": 2.560583
+        },
+        {
+          "word": "emergencias",
+          "start": 2.571166,
+          "end": 3.291499
+        },
+        {
+          "word": "La",
+          "start": 4.014833,
+          "end": 4.152541
+        },
+        {
+          "word": "naloxona",
+          "start": 4.163125,
+          "end": 4.661
+        },
+        {
+          "word": "puede",
+          "start": 4.671625,
+          "end": 4.904666
+        },
+        {
+          "word": "salvarle",
+          "start": 4.91525,
+          "end": 5.360166
+        },
+        {
+          "word": "la",
+          "start": 5.37075,
+          "end": 5.444916
+        },
+        {
+          "word": "vida",
+          "start": 5.4555,
+          "end": 5.773291
+        }
+      ],
+      "audio": "fentanilo-v2/rescue.mp3"
+    }
+  ]
+}
