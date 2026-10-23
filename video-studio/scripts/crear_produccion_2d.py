@@ -158,11 +158,14 @@ def crear_proyecto(prod_id: str, titulo: str, tema: str = ""):
     }
     (proj_dir / "project.json").write_text(json.dumps(project_metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    # 3. storyboard.json
+    # 3. tsconfig.json local para resolución de tipos en IDE
+    (proj_dir / "tsconfig.json").write_text('{\n  "extends": "../tsconfig.json",\n  "include": ["src/**/*"]\n}\n', encoding="utf-8")
+
+    # 4. storyboard.json
     storyboard = generar_storyboard_plantilla(titulo, tema or titulo)
     (proj_dir / "storyboard.json").write_text(json.dumps(storyboard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    # 4. prepare.py autónomo (guarda directo en public/ y src/)
+    # 5. prepare.py autónomo (guarda directo en public/ y src/)
     prepare_script = f'''"""Preparación de audio TTS y sincronización temporal para {prod_id}."""
 import asyncio
 import hashlib
