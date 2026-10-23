@@ -18,22 +18,29 @@ Para cualquier temática (ciencia, inteligencia artificial, tecnología, econom�
 - **Modelado de sistemas**: En lugar de texto estático, representar los procesos con metáforas mecánicas o biológicas activas (ej. cerraduras y llaves para interacciones moleculares o permisos; redes neuronales con pulsos eléctricos luminosos para procesamiento de datos; órganos o sistemas con ritmos acelerados o desacelerados).
 - **Animaciones matemáticas reactivas**: Toda oscilación o movimiento continuo debe emplear funciones deterministas basadas en el frame actual (`f`): `wave()`, `ease()`, `mix()`, `clamp()`, `seeded()`.
 
-## 3. Arquitectura y Almacenamiento Centralizado de Recursos
-Para evitar dispersión de archivos y facilitar la escalabilidad de múltiples producciones:
-1. **Directorio de la Producción**: `video-studio/productions/<id-produccion>/`
-   - `storyboard.json`: Declaración de escenas, capítulos, paletas y textos.
-   - `prepare.py`: Pipeline de audio TTS (Edge TTS con WordBoundary) y síntesis musical.
-   - `timeline.json`: Marcas temporales calculadas en frames a 30 fps.
-   - `subtitles.srt`: Subtítulos cronometrados.
-   - `render.mjs`: Orquestador de renderizado Remotion.
-   - `renders/`: Stills temporales, mosaico de control y borrador (ignorado en Git).
-2. **Componentes Remotion**: `video-studio/remotion/src/projects/<id-produccion>/`
-   - `art.tsx`: Biblioteca de definiciones SVG y componentes ilustrados.
-   - `Film.tsx`: Montaje con cámara dinámica, transiciones y subtítulos cinéticos.
-   - `timeline.json`: Datos de sincronización.
-3. **Assets Públicos**: `video-studio/remotion/public/<id-produccion>/`
-   - Locuciones (`<scene_id>.mp3`), música (`score.wav`), tipografía.
-4. **Salida Final**: `video-studio/output/<id-produccion>.mp4`
+## 3. Arquitectura y Almacenamiento Auto-Contenido por Proyecto
+Para evitar la dispersión de archivos y evitar que `output/`, `remotion/` o carpetas temporales se llenen de basura, **cada proyecto vive 100% auto-contenido en su propia carpeta**:
+`video-studio/projects/<nombre-del-proyecto>/`
+
+Estructura canónica de cada proyecto:
+1. `project.json`: Metadatos del proyecto (título, descripción, resolución, versión, autor).
+2. `storyboard.json`: Declaración de escenas, capítulos, paletas, textos y notas editoriales.
+3. `timeline.json`: Marcas temporales calculadas a 30 fps con marcas por palabra.
+4. `subtitles.srt`: Subtítulos cronometrados portables.
+5. `prepare.py`: Pipeline de audio TTS (Edge TTS con WordBoundary) y síntesis musical procedural.
+6. `render.mjs`: Orquestador autónomo de renderizado Remotion (Full HD, borrador y stills).
+7. `src/`:
+   - `index.tsx`: Entrypoint y registro autónomo de Remotion (`registerRoot`).
+   - `Film.tsx`: Montaje con cámara dinámica, secuencias, audio y subtítulos cinéticos.
+   - `art.tsx`: Biblioteca de definiciones SVG, rigging IK, personajes y elementos reutilizables.
+   - `timeline.json`: Datos de sincronización accesibles por el bundler.
+8. `public/`:
+   - Locuciones (`<scene_id>.mp3`), música (`score.wav`), tipografía empaquetada.
+9. `renders/`:
+   - `master-1080p.mp4`: Video final Full HD de alta calidad (CRF 17).
+   - `preview-720p.mp4`: Previsualización borrador para iteración rápida.
+   - `contact-sheet.jpg`: Mosaico visual de control de calidad.
+   - `stills/`: Capturas fotograma a fotograma de cada escena.
 
 ## 4. Puerta de Calidad Obligatoria Pre-Render (Contact Sheet Gate)
 Ningún agente puede entregar o considerar completado un video sin cumplir este protocolo:

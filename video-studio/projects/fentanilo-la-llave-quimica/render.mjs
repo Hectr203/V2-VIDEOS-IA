@@ -2,7 +2,7 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import {execFileSync} from 'node:child_process';
+import {execFileSync, execSync} from 'node:child_process';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const studio = path.resolve(here, '../..');
@@ -13,32 +13,54 @@ const {selectComposition, renderMedia, renderStill} = require('@remotion/rendere
 
 const timeline = JSON.parse(await fs.readFile(path.join(here, 'timeline.json'), 'utf8'));
 const renders = path.join(here, 'renders');
-await fs.mkdir(renders, {recursive: true});
+const stillsDir = path.join(renders, 'stills');
+await fs.mkdir(stillsDir, {recursive: true});
 
 const stills = process.argv.includes('--stills');
 const draft = process.argv.includes('--draft');
-const compositionId = 'helado-2d-v2';
+const compositionId = 'fentanilo-la-llave-quimica';
 
-console.log(`Compilando bundle Remotion para ${compositionId}...`);
-const serveUrl = await bundle({entryPoint: path.join(remotion, 'src/index.ts'), publicDir: path.join(remotion, 'public')});
+console.log(`[Proyecto: ${compositionId}] Compilando bundle Remotion autónomo...`);
+const serveUrl = await bundle({
+  entryPoint: path.join(here, 'src/index.tsx'),
+  publicDir: path.join(here, 'public'),
+  webpackOverride: (config) => {
+    config.resolve.modules = [
+      path.join(remotion, 'node_modules'),
+      'node_modules'
+    ];
+    return config;
+  }
+});
+
 const chromiumOptions = {gl: 'angle'};
 const composition = await selectComposition({serveUrl, id: compositionId, chromiumOptions});
 
 if (stills) {
-  console.log(`Generando stills de verificación...`);
+  console.log(`Generando stills de verificación para ${timeline.scenes.length} escenas...`);
   for (const scene of timeline.scenes) {
     const frame = scene.start + Math.floor(scene.frames * 0.67);
+    const stillPath = path.join(stillsDir, `${scene.id}.png`);
     await renderStill({
-      serveUrl, composition, output: path.join(renders, `${scene.id}.png`),
+      serveUrl, composition, output: stillPath,
       frame, imageFormat: 'png', scale: 2/3, chromiumOptions
     });
-    console.log(`STILL ${scene.id} @${(frame / 30).toFixed(2)}s`);
+    console.log(`  ✓ STILL ${scene.id} @${(frame / 30).toFixed(2)}s`);
   }
-  console.log(`Todos los stills listos en: ${renders}`);
+  const contactSheet = path.join(renders, 'contact-sheet.jpg');
+  try {
+    execSync(`ffmpeg -v error -y -pattern_type glob -i '${stillsDir}/*.png' -vf 'scale=240:-1,tile=4x4:padding=6:margin=6' -frames:v 1 '${contactSheet}'`);
+    console.log(`[OK] Mosaico de control generado en: ${contactSheet}`);
+  } catch (err) {
+    console.warn(`No se pudo generar contact-sheet.jpg: ${err.message}`);
+  }
 } else {
-  const name = draft ? 'preview-720p.mp4' : 'helado-2d-v2.mp4';
+  const name = draft ? 'preview-720p.mp4' : 'master-1080p.mp4';
+  const final = path.join(renders, name);
   const partial = path.join(renders, `partial-${name}`);
   let progress = -1;
+
+  console.log(`Renderizando ${name} (${draft ? '720p Borrador' : '1080p Master'})...`);
   await renderMedia({
     serveUrl, composition, outputLocation: partial, codec: 'h264', crf: draft ? 23 : 17,
     pixelFormat: 'yuv420p', audioCodec: 'aac', audioBitrate: '192k',
@@ -50,11 +72,7 @@ if (stills) {
   });
 
   const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_streams', '-show_format', '-of', 'json', partial], {encoding: 'utf8'}));
-  const final = path.join(renders, name);
   await fs.rename(partial, final);
-  if (!draft) {
-    await fs.mkdir(path.join(studio, 'output'), {recursive: true});
-    await fs.copyFile(final, path.join(studio, 'output', name));
-  }
-  console.log(`VERIFICADO ${final} (${probe.format.duration}s, video + audio)`);
+  console.log(`\n[ÉXITO] Video guardado en: ${final}`);
+  console.log(`Duración: ${probe.format.duration}s | Tamaño: ${(Number(probe.format.size) / 1024 / 1024).toFixed(1)} MB`);
 }

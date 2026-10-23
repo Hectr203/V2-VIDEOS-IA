@@ -273,18 +273,23 @@ function Shot({scene,index}: {scene:Scene;index:number}) {
   </AbsoluteFill>;
 }
 
+const getAsset = (file: string) => {
+  const base = file.split('/').pop() || file;
+  return staticFile(base);
+};
+
 export const FentanylFilm: React.FC = () => {
   const [handle]=useState(()=>delayRender('Loading bundled typeface'));
   useEffect(()=>{
-    const font=new FontFace('StudioSans',`url(${staticFile('fentanilo-v2/UbuntuSans.ttf')})`,{weight:'100 900'});
+    const font=new FontFace('StudioSans',`url(${getAsset('UbuntuSans.ttf')})`,{weight:'100 900'});
     font.load().then(loaded=>{document.fonts.add(loaded);continueRender(handle);}).catch(cancelRender);
   },[handle]);
   return <AbsoluteFill style={{background:'#21153b',fontFamily:'StudioSans, sans-serif'}}>
     <div style={{position:'absolute',width:720,height:1280,transform:'scale(1.5)',transformOrigin:'top left'}}>
       {timeline.scenes.map((scene,i)=><Sequence key={scene.id} from={scene.start} durationInFrames={scene.frames}>
-        <Shot scene={scene} index={i}/><Audio src={staticFile(scene.audio)} volume={.95}/>
+        <Shot scene={scene} index={i}/><Audio src={getAsset(scene.audio)} volume={.95}/>
       </Sequence>)}
     </div>
-    <Audio src={staticFile('fentanilo-v2/score.wav')} volume={.8}/>
+    <Audio src={getAsset('score.wav')} volume={.8}/>
   </AbsoluteFill>;
 };

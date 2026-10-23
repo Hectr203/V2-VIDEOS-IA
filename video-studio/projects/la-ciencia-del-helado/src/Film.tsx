@@ -233,10 +233,15 @@ function Shot({scene, index}: {scene: Scene; index: number}) {
   );
 }
 
+const getAsset = (file: string) => {
+  const base = file.split('/').pop() || file;
+  return staticFile(base);
+};
+
 export const Helado2dV2Film: React.FC = () => {
   const [handle] = useState(() => delayRender('Cargando tipografía'));
   useEffect(() => {
-    const font = new FontFace('StudioSans', `url(${staticFile('helado-2d-v2/UbuntuSans.ttf')})`, {weight: '100 900'});
+    const font = new FontFace('StudioSans', `url(${getAsset('UbuntuSans.ttf')})`, {weight: '100 900'});
     font.load().then(loaded => { document.fonts.add(loaded); continueRender(handle); }).catch(cancelRender);
   }, [handle]);
 
@@ -246,11 +251,11 @@ export const Helado2dV2Film: React.FC = () => {
         {timeline.scenes.map((scene, i) => (
           <Sequence key={scene.id} from={scene.start} durationInFrames={scene.frames}>
             <Shot scene={scene} index={i} />
-            <Audio src={staticFile(scene.audio)} volume={0.95} />
+            <Audio src={getAsset(scene.audio)} volume={0.95} />
           </Sequence>
         ))}
       </div>
-      <Audio src={staticFile('helado-2d-v2/score.wav')} volume={0.8} />
+      <Audio src={getAsset('score.wav')} volume={0.8} />
     </AbsoluteFill>
   );
 };

@@ -13,7 +13,7 @@ Creación de nuevos videos explicativos, reproducción o réplica animada de pie
 - Formato y resolución de entrega (por defecto vertical 1080×1920 a 30 fps para reels/shorts o apaisado 1920×1080).
 - Voces configuradas (Edge TTS o ElevenLabs con marcas de tiempo por palabra).
 - Recursos de audio o parámetros para síntesis musical procedimental.
-- Estructura de producción bajo `video-studio/productions/<id-produccion>/`.
+- Estructura de producción auto-contenida bajo `video-studio/projects/<nombre-del-proyecto>/`.
 
 ## Acciones y límites
 - Planificar el storyboard escena por escena en `storyboard.json` garantizando narrativa progresiva y paletas cromáticas coherentes.
@@ -22,7 +22,7 @@ Creación de nuevos videos explicativos, reproducción o réplica animada de pie
 - Generar la locución y marcas de tiempo por palabra mediante `prepare.py`.
 - Generar hoja de contactos de control (`contact-sheet.jpg`) mediante render de stills intermedios antes de aprobar el render final.
 - Ejecutar el renderizado estratificado: primero borrador en 720p para validación rápida y posteriormente master en 1080p (CRF 17).
-- Mantener la estructura estandarizada de producciones sin dispersar archivos en carpetas no autorizadas.
+- Mantener la estructura estandarizada de proyectos auto-contenidos sin dispersar archivos en carpetas externas.
 
 ## Uso de skills
 Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear obligatoriamente:
@@ -31,9 +31,12 @@ Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear 
 - `design-and-motion`: para coherencia de diseño, contraste y accesibilidad cromática.
 
 ## Entrega
-- Código fuente de la producción: `storyboard.json`, `prepare.py`, `render.mjs`, `art.tsx` y `Film.tsx`.
-- Hoja de contactos de verificación: `renders/contact-sheet.jpg`.
-- Video master verificado: `video-studio/output/<id-produccion>.mp4` con reporte de duración, resolución y flujo de streams.
+- Proyecto 100% auto-contenido en `video-studio/projects/<nombre-del-proyecto>/`:
+  - `project.json`, `storyboard.json`, `prepare.py`, `render.mjs`, `subtitles.srt`.
+  - `src/index.tsx`, `src/Film.tsx`, `src/art.tsx`.
+  - `public/`: audios, tipografía y música.
+- Hoja de contactos de verificación: `video-studio/projects/<nombre-del-proyecto>/renders/contact-sheet.jpg`.
+- Video master verificado: `video-studio/projects/<nombre-del-proyecto>/renders/master-1080p.mp4` con reporte de duración, resolución y flujo de streams.
 - Informe breve con criterios cumplidos y parámetros técnicos aplicados.
 
 ## Criterios de aceptación

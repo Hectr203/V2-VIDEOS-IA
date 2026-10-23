@@ -20,31 +20,28 @@ Para evitar que los archivos queden dispersos, toda producción debe respetar la
 
 ```text
 video-studio/
-├── productions/
-│   └── <id-produccion>/                # Carpeta central de la producción
-│       ├── storyboard.json             # Guion, metadata, capítulos y paletas
-│       ├── prepare.py                  # Generación TTS, timestamps y banda sonora
-│       ├── timeline.json               # Timestamps exactos calculados por frame
-│       ├── subtitles.srt               # Subtítulos generados
-│       ├── render.mjs                  # Script de render (stills, draft, final)
-│       └── renders/                    # Carpeta temporal (IGNORADA EN GIT)
-│           ├── contact-sheet.jpg       # Mosaico de control de todas las escenas
-│           ├── <scene_id>.png          # Stills individuales por escena
-│           └── preview-720p.mp4        # Render borrador para chequeo
-├── remotion/
-│   ├── public/
-│   │   └── <id-produccion>/            # Assets estáticos servidos a Remotion
-│   │       ├── <scene_id>.mp3          # Locuciones por escena
-│   │       ├── score.wav               # Música o efectos de sonido procedurales
-│   │       └── *.ttf                   # Tipografías utilizadas
-│   └── src/
-│       └── projects/
-│           └── <id-produccion>/        # Código React/Remotion de la producción
-│               ├── art.tsx             # Biblioteca de ilustraciones vectoriales SVG
-│               ├── Film.tsx            # Secuencia, montaje, cámara y subtítulos
-│               └── timeline.json       # Copia o enlace del timeline para Remotion
-└── output/
-    └── <id-produccion>.mp4             # Master final en 1080x1920 (IGNORADO EN GIT)
+└── projects/
+    └── <nombre-del-proyecto>/          # Carpeta única y auto-contenida por proyecto
+        ├── project.json                # Metadatos (título, descripción, resolución, versión)
+        ├── storyboard.json             # Guion, capítulos, paletas y temporalidad mínima
+        ├── timeline.json               # Timestamps exactos por frame y palabras
+        ├── subtitles.srt               # Subtítulos cronometrados portables
+        ├── prepare.py                  # Generación TTS, banda sonora procedural y sincronización
+        ├── render.mjs                  # Orquestador autónomo de render Remotion
+        ├── src/
+        │   ├── index.tsx               # Entrypoint autónomo con registerRoot
+        │   ├── Film.tsx                # Montaje, secuencias, cámara y subtítulos cinéticos
+        │   ├── art.tsx                 # Biblioteca vectorial SVG, rigging IK y recursos reutilizables
+        │   └── timeline.json           # Enlace local para bundler
+        ├── public/
+        │   ├── <scene_id>.mp3          # Locuciones por escena
+        │   ├── score.wav               # Banda sonora procedural
+        │   └── UbuntuSans.ttf          # Tipografía empaquetada
+        └── renders/                    # Salidas de render (IGNORADO EN GIT)
+            ├── contact-sheet.jpg       # Mosaico de control de calidad de todas las escenas
+            ├── stills/                 # Capturas PNG individuales por escena
+            ├── preview-720p.mp4        # Render borrador rápido
+            └── master-1080p.mp4        # Video master final Full HD (1080x1920, CRF 17)
 ```
 
 ---
@@ -89,19 +86,14 @@ Cada escena debe contener:
 2. Asignar las pistas de audio por escena y la pista maestra de música de fondo (`score.wav`).
 3. Integrar los subtítulos cinéticos con resaltado dinámico de la palabra actual.
 4. Aplicar dinamismo de cámara (`scale(1 + ease(f/scene.frames) * 0.018)`).
-5. Registrar la composición en `video-studio/remotion/src/Root.tsx`.
+5. Configurar el punto de entrada autónomo en `src/index.tsx` registrando el `ProjectRoot`.
 
 ### Fase 6: Control de Calidad Visual Obligatorio (Contact Sheet)
 **REGLA CRÍTICA:** Ningún render final puede lanzarse sin antes generar e inspeccionar visualmente la hoja de contactos de todas las escenas:
 
 ```bash
-# 1. Renderizar un fotograma clave al 67% de cada escena:
-node video-studio/productions/<id-produccion>/render.mjs --stills
-
-# 2. Generar el mosaico de control con ffmpeg:
-ffmpeg -v error -y -pattern_type glob -i 'video-studio/productions/<id-produccion>/renders/*.png' \
-  -vf 'scale=240:-1,tile=4x4:padding=6:margin=6' -frames:v 1 \
-  video-studio/productions/<id-produccion>/renders/contact-sheet.jpg
+# 1. Renderizar stills y generar el mosaico de control automáticamente:
+node video-studio/projects/<nombre-del-proyecto>/render.mjs --stills
 ```
 *Checklist de inspección:*
 - ¿Hay superposición o desborde de textos y subtítulos?
@@ -111,14 +103,14 @@ ffmpeg -v error -y -pattern_type glob -i 'video-studio/productions/<id-produccio
 ### Fase 7: Renderizado Estratificado
 1. **Render Borrador (Draft 720p)**:
    ```bash
-   node video-studio/productions/<id-produccion>/render.mjs --draft
+   node video-studio/projects/<nombre-del-proyecto>/render.mjs --draft
    ```
    Valida en menos de 1 minuto que el audio, video y subtítulos fluyan sin caídas de frames ni desincronización.
 2. **Render Master Final (1080p Full HD)**:
    ```bash
-   node video-studio/productions/<id-produccion>/render.mjs
+   node video-studio/projects/<nombre-del-proyecto>/render.mjs
    ```
-   Genera el video definitivo en `1080×1920` a 30 fps, codec `h264`, `crf 17`, audio AAC 192k a 48 kHz y lo deposita automáticamente en `video-studio/output/<id-produccion>.mp4`.
+   Genera el video definitivo en `1080×1920` a 30 fps, codec `h264`, `crf 17`, audio AAC 192k a 48 kHz y lo deposita en `video-studio/projects/<nombre-del-proyecto>/renders/master-1080p.mp4`.
 
 ---
 

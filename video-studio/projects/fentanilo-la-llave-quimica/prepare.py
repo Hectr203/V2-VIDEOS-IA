@@ -1,18 +1,16 @@
-"""Preparación de audio TTS y sincronización temporal para helado-2d-v2."""
+"""Preparación de audio TTS y sincronización temporal para fentanilo-la-llave-quimica."""
 import asyncio
 import hashlib
 import json
 import math
 from pathlib import Path
-import shutil
 import subprocess
 import edge_tts
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
-STUDIO = HERE.parents[1]
-PUBLIC = STUDIO / "remotion/public/helado-2d-v2"
-SOURCE = STUDIO / "remotion/src/projects/helado-2d-v2"
+PUBLIC = HERE / "public"
+SOURCE = HERE / "src"
 FPS = 30
 
 
@@ -24,12 +22,12 @@ def get_duration(path):
 
 async def generate_narration(scene, config, sem):
     target = PUBLIC / f"{scene['id']}.mp3"
-    cache_dir = HERE / "audio"
+    cache_dir = HERE / "audio_cache"
     cache_dir.mkdir(exist_ok=True)
     cache = cache_dir / f"{scene['id']}.json"
     key = hashlib.sha256(json.dumps([scene['text'], config['voice'], config['rate']]).encode()).hexdigest()
     if target.exists() and cache.exists():
-        data = json.loads(cache.read_text())
+        data = json.loads(cache.read_text(encoding="utf-8"))
         if data.get('key') == key and target.stat().st_size > 1000:
             return data
     async with sem:
@@ -45,12 +43,14 @@ async def generate_narration(scene, config, sem):
                         elif chunk['type'] == 'WordBoundary':
                             words.append({'word': chunk['text'], 'start': chunk['offset'] / 1e7, 'end': (chunk['offset'] + chunk['duration']) / 1e7})
                 seconds = get_duration(partial)
+                if not words or seconds <= 0:
+                    raise RuntimeError(f"No word timestamps/audio for {scene['id']}")
                 partial.replace(target)
                 data = {'key': key, 'duration': seconds, 'words': words}
-                cache.write_text(json.dumps(data, ensure_ascii=False, indent=2))
+                cache.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
                 print(f"Audio {scene['id']}: {seconds:.2f}s, {len(words)} palabras", flush=True)
                 return data
-            except Exception as e:
+            except Exception:
                 if attempt == 2:
                     raise
                 await asyncio.sleep(1 + attempt)
@@ -60,7 +60,7 @@ def generate_procedural_score(scenes, total_seconds):
     sr = 32000
     count = math.ceil(total_seconds * sr)
     audio = np.zeros((count, 2), dtype=np.float64)
-    rng = np.random.default_rng(42)
+    rng = np.random.default_rng(206)
 
     def add_signal(sig, at, gain=1.0, pan=0.0):
         start = int(at * sr)
@@ -77,7 +77,25 @@ def generate_procedural_score(scenes, total_seconds):
         t = np.arange(int(sr * 1.5)) / sr
         env = (1 - np.exp(-t * 45)) * np.exp(-t * 4.5)
         sig = (np.sin(2 * np.pi * note * t) + 0.22 * np.sin(2 * np.pi * note * 2 * t)) * env
-        add_signal(sig, at, 0.015, math.sin(beat) * 0.4)
+        add_signal(sig, at, 0.016, math.sin(beat) * 0.45)
+
+    for scene in scenes:
+        at = scene['start'] / FPS
+        t = np.arange(int(sr * 0.32)) / sr
+        swish = rng.normal(0, 1, len(t))
+        swish = np.convolve(swish, np.ones(18) / 18, mode='same') * np.sin(np.pi * t / 0.32) ** 2
+        add_signal(swish, at, 0.048, -0.2)
+        if scene['id'] in ['receptor', 'endorphins', 'coffee', 'music', 'rescue']:
+            t = np.arange(sr) / sr
+            sig = (np.sin(2 * np.pi * 880 * t) + 0.3 * np.sin(2 * np.pi * 1320 * t)) * np.exp(-t * 9) * (1 - np.exp(-t * 120))
+            add_signal(sig, at + 0.55, 0.032, 0.25)
+        if scene['id'] in ['breathing', 'slow']:
+            for n in range(int(scene['frames'] / 30)):
+                t = np.arange(int(sr * 0.2)) / sr
+                add_signal(np.sin(2 * np.pi * 60 * t) * np.exp(-t * 25), at + n, 0.07)
+
+    fade = np.minimum(1, np.arange(count) / sr / 1.5) * np.minimum(1, (count - np.arange(count)) / sr / 1.8)
+    audio *= fade[:, None]
 
     max_val = np.max(np.abs(audio))
     if max_val > 0.95:
@@ -102,16 +120,20 @@ async def main():
     timeline_scenes = []
     current_frame = 0
     for sc, nar in zip(storyboard["scenes"], narrations):
-        dur = max(sc.get("minSeconds", 2.0), nar["duration"] + 0.3)
+        dur = max(sc.get("minSeconds", 2.0), nar["duration"] + 0.14)
         frames = math.ceil(dur * FPS)
         timeline_scenes.append({
             **sc,
             "start": current_frame,
             "frames": frames,
             "words": nar["words"],
-            "audio": f"helado-2d-v2/{sc['id']}.mp3"
+            "audio": f"{sc['id']}.mp3"
         })
         current_frame += frames
+
+    # Ending hold
+    timeline_scenes[-1]['frames'] += 42
+    current_frame += 42
 
     timeline_data = {
         "title": storyboard["title"],
@@ -124,6 +146,20 @@ async def main():
     (HERE / "timeline.json").write_text(timeline_json, encoding="utf-8")
     (SOURCE / "timeline.json").write_text(timeline_json, encoding="utf-8")
     generate_procedural_score(timeline_scenes, current_frame / FPS)
+
+    def stamp(seconds):
+        ms = round(seconds * 1000)
+        return f'{ms//3600000:02}:{ms//60000%60:02}:{ms//1000%60:02},{ms%1000:03}'
+    cues = []
+    for scene in timeline_scenes:
+        words = scene.get('words', [])
+        for i in range(0, len(words), 5):
+            group = words[i:i+5]
+            start = scene['start']/FPS + group[0]['start']
+            end = scene['start']/FPS + group[-1]['end']
+            cues.append(f"{len(cues)+1}\n{stamp(start)} --> {stamp(end)}\n{' '.join(w['word'] for w in group)}\n")
+    (HERE / 'subtitles.srt').write_text('\n'.join(cues), encoding="utf-8")
+
     print(f"Timeline completado: {current_frame} frames ({current_frame / FPS:.2f}s)")
 
 

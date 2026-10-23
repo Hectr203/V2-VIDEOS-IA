@@ -78,9 +78,14 @@ coverage/
 # ==============================================================================
 video-studio/output/*
 !video-studio/output/.gitkeep
-video-studio/projects/*
-!video-studio/projects/.gitkeep
+video-studio/projects/*/renders/
+video-studio/projects/*/audio_cache/
+video-studio/projects/*/__pycache__/
+video-studio/projects/*/*.partial.mp3
 video-studio/remotion/public/voice_*
+video-studio/remotion/out.mp4
+video-studio/test_laptop_alpha*.webm
+video-studio/test_overlay.png
 
 # ==============================================================================
 # MODELOS, PESOS Y CHECKPOINTS PESADOS

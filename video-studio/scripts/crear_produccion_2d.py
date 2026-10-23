@@ -1,16 +1,37 @@
 #!/usr/bin/env python3
 """
-Generador y scaffolding estandarizado de nuevas producciones de video 2D en Remotion.
+Generador y scaffolding estandarizado de proyectos de video 2D autónomos en Remotion.
 
-Crea la estructura de carpetas canónica, genera storyboard, script de audio TTS (Edge TTS con WordBoundary),
-orquestador de render (render.mjs), biblioteca vectorial (art.tsx) y montaje (Film.tsx),
-además de registrar automáticamente la composición en Remotion Root.tsx y package.json.
+Crea una carpeta única y auto-contenida por proyecto bajo:
+    video-studio/projects/<nombre-del-proyecto>/
+
+Estructura canónica generada:
+    video-studio/projects/<slug>/
+    ├── project.json          # Metadatos del proyecto (título, descripción, resolución, versión)
+    ├── storyboard.json       # Guion pedagógico, capítulos, voces y temporalidad mínima
+    ├── timeline.json         # Sincronización palabra por palabra con Edge TTS y marcas de tiempo
+    ├── prepare.py            # Generación de locución TTS, banda sonora y sincronización
+    ├── render.mjs            # Orquestador de renderizado Remotion (Full HD, borrador y stills)
+    ├── src/
+    │   ├── index.tsx         # Punto de entrada y Composition autónoma de Remotion
+    │   ├── Film.tsx          # Montaje de secuencias, transiciones y subtítulos cinéticos
+    │   ├── art.tsx           # Biblioteca vectorial SVG: personajes, rig IK, fondos y utilidades
+    │   └── timeline.json     # Enlace para bundler
+    ├── public/
+    │   ├── UbuntuSans.ttf    # Tipografía empaquetada
+    │   └── score.wav         # Banda sonora procedural (generada por prepare.py)
+    └── renders/
+        ├── contact-sheet.jpg # Mosaico visual de control de calidad de todas las escenas
+        ├── stills/           # Capturas fotograma a fotograma para revisión
+        ├── preview-720p.mp4  # Render rápido de previsualización
+        └── master-1080p.mp4  # Master final Full HD (CRF 17)
 
 Uso:
     python3 video-studio/scripts/crear_produccion_2d.py --id ia-control-futuro --titulo "IA sin control: el dilema del futuro"
 """
 
 import argparse
+import datetime
 import json
 import re
 import shutil
@@ -19,10 +40,8 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 STUDIO = HERE.parent
-PRODUCTIONS = STUDIO / "productions"
+PROJECTS = STUDIO / "projects"
 REMOTION = STUDIO / "remotion"
-PROJECTS = REMOTION / "src/projects"
-PUBLIC = REMOTION / "public"
 
 
 def validar_id(identificador: str) -> str:
@@ -91,50 +110,72 @@ def generar_storyboard_plantilla(titulo: str, tema: str) -> dict:
     }
 
 
-def crear_produccion(prod_id: str, titulo: str, tema: str = ""):
+def crear_proyecto(prod_id: str, titulo: str, tema: str = ""):
     validar_id(prod_id)
-    prod_dir = PRODUCTIONS / prod_id
-    remotion_dir = PROJECTS / prod_id
-    public_dir = PUBLIC / prod_id
+    proj_dir = PROJECTS / prod_id
+    src_dir = proj_dir / "src"
+    public_dir = proj_dir / "public"
+    renders_dir = proj_dir / "renders"
+    stills_dir = renders_dir / "stills"
 
-    if prod_dir.exists():
-        print(f"Error: La producción '{prod_id}' ya existe en {prod_dir}", file=sys.stderr)
+    if proj_dir.exists():
+        print(f"Error: El proyecto '{prod_id}' ya existe en {proj_dir}", file=sys.stderr)
         sys.exit(1)
 
-    print(f"Creando producción 2D '{prod_id}'...")
-    prod_dir.mkdir(parents=True, exist_ok=True)
-    remotion_dir.mkdir(parents=True, exist_ok=True)
+    print(f"Creando proyecto 2D auto-contenido '{prod_id}' en {proj_dir}...")
+    proj_dir.mkdir(parents=True, exist_ok=True)
+    src_dir.mkdir(parents=True, exist_ok=True)
     public_dir.mkdir(parents=True, exist_ok=True)
+    renders_dir.mkdir(parents=True, exist_ok=True)
+    stills_dir.mkdir(parents=True, exist_ok=True)
 
-    # 1. Copiar tipografía bundled si existe
-    fuente_origen = PUBLIC / "fentanilo-v2/UbuntuSans.ttf"
-    if fuente_origen.exists():
-        shutil.copy2(fuente_origen, public_dir / "UbuntuSans.ttf")
+    # 1. Copiar tipografía si existe en el sistema o proyectos hermanos
+    fuente_candidatos = [
+        PROJECTS / "la-ciencia-del-helado/public/UbuntuSans.ttf",
+        PROJECTS / "fentanilo-la-llave-quimica/public/UbuntuSans.ttf",
+        Path("/usr/share/fonts/truetype/ubuntu/UbuntuSans[wdth,wght].ttf"),
+        Path("/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf")
+    ]
+    for c in fuente_candidatos:
+        if c.exists():
+            shutil.copy2(c, public_dir / "UbuntuSans.ttf")
+            break
 
-    # 2. .gitignore local para renders temporales
-    gitignore_content = "renders/\naudio/\n*.log\n__pycache__/\n"
-    (prod_dir / ".gitignore").write_text(gitignore_content, encoding="utf-8")
+    # 2. project.json con metadatos del proyecto
+    project_metadata = {
+        "id": prod_id,
+        "title": titulo,
+        "description": tema or titulo,
+        "created_at": datetime.datetime.now().isoformat(),
+        "type": "2d-animation",
+        "fps": 30,
+        "resolution": {
+            "width": 1080,
+            "height": 1920
+        },
+        "author": "VideoStudio Agent",
+        "version": "1.0.0"
+    }
+    (proj_dir / "project.json").write_text(json.dumps(project_metadata, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
     # 3. storyboard.json
     storyboard = generar_storyboard_plantilla(titulo, tema or titulo)
-    (prod_dir / "storyboard.json").write_text(json.dumps(storyboard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
+    (proj_dir / "storyboard.json").write_text(json.dumps(storyboard, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    # 4. prepare.py
+    # 4. prepare.py autónomo (guarda directo en public/ y src/)
     prepare_script = f'''"""Preparación de audio TTS y sincronización temporal para {prod_id}."""
 import asyncio
 import hashlib
 import json
 import math
 from pathlib import Path
-import shutil
 import subprocess
 import edge_tts
 import numpy as np
 
 HERE = Path(__file__).resolve().parent
-STUDIO = HERE.parents[1]
-PUBLIC = STUDIO / "remotion/public/{prod_id}"
-SOURCE = STUDIO / "remotion/src/projects/{prod_id}"
+PUBLIC = HERE / "public"
+SOURCE = HERE / "src"
 FPS = 30
 
 
@@ -146,12 +187,12 @@ def get_duration(path):
 
 async def generate_narration(scene, config, sem):
     target = PUBLIC / f"{{scene['id']}}.mp3"
-    cache_dir = HERE / "audio"
+    cache_dir = HERE / "audio_cache"
     cache_dir.mkdir(exist_ok=True)
     cache = cache_dir / f"{{scene['id']}}.json"
     key = hashlib.sha256(json.dumps([scene['text'], config['voice'], config['rate']]).encode()).hexdigest()
     if target.exists() and cache.exists():
-        data = json.loads(cache.read_text())
+        data = json.loads(cache.read_text(encoding="utf-8"))
         if data.get('key') == key and target.stat().st_size > 1000:
             return data
     async with sem:
@@ -167,12 +208,14 @@ async def generate_narration(scene, config, sem):
                         elif chunk['type'] == 'WordBoundary':
                             words.append({{'word': chunk['text'], 'start': chunk['offset'] / 1e7, 'end': (chunk['offset'] + chunk['duration']) / 1e7}})
                 seconds = get_duration(partial)
+                if not words or seconds <= 0:
+                    raise RuntimeError(f"No word timestamps/audio for {{scene['id']}}")
                 partial.replace(target)
                 data = {{'key': key, 'duration': seconds, 'words': words}}
-                cache.write_text(json.dumps(data, ensure_ascii=False, indent=2))
+                cache.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
                 print(f"Audio {{scene['id']}}: {{seconds:.2f}}s, {{len(words)}} palabras", flush=True)
                 return data
-            except Exception as e:
+            except Exception:
                 if attempt == 2:
                     raise
                 await asyncio.sleep(1 + attempt)
@@ -182,7 +225,6 @@ def generate_procedural_score(scenes, total_seconds):
     sr = 32000
     count = math.ceil(total_seconds * sr)
     audio = np.zeros((count, 2), dtype=np.float64)
-    rng = np.random.default_rng(42)
 
     def add_signal(sig, at, gain=1.0, pan=0.0):
         start = int(at * sr)
@@ -231,7 +273,7 @@ async def main():
             "start": current_frame,
             "frames": frames,
             "words": nar["words"],
-            "audio": f"{prod_id}/{{sc['id']}}.mp3"
+            "audio": f"{{sc['id']}}.mp3"
         }})
         current_frame += frames
 
@@ -252,14 +294,14 @@ async def main():
 if __name__ == "__main__":
     asyncio.run(main())
 '''
-    (prod_dir / "prepare.py").write_text(prepare_script, encoding="utf-8")
+    (proj_dir / "prepare.py").write_text(prepare_script, encoding="utf-8")
 
-    # 5. render.mjs
+    # 5. render.mjs autónomo con bundling externo y generación automática de contact-sheet
     render_script = f'''import {{createRequire}} from 'node:module';
 import {{fileURLToPath}} from 'node:url';
 import path from 'node:path';
 import fs from 'node:fs/promises';
-import {{execFileSync}} from 'node:child_process';
+import {{execFileSync, execSync}} from 'node:child_process';
 
 const here = path.dirname(fileURLToPath(import.meta.url));
 const studio = path.resolve(here, '../..');
@@ -270,32 +312,54 @@ const {{selectComposition, renderMedia, renderStill}} = require('@remotion/rende
 
 const timeline = JSON.parse(await fs.readFile(path.join(here, 'timeline.json'), 'utf8'));
 const renders = path.join(here, 'renders');
-await fs.mkdir(renders, {{recursive: true}});
+const stillsDir = path.join(renders, 'stills');
+await fs.mkdir(stillsDir, {{recursive: true}});
 
 const stills = process.argv.includes('--stills');
 const draft = process.argv.includes('--draft');
 const compositionId = '{prod_id}';
 
-console.log(`Compilando bundle Remotion para ${{compositionId}}...`);
-const serveUrl = await bundle({{entryPoint: path.join(remotion, 'src/index.ts'), publicDir: path.join(remotion, 'public')}});
+console.log(`[Proyecto: ${{compositionId}}] Compilando bundle Remotion autónomo...`);
+const serveUrl = await bundle({{
+  entryPoint: path.join(here, 'src/index.tsx'),
+  publicDir: path.join(here, 'public'),
+  webpackOverride: (config) => {{
+    config.resolve.modules = [
+      path.join(remotion, 'node_modules'),
+      'node_modules'
+    ];
+    return config;
+  }}
+}});
+
 const chromiumOptions = {{gl: 'angle'}};
 const composition = await selectComposition({{serveUrl, id: compositionId, chromiumOptions}});
 
 if (stills) {{
-  console.log(`Generando stills de verificación...`);
+  console.log(`Generando stills de verificación para ${{timeline.scenes.length}} escenas...`);
   for (const scene of timeline.scenes) {{
     const frame = scene.start + Math.floor(scene.frames * 0.67);
+    const stillPath = path.join(stillsDir, `${{scene.id}}.png`);
     await renderStill({{
-      serveUrl, composition, output: path.join(renders, `${{scene.id}}.png`),
+      serveUrl, composition, output: stillPath,
       frame, imageFormat: 'png', scale: 2/3, chromiumOptions
     }});
-    console.log(`STILL ${{scene.id}} @${{(frame / 30).toFixed(2)}}s`);
+    console.log(`  ✓ STILL ${{scene.id}} @${{(frame / 30).toFixed(2)}}s`);
   }}
-  console.log(`Todos los stills listos en: ${{renders}}`);
+  const contactSheet = path.join(renders, 'contact-sheet.jpg');
+  try {{
+    execSync(`ffmpeg -v error -y -pattern_type glob -i '${{stillsDir}}/*.png' -vf 'scale=240:-1,tile=4x4:padding=6:margin=6' -frames:v 1 '${{contactSheet}}'`);
+    console.log(`[OK] Mosaico de control generado en: ${{contactSheet}}`);
+  }} catch (err) {{
+    console.warn(`No se pudo generar contact-sheet.jpg: ${{err.message}}`);
+  }}
 }} else {{
-  const name = draft ? 'preview-720p.mp4' : '{prod_id}.mp4';
+  const name = draft ? 'preview-720p.mp4' : 'master-1080p.mp4';
+  const final = path.join(renders, name);
   const partial = path.join(renders, `partial-${{name}}`);
   let progress = -1;
+
+  console.log(`Renderizando ${{name}} (${{draft ? '720p Borrador' : '1080p Master'}})...`);
   await renderMedia({{
     serveUrl, composition, outputLocation: partial, codec: 'h264', crf: draft ? 23 : 17,
     pixelFormat: 'yuv420p', audioCodec: 'aac', audioBitrate: '192k',
@@ -307,18 +371,37 @@ if (stills) {{
   }});
 
   const probe = JSON.parse(execFileSync('ffprobe', ['-v', 'error', '-show_streams', '-show_format', '-of', 'json', partial], {{encoding: 'utf8'}}));
-  const final = path.join(renders, name);
   await fs.rename(partial, final);
-  if (!draft) {{
-    await fs.mkdir(path.join(studio, 'output'), {{recursive: true}});
-    await fs.copyFile(final, path.join(studio, 'output', name));
-  }}
-  console.log(`VERIFICADO ${{final}} (${{probe.format.duration}}s, video + audio)`);
+  console.log(`\\n[ÉXITO] Video guardado en: ${{final}}`);
+  console.log(`Duración: ${{probe.format.duration}}s | Tamaño: ${{(Number(probe.format.size) / 1024 / 1024).toFixed(1)}} MB`);
 }}
 '''
-    (prod_dir / "render.mjs").write_text(render_script, encoding="utf-8")
+    (proj_dir / "render.mjs").write_text(render_script, encoding="utf-8")
 
-    # 6. art.tsx con rigging e interpolaciones
+    # 6. src/index.tsx (Entrypoint autónomo de Remotion)
+    component_name = "".join(p.capitalize() for p in prod_id.split("-")) + "Film"
+    index_tsx = f'''import React from 'react';
+import {{ registerRoot, Composition }} from 'remotion';
+import {{ {component_name}, timeline }} from './Film';
+
+export const ProjectRoot: React.FC = () => {{
+  return (
+    <Composition
+      id="{prod_id}"
+      component={{{component_name}}}
+      durationInFrames={{timeline.durationInFrames}}
+      fps={{30}}
+      width={{1080}}
+      height={{1920}}
+    />
+  );
+}};
+
+registerRoot(ProjectRoot);
+'''
+    (src_dir / "index.tsx").write_text(index_tsx, encoding="utf-8")
+
+    # 7. src/art.tsx (Rigging, vectores y componentes reutilizables)
     art_content = '''import React from 'react';
 
 export const clamp = (n: number, lo = 0, hi = 1) => Math.min(hi, Math.max(lo, n));
@@ -328,26 +411,62 @@ export const wave = (f: number, speed = 0.06, amount = 1, phase = 0) => Math.sin
 export const seeded = (n: number) => { const a = Math.sin(n * 127.1 + 311.7) * 43758.5453; return a - Math.floor(a); };
 type Point = { x: number; y: number };
 
-export const ArtDefs = () => <defs>
-  <radialGradient id="bg-purple" cx="42%" cy="34%" r="80%"><stop stopColor="#6342a4"/><stop offset=".5" stopColor="#34205f"/><stop offset="1" stopColor="#160e35"/></radialGradient>
-  <radialGradient id="bg-teal" cx="48%" cy="30%" r="80%"><stop stopColor="#2caead"/><stop offset=".55" stopColor="#116476"/><stop offset="1" stopColor="#112c52"/></radialGradient>
-  <radialGradient id="bg-gold" cx="50%" cy="45%" r="65%"><stop stopColor="#fffab0"/><stop offset=".42" stopColor="#ffe35f"/><stop offset="1" stopColor="#f4a72c"/></radialGradient>
-  <linearGradient id="skin" x1="0" x2="1" y2=".5"><stop stopColor="#e9a05d"/><stop offset=".5" stopColor="#c97943"/><stop offset="1" stopColor="#b55b38"/></linearGradient>
-  <linearGradient id="cyan" x1="0" x2="1" y2="1"><stop stopColor="#85f9ee"/><stop offset=".5" stopColor="#31d1e5"/><stop offset="1" stopColor="#1a9cca"/></linearGradient>
-  <radialGradient id="aura"><stop stopColor="#65f4ef" stopOpacity=".55"/><stop offset=".55" stopColor="#65f4ef" stopOpacity=".15"/><stop offset="1" stopColor="#65f4ef" stopOpacity="0"/></radialGradient>
-  <pattern id="dust" width="83" height="83" patternUnits="userSpaceOnUse"><circle cx="8" cy="12" r=".8" fill="white" opacity=".12"/><circle cx="41" cy="62" r=".7" fill="white" opacity=".09"/></pattern>
-</defs>;
+export const ArtDefs = () => (
+  <defs>
+    <radialGradient id="bg-purple" cx="42%" cy="34%" r="80%">
+      <stop stopColor="#6342a4"/>
+      <stop offset=".5" stopColor="#34205f"/>
+      <stop offset="1" stopColor="#160e35"/>
+    </radialGradient>
+    <radialGradient id="bg-teal" cx="48%" cy="30%" r="80%">
+      <stop stopColor="#2caead"/>
+      <stop offset=".55" stopColor="#116476"/>
+      <stop offset="1" stopColor="#112c52"/>
+    </radialGradient>
+    <radialGradient id="bg-gold" cx="50%" cy="45%" r="65%">
+      <stop stopColor="#fffab0"/>
+      <stop offset=".42" stopColor="#ffe35f"/>
+      <stop offset="1" stopColor="#f4a72c"/>
+    </radialGradient>
+    <linearGradient id="skin" x1="0" x2="1" y2=".5">
+      <stop stopColor="#e9a05d"/>
+      <stop offset=".5" stopColor="#c97943"/>
+      <stop offset="1" stopColor="#b55b38"/>
+    </linearGradient>
+    <linearGradient id="cyan" x1="0" x2="1" y2="1">
+      <stop stopColor="#85f9ee"/>
+      <stop offset=".5" stopColor="#31d1e5"/>
+      <stop offset="1" stopColor="#1a9cca"/>
+    </linearGradient>
+    <radialGradient id="aura">
+      <stop stopColor="#65f4ef" stopOpacity=".55"/>
+      <stop offset=".55" stopColor="#65f4ef" stopOpacity=".15"/>
+      <stop offset="1" stopColor="#65f4ef" stopOpacity="0"/>
+    </radialGradient>
+    <pattern id="dust" width="83" height="83" patternUnits="userSpaceOnUse">
+      <circle cx="8" cy="12" r=".8" fill="white" opacity=".12"/>
+      <circle cx="41" cy="62" r=".7" fill="white" opacity=".09"/>
+    </pattern>
+  </defs>
+);
 
 export function Backdrop({ palette, f }: { palette: string; f: number }) {
-  return <g>
-    <rect width="720" height="1280" fill={`url(#bg-${palette})`} />
-    <rect width="720" height="1280" fill="url(#dust)" />
-  </g>;
+  return (
+    <g>
+      <rect width="720" height="1280" fill={`url(#bg-${palette})`} />
+      <rect width="720" height="1280" fill="url(#dust)" />
+    </g>
+  );
 }
 
 export function Label({ x, y, text, color = '#effdff', size = 23 }: { x: number; y: number; text: string; color?: string; size?: number }) {
   const w = text.length * size * 0.54 + 30;
-  return <g transform={`translate(${x} ${y})`}><rect x={-w / 2} y={-size - 7} width={w} height={size + 20} rx="10" fill="#1b173a" opacity=".85"/><text textAnchor="middle" fill={color} fontSize={size} fontWeight="750">{text}</text></g>;
+  return (
+    <g transform={`translate(${x} ${y})`}>
+      <rect x={-w / 2} y={-size - 7} width={w} height={size + 20} rx="10" fill="#1b173a" opacity=".85"/>
+      <text textAnchor="middle" fill={color} fontSize={size} fontWeight="750">{text}</text>
+    </g>
+  );
 }
 
 export function joint(a: Point, b: Point, l1: number, l2: number, bend: number): Point {
@@ -357,106 +476,107 @@ export function joint(a: Point, b: Point, l1: number, l2: number, bend: number):
   return { x: a.x + Math.cos(angle) * l1, y: a.y + Math.sin(angle) * l1 };
 }
 '''
-    (remotion_dir / "art.tsx").write_text(art_content, encoding="utf-8")
+    (src_dir / "art.tsx").write_text(art_content, encoding="utf-8")
 
-    # 7. Film.tsx
-    component_name = "".join(p.capitalize() for p in prod_id.split("-")) + "Film"
-    film_content = """import React, {useEffect, useState} from 'react';
-import {AbsoluteFill, Audio, Sequence, cancelRender, continueRender, delayRender, staticFile, useCurrentFrame} from 'remotion';
+    # 8. src/Film.tsx
+    film_content = f'''import React, {{useEffect, useState}} from 'react';
+import {{AbsoluteFill, Audio, Sequence, cancelRender, continueRender, delayRender, staticFile, useCurrentFrame}} from 'remotion';
 import timelineData from './timeline.json';
-import {ArtDefs, Backdrop, Label, ease, mix, clamp} from './art';
+import {{ArtDefs, Backdrop, Label, ease, mix, clamp}} from './art';
 
 export const timeline = timelineData;
 type Scene = typeof timeline.scenes[number];
 
-function Captions({scene, f}: {scene: Scene; f: number}) {
+const getAsset = (file: string) => staticFile(file.split('/').pop() || file);
+
+function Captions({{scene, f}}: {{scene: Scene; f: number}}) {{
   const time = f / 30;
-  const words = scene.words;
+  const words = scene.words || [];
+  if (!words.length) return null;
   let current = words.findIndex(w => time >= w.start && time < w.end);
   if (current < 0) current = Math.max(0, words.findIndex(w => w.start > time) - 1);
   if (time >= words[words.length - 1].end) current = words.length - 1;
 
-  const groups: {word: string; start: number; end: number}[][] = [];
-  for (const word of words) {
+  const groups: {{word: string; start: number; end: number}}[][] = [];
+  for (const word of words) {{
     const last = groups[groups.length - 1];
-    if (!last || last.length >= 5 || last.map(w => w.word).join(' ').length + word.word.length > 30) {
+    if (!last || last.length >= 5 || last.map(w => w.word).join(' ').length + word.word.length > 30) {{
       groups.push([word]);
-    } else {
+    }} else {{
       last.push(word);
-    }
-  }
+    }}
+  }}
   const active = words[current];
   const group = groups.find(g => g.includes(active)) || groups[0];
   const pop = ease((time - group[0].start) * 12);
 
   return (
-    <div style={{
+    <div style={{{{
       position: 'absolute', left: 48, top: 174, width: 624, textAlign: 'center',
       fontSize: 35, lineHeight: 1.32, fontWeight: 750, letterSpacing: -0.6,
       transform: 'translateY(' + mix(6, 0, pop) + 'px)', color: '#fff8f1',
       textShadow: '0 3px 15px rgba(20,10,42,0.4)'
-    }}>
-      {group.map((w, i) => (
-        <span key={w.start + '-' + i} style={{
+    }}}}>
+      {{group.map((w, i) => (
+        <span key={{w.start + '-' + i}} style={{{{
           display: 'inline-block', padding: '2px 7px', margin: '1px 0', borderRadius: 8,
           background: w === active ? 'rgba(25,18,52,0.66)' : 'transparent',
           color: w === active ? '#fff8bb' : '#fff9ef',
           opacity: time >= w.start ? 1 : 0.58
-        }}>{w.word} </span>
-      ))}
+        }}}}>{{w.word}} </span>
+      ))}}
     </div>
   );
-}
+}}
 
-function Shot({scene, index}: {scene: Scene; index: number}) {
+function Shot({{scene, index}}: {{scene: Scene; index: number}}) {{
   const f = useCurrentFrame();
   const camera = 1 + ease(f / scene.frames) * 0.018;
   return (
-    <AbsoluteFill style={{background: scene.palette === 'gold' ? '#f7bc45' : scene.palette === 'teal' ? '#12576a' : '#2c1a50'}}>
-      <svg width="720" height="1280" viewBox="0 0 720 1280" style={{position: 'absolute', inset: 0, overflow: 'hidden'}}>
+    <AbsoluteFill style={{{{background: scene.palette === 'gold' ? '#f7bc45' : scene.palette === 'teal' ? '#12576a' : '#2c1a50'}}}}>
+      <svg width="720" height="1280" viewBox="0 0 720 1280" style={{{{position: 'absolute', inset: 0, overflow: 'hidden'}}}}>
         <ArtDefs />
-        <Backdrop palette={scene.palette} f={f} />
-        <g transform={'translate(360 730) scale(' + camera + ') translate(-360 -730)'}>
-          <Label x={360} y={700} text={scene.chapter} size={26} />
+        <Backdrop palette={{scene.palette}} f={{f}} />
+        <g transform={{'translate(360 730) scale(' + camera + ') translate(-360 -730)'}}>
+          <Label x={{360}} y={{700}} text={{scene.chapter}} size={{26}} />
         </g>
         <g fill="#d0bee7" opacity="0.7" fontSize="16" fontWeight="700" letterSpacing="2.2">
-          <text x="48" y="75">__PROD_ID_UPPER__</text>
-          <text x="672" y="75" textAnchor="end">{String(index + 1).padStart(2, '0')} / {timeline.scenes.length}</text>
+          <text x="48" y="75">{prod_id.upper()}</text>
+          <text x="672" y="75" textAnchor="end">{{String(index + 1).padStart(2, '0')}} / {{timeline.scenes.length}}</text>
         </g>
         <rect x="48" y="1213" width="624" height="3" rx="2" fill="#ae92d7" opacity="0.2" />
-        <rect x="48" y="1213" width={624 * clamp((scene.start + f) / timeline.durationInFrames)} height="3" rx="2" fill="#c5b5ea" opacity="0.6" />
+        <rect x="48" y="1213" width={{624 * clamp((scene.start + f) / timeline.durationInFrames)}} height="3" rx="2" fill="#c5b5ea" opacity="0.6" />
       </svg>
-      <Captions scene={scene} f={f} />
+      <Captions scene={{scene}} f={{f}} />
     </AbsoluteFill>
   );
-}
+}}
 
-export const __COMPONENT_NAME__: React.FC = () => {
+export const {component_name}: React.FC = () => {{
   const [handle] = useState(() => delayRender('Cargando tipografía'));
-  useEffect(() => {
-    const font = new FontFace('StudioSans', `url(${staticFile('__PROD_ID__/UbuntuSans.ttf')})`, {weight: '100 900'});
-    font.load().then(loaded => { document.fonts.add(loaded); continueRender(handle); }).catch(cancelRender);
-  }, [handle]);
+  useEffect(() => {{
+    const font = new FontFace('StudioSans', `url(${{getAsset('UbuntuSans.ttf')}})`, {{weight: '100 900'}});
+    font.load().then(loaded => {{ document.fonts.add(loaded); continueRender(handle); }}).catch(cancelRender);
+  }}, [handle]);
 
   return (
-    <AbsoluteFill style={{background: '#21153b', fontFamily: 'StudioSans, sans-serif'}}>
-      <div style={{position: 'absolute', width: 720, height: 1280, transform: 'scale(1.5)', transformOrigin: 'top left'}}>
-        {timeline.scenes.map((scene, i) => (
-          <Sequence key={scene.id} from={scene.start} durationInFrames={scene.frames}>
-            <Shot scene={scene} index={i} />
-            <Audio src={staticFile(scene.audio)} volume={0.95} />
+    <AbsoluteFill style={{{{background: '#21153b', fontFamily: 'StudioSans, sans-serif'}}}}>
+      <div style={{{{position: 'absolute', width: 720, height: 1280, transform: 'scale(1.5)', transformOrigin: 'top left'}}}}>
+        {{timeline.scenes.map((scene, i) => (
+          <Sequence key={{scene.id}} from={{scene.start}} durationInFrames={{scene.frames}}>
+            <Shot scene={{scene}} index={{i}} />
+            <Audio src={{getAsset(scene.audio)}} volume={{0.95}} />
           </Sequence>
-        ))}
+        ))}}
       </div>
-      <Audio src={staticFile('__PROD_ID__/score.wav')} volume={0.8} />
+      <Audio src={{getAsset('score.wav')}} volume={{0.8}} />
     </AbsoluteFill>
   );
-};
-""".replace("__PROD_ID_UPPER__", prod_id.upper()).replace("__PROD_ID__", prod_id).replace("__COMPONENT_NAME__", component_name)
+}};
+'''
+    (src_dir / "Film.tsx").write_text(film_content, encoding="utf-8")
 
-    (remotion_dir / "Film.tsx").write_text(film_content, encoding="utf-8")
-
-    # 8. timeline.json inicial dummy para compilación inmediata
+    # 9. timeline.json inicial
     dummy_timeline = {
         "title": titulo,
         "fps": 30,
@@ -470,52 +590,37 @@ export const __COMPONENT_NAME__: React.FC = () => {
                 "start": 0,
                 "frames": 300,
                 "words": [{"word": "Introducción", "start": 0.0, "end": 1.0}],
-                "audio": f"{prod_id}/hook.mp3"
+                "audio": "hook.mp3"
             }
         ]
     }
-    (remotion_dir / "timeline.json").write_text(json.dumps(dummy_timeline, indent=2) + "\n", encoding="utf-8")
-    (prod_dir / "timeline.json").write_text(json.dumps(dummy_timeline, indent=2) + "\n", encoding="utf-8")
+    (proj_dir / "timeline.json").write_text(json.dumps(dummy_timeline, indent=2) + "\n", encoding="utf-8")
+    (src_dir / "timeline.json").write_text(json.dumps(dummy_timeline, indent=2) + "\n", encoding="utf-8")
 
-    # 9. Registrar en Root.tsx
-    registrar_en_root(prod_id, component_name)
-
-    # 10. Registrar en package.json
+    # 10. Registrar script directo en remotion/package.json
     registrar_en_package_json(prod_id)
 
-    print(f"\n[OK] Producción '{prod_id}' creada con éxito.")
-    print("Pasos siguientes recomendados:")
-    print(f"1. Editar guion y capítulos en: video-studio/productions/{prod_id}/storyboard.json")
-    print(f"2. Generar audios y timeline: python3 video-studio/productions/{prod_id}/prepare.py")
-    print(f"3. Ilustrar escenas vectoriales en: video-studio/remotion/src/projects/{prod_id}/art.tsx")
-    print(f"4. Generar hoja de contactos: node video-studio/productions/{prod_id}/render.mjs --stills")
-    print(f"5. Revisar renders/contact-sheet.jpg y renderizar final: node video-studio/productions/{prod_id}/render.mjs")
-
-
-def registrar_en_root(prod_id: str, component_name: str):
-    root_path = REMOTION / "src/Root.tsx"
-    content = root_path.read_text(encoding="utf-8")
-
-    import_stmt = f"import {{ {component_name}, timeline as {prod_id.replace('-', '_')}_timeline }} from './projects/{prod_id}/Film';"
-    if import_stmt in content:
-        return
-
-    # Agregar import
-    content = import_stmt + "\n" + content
-
-    # Agregar Composition
-    comp_stmt = f'      <Composition id="{prod_id}" component={{{component_name}}} durationInFrames={{{prod_id.replace("-", "_")}_timeline.durationInFrames}} fps={{30}} width={{1080}} height={{1920}} />\n'
-    content = re.sub(r'(<>\s*\n)', r'\1' + comp_stmt, content)
-    root_path.write_text(content, encoding="utf-8")
-    print(f"Registrada composición '{prod_id}' en Root.tsx")
+    print(f"\n[OK] Proyecto 2D '{prod_id}' creado exitosamente en:")
+    print(f"     {proj_dir}")
+    print("\nFlujo canónico de desarrollo:")
+    print(f"1. Editar guion y capítulos en: video-studio/projects/{prod_id}/storyboard.json")
+    print(f"2. Generar voces y música:      python3 video-studio/projects/{prod_id}/prepare.py")
+    print(f"3. Ilustrar biblioteca en:      video-studio/projects/{prod_id}/src/art.tsx")
+    print(f"4. Generar hoja de contactos:   node video-studio/projects/{prod_id}/render.mjs --stills")
+    print(f"5. Revisar renders/contact-sheet.jpg y renderizar: node video-studio/projects/{prod_id}/render.mjs")
 
 
 def registrar_en_package_json(prod_id: str):
     pkg_path = REMOTION / "package.json"
-    pkg = json.loads(pkg_path.read_text(encoding="utf-8"))
-    pkg["scripts"][f"render:{prod_id}"] = f"node ../productions/{prod_id}/render.mjs"
-    pkg_path.write_text(json.dumps(pkg, indent=2) + "\n", encoding="utf-8")
-    print(f"Registrado script 'npm run render:{prod_id}' en package.json")
+    if not pkg_path.exists():
+        return
+    try:
+        pkg = json.loads(pkg_path.read_text(encoding="utf-8"))
+        pkg["scripts"][f"render:{prod_id}"] = f"node ../projects/{prod_id}/render.mjs"
+        pkg_path.write_text(json.dumps(pkg, indent=2) + "\n", encoding="utf-8")
+        print(f"Registrado script 'npm run render:{prod_id}' en remotion/package.json")
+    except Exception as e:
+        print(f"Advertencia al actualizar package.json: {e}")
 
 
 def main():
@@ -524,7 +629,7 @@ def main():
     parser.add_argument("--titulo", required=True, help="Título del video")
     parser.add_argument("--tema", default="", help="Descripción del tema o tesis")
     args = parser.parse_args()
-    crear_produccion(args.id, args.titulo, args.tema)
+    crear_proyecto(args.id, args.titulo, args.tema)
 
 
 if __name__ == "__main__":
