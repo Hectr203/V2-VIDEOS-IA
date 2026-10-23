@@ -1,0 +1,8 @@
+{
+  "venvPath": "video-studio/backend",
+  "venv": ".venv",
+  "extraPaths": [
+    "video-studio/backend/.venv/lib/python3.12/site-packages",
+    "/home/hector/.local/lib/python3.12/site-packages"
+  ]
+}

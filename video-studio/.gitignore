@@ -28,6 +28,8 @@ remotion/public/voice_*
 remotion/out.mp4
 test_laptop_alpha*.webm
 test_overlay.png
+productions/
+remotion/src/projects/
 
 # OS & Editor
 .DS_Store

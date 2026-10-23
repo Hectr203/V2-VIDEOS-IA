@@ -86,6 +86,8 @@ video-studio/remotion/public/voice_*
 video-studio/remotion/out.mp4
 video-studio/test_laptop_alpha*.webm
 video-studio/test_overlay.png
+video-studio/productions/
+video-studio/remotion/src/projects/
 
 # ==============================================================================
 # MODELOS, PESOS Y CHECKPOINTS PESADOS
@@ -110,6 +112,7 @@ Thumbs.db
 .idea/
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 .vs/
 *.local
 
