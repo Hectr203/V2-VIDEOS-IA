@@ -8,6 +8,17 @@ La persistencia principal usa SQLite (`video_studio.sqlite3` en la raíz de esta
 
 ---
 
+## 📖 Documentación Esencial y Guías de Producción 2D
+
+Para desarrolladores y agentes de Inteligencia Artificial que trabajen en este repositorio:
+
+- 📘 **[Guía Completa de Producción 2D (docs/GUIA_COMPLETA_PRODUCCION_2D.md)](../docs/GUIA_COMPLETA_PRODUCCION_2D.md)**: Manual exhaustivo de arquitectura, mapa de dependencias exacto (anti-alucinaciones), receta canónica en 4 pasos, estándares de rigging cinemático SVG, catálogo `shared-art/`, render multi-aspecto (9:16 y 16:9) y resolución de problemas.
+- 🤖 **[Manual Operativo de Agentes en la Raíz (README.md)](../README.md)**: Reglas maestras de trabajo autónomo, orden canónico de archivos y control de calidad por Contact Sheet.
+- 🎨 **[Catálogo de Arte Compartido (shared-art/)](./shared-art/README.md)**: Librería centralizada de rigs y sistemas de partículas reutilizables.
+- 📂 **[Proyectos Canónicos Autónomos (projects/)](./projects/)**: Cada producción (`projects/<slug>/`) es 100% auto-contenida con su propio pipeline `prepare.py`, orquestador `render.mjs`, arte `src/art.tsx` y montaje `src/Film.tsx`.
+
+---
+
 ## 🚀 Inicio Rápido
 
 Requisitos: Node.js `^20.19.0` o `>=22.12.0`, Python 3, y `ffmpeg`/`ffprobe` en el `PATH`. En una instalación limpia, instala las dependencias una vez:

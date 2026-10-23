@@ -76,10 +76,11 @@ Cada escena debe contener:
 2. Calcular la duración exacta en frames (`FPS = 30`) para cada escena y exportar `timeline.json`.
 3. Sintetizar la música y efectos en `score.wav` utilizando generadores de audio deterministas (arpegios suaves en frecuencias armónicas, ruidos blancos filtrados para transiciones y pulsos sonoros).
 
-### Fase 4: Arte Vectorial SVG (`art.tsx`)
+### Fase 4: Arte Vectorial SVG (`art.tsx` y `shared-art/`)
 1. Implementar las funciones de animación matemática: `clamp`, `ease`, `mix`, `wave`, `seeded`.
 2. Modelar al personaje principal con articulación de cinemática inversa (`joint`), ojos reactivos con parpadeo, respiración en el torso y mechones de pelo con retardo.
-3. Dibujar desde cero los elementos técnicos y pedagógicos en SVG con gradientes y sombras (sin emojis ni iconos de fuentes genéricas).
+3. Reutilizar rigs comunes desde `video-studio/shared-art/` (`HandRigs`, `ParticleSystems`, etc.) para componentes anatómicos genéricos.
+4. Dibujar desde cero los elementos técnicos y pedagógicos en SVG con gradientes y sombras (sin emojis ni iconos de fuentes genéricas).
 
 ### Fase 5: Montaje y Composición (`Film.tsx`)
 1. Montar las escenas mediante `<Sequence>` en Remotion con `start` y `frames` tomados de `timeline.json`.
@@ -100,20 +101,33 @@ node video-studio/projects/<nombre-del-proyecto>/render.mjs --stills
 - ¿El personaje y los objetos están centrados y con escala equilibrada?
 - ¿Los contrastes cromáticos entre fondo y primer plano son legibles?
 
-### Fase 7: Renderizado Estratificado
-1. **Render Borrador (Draft 720p)**:
+### Fase 7: Renderizado Estratificado y Multi-Aspecto
+1. **Render Borrador Rápido (Draft 720p)**:
    ```bash
    node video-studio/projects/<nombre-del-proyecto>/render.mjs --draft
    ```
-   Valida en menos de 1 minuto que el audio, video y subtítulos fluyan sin caídas de frames ni desincronización.
-2. **Render Master Final (1080p Full HD)**:
+   Valida en menos de 1 minuto que audio, video y subtítulos fluyan sin caídas de frames.
+2. **Render Master Vertical 9:16 (TikTok, Reels, Shorts)**:
    ```bash
    node video-studio/projects/<nombre-del-proyecto>/render.mjs
    ```
-   Genera el video definitivo en `1080×1920` a 30 fps, codec `h264`, `crf 17`, audio AAC 192k a 48 kHz y lo deposita en `video-studio/projects/<nombre-del-proyecto>/renders/master-1080p.mp4`.
+   Genera el video definitivo en `1080×1920` (CRF 17) en `renders/master-1080p.mp4`.
+3. **Render Master Horizontal 16:9 (YouTube Widescreen)**:
+   ```bash
+   node video-studio/projects/<nombre-del-proyecto>/render.mjs --horizontal
+   ```
+   Genera el video en `1920×1080` (CRF 17) en `renders/master-16-9-1080p.mp4`.
+4. **Render de Ambos Formatos**:
+   ```bash
+   node video-studio/projects/<nombre-del-proyecto>/render.mjs --aspect=both
+   ```
 
 ---
 
-## 3. Entrega y Verificación
+## 3. Entrega, Verificación y Documentación Técnica
 - El comando `ffprobe` debe validar que la duración coincida exactamente con `timeline.durationInFrames / 30`.
 - El árbol de git debe permanecer limpio ignorando los archivos temporales de `renders/`.
+- Para manual operativo detallado y mapa anti-alucinación de dependencias:
+  - Leer [`docs/GUIA_COMPLETA_PRODUCCION_2D.md`](../../docs/GUIA_COMPLETA_PRODUCCION_2D.md)
+  - Consultar el manual de agentes en [`README.md`](../../README.md)
+

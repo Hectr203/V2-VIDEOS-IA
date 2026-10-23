@@ -52,5 +52,23 @@ Ningún agente puede entregar o considerar completado un video sin cumplir este 
      renders/contact-sheet.jpg
    ```
 3. **Inspección Visual**: Verificar que no existan cortes de texto, solapamientos, desalineaciones ni desproporciones.
-4. **Render Draft 720p**: Verificar fluidez audiovisual.
+4. **Render Draft 720p**: Verificar fluidez audiovisual (`render.mjs --draft`).
 5. **Render Master 1080p (CRF 17)**: Entrega en alta definición y verificación con `ffprobe`.
+
+## 5. Catálogo de Arte Compartido (`video-studio/shared-art/`)
+Para evitar duplicación excesiva de código SVG y cinemática en cada proyecto:
+- Rigs anatómicos universales (`HandRigs`, `ParticleSystems`, `BaseBodies`) deben consumirse desde `../../shared-art/` cuando aplique.
+- Cada proyecto mantiene su propio `art.tsx` para ilustraciones temáticas específicas del guion, garantizando que el proyecto sea ejecutable de forma autónoma.
+
+## 6. Soporte Multi-Aspect Ratio (Vertical y Horizontal)
+Todo proyecto canónico debe admitir composiciones verticales (9:16) y horizontales (16:9):
+- **Vertical (9:16, 1080x1920)**: Orientado a TikTok, Instagram Reels y YouTube Shorts (`node render.mjs`).
+- **Horizontal (16:9, 1920x1080)**: Orientado a YouTube widescreen (`node render.mjs --horizontal`).
+- **Ambos formatos simultáneos**: `node render.mjs --aspect=both`.
+- En `Film.tsx`, la composición debe adaptar su viewBox o escala mediante las props de resolución (`width`, `height`).
+
+## 7. Documentación Técnica de Referencia
+Para consultar el manual operativo completo de agentes, convenciones de paths y anti-alucinación, leer:
+- Documento maestro: [`docs/GUIA_COMPLETA_PRODUCCION_2D.md`](../../docs/GUIA_COMPLETA_PRODUCCION_2D.md)
+- Manual de agentes en la raíz: [`README.md`](../../README.md)
+
