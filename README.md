@@ -1,6 +1,17 @@
+<div align="center">
+
+<img src="docs/portadas/icono-v2-ia-badge.jpg" alt="V2-VIDEOS-IA Logo" width="130" style="border-radius: 20px;" />
+
 # 🎬 Ecosistema Audiovisual y Agencia de Producción IA
 
-Plataforma integral y arquitectura de producción de video con Inteligencia Artificial. Combina agentes autónomos, animación vectorial 2D en Remotion con cinemática inversa, síntesis de voz neuronal, banda sonora procedimental y un panel web de control multiformato (9:16 vertical y 16:9 horizontal).
+**Plataforma integral y arquitectura de producción de video con Inteligencia Artificial.**  
+Combina agentes autónomos, animación vectorial 2D en Remotion con cinemática inversa, síntesis de voz neuronal, banda sonora procedimental y un panel web de control multiformato (9:16 vertical y 16:9 horizontal).
+
+<br />
+
+<img src="docs/portadas/portada-storyboard-pipeline.jpg" alt="V2-VIDEOS-IA Storyboard Banner" width="100%" style="border-radius: 12px;" />
+
+</div>
 
 ---
 
