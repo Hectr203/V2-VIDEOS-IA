@@ -71,18 +71,27 @@ Ante cualquier solicitud para crear un nuevo video, el asistente principal debe 
          - **Voz recomendada estándar:** `(Recommended) Charlie` (Enérgico, dinámico y confiado - ideal para curiosidades, retención y dinamismo). Otras opciones: George (narrador cálido/storyteller), Liam (creador dinámico), Sarah (profesional/madura), Alice (educativa).
          - **Modelo recomendado estándar:** `(Recommended) eleven_flash_v2_5` (Generación ultra rápida y bajo consumo de cuota para maximizar el ahorro de créditos). Otras opciones: `eleven_multilingual_v2` (máxima calidad en español, mayor consumo), `eleven_turbo_v2_5` (balance intermedio).
          *(Si el usuario no especifica variantes, se aplicará por defecto este estándar: Charlie + eleven_flash_v2_5 para economizar cuota).*
-   - **Pregunta 6 (Última pregunta obligatoria - Identidad de marca / Logo animado):**
-     Consultar explícitamente si se desea integrar el logo animado (utilizando como estándar de referencia el implementado en la producción `efectos-drogas-jovenes-2d`) en la línea de tiempo para invitar a suscribirse o seguir el canal:
-     * `[ ]` Sí, integrar el logo animado de cierre e invitación a seguir/suscribirse
-     * `[ ]` No, omitir el logo animado en esta producción
+4. **Investigación Profunda y Descarga de Imágenes Reales Auténticas (MANDATORIO Y UNIVERSAL):**
+   - **Prohibido limitarse a gráficos genéricos o sustitutos artificiales:** Para cualquier video, es forzoso y obligatorio investigar a profundidad el tema en la web para recopilar imágenes del mundo real (fotografías históricas, retratos de creadores o protagonistas, documentos de época, capturas auténticas, sprites o consolas originales).
+   - **Extracción y transparencia alfa:** Descargar las imágenes a alta calidad en `public/images/<slug>/` y procesarlas (mediante recorte inteligente y remoción de fondo transparente PNG) para que cuenten con canal alfa limpio.
+   - **Integración editorial estética en Remotion:** En `art.tsx` y `Film.tsx`, fusionar estas imágenes reales con la escenografía vectorial SVG mediante marcos estilizados, sombras sutiles proyectadas (`drop-shadow`), micro-animaciones dinámicas y composiciones mixtas (como el estándar alcanzado en la historia de Bimbo).
 
-4. **Curaduría de Audio según el Giro del Video:**
-   Seleccionar rigurosamente la música y los efectos de sonido (SFX) desde la biblioteca de 381 audios (`video-studio/assets/catalogo_audios.json` / `video-studio/scripts/buscar_audio.py`) que mejor armonicen con el giro elegido (por ejemplo, incorporando SFX cómicos para giros humorísticos, música de suspenso para misterio o sintetizadores limpios para tech).
+5. **Curaduría Temática Inteligente de Audio y Calibración Acústica de Decibeles:**
+   - **Cero repetición de música genérica:** Queda terminantemente prohibido usar la misma música ambiental para todos los videos. La pista musical y los efectos sonoros (SFX) deben seleccionarse inteligentemente desde la biblioteca de 381 audios (`video-studio/assets/catalogo_audios.json`) mapeando el género exacto del guion:
+     * Si el video es sobre videojuegos: seleccionar soundtracks de videojuegos (`Los MEJORES SOUNDTRACKS de los VIDEOJUEGOS`) y SFX temáticos retro/gaming (saltos, monedas, power-ups, muerte/game over).
+     * Si es sobre misterio/crimen: atmósferas oscuras y suspenso.
+     * Si es ciencia/tecnología: sintetizadores modernos o marimbas rítmicas.
+   - **Análisis Acústico de Decibeles y Sonoridad (Loudness Measurement):**
+     * Las pistas musicales y los SFX de origen tienen ganancias muy dispares. En `prepare.py`, es forzoso analizar los decibeles y volumen integrado (`ffmpeg -af volumedetect` o `ebur128`) de las pistas seleccionadas.
+     * Normalizar la música de fondo a un nivel base calibrado (ej. -22 a -24 LUFS) para que nunca abrume la voz del narrador sin importar el volumen con que fue masterizada originalmente.
+     * Normalizar y limitar los SFX para evitar picos estridentes.
+     * Calibrar el auto-ducking dinámico en `Film.tsx` asegurando que la música descienda fluidamente durante la locución y recupere presencia en silencios narrativos.
+     * El master final debe cumplir rigurosamente el estándar EBU R128 (-18 a -19 LUFS integrado, True Peak < -1.0 dBFS).
 
-5. **Inicio de producción coordinada:**
+6. **Inicio de producción coordinada:**
    Una vez recopiladas y confirmadas las respuestas del usuario, proceder con la activación del [estándar de animación 2D](reglas/estandar-animacion-2d.md), scaffolding (`video-studio/scripts/crear_produccion_2d.py`), storyboard, síntesis de audio, animación SVG y renderizado con los roles especializados.
 
-6. **Entrega Final y Copy Multimodal para Redes Sociales (OBLIGATORIO):**
+7. **Entrega Final y Copy Multimodal para Redes Sociales (OBLIGATORIO):**
    Una vez concluido el renderizado y superada la puerta de calidad, el Asistente Principal **debe incluir siempre como cierre de su respuesta final** un copy optimizado, limpio y directo, listo para copiar y pegar en cualquier red social (TikTok, Instagram Reels, YouTube Shorts, Facebook):
    - **Titular con gancho:** Una frase corta y magnética que atrape la atención.
    - **Descripción concisa (micro-copy):** De 2 a 3 líneas explicando el valor o dato más sorprendente del video, evitando bloques sobreestimulantes o paredes de texto.

@@ -12,7 +12,10 @@ Cualquier agente o inteligencia artificial que trabaje en la generación de vide
   - Ojos con ciclo de parpadeo estocástico (`blink`).
   - Cabello compuesto por mechones independientes con retardo físico (fase desfasada respecto al movimiento de la cabeza).
   - Expresiones faciales coherentes con la emoción del guion (`happy`, `pain`, `sleep`, `worry`, `dead`).
-
+- **Integración obligatoria de imágenes del mundo real (Universal):**
+  - Para todo video, es forzoso investigar a fondo la temática y descargar imágenes reales y auténticas (fotografías históricas, documentos originales, retratos de creadores o protagonistas, bocetos, patentes, sprites o consolas auténticas), evitando por completo sustitutos sintéticos o ilustraciones genéricas.
+  - Las imágenes deben procesarse con recorte limpio y canal alfa transparente (`.png`) en `public/images/<slug>/`.
+  - En `art.tsx` y `Film.tsx`, se integran con tratamiento editorial cinematográfico: marcos sutiles, sombras proyectadas (`drop-shadow`), badges cronológicos y micro-animaciones combinadas con la escenografía vectorial SVG.
 ## 2. Metáforas Visuales y Explicación de Conceptos Complejos
 Para cualquier temática (ciencia, inteligencia artificial, tecnología, economía, etc.):
 - **Modelado de sistemas**: En lugar de texto estático, representar los procesos con metáforas mecánicas o biológicas activas (ej. cerraduras y llaves para interacciones moleculares o permisos; redes neuronales con pulsos eléctricos luminosos para procesamiento de datos; órganos o sistemas con ritmos acelerados o desacelerados).
@@ -76,13 +79,20 @@ Todo proyecto canónico debe admitir composiciones verticales (9:16) y horizonta
 3. **Control de Headroom:** El pico máximo de la mezcla en el archivo final MP4 debe situarse estrictamente por debajo de **-1.0 dBFS** (verificable con `ffmpeg -af volumedetect`).
 4. **Catálogo Centralizado de Audios (381 pistas):** Consulta la guía [`video-studio/assets/GUIA_CATALOGO_AUDIOS.md`](../../video-studio/assets/GUIA_CATALOGO_AUDIOS.md) y [`video-studio/assets/catalogo_audios.json`](../../video-studio/assets/catalogo_audios.json).
 5. **CLI de Búsqueda Instantánea:** Utiliza `python3 video-studio/scripts/buscar_audio.py --buscar <query>` para localizar pistas y efectos de sonido con su volumen recomendado.
-6. **Curaduría y Giro Temático del Video (MANDATORIO):** La música y los efectos sonoros deben elegirse siempre en consonancia estricta con el género, tono emocional y peso narrativo del video:
+6. **Curaduría y Giro Temático del Video (MANDATORIO):** La música y los efectos sonoros deben elegirse siempre en consonancia estricta con el género, tono emocional y peso narrativo del video (prohibido reusar la misma música para todo):
+   - *Videojuegos / Gaming / Retro:* Soundtracks legendarios de videojuegos (`Los MEJORES SOUNDTRACKS de los VIDEOJUEGOS`) y SFX auténticos de 8-bit/16-bit (saltos, monedas, power-up, muerte).
    - *Dramático / Tensión / Crudo:* Cuerdas orquestales con crescendo, atmósferas oscuras o lluvia con truenos distantes.
    - *Ciencia / Tecnología / Divulgación:* Pizzicato ágil, marimba o sintetizadores modernos que estimulen la curiosidad intelectual.
    - *Corporativo / Emprendimiento / Negocios:* Guitarras limpias, ritmo minimalista y confianza profesional.
-   - *Videojuegos / Épico / Batallas:* Soundtracks legendarios orquestales o synth-rock de alto impacto.
    - *Viajes / Vlogs / Verano:* Tropical house, lofi chillout y beats frescos y optimistas.
    - *Humor / Parodia / Viral:* Memes virales, reacciones sonoras, cuaks cómicos y discos rayados.
+7. **Análisis Acústico de Decibeles y Calibración Dinámica de Ganancia:**
+   - Cada pista de música o SFX posee ganancias masterizadas de fábrica muy dispares (algunas pistas de videojuegos o EDM superan -10 LUFS, mientras piezas acústicas caen a -24 LUFS).
+   - En `prepare.py`, es forzoso medir el nivel de decibeles (`ffmpeg -af volumedetect` o `ebur128`) antes del renderizado.
+   - Normalizar la música de fondo a un target base de -22 a -24 LUFS antes de alimentarla a Remotion para asegurar que ninguna melodía enmascare la voz.
+   - Normalizar los SFX y limitar picos a -6 dBFS para mantener transiciones de alto impacto sin saturación ni sustos auditivos.
+   - Auto-ducking en `Film.tsx`: reducción al 30-35% durante el habla y ganancia completa en pausas dramáticas.
+   - El master final renderizado debe cumplir rigurosamente el estándar EBU R128 (-18 a -19 LUFS integrado, True Peak < -1.0 dBFS).
 
 ## 8. Documentación Técnica de Referencia
 Para consultar el manual operativo completo de agentes, convenciones de paths y anti-alucinación, leer:
