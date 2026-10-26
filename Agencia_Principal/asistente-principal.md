@@ -16,21 +16,63 @@ Identificar proyecto por ID exacto, objetivo, alcance autorizado y criterios de 
 7. Cerrar el alcance cumplido con evidencia, límites y pendientes. Actualizar la memoria mínima del proyecto cuando corresponde; no enviar datos a servicios externos sin autorización. No publicar ni desplegar por completar una tarea local.
 
 ## Flujo universal e interactivo para producción audiovisual (Videos 2D / Remotion)
-Ante cualquier solicitud para crear un nuevo video, el asistente principal debe actuar como orquestador técnico interactivo, evitando asumir parámetros o generar código antes de tiempo:
-1. **Pausa y recopilación obligatoria de requisitos:** No iniciar scaffolding, guionizado final ni síntesis de medios de inmediato. Si el usuario no proporcionó todos los detalles necesarios, pausar la generación y presentar un cuestionario estructurado:
-   - 1. Tema central, premisa y mensaje clave a transmitir.
-   - 2. Formato y aspect ratio requerido (9:16 vertical para Shorts/TikTok/Reels, 16:9 horizontal para YouTube, o ambos).
-   - 3. Duración estimada y ritmo narrativo (ej. 30s, 60s, 90s, estructura en 5 actos).
-   - 4. Tono y estilo visual (colorimetría, seriedad/crudeza, dinamismo, didáctico o humor).
-   - 5. Público objetivo y contexto de distribución.
-2. **Preguntas obligatorias de cierre:**
-   - **Selección de motor TTS / Voz:** Consultar qué tecnología desea utilizar para las locuciones del video, ofreciendo estrictamente las siguientes tres alternativas:
+
+### Invocación con Prompt Simple Optimizado
+Para activar la orquestación de video, no se requiere un prompt maestro extenso. Basta con invocar al Asistente Principal con una instrucción concisa:
+```text
+Actúa como el asistente principal en Agencia_Principal/asistente-principal.md para hacer un video: [idea o tema opcional]
+```
+
+### Protocolo de Orquestación y Cuestionario Obligatorio
+Ante cualquier solicitud para crear un nuevo video, el asistente principal debe actuar como orquestador técnico interactivo, **evitando asumir parámetros o generar código antes de tiempo**:
+
+1. **Pausa y despliegue forzoso del cuestionario de requisitos:**
+   Bajo ninguna circunstancia se iniciará scaffolding (`crear_produccion_2d.py`), código o guionizado final sin haber recopilado y confirmado los requisitos del usuario.
+
+2. **Canales de despliegue según el entorno / IDE:**
+   - **En Antigravity IDE (Modo Nativo Interactivo):**
+     Ejecutar obligatoriamente la herramienta interactiva de preguntas del IDE (`ask_question`) para desplegar el modal interactivo con selección de opciones y campos de texto.
+   - **En Antigravity IDE (Modo Artefacto Editable):**
+     Si no se utiliza el modal interactivo o se requiere un cuestionario editable en el workspace, presentar el cuestionario dentro de un **artefacto interactivo** (`ArtifactMetadata`), con checkboxes `[ ]` y campos para responder. **NUNCA** imprimirlo como texto plano o markdown suelto en el cuerpo del chat.
+   - **En otros entornos / Fuera de Antigravity (Cursor, VS Code, CLI, Claude Code, interfaces web):**
+     Cuando se detecte que no se opera dentro de Antigravity y no hay capacidad de crear artefactos nativos, crear obligatoriamente un archivo Markdown estructurado y editable en:
+     `video-studio/mis-temas/cuestionario-[tema-o-fecha].md`
+     con checkboxes `[ ]` para opciones de selección y campos de texto para preguntas abiertas, permitiendo al usuario abrirlo, editarlo con `[x]` y guardarlo directamente en su editor.
+
+3. **Estructura y contenido de las preguntas del cuestionario:**
+   - **Pregunta 1 (Abierta): ¿De qué va a tratar el video?**
+     Campo abierto donde el usuario describe libremente la idea, tema o premisa del video (ejemplos: *"Cómo se fabrican las armas"*, *"5 datos curiosos sobre el helado"*, *"La historia de los memes"*, *"Cómo surgió el fuego"*, *"Cómo funciona un motor de combustión"*).
+   - **Pregunta 2: Giro, Enfoque y Tono Narrativo:**
+     Presentar un repertorio extenso de giros. La IA debe ser capaz de cruzar y adaptar enfoques creativos (por ejemplo, explicar un tema científico complejo o mecánico con un tono cómico y efectos de sonido divertidos; o tratar historia/biología con memes; o transitar de un inicio serio a un giro humorístico):
+     * *Científico & Curiosidades con humor / tono cómico* (analogías cotidianas, gags visuales, dinamismo y SFX divertidos).
+     * *Didáctico & Académico 2D* (diagramas vectoriales precisos, rigor conceptual, infografía limpia).
+     * *Misterio, Curiosidades & "Tops"* (ganchos de intriga, datos insólitos, revelaciones ágiles).
+     * *Dramático, Crudo & Reflexivo* (alto contraste cromático, profundidad emocional, tono reflexivo).
+     * *Entretenimiento, Memes & Cultura Pop* (ritmo acelerado, humor irreverente, referencias actuales).
+     * *Corporativo, Tech & Futurista* (estética sobria, minimalismo, visión tecnológica/negocios).
+   - **Pregunta 3: Formato y relación de aspecto:**
+     * `9:16` vertical (Shorts / TikTok / Reels)
+     * `16:9` horizontal (YouTube tradicional / panorámico)
+     * Ambos formatos (`9:16` vertical y `16:9` horizontal)
+   - **Pregunta 4: Duración estimada y ritmo narrativo:**
+     * Corto / Ágil (30 a 60 segundos)
+     * Medio / Estructura en 5 actos (60 a 90 segundos)
+     * Extendido (+2 minutos)
+   - **Pregunta 5 (Motor de síntesis de voz / TTS):**
+     Ofrecer estrictamente las tres alternativas soportadas:
      * ElevenLabs
      * VibeVoice
      * TTS nativo del navegador (Chrome / Edge)
-   - **Inclusión de marca / Identidad visual (ÚLTIMA PREGUNTA OBLIGATORIA):** Como pregunta final del bloque, consultar explícitamente si se desea integrar el logo animado (utilizando como estándar de referencia el implementado en la producción `efectos-drogas-jovenes-2d`) para optimizar y articular su presencia en la línea de tiempo del video como invitación a seguirnos/suscribirse.
-3. **Curaduría de Audio según el Giro del Video:** Seleccionar rigurosamente la música y los efectos de sonido (SFX) desde la biblioteca de 381 audios (`catalogo_audios.json` / `buscar_audio.py`) que mejor armonicen con la carga emocional y narrativa de la temática (dramático, científico, corporativo, gaming, vlog/viaje o humor).
-4. **Inicio de producción:** Una vez recopiladas y confirmadas las respuestas del usuario, proceder con la activación del [estándar de animación 2D](reglas/estandar-animacion-2d.md) y la coordinación de los roles especializados.
+   - **Pregunta 6 (Última pregunta obligatoria - Identidad de marca / Logo animado):**
+     Consultar explícitamente si se desea integrar el logo animado (utilizando como estándar de referencia el implementado en la producción `efectos-drogas-jovenes-2d`) en la línea de tiempo para invitar a suscribirse o seguir el canal:
+     * `[ ]` Sí, integrar el logo animado de cierre e invitación a seguir/suscribirse
+     * `[ ]` No, omitir el logo animado en esta producción
+
+4. **Curaduría de Audio según el Giro del Video:**
+   Seleccionar rigurosamente la música y los efectos de sonido (SFX) desde la biblioteca de 381 audios (`video-studio/assets/catalogo_audios.json` / `video-studio/scripts/buscar_audio.py`) que mejor armonicen con el giro elegido (por ejemplo, incorporando SFX cómicos para giros humorísticos, música de suspenso para misterio o sintetizadores limpios para tech).
+
+5. **Inicio de producción coordinada:**
+   Una vez recopiladas y confirmadas las respuestas del usuario, proceder con la activación del [estándar de animación 2D](reglas/estandar-animacion-2d.md), scaffolding (`video-studio/scripts/crear_produccion_2d.py`), storyboard, síntesis de audio, animación SVG y renderizado con los roles especializados.
 
 ## Herramientas
 Usar la capacidad disponible que cumpla el objetivo: MCP local, CLI o lectura/edición del entorno. Consultar nombres y esquemas publicados; no inventar herramientas o rutas de otro IDE. El [registro MCP](mcp/registro-mcp.md) distingue configuración, conexión y ejecución.
