@@ -91,23 +91,33 @@ export const ToolsEcosystem: React.FC = () => {
             </div>
           </div>
 
-          {/* VibeVoice */}
+          {/* Applio (RVC v2) */}
           <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-xl space-y-4">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Volume2 className="w-5 h-5 text-purple-400" />
-                <h3 className="font-bold text-white text-base">Microsoft VibeVoice</h3>
+                <h3 className="font-bold text-white text-base">Applio (RVC v2)</h3>
               </div>
               <span className="bg-purple-500/10 text-purple-400 border border-purple-500/20 text-xs px-2.5 py-0.5 rounded-full font-bold flex items-center gap-1">
                 <CheckCircle2 className="w-3 h-3" />
-                <span>{statusLabel(tools.vibevoice?.status)}</span>
+                <span>{statusLabel(tools.applio?.status || tools.vibevoice?.status)}</span>
               </span>
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
-              {tools.vibevoice?.description || 'No se confirmó la instalación local.'} <code>{tools.vibevoice?.path || ''}</code>
+              {tools.applio?.description || tools.vibevoice?.description || 'Motor local de clonación de voz RVC v2.'}{' '}
+              {tools.applio?.url && (
+                <a
+                  href={tools.applio.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-purple-400 underline font-mono ml-1"
+                >
+                  {tools.applio.url}
+                </a>
+              )}
             </p>
             <div className="bg-slate-950 p-3 rounded-xl text-xs text-slate-300">
-              <strong className="text-purple-400">¿Cuándo conviene?:</strong> Ideal para transcripción con diarización (quién dijo qué). Para TTS rápido sin GPU, Edge-TTS es 20x más veloz y ligero.
+              <strong className="text-purple-400">¿Cuándo conviene?:</strong> Ideal para transformar voces base (generadas o grabadas) a voces de la comunidad (ej. Morgan Freeman, famosos, personajes) o clonar tu propia voz.
             </div>
           </div>
 

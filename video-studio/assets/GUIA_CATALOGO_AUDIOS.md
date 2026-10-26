@@ -1,4 +1,4 @@
-# Catálogo Maestro y Guía de Audios (381 Archivos Analizados)
+# Catálogo Maestro y Guía de Audios (414 Archivos Analizados)
 
 Esta guía clasifica la biblioteca integral de audio de `video-studio/assets` para que los agentes de IA y creadores seleccionen de inmediato la música de fondo (BGM), efectos sonoros (SFX) y reacciones ideales para cualquier temática audiovisual.
 
@@ -18,7 +18,7 @@ Esta guía clasifica la biblioteca integral de audio de `video-studio/assets` pa
 
 | Temática / Emoción | Categoría Recomendada | Pista Destacada | Duración | Volumen en Remotion |
 |---|---|---|---|---|
-| **Drama / Peligro / Crisis** (Adicciones, fentanilo, alertas) | `dramatico_serio_tension` | `music/Mix - Música De Fondo Para Videos y Presentaciones/12 - Música De Fondo Inspiradora y Dramática Para Videos.mp3` | 2:09 min | `0.04` (duck a `0.014`) |
+| **Drama / Peligro / Crisis** (Adicciones, alertas, tensión) | `dramatico_serio_tension` | `music/Mix - Música De Fondo Para Videos y Presentaciones/12 - Música De Fondo Inspiradora y Dramática Para Videos.mp3` | 2:09 min | `0.04` (duck a `0.014`) |
 | **Terror Psicológico / Tensión Oscura** | `dramatico_terror_tension` | `music/Terror y Drama/REPULSIVE - Forgotten [COPYRIGHT FREE DARK MUSIC].mp3` | 3:22 min | `0.04` (duck a `0.014`) |
 | **Ciencia / Tecnología / Divulgación** (Química, medicina, física) | `ciencia_tecnologia_curiosidad` | `music/ambient_curiosity.mp3` | 2:00 min | `0.04` (duck a `0.014`) |
 | **Inteligencia Artificial / Futuro / Algoritmos** | `ciencia_tecnologia_curiosidad` | `music/Mix - Música De Fondo Para Videos y Presentaciones/11 - Música Cinematográfica Moderna Música Instrumental para Videos.mp3` | 3:00 min | `0.04` (duck a `0.014`) |
@@ -54,62 +54,71 @@ Ubicados en `video-studio/assets/music/MUSICA para VIDEOS de VIAJE 2020 🏖/`:
 
 ## 5. Efectos de Sonido (SFX) para Animación 2D y Edición
 
-### A. Transiciones y Movimientos de Cámara (`music/Trancisiones Necesarias/` + `sfx/`)
-* **`sfx/whoosh.mp3`** (`vol: 0.20`): Barrido estándar de cámara entre escenas.
-* **`music/Trancisiones Necesarias/Fast Whoosh Sound Effect.mp3`** (`vol: 0.20`): Whoosh dinámico ultrarrápido.
-* **`music/Trancisiones Necesarias/01 - Abduction swish.wav`** (`vol: 0.18`): Swish limpio y moderno.
-* **`music/Trancisiones Necesarias/EFECTO DE SONIDO.-TRANSICIÓN_GIRO LENTO_ZOOM _ENTRADA EXPLOSIVA.mp3`** (`vol: 0.20`): Zoom explosivo con giro.
-* **`music/Trancisiones Necesarias/Deslizar - efecto de sonido gracioso.mp3`** (`vol: 0.22`): Deslizamiento cómico o caricaturesco.
+### A. Transiciones y Movimientos de Cámara (`sfx/Trancisiones Necesarias/`)
+* **`sfx/Trancisiones Necesarias/Fast Whoosh Sound Effect.mp3`** (`vol: 0.20`): Whoosh dinámico ultrarrápido.
+* **`sfx/Trancisiones Necesarias/01 - Abduction swish.wav`** (`vol: 0.18`): Swish limpio y moderno.
+* **`sfx/Trancisiones Necesarias/EFECTO DE SONIDO.-TRANSICIÓN_GIRO LENTO_ZOOM _ENTRADA EXPLOSIVA.mp3`** (`vol: 0.20`): Zoom explosivo con giro.
+* **`sfx/Trancisiones Necesarias/Deslizar - efecto de sonido gracioso.mp3`** (`vol: 0.22`): Deslizamiento cómico o caricaturesco.
+* **`sfx/Trancisiones Necesarias/Whoosh Sound Effect HD _ No Copyright.mp3`** (`vol: 0.20`): Barrido de cámara limpio.
+* **`sfx/Trancisiones Necesarias/Sonido del Click del Mouse __ Mouse Click - Sound Effect.mp3`** (`vol: 0.22`): Click de ratón / interacción.
 
-### B. Micro-Interacciones de UI (`sfx/`)
-* **`sfx/click.mp3`** (`vol: 0.22`): Pulsación de botones, switches, toggles.
-* **`sfx/ding.mp3`** (`vol: 0.24`): Aciertos, notificaciones, tips clave y descubrimientos.
-* **`sfx/pop.mp3`** (`vol: 0.26`): Aparición de burbujas, badges, tarjetas flotantes y pastillas.
+### C. Sound Effects Populares y Virales (`sfx/sound effects/`)
+* **`sfx/sound effects/YEET - Sound Effect HD.mp3`** (`vol: 0.22`): Lanzamiento con fuerza / YEET.
+* **`sfx/sound effects/Bruh Sound Effect.mp3`** (`vol: 0.22`): Reacción clásica Bruh.
+* **`sfx/sound effects/taco bell.m4a`** (`vol: 0.22`): Campana icónica de Taco Bell / golpe sónico.
+* **`sfx/sound effects/Among us sound effect.mp3`** (`vol: 0.22`): Tensión / asesinato Among Us.
+* **`sfx/sound effects/Doraemon Notification Sound.mp3`** (`vol: 0.22`): Notificación tierna y mágica.
+* **`sfx/sound effects/Illuminati Confirmed.mp3`** (`vol: 0.20`): Teoría conspirativa / misterio meme.
+* **`sfx/sound effects/Glitch.wav`** (`vol: 0.20`): Error visual, fallo técnico o interferencia.
+* **`sfx/sound effects/Bamboo Hit.mp3`** (`vol: 0.22`): Golpe caricaturesco de bambú estilo anime.
+* **`sfx/sound effects/Reveal Sound Effect.mp3`** (`vol: 0.22`): Revelación de dato o aparición.
+* **`sfx/sound effects/Twitch Alert Sound Effect.m4a`** (`vol: 0.22`): Alerta digital o evento en directo.
+* **`sfx/sound effects/Spider-Man 3 Meme Sound.mp3`** (`vol: 0.22`): Canción triste o momento dramático meme.
 
-### C. Expresiones y Celebraciones (`music/Expresiones (Celebraciones y Asombros)/`)
-* `ALELUYA _ Efecto de sonido.mp3` (`vol: 0.20`): Solución milagrosa o descubrimiento triunfal.
-* `Coro Celestial (Efecto de Sonido) Heavenly Choir.mp3` (`vol: 0.20`): Revelación divina o epifanía cómica.
-* `Descargar Efecto de Sonido Acierto _ Correcto en HD.mp3` (`vol: 0.22`): Respuesta correcta o validación positiva.
-* `Children Celebrating Sound Effect _ Niños Celebrando.mp3` (`vol: 0.22`): Festejo y vítores en multitud.
-* `Asombro efecto de sonido para tus vídeos.mp3` (`vol: 0.20`): Reacción de '¡Woooow!'.
+### D. Expresiones y Celebraciones (`sfx/Expresiones (Celebraciones y Asombros)/`)
+* `sfx/Expresiones (Celebraciones y Asombros)/ALELUYA _ Efecto de sonido.mp3` (`vol: 0.20`): Solución milagrosa o descubrimiento triunfal.
+* `sfx/Expresiones (Celebraciones y Asombros)/Coro Celestial (Efecto de Sonido) Heavenly Choir.mp3` (`vol: 0.20`): Revelación divina o epifanía cómica.
+* `sfx/Expresiones (Celebraciones y Asombros)/Descargar Efecto de Sonido Acierto _ Correcto en HD.mp3` (`vol: 0.22`): Respuesta correcta o validación positiva.
+* `sfx/Expresiones (Celebraciones y Asombros)/Children Celebrating Sound Effect _ Niños Celebrando.mp3` (`vol: 0.22`): Festejo y vítores en multitud.
+* `sfx/Expresiones (Celebraciones y Asombros)/Asombro efecto de sonido para tus vídeos.mp3` (`vol: 0.20`): Reacción de '¡Woooow!'.
 
-### D. Golpes, Caídas e Impactos (`music/Golpes y Caidas/`)
-* `Efecto de sonido caer al piso.mp3` (`vol: 0.22`): Caída de personaje u objeto pesado.
-* `Among Us (Kill) - Sound Effect.mp3` (`vol: 0.22`): Impacto seco o eliminación.
-* `And His Name is JOHN CENA.mp3` (`vol: 0.22`): Entrada triunfal sorpresiva con fanfarria de trompetas.
-* `Bruh Sound Effect _2.mp3` (`vol: 0.22`): Decepción resignada o momento incómodo.
-* `Efecto de Sonido - Chan - Lluvia de Chanes.mp3` (`vol: 0.20`): Golpe de suspenso latino clásico.
+### E. Golpes, Caídas e Impactos (`sfx/Golpes y Caidas/`)
+* `sfx/Golpes y Caidas/Efecto de sonido caer al piso.mp3` (`vol: 0.22`): Caída de personaje u objeto pesado.
+* `sfx/Golpes y Caidas/Among Us (Kill) - Sound Effect (HD).mp3` (`vol: 0.22`): Impacto seco o eliminación.
+* `sfx/Golpes y Caidas/And His Name is JOHN CENA - Sound Effect (HD).mp3` (`vol: 0.22`): Entrada triunfal sorpresiva con fanfarria.
+* `sfx/Golpes y Caidas/Bruh Sound Effect _2.mp3` (`vol: 0.22`): Decepción resignada o momento incómodo.
+* `sfx/Golpes y Caidas/Efecto de Sonido - Chan - Lluvia de Chanes.mp3` (`vol: 0.20`): Golpe de suspenso latino clásico.
 
-### E. Gritos y Sustos (`music/Gritoss/`)
-* `Grito de Hombre - efecto de sonido.mp3` (`vol: 0.16`): Grito cómico masculino.
-* `Efecto de sonido - NOOO__ (grito).mp3` (`vol: 0.16`): Grito desesperado de negación.
-* `El Tano Pasman - Nooo Noooo.mp3` (`vol: 0.16`): Clásica frustración futbolística.
-* `Goat Scream - Origine Meme.mp3` (`vol: 0.16`): Grito de cabra humana viral.
-* `Keemstar Screaming (Gritó_) Efecto Sonido 2021.mp3` (`vol: 0.16`): Grito meme hiperbólico.
+### F. Gritos y Sustos (`sfx/Gritoss/`)
+* `sfx/Gritoss/Grito de Hombre - efecto de sonido.mp3` (`vol: 0.16`): Grito cómico masculino.
+* `sfx/Gritoss/Efecto de sonido - NOOO__ (grito).mp3` (`vol: 0.16`): Grito desesperado de negación.
+* `sfx/Gritoss/El Tano Pasman - Nooo Noooo.mp3` (`vol: 0.16`): Clásica frustración futbolística.
+* `sfx/Gritoss/Goat Scream - Origine Meme (HD).mp3` (`vol: 0.16`): Grito de cabra humana viral.
+* `sfx/Gritoss/Keemstar Screaming (Gritó_) Efecto Sonido 2021_.mp3` (`vol: 0.16`): Grito meme hiperbólico.
 
-### F. Fails y Errores (`music/Fails/`)
-* `Descargar Efecto de Sonido Falla _ Error en HD.mp3` (`vol: 0.20`): Sonido oficial de fallo de sistema.
-* `Disco rayado ORIGINAL Y SIN REPETICIONES.mp3` (`vol: 0.20`): Detención abrupta de la música o situación incómoda.
-* `Cuak Efecto de Sonido Para Vídeos.mp3` (`vol: 0.20`): Remate cómico de desilusión.
-* `Efecto de sonido abucheo.mp3` (`vol: 0.20`): Rechazo del público ante una mala idea.
+### G. Fails y Errores (`sfx/Fails/`)
+* `sfx/Fails/Descargar Efecto de Sonido Falla _ Error en HD (Sin Copyright).mp3` (`vol: 0.20`): Sonido oficial de fallo de sistema.
+* `sfx/Fails/Disco rayado ORIGINAL Y SIN REPETICIONES.mp3` (`vol: 0.20`): Detención abrupta de la música o situación incómoda.
+* `sfx/Fails/Cuak Efecto de Sonido Para Vídeos - Efecto de Sonido Cuak.mp3` (`vol: 0.20`): Remate cómico de desilusión.
+* `sfx/Fails/Efecto de sonido abucheo.mp3` (`vol: 0.20`): Rechazo del público ante una mala idea.
 
-### G. Risas y Humor (`music/Risas/`)
-* `Risitas_ meme Original.mp3` (`vol: 0.20`): Carcajada asmática viral de Risitas.
-* `La risa de Don Ramón.mp3` (`vol: 0.20`): Risa burlona nostálgica.
-* `Estatua de tigre riendo.mp3` (`vol: 0.20`): Risa aguda descontrolada.
+### H. Risas y Humor (`sfx/Risas/`)
+* `sfx/Risas/Risitas_ meme Original.mp3` (`vol: 0.20`): Carcajada asmática viral de Risitas.
+* `sfx/Risas/La risa de Don Ramón - Memes _shorts.mp3` (`vol: 0.20`): Risa burlona nostálgica.
+* `sfx/Risas/Estatua de tigre riendo.mp3` (`vol: 0.20`): Risa aguda descontrolada.
 
-### H. Stingers de Terror y Suspenso (`music/Terror y Drama/`)
-* `Inception BWONG Sound.mp3` (`vol: 0.20`): Golpe sónico monumental de intriga.
-* `Cinema Sins (Dun) - Sound Effect.mp3` (`vol: 0.20`): Golpe de pecado o error detectado.
-* `Dross - Perturbador [HQ Piano Cover].mp3` (`vol: 0.20`): Acorde disonante perturbador.
-* `Among Us (Role Reveal) - Sound Effect.mp3` (`vol: 0.20`): Revelación de sospechoso o impostor.
-* `Biohazard Alarm.mp3` (`vol: 0.16`): Alarma industrial de contaminación biológica o peligro radioactivo.
+### I. Extras de Caricatura y Finanzas (`sfx/Extras/`)
+* `sfx/Extras/Cash SFX _13 _ Dinero Efecto de Sonido.mp3` (`vol: 0.22`): Sonido de caja registradora / dinero.
+* `sfx/Extras/Cartoon Boing (Spring Sound) - Sound Effects for Editing.mp3` (`vol: 0.22`): Rebote de resorte elástico.
+* `sfx/Extras/Cartoon Ricochet Sound Effect.mp3` (`vol: 0.20`): Rebote metálico de bala caricaturesca.
+* `sfx/Extras/Efecto de una bomba.mp3` (`vol: 0.20`): Explosión de dibujo animado.
 
-### I. Extras de Caricatura y Finanzas (`music/Extras/`)
-* `Cash SFX _ Dinero Efecto de Sonido.mp3` (`vol: 0.22`): Sonido de caja registradora / dinero.
-* `Cartoon Boing (Spring Sound).mp3` (`vol: 0.22`): Rebote de resorte elástico.
-* `Cartoon Ricochet Sound Effect.mp3` (`vol: 0.20`): Rebote metálico de bala caricaturesca.
-* `Efecto de una bomba.mp3` (`vol: 0.20`): Explosión de dibujo animado.
+### J. Stingers de Terror y Suspenso (`music/Terror y Drama/`)
+* `music/Terror y Drama/Inception BWONG Sound.mp3` (`vol: 0.20`): Golpe sónico monumental de intriga.
+* `music/Terror y Drama/Cinema Sins (Dun) - Sound Effect (HD).mp3` (`vol: 0.20`): Golpe de pecado o error detectado.
+* `music/Terror y Drama/Dross - Perturbador [HQ Piano Cover].mp3` (`vol: 0.20`): Acorde disonante perturbador.
+* `music/Terror y Drama/Among Us (Role Reveal) - Sound Effect (HD).mp3` (`vol: 0.20`): Revelación de sospechoso o impostor.
+* `music/Terror y Drama/Biohazard Alarm[WARNING_ The sound is very LOUD].mp3` (`vol: 0.16`): Alarma industrial de peligro.
 
 ---
 
@@ -130,8 +139,8 @@ import { Audio, staticFile } from 'remotion';
 // 2. Efecto de sonido puntual (SFX):
 <Sequence from={90} durationInFrames={30}>
   <Audio
-    src={staticFile('music/Trancisiones Necesarias/01 - Abduction swish.wav')}
-    volume={0.20}
+    src={staticFile('sfx/sound effects/YEET - Sound Effect HD.mp3')}
+    volume={0.22}
   />
 </Sequence>
 ```

@@ -13,7 +13,8 @@
     "finalize:replica": "node \"../projects/25 de octubre de 2026/replica-sebastiankra/scripts/finalize.mjs\"",
     "render:fentanilo": "node \"../projects/23 de octubre de 2026/fentanilo-la-llave-quimica/render.mjs\"",
     "render:helado": "node \"../projects/23 de octubre de 2026/la-ciencia-del-helado/render.mjs\"",
-    "render:cafeina-cerebro-2d": "node \"../projects/23 de octubre de 2026/cafeina-cerebro-2d/render.mjs\""
+    "render:cafeina-cerebro-2d": "node \"../projects/23 de octubre de 2026/cafeina-cerebro-2d/render.mjs\"",
+    "render:napoleon-curiosidades-secretos-2d": "node \"../projects/25 de octubre de 2026/napoleon-curiosidades-secretos-2d/render.mjs\""
   },
   "dependencies": {
     "@remotion/cli": "^4.0.218",

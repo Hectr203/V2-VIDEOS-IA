@@ -183,6 +183,7 @@ import asyncio
 import hashlib
 import json
 import math
+import os
 from pathlib import Path
 import subprocess
 import edge_tts
@@ -214,7 +215,7 @@ async def generate_narration(scene, config, sem):
     cache_dir = HERE / "audio_cache"
     cache_dir.mkdir(exist_ok=True)
     cache = cache_dir / f"{{scene['id']}}.json"
-    key = hashlib.sha256(json.dumps([scene['text'], config['voice'], config['rate']]).encode()).hexdigest()
+    key = hashlib.sha256(json.dumps([scene['text'], config.get('voice', 'es-MX-JorgeNeural'), config.get('rate', '+0%'), config.get('voice_provider', 'edge-tts'), config.get('applio_model', '')]).encode()).hexdigest()
     if target.exists() and cache.exists():
         data = json.loads(cache.read_text(encoding="utf-8"))
         if data.get('key') == key and target.stat().st_size > 1000:
@@ -224,7 +225,10 @@ async def generate_narration(scene, config, sem):
             try:
                 words = []
                 partial = target.with_suffix('.partial.mp3')
-                tts = edge_tts.Communicate(scene['text'], config['voice'], rate=config['rate'], boundary='WordBoundary')
+                is_applio = config.get('voice_provider') == 'applio' or config.get('applio_model')
+                base_voice = config.get('voice_base', 'es-CL-LorenzoNeural') if is_applio else config['voice']
+                base_rate = config.get('rate_base', '+18%') if is_applio else config['rate']
+                tts = edge_tts.Communicate(scene['text'], base_voice, rate=base_rate, boundary='WordBoundary')
                 with partial.open('wb') as stream:
                     async for chunk in tts.stream():
                         ctype = chunk.get('type')
@@ -241,6 +245,37 @@ async def generate_narration(scene, config, sem):
                 if not words or seconds <= 0:
                     raise RuntimeError(f"No word timestamps/audio for {{scene['id']}}")
                 partial.replace(target)
+                if is_applio:
+                    model_name = config.get('applio_model', 'Morgan_Freeman')
+                    applio_dir = find_studio(HERE).parent / "Applio"
+                    if applio_dir.exists():
+                        model_dir = applio_dir / "logs" / model_name
+                        pths = list(model_dir.glob("*.pth")) if model_dir.exists() else []
+                        if not pths:
+                            pths = list((applio_dir / "logs").glob(f"*{model_name}*/**/*.pth")) or list((applio_dir / "logs").glob("**/*.pth"))
+                        indexes = list(model_dir.glob("*.index")) if model_dir.exists() else []
+                        if not indexes:
+                            indexes = list((applio_dir / "logs").glob(f"*{model_name}*/**/*.index"))
+                        if pths:
+                            converted = target.with_suffix('.converted.wav')
+                            py_bin = str(applio_dir / ".venv" / "bin" / "python")
+                            cmd = [
+                                py_bin, "core.py", "infer",
+                                "--input-path", str(target),
+                                "--output-path", str(converted),
+                                "--pth-path", str(pths[0]),
+                                "--pitch", "0",
+                                "--index-rate", "1.0",
+                            ]
+                            if indexes:
+                                cmd.extend(["--index-path", str(indexes[0])])
+                            env = os.environ.copy()
+                            env["LD_LIBRARY_PATH"] = f"{{applio_dir}}/libs/usr/lib/x86_64-linux-gnu:{{env.get('LD_LIBRARY_PATH', '')}}"
+                            res = subprocess.run(cmd, cwd=str(applio_dir), env=env, stdout=subprocess.DEVNULL, stderr=subprocess.PIPE, text=True)
+                            if res.returncode == 0 and converted.exists():
+                                subprocess.run(["ffmpeg", "-y", "-i", str(converted), "-q:a", "0", str(target)], stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL, check=True)
+                                converted.unlink(missing_ok=True)
+                                seconds = get_duration(target)
                 data = {{'key': key, 'duration': seconds, 'words': words}}
                 cache.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
                 print(f"Audio {{scene['id']}}: {{seconds:.2f}}s, {{len(words)}} palabras", flush=True)
@@ -335,6 +370,7 @@ if __name__ == "__main__":
     render_script = f'''import {{createRequire}} from 'node:module';
 import {{fileURLToPath}} from 'node:url';
 import path from 'node:path';
+import fs from 'node:fs/promises';
 import fsSync from 'node:fs';
 import {{execFileSync, execSync}} from 'node:child_process';
 

@@ -1,18 +1,5 @@
 <div align="center">
 
-<img src="docs/portadas/icono-v2-ia-badge.jpg" alt="V2-VIDEOS-IA Logo" width="130" style="border-radius: 20px;" />
-
-# 🎬 Ecosistema Audiovisual y Agencia de Producción IA
-
-**Plataforma integral y arquitectura de producción de video con Inteligencia Artificial.**  
-Combina agentes autónomos, animación vectorial 2D en Remotion con cinemática inversa, síntesis de voz neuronal, banda sonora procedimental y un panel web de control multiformato (9:16 vertical y 16:9 horizontal).
-
-<br />
-
-<img src="docs/portadas/portada-storyboard-pipeline.jpg" alt="V2-VIDEOS-IA Storyboard Banner" width="100%" style="border-radius: 12px;" />
-
-</div>
-
 ---
 
 ## 📌 Documentación de Referencia Rápida
@@ -155,7 +142,7 @@ cd video-studio
 ## 🤖 Invocación Directa y Prompt Optimizado para Agentes de IA
 
 > [!TIP]
-> **Ya no necesitas copiar ni pegar prompts extensos o complejos.**  
+> **Ya no necesitas copiar ni pegar prompts extensos o complejos.**
 > Toda la inteligencia técnica, roles especializados de animación, curaduría de audio, puertas de calidad pre-render y estándares de Remotion están centralizados en el **Asistente Principal** ([`Agencia_Principal/asistente-principal.md`](Agencia_Principal/asistente-principal.md)).
 
 Para iniciar la producción de cualquier video desde cero, copia y pega simplemente esta instrucción en el chat del agente:
@@ -163,6 +150,7 @@ Para iniciar la producción de cualquier video desde cero, copia y pega simpleme
 ```text
 Actúa como el asistente principal en Agencia_Principal/asistente-principal.md para hacer un video: [tu idea o tema aquí]
 ```
+
 *(O simplemente: `Actúa como el asistente principal en Agencia_Principal/asistente-principal.md para hacer un video`)*.
 
 ---
@@ -171,28 +159,27 @@ Actúa como el asistente principal en Agencia_Principal/asistente-principal.md p
 
 Al recibir la instrucción, el Asistente Principal ejecuta de inmediato el siguiente flujo garantizado:
 
-1. **Pausa Obligatoria y Cuestionario Interactivo de Requisitos**:  
-   Antes de generar código o ejecutar scaffolding, despliega un cuestionario estructurado para recopilar:
+1. **Pausa Obligatoria y Cuestionario Interactivo de Requisitos**:Antes de generar código o ejecutar scaffolding, despliega un cuestionario estructurado para recopilar:
+
    - **¿De qué va a tratar el video?** (Pregunta abierta donde describes libremente la idea o hecho central).
    - **Giro y enfoque temático** (Científico con humor/cómico, Didáctico/Educativo 2D, Misterio/Curiosidades, Dramático/Crudo, Cultura Pop/Memes o Corporativo/Tech; la IA puede cruzar giros creativos, como explicar ciencia o motores con tonos cómicos y SFX divertidos).
    - **Formato y relación de aspecto** (`9:16` vertical, `16:9` horizontal o ambos).
    - **Duración estimada** (30-60s ágil, 60-90s en 5 actos, o +2 min extendido).
    - **Motor de voz / TTS** (ElevenLabs, VibeVoice o TTS nativo del navegador).
    - **Inclusión de marca / Logo animado** (Integrar el logo animado de cierre e invitación a seguir/suscribirse según el estándar de `efectos-drogas-jovenes-2d`).
-
 2. **Adaptación según el Entorno / IDE**:
+
    - **En Antigravity IDE**: Despliega el cuestionario usando la herramienta interactiva de preguntas (`ask_question`) o genera un **artefacto interactivo editable** dentro del IDE.
    - **En otros entornos (Cursor, VS Code, CLI, Claude, ChatGPT)**: Si detecta que no está en Antigravity y no hay soporte de artefactos nativos, crea automáticamente el archivo Markdown editable en:
      ```text
      video-studio/mis-temas/cuestionario-[tema-o-fecha].md
      ```
      con checkboxes `[ ]` para que el usuario lo abra, marque sus opciones con `[x]` y guarde sus respuestas.
-
 3. **Curaduría Sonora y Ejecución Técnica**:
+
    - Selecciona música y efectos de sonido de la biblioteca local de 381 audios (`video-studio/assets/catalogo_audios.json` / `buscar_audio.py`) acordes al giro del video.
    - Inicializa el proyecto autónomo mediante `python3 video-studio/scripts/crear_produccion_2d.py`.
    - Genera el guion visual (`storyboard.json`), síntesis de voz neuronal y timeline exacto (`prepare.py`).
    - Ilustra en SVG nativo con cinemática inversa y dinamismo cinemático en Remotion (`art.tsx` y `Film.tsx`).
    - Ejecuta la puerta de control visual mediante hoja de contactos (`render.mjs --stills`).
    - Renderiza el resultado final en `9:16`, `16:9` o multiformato con audio balanceado y libre de saturación.
-

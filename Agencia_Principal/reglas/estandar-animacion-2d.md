@@ -23,7 +23,7 @@ Para evitar la dispersión de archivos y mantener el orden histórico cuando se 
 `video-studio/projects/<DD de mes de YYYY>/<slug>/`
 *(Ejemplo: `video-studio/projects/25 de octubre de 2026/efectos-drogas-jovenes-2d/`)*
 
-Se mantiene adicionalmente un enlace simbólico en la raíz de `projects/<slug>` para asegurar retrocompatibilidad con scripts de terminal y comandos directos.
+**Queda estrictamente prohibido guardar proyectos, archivos o enlaces simbólicos en la raíz de `video-studio/projects/`. Todo proyecto debe residir forzosamente dentro de su carpeta de fecha de creación (`video-studio/projects/<DD de mes de YYYY>/<slug>/`) para evitar cualquier duplicidad.** Esta regla es validada automáticamente mediante un hook de ciclo de vida.
 
 Estructura canónica de cada proyecto:
 1. `project.json`: Metadatos del proyecto (título, descripción, resolución, versión, autor).

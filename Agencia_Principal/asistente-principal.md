@@ -59,10 +59,17 @@ Ante cualquier solicitud para crear un nuevo video, el asistente principal debe 
      * Medio / Estructura en 5 actos (60 a 90 segundos)
      * Extendido (+2 minutos)
    - **Pregunta 5 (Motor de síntesis de voz / TTS):**
-     Ofrecer estrictamente las tres alternativas soportadas:
-     * ElevenLabs
-     * VibeVoice
-     * TTS nativo del navegador (Chrome / Edge)
+     Ofrecer las tres alternativas soportadas (si el usuario no especifica o no contesta, por defecto se aplica **Edge-TTS**):
+     * `[x]` **Edge-TTS / Chrome (TTS nativo - Por defecto)**: Rápido, ligero y sin consumo extra de recursos (ej. Álvaro o Jorge).
+     * `[ ]` **Applio (RVC v2 - Modelos de la comunidad / Clonación)**: Conversión de voz mediante RVC v2.
+       * *Regla obligatoria si se escoge Applio:* El asistente debe consultar qué modelo de voz utilizar.
+         - Modelo registrado actualmente: `Morgan Freeman` (ubicado en `Applio/logs/Morgan_Freeman/`).
+         - Parámetros calibrados de Speech Input: Voz base `es-CL-LorenzoNeural`, velocidad `+18%`, tono (pitch) `0` a la mitad, e index-rate `1.0`.
+         *(Al añadir nuevos modelos a la carpeta logs de Applio, se sumarán a las opciones).*
+     * `[ ]` **ElevenLabs**: Voces premium mediante API externa (clave configurada en `.env`, cuenta gratuita con cuota mensual de 10,000 caracteres).
+       * *Regla si se escoge ElevenLabs:* Consultar qué modelo y voz utilizar.
+         - Modelos multilingües disponibles en la API: `eleven_multilingual_v2` (recomendado para máxima calidad en español), `eleven_flash_v2_5` o `eleven_turbo_v2_5` (menor consumo de tokens).
+         - Voces disponibles en la cuenta: George (narrador cálido/storyteller), Charlie (enérgico/confidente), Liam (creador dinámico), Sarah (profesional/madura), Alice (educativa).
    - **Pregunta 6 (Última pregunta obligatoria - Identidad de marca / Logo animado):**
      Consultar explícitamente si se desea integrar el logo animado (utilizando como estándar de referencia el implementado en la producción `efectos-drogas-jovenes-2d`) en la línea de tiempo para invitar a suscribirse o seguir el canal:
      * `[ ]` Sí, integrar el logo animado de cierre e invitación a seguir/suscribirse

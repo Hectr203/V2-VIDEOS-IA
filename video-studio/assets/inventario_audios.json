@@ -1,1365 +1,5 @@
 [
   {
-    "file": "music/ambient_curiosity.mp3",
-    "duration": 60.03,
-    "sample_rate": 44100,
-    "channels": 1,
-    "codec": "mp3",
-    "size_bytes": 480462
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/01 - JJD - Adventure Glitch Hop NCS - Copyright Free Music.mp3",
-    "duration": 279.05,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 4898229
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/02 - Tobu - Roots House NCS - Copyright Free Music.mp3",
-    "duration": 190.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3235869
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/03 - MUSICA para VIDEOS de VIAJE 2022 GRATIS 🗺️ [NOT MONETIZABLE] FREE Summer Music☀.mp3",
-    "duration": 160.15,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2473389
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/05 - MUSICA CHILL OUT para TRABAJAR RELAJADO 2022 🖥️[NOT MONETIZABLE]✅ CHILL Music B.mp3",
-    "duration": 121.51,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1908957
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/07 - MUSICA de AVENTURA para VIDEOS 2022 GRATIS 🛶[NOT MONETIZABLE]✅ Adventure Music .mp3",
-    "duration": 138.84,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2380797
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/08 - Como hacer un Vlog o video de vacaciones!.mp3",
-    "duration": 443.64,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 5717925
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/10 - MUSICA para VIDEOS de VIAJE 2020 GRATIS ☯️[NO COPYRIGHTS] ✅ FREE Inspirational M.mp3",
-    "duration": 95.98,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1566333
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/11 - LA MEJOR MUSICA SIN COPYRIGHT PARA TUS VIDEOS DE VIAJES! 2017.mp3",
-    "duration": 268.27,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 4196973
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/13 - Remady, Manu-L - Give Me Love.mp3",
-    "duration": 177.36,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3041685
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/14 - Música de viaje #5 Verano (No copyright).mp3",
-    "duration": 191.04,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3174525
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/15 - TOP 6 Música para HACER VLOGS 😲.mp3",
-    "duration": 199.01,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3073893
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/16 - Best Music for your HOLIDAY Slideshows & Videos! ★.mp3",
-    "duration": 144.53,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2428917
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/17 - Música de viaje #1 Volando alto (No copyright).mp3",
-    "duration": 282.7,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 4610973
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/18 - Música de viaje #14 Aventuras (No copyright).mp3",
-    "duration": 172.8,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2900253
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/19 - Música de Fondo para Videos de Vacaciones Música para Comerciales, Publicidad, V.mp3",
-    "duration": 115.63,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1925733
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/20 - MUSICA ELECTRONICA para VIDEOS 2020 GRATIS 🎚️[NO COPYRIGHTS] ✅ FREE ELECTRONIC .mp3",
-    "duration": 222.79,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3362733
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/21 - Mike Perry - Stay Young (ft. Tessa).mp3",
-    "duration": 159.1,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2536245
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/23 - Música de viaje #6 Colores (No copyright).mp3",
-    "duration": 230.42,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3522405
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/24 - Música de viaje #30 Imaginaria (No copyright).mp3",
-    "duration": 186.22,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3108741
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/25 - Música de Fondo Para Videos Música Cinematográfica Inspiradora.mp3",
-    "duration": 136.94,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2122845
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/26 - Diamond Eyes - Everything Melodic Dubstep NCS - Copyright Free Music.mp3",
-    "duration": 267.05,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 4514133
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/27 - MUSICA DANCE SIN COPYRIGHT 2020 ✅ ▶︎ GRATIS 🥳 Dance Party Music 2020🎇.mp3",
-    "duration": 115.42,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1828005
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/28 - Alex Menco - Summer Chill [Copyright FREE Music].mp3",
-    "duration": 138.05,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2280453
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/29 - MUSICA INSPIRADORA ELECTRÓNICA para VIDEOS 2020 🤗 [NO COPYRIGHT] ✅ Free Inspira.mp3",
-    "duration": 188.21,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3077277
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/30 - MUSICA ELECTRONICA HOUSE 2021 GRATIS 🌈[NO COPYRIGHT] ✅ Free House Music for Vid.mp3",
-    "duration": 245.16,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3810693
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/31 - Musica Estilo Accion Aventura - Sin Copyright - LIBRE.mp3",
-    "duration": 121.51,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1433541
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/32 - It will be ok - LiQWYD [ MÚSICA SIN COPYRIGHT ].mp3",
-    "duration": 182.45,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2918709
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/33 - Fredji Happy Life MUSICA SIN COPYRIGHT.mp3",
-    "duration": 231.07,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3810813
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/34 - MUSICA LoFi CHILL para VIDEOS GRATIS 2022 🌿[NOT MONETIZABLE] ✅ FREE Download 🎸.mp3",
-    "duration": 185.64,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2636541
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/35 - ELECTRO HOUSE 2021 SIN COPYRIGHT ✅ Free Electro House Music 👅.mp3",
-    "duration": 187.58,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3151893
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/36 - 🏂🏻MUSICA para VIDEOS ADRENALINA Sin Copyright GRATIS 2021 ✅ Free adrenaline mu.mp3",
-    "duration": 152.21,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2125077
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/37 - MUSICA HIP HOP CHILL para VIDEOS 2021💈[NO COPYRIGHT] ✅ Free Hip Hop Music 🤯.mp3",
-    "duration": 469.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 7582653
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/38 - MUSICA ELECTRONICA HOUSE 22 GRATIS 💃🏻[NOT MONETIZABLE] ✅ Free House Music for .mp3",
-    "duration": 179.86,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3188829
-  },
-  {
-    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/39 - MUSICA para VIDEOS de VIAJE IMPONENTE 2022 GRATIS 🌁 [NO COPYRIGHT] FREE Music �.mp3",
-    "duration": 257.23,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 4261749
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/01 - Lluvia Y Brillos.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/02 - Endless Thunder Dreaming.mp3",
-    "duration": 426.48,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 7659117
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/03 - Peaceful Rain Sounds.mp3",
-    "duration": 129.31,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2066541
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/04 - Aguas Tranquilas.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/05 - Mid Spring Rain.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/06 - Atmósfera Calma.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/07 - Rain Noise for Peace.mp3",
-    "duration": 132.05,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2150685
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/08 - Mantra De Lluvia.mp3",
-    "duration": 132.05,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2150685
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/09 - Día Lluvioso.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/10 - Para Los Días Lluviosos.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/11 - Tiempo De Dormir.mp3",
-    "duration": 132.05,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2150685
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/12 - Ambiente De Lluvia.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/13 - Montaña Con Lluvia.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/14 - Truenos En La Lluvia.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/15 - Sonidos De La Lluvia Para La Meditación.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/16 - Momento Calmante.mp3",
-    "duration": 132.05,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2150685
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/17 - Momento Inspirador.mp3",
-    "duration": 129.6,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2090181
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/18 - Ohms of Rain.mp3",
-    "duration": 129.6,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2090181
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/19 - Rain for Meditation.mp3",
-    "duration": 129.31,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2066541
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/20 - Lluvia Produnda.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/21 - Llueve En La Primavera.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/22 - La Lluvia Vendra.mp3",
-    "duration": 128.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2091717
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/23 - 6 Horas De Sueño.mp3",
-    "duration": 151.03,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2429157
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/24 - Lluvia Para Dormir.mp3",
-    "duration": 120.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1927677
-  },
-  {
-    "file": "music/Mix - Lluvia Y Brillos/25 - Cascadas de Agua Relajante.mp3",
-    "duration": 361.03,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 7544181
-  },
-  {
-    "file": "music/Terror y Drama/Among Us (Role Reveal) - Sound Effect (HD)(MP3_160K).mp3",
-    "duration": 4.51,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 125024
-  },
-  {
-    "file": "music/Terror y Drama/Biohazard Alarm[WARNING_ The sound is very LOUD](MP3_160K).mp3",
-    "duration": 49.99,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1084917
-  },
-  {
-    "file": "music/Terror y Drama/Chan Chan Chaaaaaaan Efecto De Sonido 2 (Marianosmeiden)(MP3_160K).mp3",
-    "duration": 7.75,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 211134
-  },
-  {
-    "file": "music/Terror y Drama/Cinema Sins (Dun) - Sound Effect (HD)(MP3_160K).mp3",
-    "duration": 6.6,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 166774
-  },
-  {
-    "file": "music/Terror y Drama/Drama - efectos de sonido(MP3_160K).mp3",
-    "duration": 4.13,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 112677
-  },
-  {
-    "file": "music/Terror y Drama/Dramatic Boom_Hit_End of a Video Sound Effect(MP3_160K).mp3",
-    "duration": 10.39,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 247094
-  },
-  {
-    "file": "music/Terror y Drama/Dross - Perturbador [HQ Piano Cover](MP3_160K).mp3",
-    "duration": 5.26,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 310382
-  },
-  {
-    "file": "music/Terror y Drama/EFECTO DE SONIDO - Sorprendido (pillado)(MP3_160K).mp3",
-    "duration": 3.86,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 152410
-  },
-  {
-    "file": "music/Terror y Drama/Efecto de Sonido   Cuervo(MP3_160K).mp3",
-    "duration": 8.45,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 184895
-  },
-  {
-    "file": "music/Terror y Drama/Efecto de Sonido de ambiente FNAF(MP3_160K).mp3",
-    "duration": 8.64,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 182144
-  },
-  {
-    "file": "music/Terror y Drama/Efecto de sonido  Sorpresa(MP3_70K).mp3",
-    "duration": 0.84,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 63013
-  },
-  {
-    "file": "music/Terror y Drama/Efecto de sonido audiencia sorprendida(MP3_160K).mp3",
-    "duration": 1.73,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 51544
-  },
-  {
-    "file": "music/Terror y Drama/Efecto de sonido de drama(MP3_160K).mp3",
-    "duration": 4.1,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 88836
-  },
-  {
-    "file": "music/Terror y Drama/Iluminati song sonido efecto(MP3_160K).mp3",
-    "duration": 7.9,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 184096
-  },
-  {
-    "file": "music/Terror y Drama/Inception BWONG Sound(MP3_70K).mp3",
-    "duration": 5.21,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 193284
-  },
-  {
-    "file": "music/Terror y Drama/Minecraft Sonido De Cueva 1(MP3_160K).mp3",
-    "duration": 5.54,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 262641
-  },
-  {
-    "file": "music/Terror y Drama/Musica De Drama Y Terror.mp3",
-    "duration": 201.41,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 4392322
-  },
-  {
-    "file": "music/Terror y Drama/REPULSIVE - Forgotten [COPYRIGHT FREE DARK MUSIC](MP3_160K).mp3",
-    "duration": 202.08,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 4124769
-  },
-  {
-    "file": "music/Terror y Drama/Surprise - sound effect(MP3_160K).mp3",
-    "duration": 3.12,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 98950
-  },
-  {
-    "file": "music/Terror y Drama/Ultra Instinct Opening Theme - Sound Effect (HD)(MP3_160K).mp3",
-    "duration": 12.5,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 284877
-  },
-  {
-    "file": "music/Terror y Drama/Wehrmut(MP3_160K).mp3",
-    "duration": 98.26,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2074721
-  },
-  {
-    "file": "music/Terror y Drama/efecto de sonido de suspenso y drama(MP3_160K).mp3",
-    "duration": 6.41,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 145287
-  },
-  {
-    "file": "music/Terror y Drama/fnaf 2 hallway ambience(MP3_160K).mp3",
-    "duration": 5.57,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 246147
-  },
-  {
-    "file": "music/Gritoss/CONCHA TU MADRE - meme plantilla(MP3_160K).mp3",
-    "duration": 1.54,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 139448
-  },
-  {
-    "file": "music/Gritoss/Efecto de sonido - NOOO__ (grito)(MP3_160K).mp3",
-    "duration": 4.78,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 258567
-  },
-  {
-    "file": "music/Gritoss/El Grito de Gohan (Audio Latino) Saga Cell(MP3_160K).mp3",
-    "duration": 9.82,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 243968
-  },
-  {
-    "file": "music/Gritoss/El Tano Pasman - Nooo Noooo(MP3_160K).mp3",
-    "duration": 10.68,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 273760
-  },
-  {
-    "file": "music/Gritoss/GOLASO de Benzemaaaa _benzema(MP3_160K).mp3",
-    "duration": 12.58,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 528813
-  },
-  {
-    "file": "music/Gritoss/Goat Scream - Origine Meme (HD)(MP3_70K).mp3",
-    "duration": 3.91,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 199062
-  },
-  {
-    "file": "music/Gritoss/Grito de Hombre - efecto de sonido(MP3_160K).mp3",
-    "duration": 4.1,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 93204
-  },
-  {
-    "file": "music/Gritoss/Grito_ _Nooo_ _ Efecto de sonido(MP3_70K).mp3",
-    "duration": 2.76,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 101586
-  },
-  {
-    "file": "music/Gritoss/Hombre gritando(MP3_160K).mp3",
-    "duration": 10.7,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 255418
-  },
-  {
-    "file": "music/Gritoss/Keemstar Screaming (Gritó_) Efecto Sonido 2021_(MP3_160K).mp3",
-    "duration": 6.0,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 150090
-  },
-  {
-    "file": "music/Gritoss/Metal Gear Solid - Snake death scream sound effect(MP3_160K).mp3",
-    "duration": 5.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 314220
-  },
-  {
-    "file": "music/Gritoss/SIUUU SOUND EFFECT(MP3_160K).mp3",
-    "duration": 4.56,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 103432
-  },
-  {
-    "file": "music/Gritoss/Siuuu_ Cristiano Ronaldo - Sound Effect(MP3_160K).mp3",
-    "duration": 2.21,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 81186
-  },
-  {
-    "file": "music/Gritoss/Sonido de Gente Gritando 🔊- Efecto de Sonido 😱(MP3_160K).mp3",
-    "duration": 16.3,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 380230
-  },
-  {
-    "file": "music/Gritoss/Weeee sound effects(MP3_70K).mp3",
-    "duration": 9.55,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 138954
-  },
-  {
-    "file": "music/Gritoss/YeeHaw Sound Effect(MP3_70K).mp3",
-    "duration": 2.14,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 45180
-  },
-  {
-    "file": "music/Gritoss/_Wii_ (Angry Birds) - Efecto de sonido _ Sound effect(MP3_128K).mp3",
-    "duration": 7.05,
-    "sample_rate": 44100,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 160757
-  },
-  {
-    "file": "music/Gritoss/ahhhhhhhhhhhhh-mc.mp3",
-    "duration": 1.91,
-    "sample_rate": 44100,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 31097
-  },
-  {
-    "file": "music/Gritoss/no mi compa noooo(MP3_160K).mp3",
-    "duration": 6.46,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 231822
-  },
-  {
-    "file": "music/Gritoss/sonido gritó de hombre (William scream) _ efecto de sonido(MP3_128K).mp3",
-    "duration": 2.19,
-    "sample_rate": 44100,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 46108
-  },
-  {
-    "file": "music/Gritoss/this is sparta_ efecto de sonido fx(MP3_160K).mp3",
-    "duration": 3.17,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 102441
-  },
-  {
-    "file": "music/Gritoss/vegetaaaa.m4a",
-    "duration": 2.23,
-    "sample_rate": 44100,
-    "channels": 2,
-    "codec": "aac",
-    "size_bytes": 70925
-  },
-  {
-    "file": "music/Gritoss/😂 jaja - señor gritando  _shorts _memes _grito _random(MP3_160K).mp3",
-    "duration": 5.33,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 259930
-  },
-  {
-    "file": "music/Sonidos memes/01 - niño gritando - efecto de sonido.mp3",
-    "duration": 4.97,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 64557
-  },
-  {
-    "file": "music/Sonidos memes/02 - Audio Wey Nooo Meme Compilation.mp3",
-    "duration": 2.81,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 25533
-  },
-  {
-    "file": "music/Sonidos memes/03 - Speedrun.mp3",
-    "duration": 77.59,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1223301
-  },
-  {
-    "file": "music/Sonidos memes/04 - The meaning of life audio.mp3",
-    "duration": 36.36,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 507669
-  },
-  {
-    "file": "music/Sonidos memes/05 - Sonido de desaparecer.mp3",
-    "duration": 1.82,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 27981
-  },
-  {
-    "file": "music/Sonidos memes/06 - Niño cantando meme.mp3",
-    "duration": 6.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 62493
-  },
-  {
-    "file": "music/Sonidos memes/07 - Musica de tutorial saturada.mp3",
-    "duration": 12.72,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 224301
-  },
-  {
-    "file": "music/Sonidos memes/08 - Cachetadas saturadas.mp3",
-    "duration": 4.32,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 54237
-  },
-  {
-    "file": "music/Sonidos memes/09 - Persona cantando among us drip sonido.mp3",
-    "duration": 10.54,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 118509
-  },
-  {
-    "file": "music/Sonidos memes/10 - Música de tutoriales pero pobre.mp3",
-    "duration": 8.23,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 102069
-  },
-  {
-    "file": "music/Sonidos memes/11 - Risas mínimalistas en cámara lenta sonido.mp3",
-    "duration": 2.62,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 18141
-  },
-  {
-    "file": "music/Sonidos memes/12 - Angry birds pero con audio pobre.mp3",
-    "duration": 15.38,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 173469
-  },
-  {
-    "file": "music/Sonidos memes/13 - Sonido incómodo de five Nights at freddy's.mp3",
-    "duration": 7.85,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 56181
-  },
-  {
-    "file": "music/Sonidos memes/14 - Sonido de parpadeo de five Nights at freddy's.mp3",
-    "duration": 14.14,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 140517
-  },
-  {
-    "file": "music/Sonidos memes/15 - Persona cantando dad de friday Nights at funkin.mp3",
-    "duration": 15.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 132237
-  },
-  {
-    "file": "music/Sonidos memes/16 - sonidos random #7.mp3",
-    "duration": 13.97,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 200637
-  },
-  {
-    "file": "music/Sonidos memes/17 - sonidos random #8.mp3",
-    "duration": 13.2,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 206805
-  },
-  {
-    "file": "music/Sonidos memes/18 - royalty free para pobres.mp3",
-    "duration": 19.25,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 329565
-  },
-  {
-    "file": "music/Sonidos memes/19 - webi wabo saturadisimo sonido.mp3",
-    "duration": 20.04,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 596901
-  },
-  {
-    "file": "music/Sonidos memes/20 - ¡JIJIJA! sonido.mp3",
-    "duration": 1.39,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 17925
-  },
-  {
-    "file": "music/Sonidos memes/21 - main menu pvz pero con audio pobre.mp3",
-    "duration": 13.56,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 84045
-  },
-  {
-    "file": "music/Sonidos memes/22 - morning flowers saturadisimo.mp3",
-    "duration": 13.49,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 131565
-  },
-  {
-    "file": "music/Sonidos memes/23 - tono de nokia saturadisimo.mp3",
-    "duration": 6.34,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 81741
-  },
-  {
-    "file": "music/Sonidos memes/24 - piano perturbador de dross sonido.mp3",
-    "duration": 1.32,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 17517
-  },
-  {
-    "file": "music/Sonidos memes/25 - sonidos randóm 12 + 1.mp3",
-    "duration": 13.97,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 201453
-  },
-  {
-    "file": "music/Sonidos memes/26 - fernanfloo singing cuakuanaka but with poor audio [community request].mp3",
-    "duration": 11.09,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 258309
-  },
-  {
-    "file": "music/Sonidos memes/27 - ching cheng han chi con audio pobre [petición de la comunidad].mp3",
-    "duration": 11.09,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 64101
-  },
-  {
-    "file": "music/Sonidos memes/28 - jijija saturado [petición de la comunidad].mp3",
-    "duration": 1.42,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 20349
-  },
-  {
-    "file": "music/Sonidos memes/29 - Pou music with poor audio.mp3",
-    "duration": 30.84,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 636693
-  },
-  {
-    "file": "music/Sonidos memes/30 - (Pantalla verde) Efecto TRIGGERED meme con sonido.mp3",
-    "duration": 9.36,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 189981
-  },
-  {
-    "file": "music/Sonidos memes/31 - AUUGHHH!.mp3",
-    "duration": 9.84,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 85413
-  },
-  {
-    "file": "music/Sonidos memes/32 - goofy ahh sounds 💀💀💀.mp3",
-    "duration": 32.09,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 313581
-  },
-  {
-    "file": "music/Sonidos memes/33 - tre savage rage vs. luv meme audio.mp3",
-    "duration": 8.9,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 104709
-  },
-  {
-    "file": "music/Sonidos memes/34 - cristiano ronaldo siuuu reverse.mp3",
-    "duration": 5.21,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 45765
-  },
-  {
-    "file": "music/Sonidos memes/35 - ronaldo siuuu meme distorted.mp3",
-    "duration": 6.53,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 45885
-  },
-  {
-    "file": "music/Sonidos memes/37 - chino hablando meme.mp3",
-    "duration": 13.58,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 134181
-  },
-  {
-    "file": "music/Sonidos memes/38 - niño brasilero cantando pou con audio pobre y saturado.mp3",
-    "duration": 32.52,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 350685
-  },
-  {
-    "file": "music/Sonidos memes/39 - Everyone Joins the battle song.mp3",
-    "duration": 162.1,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1481205
-  },
-  {
-    "file": "music/Sonidos memes/40 - Why are you running sound effect.mp3",
-    "duration": 8.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 106701
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/01 - Música De Fondo Para Videos y Presentaciones.mp3",
-    "duration": 126.55,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2164701
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/02 - MUSICA de AVENTURA para VIDEOS 2022 GRATIS 🛶[NOT MONETIZABLE]✅ Adventure Music .mp3",
-    "duration": 138.84,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2380797
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/03 - Música Alegre para Videos y Presentaciones - Música de Fondo para Videos.mp3",
-    "duration": 114.7,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1900893
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/04 - Música De Fondo Para Presentaciones y Videos Corporativos.mp3",
-    "duration": 144.6,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2470581
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/05 - Música de Fondo Energética y Positiva para Videos.mp3",
-    "duration": 145.75,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2532933
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/06 - MUSICA CHILL OUT para TRABAJAR RELAJADO 2022 🖥️[NOT MONETIZABLE]✅ CHILL Music B.mp3",
-    "duration": 121.51,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1908957
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/07 - Música De Fondo Para Videos Música Alegre Para Videos.mp3",
-    "duration": 97.54,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1594701
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/08 - Wake Up - MBB [ MÚSICA SIN COPYRIGHT ].mp3",
-    "duration": 141.1,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2473989
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/09 - MUSICA CORPORATIVA para VIDEOS 2022 GRATIS 💻[NOT MONETIZABLE] ✅ Free Ambient Co.mp3",
-    "duration": 156.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2226141
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/10 - Música De Fondo Para Videos Corporativos y de Emprendimiento.mp3",
-    "duration": 147.82,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2327877
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/11 - Música Cinematográfica Moderna Música Instrumental para Videos.mp3",
-    "duration": 183.26,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3030597
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/12 - Música De Fondo Inspiradora y Dramática Para Videos.mp3",
-    "duration": 185.47,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3020589
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/13 - Música Corporativa Para Videos y Publicidad.mp3",
-    "duration": 135.86,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2430717
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/14 - Música de Fondo para Presentaciones Música para Videos.mp3",
-    "duration": 172.39,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2902605
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/15 - Música Corporativa y Motivadora Para Videos.mp3",
-    "duration": 155.95,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2705397
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/16 - Música de Fondo Para Videos Corporativos, Negocios y Presentaciones..mp3",
-    "duration": 200.04,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3317205
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/17 - MUSICA DANCE para VIDEOS 2020 GRATIS🕺[NO COPYRIGHTS] ✅ ELECTRONIC Music 🎬.mp3",
-    "duration": 138.89,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2309709
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/18 - #87 Fresh (Official).mp3",
-    "duration": 195.72,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3235965
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/19 - MBB — Good Vibes.mp3",
-    "duration": 134.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2369757
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/20 - 🎨 Música De Fondo Para Videos Educativos Música Para Presentaciones 🎶.mp3",
-    "duration": 281.64,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 5062173
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/21 - Luke Bergs - Tropical Soul (Kygo Style) ChillTropical House Copyright Free Music.mp3",
-    "duration": 188.71,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3236829
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/22 - #32 Lights (Official).mp3",
-    "duration": 199.39,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 3575565
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/23 - MBB — Wake Up.mp3",
-    "duration": 141.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 2520909
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/24 - MUSICA ELECTRÓNICA para DESFILE de Moda 2022💅🏻 [NOT MONETIZABLE] ✅ Free Fashio.mp3",
-    "duration": 120.43,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1995501
-  },
-  {
-    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/25 - Summer Day.mp3",
-    "duration": 97.54,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1596765
-  },
-  {
     "file": "music/Los MEJORES SOUNDTRACKS de los VIDEOJUEGOS/01 - 100. MEGALOVANIA (UNDERTALE Soundtrack) - Toby Fox.mp3",
     "duration": 160.18,
     "sample_rate": 48000,
@@ -2144,7 +784,1183 @@
     "size_bytes": 4012365
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/ALELUYA _ Efecto de sonido(MP3_128K).mp3",
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/01 - JJD - Adventure Glitch Hop NCS - Copyright Free Music.mp3",
+    "duration": 279.05,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 4898229
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/02 - Tobu - Roots House NCS - Copyright Free Music.mp3",
+    "duration": 190.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3235869
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/03 - MUSICA para VIDEOS de VIAJE 2022 GRATIS 🗺️ [NOT MONETIZABLE] FREE Summer Music☀.mp3",
+    "duration": 160.15,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2473389
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/05 - MUSICA CHILL OUT para TRABAJAR RELAJADO 2022 🖥️[NOT MONETIZABLE]✅ CHILL Music B.mp3",
+    "duration": 121.51,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1908957
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/07 - MUSICA de AVENTURA para VIDEOS 2022 GRATIS 🛶[NOT MONETIZABLE]✅ Adventure Music .mp3",
+    "duration": 138.84,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2380797
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/08 - Como hacer un Vlog o video de vacaciones!.mp3",
+    "duration": 443.64,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 5717925
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/10 - MUSICA para VIDEOS de VIAJE 2020 GRATIS ☯️[NO COPYRIGHTS] ✅ FREE Inspirational M.mp3",
+    "duration": 95.98,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1566333
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/11 - LA MEJOR MUSICA SIN COPYRIGHT PARA TUS VIDEOS DE VIAJES! 2017.mp3",
+    "duration": 268.27,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 4196973
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/13 - Remady, Manu-L - Give Me Love.mp3",
+    "duration": 177.36,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3041685
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/14 - Música de viaje #5 Verano (No copyright).mp3",
+    "duration": 191.04,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3174525
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/15 - TOP 6 Música para HACER VLOGS 😲.mp3",
+    "duration": 199.01,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3073893
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/16 - Best Music for your HOLIDAY Slideshows & Videos! ★.mp3",
+    "duration": 144.53,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2428917
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/17 - Música de viaje #1 Volando alto (No copyright).mp3",
+    "duration": 282.7,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 4610973
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/18 - Música de viaje #14 Aventuras (No copyright).mp3",
+    "duration": 172.8,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2900253
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/19 - Música de Fondo para Videos de Vacaciones Música para Comerciales, Publicidad, V.mp3",
+    "duration": 115.63,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1925733
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/20 - MUSICA ELECTRONICA para VIDEOS 2020 GRATIS 🎚️[NO COPYRIGHTS] ✅ FREE ELECTRONIC .mp3",
+    "duration": 222.79,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3362733
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/21 - Mike Perry - Stay Young (ft. Tessa).mp3",
+    "duration": 159.1,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2536245
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/23 - Música de viaje #6 Colores (No copyright).mp3",
+    "duration": 230.42,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3522405
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/24 - Música de viaje #30 Imaginaria (No copyright).mp3",
+    "duration": 186.22,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3108741
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/25 - Música de Fondo Para Videos Música Cinematográfica Inspiradora.mp3",
+    "duration": 136.94,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2122845
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/26 - Diamond Eyes - Everything Melodic Dubstep NCS - Copyright Free Music.mp3",
+    "duration": 267.05,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 4514133
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/27 - MUSICA DANCE SIN COPYRIGHT 2020 ✅ ▶︎ GRATIS 🥳 Dance Party Music 2020🎇.mp3",
+    "duration": 115.42,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1828005
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/28 - Alex Menco - Summer Chill [Copyright FREE Music].mp3",
+    "duration": 138.05,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2280453
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/29 - MUSICA INSPIRADORA ELECTRÓNICA para VIDEOS 2020 🤗 [NO COPYRIGHT] ✅ Free Inspira.mp3",
+    "duration": 188.21,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3077277
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/30 - MUSICA ELECTRONICA HOUSE 2021 GRATIS 🌈[NO COPYRIGHT] ✅ Free House Music for Vid.mp3",
+    "duration": 245.16,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3810693
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/31 - Musica Estilo Accion Aventura - Sin Copyright - LIBRE.mp3",
+    "duration": 121.51,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1433541
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/32 - It will be ok - LiQWYD [ MÚSICA SIN COPYRIGHT ].mp3",
+    "duration": 182.45,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2918709
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/33 - Fredji Happy Life MUSICA SIN COPYRIGHT.mp3",
+    "duration": 231.07,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3810813
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/34 - MUSICA LoFi CHILL para VIDEOS GRATIS 2022 🌿[NOT MONETIZABLE] ✅ FREE Download 🎸.mp3",
+    "duration": 185.64,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2636541
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/35 - ELECTRO HOUSE 2021 SIN COPYRIGHT ✅ Free Electro House Music 👅.mp3",
+    "duration": 187.58,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3151893
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/36 - 🏂🏻MUSICA para VIDEOS ADRENALINA Sin Copyright GRATIS 2021 ✅ Free adrenaline mu.mp3",
+    "duration": 152.21,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2125077
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/37 - MUSICA HIP HOP CHILL para VIDEOS 2021💈[NO COPYRIGHT] ✅ Free Hip Hop Music 🤯.mp3",
+    "duration": 469.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 7582653
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/38 - MUSICA ELECTRONICA HOUSE 22 GRATIS 💃🏻[NOT MONETIZABLE] ✅ Free House Music for .mp3",
+    "duration": 179.86,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3188829
+  },
+  {
+    "file": "music/MUSICA para VIDEOS de VIAJE 2020 🏖/39 - MUSICA para VIDEOS de VIAJE IMPONENTE 2022 GRATIS 🌁 [NO COPYRIGHT] FREE Music �.mp3",
+    "duration": 257.23,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 4261749
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/01 - Lluvia Y Brillos.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/02 - Endless Thunder Dreaming.mp3",
+    "duration": 426.48,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 7659117
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/03 - Peaceful Rain Sounds.mp3",
+    "duration": 129.31,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2066541
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/04 - Aguas Tranquilas.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/05 - Mid Spring Rain.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/06 - Atmósfera Calma.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/07 - Rain Noise for Peace.mp3",
+    "duration": 132.05,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2150685
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/08 - Mantra De Lluvia.mp3",
+    "duration": 132.05,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2150685
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/09 - Día Lluvioso.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/10 - Para Los Días Lluviosos.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/11 - Tiempo De Dormir.mp3",
+    "duration": 132.05,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2150685
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/12 - Ambiente De Lluvia.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/13 - Montaña Con Lluvia.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/14 - Truenos En La Lluvia.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/15 - Sonidos De La Lluvia Para La Meditación.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/16 - Momento Calmante.mp3",
+    "duration": 132.05,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2150685
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/17 - Momento Inspirador.mp3",
+    "duration": 129.6,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2090181
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/18 - Ohms of Rain.mp3",
+    "duration": 129.6,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2090181
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/19 - Rain for Meditation.mp3",
+    "duration": 129.31,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2066541
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/20 - Lluvia Produnda.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/21 - Llueve En La Primavera.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/22 - La Lluvia Vendra.mp3",
+    "duration": 128.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2091717
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/23 - 6 Horas De Sueño.mp3",
+    "duration": 151.03,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2429157
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/24 - Lluvia Para Dormir.mp3",
+    "duration": 120.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1927677
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/25 - Cascadas de Agua Relajante.mp3",
+    "duration": 361.03,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 7544181
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/01 - Música De Fondo Para Videos y Presentaciones.mp3",
+    "duration": 126.55,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2164701
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/02 - MUSICA de AVENTURA para VIDEOS 2022 GRATIS 🛶[NOT MONETIZABLE]✅ Adventure Music .mp3",
+    "duration": 138.84,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2380797
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/03 - Música Alegre para Videos y Presentaciones - Música de Fondo para Videos.mp3",
+    "duration": 114.7,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1900893
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/04 - Música De Fondo Para Presentaciones y Videos Corporativos.mp3",
+    "duration": 144.6,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2470581
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/05 - Música de Fondo Energética y Positiva para Videos.mp3",
+    "duration": 145.75,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2532933
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/06 - MUSICA CHILL OUT para TRABAJAR RELAJADO 2022 🖥️[NOT MONETIZABLE]✅ CHILL Music B.mp3",
+    "duration": 121.51,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1908957
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/07 - Música De Fondo Para Videos Música Alegre Para Videos.mp3",
+    "duration": 97.54,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1594701
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/08 - Wake Up - MBB [ MÚSICA SIN COPYRIGHT ].mp3",
+    "duration": 141.1,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2473989
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/09 - MUSICA CORPORATIVA para VIDEOS 2022 GRATIS 💻[NOT MONETIZABLE] ✅ Free Ambient Co.mp3",
+    "duration": 156.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2226141
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/10 - Música De Fondo Para Videos Corporativos y de Emprendimiento.mp3",
+    "duration": 147.82,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2327877
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/11 - Música Cinematográfica Moderna Música Instrumental para Videos.mp3",
+    "duration": 183.26,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3030597
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/12 - Música De Fondo Inspiradora y Dramática Para Videos.mp3",
+    "duration": 185.47,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3020589
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/13 - Música Corporativa Para Videos y Publicidad.mp3",
+    "duration": 135.86,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2430717
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/14 - Música de Fondo para Presentaciones Música para Videos.mp3",
+    "duration": 172.39,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2902605
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/15 - Música Corporativa y Motivadora Para Videos.mp3",
+    "duration": 155.95,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2705397
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/16 - Música de Fondo Para Videos Corporativos, Negocios y Presentaciones..mp3",
+    "duration": 200.04,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3317205
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/17 - MUSICA DANCE para VIDEOS 2020 GRATIS🕺[NO COPYRIGHTS] ✅ ELECTRONIC Music 🎬.mp3",
+    "duration": 138.89,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2309709
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/18 - #87 Fresh (Official).mp3",
+    "duration": 195.72,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3235965
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/19 - MBB — Good Vibes.mp3",
+    "duration": 134.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2369757
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/20 - 🎨 Música De Fondo Para Videos Educativos Música Para Presentaciones 🎶.mp3",
+    "duration": 281.64,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 5062173
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/21 - Luke Bergs - Tropical Soul (Kygo Style) ChillTropical House Copyright Free Music.mp3",
+    "duration": 188.71,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3236829
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/22 - #32 Lights (Official).mp3",
+    "duration": 199.39,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 3575565
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/23 - MBB — Wake Up.mp3",
+    "duration": 141.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2520909
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/24 - MUSICA ELECTRÓNICA para DESFILE de Moda 2022💅🏻 [NOT MONETIZABLE] ✅ Free Fashio.mp3",
+    "duration": 120.43,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1995501
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/25 - Summer Day.mp3",
+    "duration": 97.54,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1596765
+  },
+  {
+    "file": "music/Sonidos memes/01 - niño gritando - efecto de sonido.mp3",
+    "duration": 4.97,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 64557
+  },
+  {
+    "file": "music/Sonidos memes/02 - Audio Wey Nooo Meme Compilation.mp3",
+    "duration": 2.81,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 25533
+  },
+  {
+    "file": "music/Sonidos memes/03 - Speedrun.mp3",
+    "duration": 77.59,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1223301
+  },
+  {
+    "file": "music/Sonidos memes/04 - The meaning of life audio.mp3",
+    "duration": 36.36,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 507669
+  },
+  {
+    "file": "music/Sonidos memes/05 - Sonido de desaparecer.mp3",
+    "duration": 1.82,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 27981
+  },
+  {
+    "file": "music/Sonidos memes/06 - Niño cantando meme.mp3",
+    "duration": 6.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 62493
+  },
+  {
+    "file": "music/Sonidos memes/07 - Musica de tutorial saturada.mp3",
+    "duration": 12.72,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 224301
+  },
+  {
+    "file": "music/Sonidos memes/08 - Cachetadas saturadas.mp3",
+    "duration": 4.32,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 54237
+  },
+  {
+    "file": "music/Sonidos memes/09 - Persona cantando among us drip sonido.mp3",
+    "duration": 10.54,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 118509
+  },
+  {
+    "file": "music/Sonidos memes/10 - Música de tutoriales pero pobre.mp3",
+    "duration": 8.23,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 102069
+  },
+  {
+    "file": "music/Sonidos memes/11 - Risas mínimalistas en cámara lenta sonido.mp3",
+    "duration": 2.62,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 18141
+  },
+  {
+    "file": "music/Sonidos memes/12 - Angry birds pero con audio pobre.mp3",
+    "duration": 15.38,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 173469
+  },
+  {
+    "file": "music/Sonidos memes/13 - Sonido incómodo de five Nights at freddy's.mp3",
+    "duration": 7.85,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 56181
+  },
+  {
+    "file": "music/Sonidos memes/14 - Sonido de parpadeo de five Nights at freddy's.mp3",
+    "duration": 14.14,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 140517
+  },
+  {
+    "file": "music/Sonidos memes/15 - Persona cantando dad de friday Nights at funkin.mp3",
+    "duration": 15.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 132237
+  },
+  {
+    "file": "music/Sonidos memes/16 - sonidos random #7.mp3",
+    "duration": 13.97,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 200637
+  },
+  {
+    "file": "music/Sonidos memes/17 - sonidos random #8.mp3",
+    "duration": 13.2,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 206805
+  },
+  {
+    "file": "music/Sonidos memes/18 - royalty free para pobres.mp3",
+    "duration": 19.25,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 329565
+  },
+  {
+    "file": "music/Sonidos memes/19 - webi wabo saturadisimo sonido.mp3",
+    "duration": 20.04,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 596901
+  },
+  {
+    "file": "music/Sonidos memes/20 - ¡JIJIJA! sonido.mp3",
+    "duration": 1.39,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 17925
+  },
+  {
+    "file": "music/Sonidos memes/21 - main menu pvz pero con audio pobre.mp3",
+    "duration": 13.56,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 84045
+  },
+  {
+    "file": "music/Sonidos memes/22 - morning flowers saturadisimo.mp3",
+    "duration": 13.49,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 131565
+  },
+  {
+    "file": "music/Sonidos memes/23 - tono de nokia saturadisimo.mp3",
+    "duration": 6.34,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 81741
+  },
+  {
+    "file": "music/Sonidos memes/24 - piano perturbador de dross sonido.mp3",
+    "duration": 1.32,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 17517
+  },
+  {
+    "file": "music/Sonidos memes/25 - sonidos randóm 12 + 1.mp3",
+    "duration": 13.97,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 201453
+  },
+  {
+    "file": "music/Sonidos memes/26 - fernanfloo singing cuakuanaka but with poor audio [community request].mp3",
+    "duration": 11.09,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 258309
+  },
+  {
+    "file": "music/Sonidos memes/27 - ching cheng han chi con audio pobre [petición de la comunidad].mp3",
+    "duration": 11.09,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 64101
+  },
+  {
+    "file": "music/Sonidos memes/28 - jijija saturado [petición de la comunidad].mp3",
+    "duration": 1.42,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 20349
+  },
+  {
+    "file": "music/Sonidos memes/29 - Pou music with poor audio.mp3",
+    "duration": 30.84,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 636693
+  },
+  {
+    "file": "music/Sonidos memes/30 - (Pantalla verde) Efecto TRIGGERED meme con sonido.mp3",
+    "duration": 9.36,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 189981
+  },
+  {
+    "file": "music/Sonidos memes/31 - AUUGHHH!.mp3",
+    "duration": 9.84,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 85413
+  },
+  {
+    "file": "music/Sonidos memes/32 - goofy ahh sounds 💀💀💀.mp3",
+    "duration": 32.09,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 313581
+  },
+  {
+    "file": "music/Sonidos memes/33 - tre savage rage vs. luv meme audio.mp3",
+    "duration": 8.9,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 104709
+  },
+  {
+    "file": "music/Sonidos memes/34 - cristiano ronaldo siuuu reverse.mp3",
+    "duration": 5.21,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 45765
+  },
+  {
+    "file": "music/Sonidos memes/35 - ronaldo siuuu meme distorted.mp3",
+    "duration": 6.53,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 45885
+  },
+  {
+    "file": "music/Sonidos memes/37 - chino hablando meme.mp3",
+    "duration": 13.58,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 134181
+  },
+  {
+    "file": "music/Sonidos memes/38 - niño brasilero cantando pou con audio pobre y saturado.mp3",
+    "duration": 32.52,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 350685
+  },
+  {
+    "file": "music/Sonidos memes/39 - Everyone Joins the battle song.mp3",
+    "duration": 162.1,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1481205
+  },
+  {
+    "file": "music/Sonidos memes/40 - Why are you running sound effect.mp3",
+    "duration": 8.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 106701
+  },
+  {
+    "file": "music/Terror y Drama/Among Us (Role Reveal) - Sound Effect (HD)(MP3_160K).mp3",
+    "duration": 4.51,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 125024
+  },
+  {
+    "file": "music/Terror y Drama/Biohazard Alarm[WARNING_ The sound is very LOUD](MP3_160K).mp3",
+    "duration": 49.99,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1084917
+  },
+  {
+    "file": "music/Terror y Drama/Chan Chan Chaaaaaaan Efecto De Sonido 2 (Marianosmeiden)(MP3_160K).mp3",
+    "duration": 7.75,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 211134
+  },
+  {
+    "file": "music/Terror y Drama/Cinema Sins (Dun) - Sound Effect (HD)(MP3_160K).mp3",
+    "duration": 6.6,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 166774
+  },
+  {
+    "file": "music/Terror y Drama/Drama - efectos de sonido(MP3_160K).mp3",
+    "duration": 4.13,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 112677
+  },
+  {
+    "file": "music/Terror y Drama/Dramatic Boom_Hit_End of a Video Sound Effect(MP3_160K).mp3",
+    "duration": 10.39,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 247094
+  },
+  {
+    "file": "music/Terror y Drama/Dross - Perturbador [HQ Piano Cover](MP3_160K).mp3",
+    "duration": 5.26,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 310382
+  },
+  {
+    "file": "music/Terror y Drama/EFECTO DE SONIDO - Sorprendido (pillado)(MP3_160K).mp3",
+    "duration": 3.86,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 152410
+  },
+  {
+    "file": "music/Terror y Drama/Efecto de Sonido   Cuervo(MP3_160K).mp3",
+    "duration": 8.45,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 184895
+  },
+  {
+    "file": "music/Terror y Drama/Efecto de Sonido de ambiente FNAF(MP3_160K).mp3",
+    "duration": 8.64,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 182144
+  },
+  {
+    "file": "music/Terror y Drama/Efecto de sonido  Sorpresa(MP3_70K).mp3",
+    "duration": 0.84,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 63013
+  },
+  {
+    "file": "music/Terror y Drama/Efecto de sonido audiencia sorprendida(MP3_160K).mp3",
+    "duration": 1.73,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 51544
+  },
+  {
+    "file": "music/Terror y Drama/Efecto de sonido de drama(MP3_160K).mp3",
+    "duration": 4.1,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 88836
+  },
+  {
+    "file": "music/Terror y Drama/Iluminati song sonido efecto(MP3_160K).mp3",
+    "duration": 7.9,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 184096
+  },
+  {
+    "file": "music/Terror y Drama/Inception BWONG Sound(MP3_70K).mp3",
+    "duration": 5.21,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 193284
+  },
+  {
+    "file": "music/Terror y Drama/Minecraft Sonido De Cueva 1(MP3_160K).mp3",
+    "duration": 5.54,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 262641
+  },
+  {
+    "file": "music/Terror y Drama/Musica De Drama Y Terror.mp3",
+    "duration": 201.41,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 4392322
+  },
+  {
+    "file": "music/Terror y Drama/REPULSIVE - Forgotten [COPYRIGHT FREE DARK MUSIC](MP3_160K).mp3",
+    "duration": 202.08,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 4124769
+  },
+  {
+    "file": "music/Terror y Drama/Surprise - sound effect(MP3_160K).mp3",
+    "duration": 3.12,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 98950
+  },
+  {
+    "file": "music/Terror y Drama/Ultra Instinct Opening Theme - Sound Effect (HD)(MP3_160K).mp3",
+    "duration": 12.5,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 284877
+  },
+  {
+    "file": "music/Terror y Drama/Wehrmut(MP3_160K).mp3",
+    "duration": 98.26,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 2074721
+  },
+  {
+    "file": "music/Terror y Drama/efecto de sonido de suspenso y drama(MP3_160K).mp3",
+    "duration": 6.41,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 145287
+  },
+  {
+    "file": "music/Terror y Drama/fnaf 2 hallway ambience(MP3_160K).mp3",
+    "duration": 5.57,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 246147
+  },
+  {
+    "file": "music/ambient_curiosity.mp3",
+    "duration": 60.03,
+    "sample_rate": 44100,
+    "channels": 1,
+    "codec": "mp3",
+    "size_bytes": 480462
+  },
+  {
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/ALELUYA _ Efecto de sonido(MP3_128K).mp3",
     "duration": 5.04,
     "sample_rate": 44100,
     "channels": 2,
@@ -2152,7 +1968,7 @@
     "size_bytes": 145157
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Ahh___ efecto de sonido(M4A_128K).m4a",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Ahh___ efecto de sonido(M4A_128K).m4a",
     "duration": 1.09,
     "sample_rate": 44100,
     "channels": 2,
@@ -2160,7 +1976,7 @@
     "size_bytes": 35757
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Aldeano - sound effect  ¡¡¡Minecraft___(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Aldeano - sound effect  ¡¡¡Minecraft___(MP3_160K).mp3",
     "duration": 1.01,
     "sample_rate": 48000,
     "channels": 2,
@@ -2168,7 +1984,7 @@
     "size_bytes": 147185
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Asombro efecto de sonido para tus vídeos playback(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Asombro efecto de sonido para tus vídeos playback(MP3_160K).mp3",
     "duration": 13.42,
     "sample_rate": 48000,
     "channels": 2,
@@ -2176,7 +1992,7 @@
     "size_bytes": 429035
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Auto-tune Baby(MP3_70K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Auto-tune Baby(MP3_70K).mp3",
     "duration": 40.73,
     "sample_rate": 48000,
     "channels": 2,
@@ -2184,7 +2000,7 @@
     "size_bytes": 593604
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Aww Sound Effect(MP3_70K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Aww Sound Effect(MP3_70K).mp3",
     "duration": 1.8,
     "sample_rate": 48000,
     "channels": 2,
@@ -2192,7 +2008,7 @@
     "size_bytes": 49752
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Children Celebrating Sound Effect _ Niños Celebrando Efecto de Sonido [2020] NO COPYRIGHT(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Children Celebrating Sound Effect _ Niños Celebrando Efecto de Sonido [2020] NO COPYRIGHT(MP3_160K).mp3",
     "duration": 2.66,
     "sample_rate": 48000,
     "channels": 2,
@@ -2200,7 +2016,7 @@
     "size_bytes": 79839
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Coro Celestial (Efecto de Sonido) Heavenly Choir  Sound Effect(MP3_70K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Coro Celestial (Efecto de Sonido) Heavenly Choir  Sound Effect(MP3_70K).mp3",
     "duration": 40.27,
     "sample_rate": 48000,
     "channels": 2,
@@ -2208,7 +2024,7 @@
     "size_bytes": 589199
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Descargar Efecto de Sonido Acierto _ Correcto en HD (Sin Copyright)(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Descargar Efecto de Sonido Acierto _ Correcto en HD (Sin Copyright)(MP3_160K).mp3",
     "duration": 2.16,
     "sample_rate": 48000,
     "channels": 2,
@@ -2216,7 +2032,7 @@
     "size_bytes": 80634
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Dreaming Harp - Sound effect(MP3_70K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Dreaming Harp - Sound effect(MP3_70K).mp3",
     "duration": 5.47,
     "sample_rate": 48000,
     "channels": 2,
@@ -2224,7 +2040,7 @@
     "size_bytes": 85236
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/EFECTO DE SONIDO ¡WOW_ (Chroma key)(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/EFECTO DE SONIDO ¡WOW_ (Chroma key)(MP3_160K).mp3",
     "duration": 3.94,
     "sample_rate": 48000,
     "channels": 2,
@@ -2232,7 +2048,7 @@
     "size_bytes": 118607
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Efecto de sonido wow(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Efecto de sonido wow(MP3_160K).mp3",
     "duration": 4.39,
     "sample_rate": 48000,
     "channels": 2,
@@ -2240,7 +2056,7 @@
     "size_bytes": 169628
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Efectos de sonido de GENTE GRITANDO 😮 Y APLAUDIENDO 👏 para Editar Vídeos(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Efectos de sonido de GENTE GRITANDO 😮 Y APLAUDIENDO 👏 para Editar Vídeos(MP3_160K).mp3",
     "duration": 11.45,
     "sample_rate": 48000,
     "channels": 2,
@@ -2248,7 +2064,7 @@
     "size_bytes": 325296
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Hallelujah_ Sound effect(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Hallelujah_ Sound effect(MP3_160K).mp3",
     "duration": 2.06,
     "sample_rate": 48000,
     "channels": 2,
@@ -2256,7 +2072,7 @@
     "size_bytes": 62541
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Niño feliz - efecto de sonido(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Niño feliz - efecto de sonido(MP3_160K).mp3",
     "duration": 6.46,
     "sample_rate": 48000,
     "channels": 2,
@@ -2264,7 +2080,7 @@
     "size_bytes": 173646
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Party Horn Sound Effect(MP3_128K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Party Horn Sound Effect(MP3_128K).mp3",
     "duration": 1.02,
     "sample_rate": 44100,
     "channels": 2,
@@ -2272,7 +2088,7 @@
     "size_bytes": 43517
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Party Horn Sound Effect(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Party Horn Sound Effect(MP3_160K).mp3",
     "duration": 0.98,
     "sample_rate": 48000,
     "channels": 2,
@@ -2280,7 +2096,7 @@
     "size_bytes": 60623
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Sonido - Aja de byviruzz(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Sonido - Aja de byviruzz(MP3_160K).mp3",
     "duration": 5.59,
     "sample_rate": 48000,
     "channels": 2,
@@ -2288,7 +2104,7 @@
     "size_bytes": 234501
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/Sonido de aplausos y gritos del publico(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/Sonido de aplausos y gritos del publico(MP3_160K).mp3",
     "duration": 16.06,
     "sample_rate": 48000,
     "channels": 2,
@@ -2296,7 +2112,7 @@
     "size_bytes": 434353
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/aplausos de pelo-mc.mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/aplausos de pelo-mc.mp3",
     "duration": 2.98,
     "sample_rate": 44100,
     "channels": 2,
@@ -2304,7 +2120,7 @@
     "size_bytes": 48236
   },
   {
-    "file": "music/Expresiones (Celebraciones y Asombros)/efecto de sonido DING(MP3_160K).mp3",
+    "file": "sfx/Expresiones (Celebraciones y Asombros)/efecto de sonido DING(MP3_160K).mp3",
     "duration": 1.92,
     "sample_rate": 48000,
     "channels": 2,
@@ -2312,255 +2128,7 @@
     "size_bytes": 48884
   },
   {
-    "file": "music/Risas/Estatua de tigre riendo(MP3_160K).mp3",
-    "duration": 6.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 207675
-  },
-  {
-    "file": "music/Risas/Green Screen Laughing Dog Meme(MP3_160K).mp3",
-    "duration": 9.79,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 292956
-  },
-  {
-    "file": "music/Risas/Jajaja Watafak_ Watafak jajaja Effect sound - Efecto de sonido watafack_(MP3_160K).mp3",
-    "duration": 12.12,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 369837
-  },
-  {
-    "file": "music/Risas/La risa de Don Ramón - Memes _shorts(MP3_160K).mp3",
-    "duration": 9.46,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 326573
-  },
-  {
-    "file": "music/Risas/Meme de La Rana con risa chistosa XD(MP3_160K).mp3",
-    "duration": 4.68,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 200464
-  },
-  {
-    "file": "music/Risas/No no no no funny laugh[sound effect](MP3_160K).mp3",
-    "duration": 11.47,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 273303
-  },
-  {
-    "file": "music/Risas/Risa - meme plantilla(MP3_160K).mp3",
-    "duration": 8.35,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 223218
-  },
-  {
-    "file": "music/Risas/Risitas_ meme Original(MP3_160K).mp3",
-    "duration": 11.52,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 280069
-  },
-  {
-    "file": "music/Risas/cartoon laugh (sound effect)(MP3_70K).mp3",
-    "duration": 1.94,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 44748
-  },
-  {
-    "file": "music/Risas/😂JAJAJA (Risa Fofo Márquez) _ By_ its_jonabriseno😂(MP3_160K).mp3",
-    "duration": 5.3,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 228438
-  },
-  {
-    "file": "music/Fails/Cuak Efecto de Sonido Para Vídeos - Efecto de Sonido Cuak(MP3_160K).mp3",
-    "duration": 3.05,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 128134
-  },
-  {
-    "file": "music/Fails/Descargar Efecto de Sonido Falla _ Error en HD (Sin Copyright)(MP3_160K).mp3",
-    "duration": 1.92,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 86077
-  },
-  {
-    "file": "music/Fails/Disco rayado ORIGINAL Y SIN REPETICIONES(MP3_160K).mp3",
-    "duration": 2.71,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 162770
-  },
-  {
-    "file": "music/Fails/Duck Toy Squeak Dog Toy Sound Effect (download)(MP3_160K).mp3",
-    "duration": 1.7,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 74256
-  },
-  {
-    "file": "music/Fails/Efecto De Pedo Fuerte_ Sonido de pedo Fuerte_(MP3_160K).mp3",
-    "duration": 3.1,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 125167
-  },
-  {
-    "file": "music/Fails/Efecto De sonido De Diarrea(MP3_70K).mp3",
-    "duration": 5.23,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 87308
-  },
-  {
-    "file": "music/Fails/Efecto de Sonido PEDO_GAS(MP3_160K).mp3",
-    "duration": 1.22,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 158485
-  },
-  {
-    "file": "music/Fails/Efecto de sonido abucheo(MP3_70K).mp3",
-    "duration": 22.37,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 332888
-  },
-  {
-    "file": "music/Fails/Fortnite Death - Sound Effect (HD)(MP3_160K).mp3",
-    "duration": 2.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 58001
-  },
-  {
-    "file": "music/Fails/Microsoft windows xp error-sound (sonidos para edición de youtube y más)(MP3_320K).mp3",
-    "duration": 3.02,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 178357
-  },
-  {
-    "file": "music/Fails/Mission Failed we_ll get em next time Sound Effect(MP3_70K).mp3",
-    "duration": 3.26,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 60565
-  },
-  {
-    "file": "music/Fails/Noooooo_ Sound effect (hd)-free sound fx(MP3_70K).mp3",
-    "duration": 7.46,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 109001
-  },
-  {
-    "file": "music/Fails/Nope (Construction Worker TF2) - Gaming Sound Effect (HD)(MP3_70K).mp3",
-    "duration": 1.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 32217
-  },
-  {
-    "file": "music/Fails/Realy Niga_(MP3_70K).mp3",
-    "duration": 1.18,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 66761
-  },
-  {
-    "file": "music/Fails/SONIDO DE MUERTE DE MARIO  _  SOUND EFFECTS  _  EFECTOS DE SONIDO(MP3_160K).mp3",
-    "duration": 4.42,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 153427
-  },
-  {
-    "file": "music/Fails/Sad Violin - MLG Sound Effects (HD)(MP3_70K).mp3",
-    "duration": 22.42,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 287702
-  },
-  {
-    "file": "music/Fails/Scheming Weasel Faster (Kevin Macleod) - Background Music (HD)(MP3_160K).mp3",
-    "duration": 89.26,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 1819873
-  },
-  {
-    "file": "music/Fails/Scratch SFX _55 _ Disco Rayado DJ Efecto De Sonido _ Free Sounds(MP3_160K).mp3",
-    "duration": 5.93,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 384151
-  },
-  {
-    "file": "music/Fails/Sonido de Grillo _ Efecto de sonido - Sound effect(MP3_160K).mp3",
-    "duration": 10.61,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 232730
-  },
-  {
-    "file": "music/Fails/Sonido de chiste malo cua cua cua cuaaaa(MP3_160K).mp3",
-    "duration": 5.06,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 153424
-  },
-  {
-    "file": "music/Fails/Wasted sound in GTA V _ Sonido de muerte GTA V(MP3_70K).mp3",
-    "duration": 7.85,
-    "sample_rate": 48000,
-    "channels": 2,
-    "codec": "mp3",
-    "size_bytes": 121434
-  },
-  {
-    "file": "music/Extras/AK 47 efectos de sonido   YouTube(MP3_70K).mp3",
+    "file": "sfx/Extras/AK 47 efectos de sonido   YouTube(MP3_70K).mp3",
     "duration": 12.91,
     "sample_rate": 48000,
     "channels": 2,
@@ -2568,7 +2136,7 @@
     "size_bytes": 207729
   },
   {
-    "file": "music/Extras/Cartoon Boing (Spring Sound) - Sound Effects for Editing(MP3_70K).mp3",
+    "file": "sfx/Extras/Cartoon Boing (Spring Sound) - Sound Effects for Editing(MP3_70K).mp3",
     "duration": 3.82,
     "sample_rate": 48000,
     "channels": 2,
@@ -2576,7 +2144,7 @@
     "size_bytes": 68108
   },
   {
-    "file": "music/Extras/Cartoon Ricochet 2 Sound Effect (download)(MP3_128K).mp3",
+    "file": "sfx/Extras/Cartoon Ricochet 2 Sound Effect (download)(MP3_128K).mp3",
     "duration": 2.48,
     "sample_rate": 44100,
     "channels": 2,
@@ -2584,7 +2152,7 @@
     "size_bytes": 71425
   },
   {
-    "file": "music/Extras/Cartoon Ricochet Sound Effect(MP3_70K).mp3",
+    "file": "sfx/Extras/Cartoon Ricochet Sound Effect(MP3_70K).mp3",
     "duration": 2.02,
     "sample_rate": 48000,
     "channels": 2,
@@ -2592,7 +2160,7 @@
     "size_bytes": 61870
   },
   {
-    "file": "music/Extras/Cartoon taunt - Sound effect _ Efecto de sonido(MP3_128K).mp3",
+    "file": "sfx/Extras/Cartoon taunt - Sound effect _ Efecto de sonido(MP3_128K).mp3",
     "duration": 7.05,
     "sample_rate": 44100,
     "channels": 2,
@@ -2600,7 +2168,7 @@
     "size_bytes": 161816
   },
   {
-    "file": "music/Extras/Cash Effect sound_ Cash Efecto de Sonido_ Sonido de Dinero_(MP3_128K).mp3",
+    "file": "sfx/Extras/Cash Effect sound_ Cash Efecto de Sonido_ Sonido de Dinero_(MP3_128K).mp3",
     "duration": 5.22,
     "sample_rate": 44100,
     "channels": 2,
@@ -2608,7 +2176,7 @@
     "size_bytes": 191956
   },
   {
-    "file": "music/Extras/Cash SFX _13 _ Dinero Efecto de Sonido(MP3_70K).mp3",
+    "file": "sfx/Extras/Cash SFX _13 _ Dinero Efecto de Sonido(MP3_70K).mp3",
     "duration": 5.06,
     "sample_rate": 48000,
     "channels": 2,
@@ -2616,7 +2184,7 @@
     "size_bytes": 189019
   },
   {
-    "file": "music/Extras/Efecto de una bomba(MP3_70K).mp3",
+    "file": "sfx/Extras/Efecto de una bomba(MP3_70K).mp3",
     "duration": 8.4,
     "sample_rate": 48000,
     "channels": 2,
@@ -2624,7 +2192,7 @@
     "size_bytes": 149944
   },
   {
-    "file": "music/Extras/Movement Proposition(MP3_160K).mp3",
+    "file": "sfx/Extras/Movement Proposition(MP3_160K).mp3",
     "duration": 141.02,
     "sample_rate": 48000,
     "channels": 2,
@@ -2632,7 +2200,7 @@
     "size_bytes": 2932040
   },
   {
-    "file": "music/Extras/Sonido Super Sayayin(MP3_160K).mp3",
+    "file": "sfx/Extras/Sonido Super Sayayin(MP3_160K).mp3",
     "duration": 7.08,
     "sample_rate": 48000,
     "channels": 2,
@@ -2640,7 +2208,7 @@
     "size_bytes": 180271
   },
   {
-    "file": "music/Extras/Sonido de Metralleta MP40(MP3_70K).mp3",
+    "file": "sfx/Extras/Sonido de Metralleta MP40(MP3_70K).mp3",
     "duration": 21.43,
     "sample_rate": 48000,
     "channels": 2,
@@ -2648,7 +2216,7 @@
     "size_bytes": 300751
   },
   {
-    "file": "music/Extras/Sonido moneda de Mario Bros(MP3_70K).mp3",
+    "file": "sfx/Extras/Sonido moneda de Mario Bros(MP3_70K).mp3",
     "duration": 2.38,
     "sample_rate": 48000,
     "channels": 2,
@@ -2656,7 +2224,7 @@
     "size_bytes": 81857
   },
   {
-    "file": "music/Extras/Super mario Bros. (el salto de mario) _ Efecto de sonido(MP3_70K).mp3",
+    "file": "sfx/Extras/Super mario Bros. (el salto de mario) _ Efecto de sonido(MP3_70K).mp3",
     "duration": 1.06,
     "sample_rate": 48000,
     "channels": 2,
@@ -2664,7 +2232,7 @@
     "size_bytes": 59777
   },
   {
-    "file": "music/Extras/Teletransportación de Goku para tu celular(MP3_160K).mp3",
+    "file": "sfx/Extras/Teletransportación de Goku para tu celular(MP3_160K).mp3",
     "duration": 2.71,
     "sample_rate": 48000,
     "channels": 2,
@@ -2672,7 +2240,7 @@
     "size_bytes": 251500
   },
   {
-    "file": "music/Extras/⌨ [EFECTO DE SONIDO] Teclado ESCRIBIENDO mecanografía con ORDENADOR ◾ typing computer keyboard(MP3_160K).mp3",
+    "file": "sfx/Extras/⌨ [EFECTO DE SONIDO] Teclado ESCRIBIENDO mecanografía con ORDENADOR ◾ typing computer keyboard(MP3_160K).mp3",
     "duration": 15.02,
     "sample_rate": 48000,
     "channels": 2,
@@ -2680,7 +2248,175 @@
     "size_bytes": 632969
   },
   {
-    "file": "music/Golpes y Caidas/Among Us (Kill) - Sound Effect (HD)(MP3_160K).mp3",
+    "file": "sfx/Fails/Cuak Efecto de Sonido Para Vídeos - Efecto de Sonido Cuak(MP3_160K).mp3",
+    "duration": 3.05,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 128134
+  },
+  {
+    "file": "sfx/Fails/Descargar Efecto de Sonido Falla _ Error en HD (Sin Copyright)(MP3_160K).mp3",
+    "duration": 1.92,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 86077
+  },
+  {
+    "file": "sfx/Fails/Disco rayado ORIGINAL Y SIN REPETICIONES(MP3_160K).mp3",
+    "duration": 2.71,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 162770
+  },
+  {
+    "file": "sfx/Fails/Duck Toy Squeak Dog Toy Sound Effect (download)(MP3_160K).mp3",
+    "duration": 1.7,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 74256
+  },
+  {
+    "file": "sfx/Fails/Efecto De Pedo Fuerte_ Sonido de pedo Fuerte_(MP3_160K).mp3",
+    "duration": 3.1,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 125167
+  },
+  {
+    "file": "sfx/Fails/Efecto De sonido De Diarrea(MP3_70K).mp3",
+    "duration": 5.23,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 87308
+  },
+  {
+    "file": "sfx/Fails/Efecto de Sonido PEDO_GAS(MP3_160K).mp3",
+    "duration": 1.22,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 158485
+  },
+  {
+    "file": "sfx/Fails/Efecto de sonido abucheo(MP3_70K).mp3",
+    "duration": 22.37,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 332888
+  },
+  {
+    "file": "sfx/Fails/Fortnite Death - Sound Effect (HD)(MP3_160K).mp3",
+    "duration": 2.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 58001
+  },
+  {
+    "file": "sfx/Fails/Microsoft windows xp error-sound (sonidos para edición de youtube y más)(MP3_320K).mp3",
+    "duration": 3.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 178357
+  },
+  {
+    "file": "sfx/Fails/Mission Failed we_ll get em next time Sound Effect(MP3_70K).mp3",
+    "duration": 3.26,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 60565
+  },
+  {
+    "file": "sfx/Fails/Noooooo_ Sound effect (hd)-free sound fx(MP3_70K).mp3",
+    "duration": 7.46,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 109001
+  },
+  {
+    "file": "sfx/Fails/Nope (Construction Worker TF2) - Gaming Sound Effect (HD)(MP3_70K).mp3",
+    "duration": 1.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 32217
+  },
+  {
+    "file": "sfx/Fails/Realy Niga_(MP3_70K).mp3",
+    "duration": 1.18,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 66761
+  },
+  {
+    "file": "sfx/Fails/SONIDO DE MUERTE DE MARIO  _  SOUND EFFECTS  _  EFECTOS DE SONIDO(MP3_160K).mp3",
+    "duration": 4.42,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 153427
+  },
+  {
+    "file": "sfx/Fails/Sad Violin - MLG Sound Effects (HD)(MP3_70K).mp3",
+    "duration": 22.42,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 287702
+  },
+  {
+    "file": "sfx/Fails/Scheming Weasel Faster (Kevin Macleod) - Background Music (HD)(MP3_160K).mp3",
+    "duration": 89.26,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1819873
+  },
+  {
+    "file": "sfx/Fails/Scratch SFX _55 _ Disco Rayado DJ Efecto De Sonido _ Free Sounds(MP3_160K).mp3",
+    "duration": 5.93,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 384151
+  },
+  {
+    "file": "sfx/Fails/Sonido de Grillo _ Efecto de sonido - Sound effect(MP3_160K).mp3",
+    "duration": 10.61,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 232730
+  },
+  {
+    "file": "sfx/Fails/Sonido de chiste malo cua cua cua cuaaaa(MP3_160K).mp3",
+    "duration": 5.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 153424
+  },
+  {
+    "file": "sfx/Fails/Wasted sound in GTA V _ Sonido de muerte GTA V(MP3_70K).mp3",
+    "duration": 7.85,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 121434
+  },
+  {
+    "file": "sfx/Golpes y Caidas/Among Us (Kill) - Sound Effect (HD)(MP3_160K).mp3",
     "duration": 1.15,
     "sample_rate": 48000,
     "channels": 2,
@@ -2688,7 +2424,7 @@
     "size_bytes": 57810
   },
   {
-    "file": "music/Golpes y Caidas/And His Name is JOHN CENA - Sound Effect (HD)(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/And His Name is JOHN CENA - Sound Effect (HD)(MP3_70K).mp3",
     "duration": 20.21,
     "sample_rate": 48000,
     "channels": 2,
@@ -2696,7 +2432,7 @@
     "size_bytes": 259562
   },
   {
-    "file": "music/Golpes y Caidas/Bruh Sound Effect _2(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/Bruh Sound Effect _2(MP3_70K).mp3",
     "duration": 1.15,
     "sample_rate": 48000,
     "channels": 2,
@@ -2704,7 +2440,7 @@
     "size_bytes": 59262
   },
   {
-    "file": "music/Golpes y Caidas/Cuack sonido troll en HD(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Cuack sonido troll en HD(MP3_160K).mp3",
     "duration": 0.72,
     "sample_rate": 48000,
     "channels": 2,
@@ -2712,7 +2448,7 @@
     "size_bytes": 39621
   },
   {
-    "file": "music/Golpes y Caidas/Descarga Efecto De Sonido De OMG(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Descarga Efecto De Sonido De OMG(MP3_160K).mp3",
     "duration": 1.56,
     "sample_rate": 48000,
     "channels": 2,
@@ -2720,7 +2456,7 @@
     "size_bytes": 97835
   },
   {
-    "file": "music/Golpes y Caidas/Duck Toy Squeak Dog Toy Sound Effect (download)(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/Duck Toy Squeak Dog Toy Sound Effect (download)(MP3_70K).mp3",
     "duration": 1.7,
     "sample_rate": 48000,
     "channels": 2,
@@ -2728,7 +2464,7 @@
     "size_bytes": 49628
   },
   {
-    "file": "music/Golpes y Caidas/Efecto de Sonido - Chan - Lluvia de Chanes(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/Efecto de Sonido - Chan - Lluvia de Chanes(MP3_70K).mp3",
     "duration": 3.53,
     "sample_rate": 48000,
     "channels": 2,
@@ -2736,7 +2472,7 @@
     "size_bytes": 55295
   },
   {
-    "file": "music/Golpes y Caidas/Efecto de sonido caer al piso(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Efecto de sonido caer al piso(MP3_160K).mp3",
     "duration": 3.96,
     "sample_rate": 48000,
     "channels": 2,
@@ -2744,7 +2480,7 @@
     "size_bytes": 146471
   },
   {
-    "file": "music/Golpes y Caidas/Efecto de sonido_ Golpe(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/Efecto de sonido_ Golpe(MP3_70K).mp3",
     "duration": 0.65,
     "sample_rate": 48000,
     "channels": 2,
@@ -2752,7 +2488,7 @@
     "size_bytes": 31099
   },
   {
-    "file": "music/Golpes y Caidas/Free Fire Kill Sound Effect(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Free Fire Kill Sound Effect(MP3_160K).mp3",
     "duration": 3.74,
     "sample_rate": 48000,
     "channels": 2,
@@ -2760,7 +2496,7 @@
     "size_bytes": 249447
   },
   {
-    "file": "music/Golpes y Caidas/Golpe del Chavo del ocho 😅😆 (Efecto de sonido)(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Golpe del Chavo del ocho 😅😆 (Efecto de sonido)(MP3_160K).mp3",
     "duration": 4.49,
     "sample_rate": 48000,
     "channels": 2,
@@ -2768,7 +2504,7 @@
     "size_bytes": 245769
   },
   {
-    "file": "music/Golpes y Caidas/Hay_ - Efecto de Sonido(MP3_128K).mp3",
+    "file": "sfx/Golpes y Caidas/Hay_ - Efecto de Sonido(MP3_128K).mp3",
     "duration": 2.77,
     "sample_rate": 44100,
     "channels": 2,
@@ -2776,7 +2512,7 @@
     "size_bytes": 62352
   },
   {
-    "file": "music/Golpes y Caidas/Hueso Roto - Sonido(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Hueso Roto - Sonido(MP3_160K).mp3",
     "duration": 2.33,
     "sample_rate": 48000,
     "channels": 2,
@@ -2784,7 +2520,7 @@
     "size_bytes": 115003
   },
   {
-    "file": "music/Golpes y Caidas/Minecraft Damage (Oof) - Sound Effect (HD)(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Minecraft Damage (Oof) - Sound Effect (HD)(MP3_160K).mp3",
     "duration": 3.07,
     "sample_rate": 48000,
     "channels": 2,
@@ -2792,7 +2528,7 @@
     "size_bytes": 79153
   },
   {
-    "file": "music/Golpes y Caidas/Minecraft hit sound - 1080p60fps(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Minecraft hit sound - 1080p60fps(MP3_160K).mp3",
     "duration": 1.63,
     "sample_rate": 48000,
     "channels": 2,
@@ -2800,7 +2536,7 @@
     "size_bytes": 81910
   },
   {
-    "file": "music/Golpes y Caidas/Punch - Gaming Sound Effect (HD)(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/Punch - Gaming Sound Effect (HD)(MP3_70K).mp3",
     "duration": 1.49,
     "sample_rate": 48000,
     "channels": 2,
@@ -2808,7 +2544,7 @@
     "size_bytes": 36778
   },
   {
-    "file": "music/Golpes y Caidas/Quick Reverb Fat - Sound Effect (HD)(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/Quick Reverb Fat - Sound Effect (HD)(MP3_70K).mp3",
     "duration": 1.73,
     "sample_rate": 48000,
     "channels": 2,
@@ -2816,7 +2552,7 @@
     "size_bytes": 40534
   },
   {
-    "file": "music/Golpes y Caidas/SONIDO PEDO CORTO(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/SONIDO PEDO CORTO(MP3_70K).mp3",
     "duration": 1.06,
     "sample_rate": 48000,
     "channels": 2,
@@ -2824,7 +2560,7 @@
     "size_bytes": 18017
   },
   {
-    "file": "music/Golpes y Caidas/SOUND OFF ROBLOX SONIDO OFF MUERTE DE ROBLOX(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/SOUND OFF ROBLOX SONIDO OFF MUERTE DE ROBLOX(MP3_160K).mp3",
     "duration": 1.58,
     "sample_rate": 48000,
     "channels": 2,
@@ -2832,7 +2568,7 @@
     "size_bytes": 71539
   },
   {
-    "file": "music/Golpes y Caidas/Sonido - Piu (típico de funny moments xd)(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Sonido - Piu (típico de funny moments xd)(MP3_160K).mp3",
     "duration": 5.98,
     "sample_rate": 48000,
     "channels": 2,
@@ -2840,7 +2576,7 @@
     "size_bytes": 195054
   },
   {
-    "file": "music/Golpes y Caidas/Sonido de Suspenso (Tan_) Meme - Efecto de Sonido(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/Sonido de Suspenso (Tan_) Meme - Efecto de Sonido(MP3_70K).mp3",
     "duration": 3.86,
     "sample_rate": 48000,
     "channels": 2,
@@ -2848,7 +2584,7 @@
     "size_bytes": 71918
   },
   {
-    "file": "music/Golpes y Caidas/Sonido del Látigo - efecto de sonido(MP3_70K).mp3",
+    "file": "sfx/Golpes y Caidas/Sonido del Látigo - efecto de sonido(MP3_70K).mp3",
     "duration": 1.87,
     "sample_rate": 48000,
     "channels": 2,
@@ -2856,7 +2592,7 @@
     "size_bytes": 134442
   },
   {
-    "file": "music/Golpes y Caidas/Windows XP Error Sound(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/Windows XP Error Sound(MP3_160K).mp3",
     "duration": 1.03,
     "sample_rate": 48000,
     "channels": 2,
@@ -2864,7 +2600,7 @@
     "size_bytes": 156517
   },
   {
-    "file": "music/Golpes y Caidas/ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh.m4a",
+    "file": "sfx/Golpes y Caidas/ahhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhhh.m4a",
     "duration": 1.09,
     "sample_rate": 44100,
     "channels": 2,
@@ -2872,7 +2608,7 @@
     "size_bytes": 34653
   },
   {
-    "file": "music/Golpes y Caidas/cachetada efecto de sonido - slap sound effect(MP3_128K).mp3",
+    "file": "sfx/Golpes y Caidas/cachetada efecto de sonido - slap sound effect(MP3_128K).mp3",
     "duration": 1.54,
     "sample_rate": 44100,
     "channels": 2,
@@ -2880,7 +2616,7 @@
     "size_bytes": 94039
   },
   {
-    "file": "music/Golpes y Caidas/jai jai.m4a",
+    "file": "sfx/Golpes y Caidas/jai jai.m4a",
     "duration": 0.63,
     "sample_rate": 44100,
     "channels": 2,
@@ -2888,7 +2624,7 @@
     "size_bytes": 20511
   },
   {
-    "file": "music/Golpes y Caidas/sonido de alerta.m4a",
+    "file": "sfx/Golpes y Caidas/sonido de alerta.m4a",
     "duration": 0.6,
     "sample_rate": 44100,
     "channels": 2,
@@ -2896,7 +2632,7 @@
     "size_bytes": 19107
   },
   {
-    "file": "music/Golpes y Caidas/sonido golpe en la cabeza(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/sonido golpe en la cabeza(MP3_160K).mp3",
     "duration": 2.06,
     "sample_rate": 48000,
     "channels": 2,
@@ -2904,7 +2640,7 @@
     "size_bytes": 185329
   },
   {
-    "file": "music/Golpes y Caidas/uy jajaaaaaaaaaaaaaa.m4a",
+    "file": "sfx/Golpes y Caidas/uy jajaaaaaaaaaaaaaa.m4a",
     "duration": 2.46,
     "sample_rate": 44100,
     "channels": 2,
@@ -2912,7 +2648,7 @@
     "size_bytes": 78754
   },
   {
-    "file": "music/Golpes y Caidas/¡GEMIDO_(MP3_160K).mp3",
+    "file": "sfx/Golpes y Caidas/¡GEMIDO_(MP3_160K).mp3",
     "duration": 5.71,
     "sample_rate": 48000,
     "channels": 2,
@@ -2920,7 +2656,271 @@
     "size_bytes": 135316
   },
   {
-    "file": "music/Trancisiones Necesarias/01 - Abduction swish.wav",
+    "file": "sfx/Gritoss/CONCHA TU MADRE - meme plantilla(MP3_160K).mp3",
+    "duration": 1.54,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 139448
+  },
+  {
+    "file": "sfx/Gritoss/Efecto de sonido - NOOO__ (grito)(MP3_160K).mp3",
+    "duration": 4.78,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 258567
+  },
+  {
+    "file": "sfx/Gritoss/El Grito de Gohan (Audio Latino) Saga Cell(MP3_160K).mp3",
+    "duration": 9.82,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 243968
+  },
+  {
+    "file": "sfx/Gritoss/El Tano Pasman - Nooo Noooo(MP3_160K).mp3",
+    "duration": 10.68,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 273760
+  },
+  {
+    "file": "sfx/Gritoss/GOLASO de Benzemaaaa _benzema(MP3_160K).mp3",
+    "duration": 12.58,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 528813
+  },
+  {
+    "file": "sfx/Gritoss/Goat Scream - Origine Meme (HD)(MP3_70K).mp3",
+    "duration": 3.91,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 199062
+  },
+  {
+    "file": "sfx/Gritoss/Grito de Hombre - efecto de sonido(MP3_160K).mp3",
+    "duration": 4.1,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 93204
+  },
+  {
+    "file": "sfx/Gritoss/Grito_ _Nooo_ _ Efecto de sonido(MP3_70K).mp3",
+    "duration": 2.76,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 101586
+  },
+  {
+    "file": "sfx/Gritoss/Hombre gritando(MP3_160K).mp3",
+    "duration": 10.7,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 255418
+  },
+  {
+    "file": "sfx/Gritoss/Keemstar Screaming (Gritó_) Efecto Sonido 2021_(MP3_160K).mp3",
+    "duration": 6.0,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 150090
+  },
+  {
+    "file": "sfx/Gritoss/Metal Gear Solid - Snake death scream sound effect(MP3_160K).mp3",
+    "duration": 5.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 314220
+  },
+  {
+    "file": "sfx/Gritoss/SIUUU SOUND EFFECT(MP3_160K).mp3",
+    "duration": 4.56,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 103432
+  },
+  {
+    "file": "sfx/Gritoss/Siuuu_ Cristiano Ronaldo - Sound Effect(MP3_160K).mp3",
+    "duration": 2.21,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 81186
+  },
+  {
+    "file": "sfx/Gritoss/Sonido de Gente Gritando 🔊- Efecto de Sonido 😱(MP3_160K).mp3",
+    "duration": 16.3,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 380230
+  },
+  {
+    "file": "sfx/Gritoss/Weeee sound effects(MP3_70K).mp3",
+    "duration": 9.55,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 138954
+  },
+  {
+    "file": "sfx/Gritoss/YeeHaw Sound Effect(MP3_70K).mp3",
+    "duration": 2.14,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 45180
+  },
+  {
+    "file": "sfx/Gritoss/_Wii_ (Angry Birds) - Efecto de sonido _ Sound effect(MP3_128K).mp3",
+    "duration": 7.05,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 160757
+  },
+  {
+    "file": "sfx/Gritoss/ahhhhhhhhhhhhh-mc.mp3",
+    "duration": 1.91,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 31097
+  },
+  {
+    "file": "sfx/Gritoss/no mi compa noooo(MP3_160K).mp3",
+    "duration": 6.46,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 231822
+  },
+  {
+    "file": "sfx/Gritoss/sonido gritó de hombre (William scream) _ efecto de sonido(MP3_128K).mp3",
+    "duration": 2.19,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 46108
+  },
+  {
+    "file": "sfx/Gritoss/this is sparta_ efecto de sonido fx(MP3_160K).mp3",
+    "duration": 3.17,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 102441
+  },
+  {
+    "file": "sfx/Gritoss/vegetaaaa.m4a",
+    "duration": 2.23,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "aac",
+    "size_bytes": 70925
+  },
+  {
+    "file": "sfx/Gritoss/😂 jaja - señor gritando  _shorts _memes _grito _random(MP3_160K).mp3",
+    "duration": 5.33,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 259930
+  },
+  {
+    "file": "sfx/Risas/Estatua de tigre riendo(MP3_160K).mp3",
+    "duration": 6.02,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 207675
+  },
+  {
+    "file": "sfx/Risas/Green Screen Laughing Dog Meme(MP3_160K).mp3",
+    "duration": 9.79,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 292956
+  },
+  {
+    "file": "sfx/Risas/Jajaja Watafak_ Watafak jajaja Effect sound - Efecto de sonido watafack_(MP3_160K).mp3",
+    "duration": 12.12,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 369837
+  },
+  {
+    "file": "sfx/Risas/La risa de Don Ramón - Memes _shorts(MP3_160K).mp3",
+    "duration": 9.46,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 326573
+  },
+  {
+    "file": "sfx/Risas/Meme de La Rana con risa chistosa XD(MP3_160K).mp3",
+    "duration": 4.68,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 200464
+  },
+  {
+    "file": "sfx/Risas/No no no no funny laugh[sound effect](MP3_160K).mp3",
+    "duration": 11.47,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 273303
+  },
+  {
+    "file": "sfx/Risas/Risa - meme plantilla(MP3_160K).mp3",
+    "duration": 8.35,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 223218
+  },
+  {
+    "file": "sfx/Risas/Risitas_ meme Original(MP3_160K).mp3",
+    "duration": 11.52,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 280069
+  },
+  {
+    "file": "sfx/Risas/cartoon laugh (sound effect)(MP3_70K).mp3",
+    "duration": 1.94,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 44748
+  },
+  {
+    "file": "sfx/Risas/😂JAJAJA (Risa Fofo Márquez) _ By_ its_jonabriseno😂(MP3_160K).mp3",
+    "duration": 5.3,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 228438
+  },
+  {
+    "file": "sfx/Trancisiones Necesarias/01 - Abduction swish.wav",
     "duration": 4.07,
     "sample_rate": 48000,
     "channels": 2,
@@ -2928,7 +2928,7 @@
     "size_bytes": 781364
   },
   {
-    "file": "music/Trancisiones Necesarias/24 - Swish grainy.wav",
+    "file": "sfx/Trancisiones Necesarias/24 - Swish grainy.wav",
     "duration": 5.09,
     "sample_rate": 48000,
     "channels": 2,
@@ -2936,7 +2936,7 @@
     "size_bytes": 976820
   },
   {
-    "file": "music/Trancisiones Necesarias/Deslizar - efecto de sonido gracioso(MP3_128K).mp3",
+    "file": "sfx/Trancisiones Necesarias/Deslizar - efecto de sonido gracioso(MP3_128K).mp3",
     "duration": 1.12,
     "sample_rate": 44100,
     "channels": 2,
@@ -2944,7 +2944,7 @@
     "size_bytes": 142139
   },
   {
-    "file": "music/Trancisiones Necesarias/EFECTO DE SONIDO.-TRANSICIÓN_GIRO LENTO_ZOOM _ENTRADA EXPLOSIVA-No Copyright Music(MP3_128K).mp3",
+    "file": "sfx/Trancisiones Necesarias/EFECTO DE SONIDO.-TRANSICIÓN_GIRO LENTO_ZOOM _ENTRADA EXPLOSIVA-No Copyright Music(MP3_128K).mp3",
     "duration": 1.8,
     "sample_rate": 44100,
     "channels": 2,
@@ -2952,7 +2952,7 @@
     "size_bytes": 107576
   },
   {
-    "file": "music/Trancisiones Necesarias/Fast Whoosh Sound Effect(MP3_160K).mp3",
+    "file": "sfx/Trancisiones Necesarias/Fast Whoosh Sound Effect(MP3_160K).mp3",
     "duration": 1.82,
     "sample_rate": 48000,
     "channels": 2,
@@ -2960,7 +2960,7 @@
     "size_bytes": 98996
   },
   {
-    "file": "music/Trancisiones Necesarias/Sonido De transicion(MP3_70K).mp3",
+    "file": "sfx/Trancisiones Necesarias/Sonido De transicion(MP3_70K).mp3",
     "duration": 1.9,
     "sample_rate": 48000,
     "channels": 2,
@@ -2968,7 +2968,7 @@
     "size_bytes": 27842
   },
   {
-    "file": "music/Trancisiones Necesarias/Sonido de transición __ Soy chanclitas(MP3_70K).mp3",
+    "file": "sfx/Trancisiones Necesarias/Sonido de transición __ Soy chanclitas(MP3_70K).mp3",
     "duration": 2.71,
     "sample_rate": 48000,
     "channels": 2,
@@ -2976,7 +2976,7 @@
     "size_bytes": 66678
   },
   {
-    "file": "music/Trancisiones Necesarias/Sonido del Click del Mouse __ Mouse Click - Sound Effect(MP3_70K).mp3",
+    "file": "sfx/Trancisiones Necesarias/Sonido del Click del Mouse __ Mouse Click - Sound Effect(MP3_70K).mp3",
     "duration": 2.02,
     "sample_rate": 48000,
     "channels": 2,
@@ -2984,7 +2984,7 @@
     "size_bytes": 70768
   },
   {
-    "file": "music/Trancisiones Necesarias/Swipe Swoosh Transition Sound Effect(MP3_70K).mp3",
+    "file": "sfx/Trancisiones Necesarias/Swipe Swoosh Transition Sound Effect(MP3_70K).mp3",
     "duration": 0.62,
     "sample_rate": 48000,
     "channels": 2,
@@ -2992,7 +2992,7 @@
     "size_bytes": 39926
   },
   {
-    "file": "music/Trancisiones Necesarias/Transición rapida _ Efecto de sonido(MP3_70K).mp3",
+    "file": "sfx/Trancisiones Necesarias/Transición rapida _ Efecto de sonido(MP3_70K).mp3",
     "duration": 1.58,
     "sample_rate": 48000,
     "channels": 2,
@@ -3000,7 +3000,7 @@
     "size_bytes": 155157
   },
   {
-    "file": "music/Trancisiones Necesarias/Whoosh Sound Effect HD _ No Copyright(MP3_70K).mp3",
+    "file": "sfx/Trancisiones Necesarias/Whoosh Sound Effect HD _ No Copyright(MP3_70K).mp3",
     "duration": 0.62,
     "sample_rate": 48000,
     "channels": 2,
@@ -3008,7 +3008,7 @@
     "size_bytes": 49445
   },
   {
-    "file": "music/Trancisiones Necesarias/agitando espada - efecto de sonido(MP3_160K).mp3",
+    "file": "sfx/Trancisiones Necesarias/agitando espada - efecto de sonido(MP3_160K).mp3",
     "duration": 1.1,
     "sample_rate": 48000,
     "channels": 2,
@@ -3016,35 +3016,299 @@
     "size_bytes": 80053
   },
   {
-    "file": "sfx/click.mp3",
-    "duration": 0.08,
-    "sample_rate": 44100,
-    "channels": 1,
-    "codec": "mp3",
-    "size_bytes": 853
-  },
-  {
-    "file": "sfx/ding.mp3",
+    "file": "sfx/sound effects/-camera-shutter.wav",
     "duration": 0.63,
     "sample_rate": 44100,
-    "channels": 1,
-    "codec": "mp3",
-    "size_bytes": 5242
+    "channels": 2,
+    "codec": "pcm_s24le",
+    "size_bytes": 165986
   },
   {
-    "file": "sfx/pop.mp3",
-    "duration": 0.21,
-    "sample_rate": 44100,
-    "channels": 1,
+    "file": "sfx/sound effects/AUGGHH  AHHHHH sound effect.mp3",
+    "duration": 6.0,
+    "sample_rate": 48000,
+    "channels": 2,
     "codec": "mp3",
-    "size_bytes": 1898
+    "size_bytes": 148978
   },
   {
-    "file": "sfx/whoosh.mp3",
-    "duration": 0.39,
-    "sample_rate": 44100,
-    "channels": 1,
+    "file": "sfx/sound effects/Among us sound effect.mp3",
+    "duration": 4.61,
+    "sample_rate": 48000,
+    "channels": 2,
     "codec": "mp3",
-    "size_bytes": 3361
+    "size_bytes": 97175
+  },
+  {
+    "file": "sfx/sound effects/Angel - Sound Effect (HD).mp3",
+    "duration": 18.58,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 384410
+  },
+  {
+    "file": "sfx/sound effects/Awkward Pause 02.mp3",
+    "duration": 3.98,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 67754
+  },
+  {
+    "file": "sfx/sound effects/Awkward Pause.mp3",
+    "duration": 4.95,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 83218
+  },
+  {
+    "file": "sfx/sound effects/Bamboo Hit (AnimeCartoon Bonk) - Sound Effect for Editing.mp3",
+    "duration": 1.01,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 73600
+  },
+  {
+    "file": "sfx/sound effects/Bamboo Hit.mp3",
+    "duration": 1.67,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 68117
+  },
+  {
+    "file": "sfx/sound effects/Bruh Sound Effect.mp3",
+    "duration": 1.32,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 77906
+  },
+  {
+    "file": "sfx/sound effects/CARTOON TRANSITION.mp3",
+    "duration": 1.51,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 31056
+  },
+  {
+    "file": "sfx/sound effects/Cartoon Eating Sound Effect  Non Copyrighted  PP Technical.mp3",
+    "duration": 2.86,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 66823
+  },
+  {
+    "file": "sfx/sound effects/Clock Ticking Sound Effect.mp3",
+    "duration": 3.77,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 133099
+  },
+  {
+    "file": "sfx/sound effects/Confused Reverb.m4a",
+    "duration": 2.62,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "aac",
+    "size_bytes": 86909
+  },
+  {
+    "file": "sfx/sound effects/Core.mp3",
+    "duration": 1.68,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 160071
+  },
+  {
+    "file": "sfx/sound effects/Disappointed.mp3",
+    "duration": 4.46,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "aac",
+    "size_bytes": 72879
+  },
+  {
+    "file": "sfx/sound effects/Doraemon Notification Sound.mp3",
+    "duration": 5.93,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 1164705
+  },
+  {
+    "file": "sfx/sound effects/FLASHBACK.wav",
+    "duration": 2.91,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "pcm_f32le",
+    "size_bytes": 1034102
+  },
+  {
+    "file": "sfx/sound effects/Fart - Sound Effect.mp3",
+    "duration": 3.14,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 93235
+  },
+  {
+    "file": "sfx/sound effects/Glitch.wav",
+    "duration": 1.0,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "pcm_s24le",
+    "size_bytes": 299804
+  },
+  {
+    "file": "sfx/sound effects/Illuminati Confirmed.mp3",
+    "duration": 14.81,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 293901
+  },
+  {
+    "file": "sfx/sound effects/Nope sound effect.mp3",
+    "duration": 1.06,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 40474
+  },
+  {
+    "file": "sfx/sound effects/OMG meme.mp3",
+    "duration": 4.75,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 135117
+  },
+  {
+    "file": "sfx/sound effects/Reveal Sound Effect.mp3",
+    "duration": 15.1,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 289265
+  },
+  {
+    "file": "sfx/sound effects/Rizz Sound Effect.mp3",
+    "duration": 3.41,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 81852
+  },
+  {
+    "file": "sfx/sound effects/Spider-Man 3 Meme Sound.mp3",
+    "duration": 4.08,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 623137
+  },
+  {
+    "file": "sfx/sound effects/TOY DUCK.mp3",
+    "duration": 4.75,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 120111
+  },
+  {
+    "file": "sfx/sound effects/Twitch Alert Sound Effect.m4a",
+    "duration": 4.85,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "aac",
+    "size_bytes": 86600
+  },
+  {
+    "file": "sfx/sound effects/YEET - Sound Effect HD.mp3",
+    "duration": 4.39,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 93878
+  },
+  {
+    "file": "sfx/sound effects/_What_ Bottom Text.m4a",
+    "duration": 8.99,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "aac",
+    "size_bytes": 146515
+  },
+  {
+    "file": "sfx/sound effects/awww.mp3",
+    "duration": 1.76,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 37803
+  },
+  {
+    "file": "sfx/sound effects/bottle cork.mp3",
+    "duration": 0.96,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 30610
+  },
+  {
+    "file": "sfx/sound effects/cartoon-toy-whistle.wav",
+    "duration": 1.21,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "pcm_s24le",
+    "size_bytes": 320774
+  },
+  {
+    "file": "sfx/sound effects/faahhhhh.mp3",
+    "duration": 2.32,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 37539
+  },
+  {
+    "file": "sfx/sound effects/pop.mp3",
+    "duration": 0.7,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "aac",
+    "size_bytes": 10347
+  },
+  {
+    "file": "sfx/sound effects/punch.mp3",
+    "duration": 0.82,
+    "sample_rate": 48000,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 24064
+  },
+  {
+    "file": "sfx/sound effects/taco bell.m4a",
+    "duration": 1.81,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "aac",
+    "size_bytes": 30064
+  },
+  {
+    "file": "sfx/sound effects/whoosh sound effect.mp3",
+    "duration": 1.07,
+    "sample_rate": 44100,
+    "channels": 2,
+    "codec": "mp3",
+    "size_bytes": 17691
   }
 ]
