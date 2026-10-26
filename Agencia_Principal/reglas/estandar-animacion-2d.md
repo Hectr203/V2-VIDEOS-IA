@@ -70,8 +70,16 @@ Todo proyecto canónico debe admitir composiciones verticales (9:16) y horizonta
 - **Ambos formatos simultáneos**: `node render.mjs --aspect=both`.
 - En `Film.tsx`, la composición debe adaptar su viewBox o escala mediante las props de resolución (`width`, `height`).
 
-## 7. Documentación Técnica de Referencia
+## 7. Estándar de Audio, Mezcla y Anti-Saturación
+1. **Claridad de la Narración:** La voz en off debe dominar la mezcla de forma limpia e inteligible en todo momento.
+2. **Auto-Ducking Obligatorio:** En `Film.tsx`, la música de fondo debe descender automáticamente al **35% (-9 dB)** durante cada intervalo donde el narrador pronuncie palabras (`voiceRanges`).
+3. **Control de Headroom:** El pico máximo de la mezcla en el archivo final MP4 debe situarse estrictamente por debajo de **-1.0 dBFS** (verificable con `ffmpeg -af volumedetect`).
+4. **Catálogo Centralizado de Audios (381 pistas):** Consulta la guía [`video-studio/assets/GUIA_CATALOGO_AUDIOS.md`](../../video-studio/assets/GUIA_CATALOGO_AUDIOS.md) y [`video-studio/assets/catalogo_audios.json`](../../video-studio/assets/catalogo_audios.json).
+5. **CLI de Búsqueda Instantánea:** Utiliza `python3 video-studio/scripts/buscar_audio.py --buscar <query>` para localizar pistas y efectos de sonido con su volumen recomendado.
+
+## 8. Documentación Técnica de Referencia
 Para consultar el manual operativo completo de agentes, convenciones de paths y anti-alucinación, leer:
 - Documento maestro: [`docs/GUIA_COMPLETA_PRODUCCION_2D.md`](../../docs/GUIA_COMPLETA_PRODUCCION_2D.md)
+- Catálogo de Audios: [`video-studio/assets/GUIA_CATALOGO_AUDIOS.md`](../../video-studio/assets/GUIA_CATALOGO_AUDIOS.md)
 - Manual de agentes en la raíz: [`README.md`](../../README.md)
 
