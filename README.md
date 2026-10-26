@@ -166,12 +166,24 @@ Actúa como el Agente Coordinador y Especialista en Animación 2D y Producción 
 - Agente Motion Remotion (`agente-motion-remotion`): movimiento continuo, cámaras interpoladas y transiciones fluidas.
 - Agente QA Remotion (`agente-qa-remotion`): control de calidad de fotogramas, sincronía, balance de sonoridad y detección de saturación.
 
-Tu misión es crear una producción de video 2D animada completa, auto-contenida y de calidad cinematográfica en Remotion para el siguiente requerimiento:
+Tu misión es estructurar y producir una pieza de video 2D animada completa, auto-contenida y de calidad cinematográfica en Remotion.
 
-- NOMBRE_PROYECTO (slug): [ejemplo: cafeina-cerebro-2d]
-- TITULO: [Título descriptivo del video]
-- TEMA / GUION: [Explica aquí el tema, los conceptos clave o el guion detallado]
-- FORMATO: [9:16 vertical (Shorts/TikTok/Reels) | 16:9 horizontal (YouTube) | ambos]
+=== PROTOCOLO UNIVERSAL E INTERACTIVO DE RECOPILACIÓN (OBLIGATORIO) ===
+Ante cualquier solicitud de creación de un nuevo video, NO inicies la producción, scaffolding, guionizado final ni síntesis de medios de inmediato.
+Si el usuario no ha proporcionado la totalidad de los parámetros indispensables en su mensaje inicial, pausa la generación y despliega el cuestionario interactivo de recopilación de requisitos:
+
+1. Tema central, premisa y mensaje clave a transmitir.
+2. Formato de aspect ratio: 9:16 vertical (Shorts/TikTok/Reels), 16:9 horizontal (YouTube) o ambos.
+3. Duración estimada y ritmo narrativo (ej. 30s, 60s, 90s, estructura en 5 actos).
+4. Tono y estilo visual (paleta cromática, grado de crudeza/seriedad, dinamismo, didáctico o humor).
+5. Público objetivo y contexto de distribución.
+6. [OBLIGATORIA] Selección de motor TTS / Voz:
+   Ofrecer exactamente las siguientes tres alternativas:
+   - ElevenLabs
+   - VibeVoice
+   - TTS nativo del navegador (Chrome / Edge)
+7. [ÚLTIMA PREGUNTA OBLIGATORIA] Inclusión de marca / Identidad visual:
+   Consultar explícitamente si se desea integrar el logo animado (utilizando como estándar de referencia el implementado en la producción `efectos-drogas-jovenes-2d`) para optimizar y articular su presencia en la línea de tiempo del video como invitación a seguirnos/suscribirse.
 
 === REGLAS CRÍTICAS Y MAPA DE DEPENDENCIAS (NO ALUCINAR) ===
 1. Lectura OBLIGATORIA antes de escribir código:
@@ -182,9 +194,8 @@ Tu misión es crear una producción de video 2D animada completa, auto-contenida
    - Agencia_Principal/skills/remotion-render-qa/SKILL.md
    - Si se replica un video: Agencia_Principal/skills/reference-video-replication/SKILL.md
 2. Arquitectura auto-contenida y organización por fecha:
-   - Todo proyecto vive en: `video-studio/projects/<DD de mes de YYYY>/<slug>/` (ejemplo: `video-studio/projects/25 de octubre de 2026/<slug>/`).
-   - Se mantiene un enlace simbólico automático en `projects/<slug>` para acceso directo y retrocompatibilidad.
-   - NUNCA crees archivos o directorios dispersos fuera de projects/.
+   - Todo proyecto vive exclusivamente en: `video-studio/projects/<DD de mes de YYYY>/<slug>/` (ejemplo: `video-studio/projects/25 de octubre de 2026/<slug>/`).
+   - La raíz de `video-studio/projects/` debe mantenerse limpia y libre de proyectos dispersos o enlaces simbólicos.
 3. Herramientas y dependencias reales:
    - Remotion/React están instalados en: video-studio/remotion/node_modules/
    - Python y Edge-TTS están en: video-studio/backend/.venv/bin/python o python3 del sistema.
@@ -195,7 +206,7 @@ Tu misión es crear una producción de video 2D animada completa, auto-contenida
    - Rigging de personajes: extremidades con cinemática inversa joint(), ciclo de respiración wave(), ojos con parpadeo estocástico y cabello con retardo físico.
    - Rigs anatómicos universales: puedes importarlos desde video-studio/shared-art/.
 5. Jerarquía y balance de audio (CERO SATURACIÓN Y VOZ PROTAGONISTA):
-   - Catálogo de audios: Consulta la selección temática en `video-studio/assets/GUIA_CATALOGO_AUDIOS.md` y `video-studio/assets/catalogo_audios.json`.
+   - Catálogo de audios: Consulta la selección temática en `video-studio/assets/GUIA_CATALOGO_AUDIOS.md` y `video-studio/assets/catalogo_audios.json`. Usa `python3 video-studio/scripts/buscar_audio.py` para búsquedas inmediatas.
    - Claridad de la voz: El narrador debe escucharse siempre de forma nítida y destacada (volumen 1.0, rango integrado -16 a -19 LUFS).
    - Auto-ducking obligatorio: Atenuar suavemente la música de fondo al 30%-35% (-9 dB) durante la locución activa, permitiendo que la música crezca en las pausas dramáticas.
    - Prohibición estricta de saturación: El pico máximo de la mezcla final debe situarse por debajo de -1.0 dBFS (medido con volumedetect / ebur128).
@@ -204,13 +215,16 @@ Tu misión es crear una producción de video 2D animada completa, auto-contenida
 
 === RECETA DE EJECUCIÓN PASO A PASO ===
 
+PASO 0: RECOPILACIÓN INTERACTIVA DE REQUISITOS
+Confirmar con el usuario las respuestas a las 7 preguntas indispensables (incluyendo motor de voz y presencia del logo animado).
+
 PASO 1: INICIALIZACIÓN (SCAFFOLDING)
 Ejecuta el script generador desde la raíz del repositorio (se crea automáticamente dentro de la carpeta con la fecha del día en curso, ej. "25 de octubre de 2026"):
 python3 video-studio/scripts/crear_produccion_2d.py --id <slug> --titulo "<TITULO>"
 
 PASO 2: STORYBOARD NARRATIVO (storyboard.json)
-Edita video-studio/projects/<slug>/storyboard.json:
-- Diseña entre 10 y 16 escenas cortas con un arco en 5 actos (Gancho, Fundamento, Escalamiento, Riesgo/Inflexión, Cierre).
+Edita video-studio/projects/<DD de mes de YYYY>/<slug>/storyboard.json:
+- Diseña entre 10 y 16 escenas cortas con un arco en 5 actos (Gancho, Fundamento, Escalamiento, Riesgo/Inflexión, Cierre con Outro/CTA de marca).
 - Asigna paletas cromáticas contrastantes por escena (purple, teal, gold, crimson, etc.).
 - Escribe locuciones concisas y define minSeconds (entre 1.5s y 4.0s por escena).
 

@@ -15,6 +15,22 @@ Identificar proyecto por ID exacto, objetivo, alcance autorizado y criterios de 
 6. Recibir resultados según [traspaso](plantillas/tarea-agente.md), comprobar criterios y resolver fallos con nueva evidencia. Escalar cuando haga falta una decisión, permiso o recurso externo; no bloquear por un contador arbitrario ni repetir el mismo enfoque.
 7. Cerrar el alcance cumplido con evidencia, límites y pendientes. Actualizar la memoria mínima del proyecto cuando corresponde; no enviar datos a servicios externos sin autorización. No publicar ni desplegar por completar una tarea local.
 
+## Flujo universal e interactivo para producción audiovisual (Videos 2D / Remotion)
+Ante cualquier solicitud para crear un nuevo video, el asistente principal debe actuar como orquestador técnico interactivo, evitando asumir parámetros o generar código antes de tiempo:
+1. **Pausa y recopilación obligatoria de requisitos:** No iniciar scaffolding, guionizado final ni síntesis de medios de inmediato. Si el usuario no proporcionó todos los detalles necesarios, pausar la generación y presentar un cuestionario estructurado:
+   - 1. Tema central, premisa y mensaje clave a transmitir.
+   - 2. Formato y aspect ratio requerido (9:16 vertical para Shorts/TikTok/Reels, 16:9 horizontal para YouTube, o ambos).
+   - 3. Duración estimada y ritmo narrativo (ej. 30s, 60s, 90s, estructura en 5 actos).
+   - 4. Tono y estilo visual (colorimetría, seriedad/crudeza, dinamismo, didáctico o humor).
+   - 5. Público objetivo y contexto de distribución.
+2. **Preguntas obligatorias de cierre:**
+   - **Selección de motor TTS / Voz:** Consultar qué tecnología desea utilizar para las locuciones del video, ofreciendo estrictamente las siguientes tres alternativas:
+     * ElevenLabs
+     * VibeVoice
+     * TTS nativo del navegador (Chrome / Edge)
+   - **Inclusión de marca / Identidad visual (ÚLTIMA PREGUNTA OBLIGATORIA):** Como pregunta final del bloque, consultar explícitamente si se desea integrar el logo animado (utilizando como estándar de referencia el implementado en la producción `efectos-drogas-jovenes-2d`) para optimizar y articular su presencia en la línea de tiempo del video como invitación a seguirnos/suscribirse.
+3. **Inicio de producción:** Una vez recopiladas y confirmadas las respuestas del usuario, proceder con la activación del [estándar de animación 2D](reglas/estandar-animacion-2d.md) y la coordinación de los roles especializados.
+
 ## Herramientas
 Usar la capacidad disponible que cumpla el objetivo: MCP local, CLI o lectura/edición del entorno. Consultar nombres y esquemas publicados; no inventar herramientas o rutas de otro IDE. El [registro MCP](mcp/registro-mcp.md) distingue configuración, conexión y ejecución.
 
