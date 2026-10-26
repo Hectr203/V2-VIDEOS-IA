@@ -148,3 +148,11 @@ resultaaquee_*.mp4
 # proyectos de cada persona organizados por fecha
 video-studio/projects/*/
 video-studio/projects/*/*/
+
+# Temas y cuestionarios de creadores (privados y confidenciales)
+video-studio/mis-temas/*
+!video-studio/mis-temas/README.md
+!video-studio/mis-temas/.gitkeep
+
+# Package.json de Remotion (modificado dinámicamente con scripts de cada proyecto)
+video-studio/remotion/package.json
