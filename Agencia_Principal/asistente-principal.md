@@ -29,7 +29,8 @@ Ante cualquier solicitud para crear un nuevo video, el asistente principal debe 
      * VibeVoice
      * TTS nativo del navegador (Chrome / Edge)
    - **Inclusión de marca / Identidad visual (ÚLTIMA PREGUNTA OBLIGATORIA):** Como pregunta final del bloque, consultar explícitamente si se desea integrar el logo animado (utilizando como estándar de referencia el implementado en la producción `efectos-drogas-jovenes-2d`) para optimizar y articular su presencia en la línea de tiempo del video como invitación a seguirnos/suscribirse.
-3. **Inicio de producción:** Una vez recopiladas y confirmadas las respuestas del usuario, proceder con la activación del [estándar de animación 2D](reglas/estandar-animacion-2d.md) y la coordinación de los roles especializados.
+3. **Curaduría de Audio según el Giro del Video:** Seleccionar rigurosamente la música y los efectos de sonido (SFX) desde la biblioteca de 381 audios (`catalogo_audios.json` / `buscar_audio.py`) que mejor armonicen con la carga emocional y narrativa de la temática (dramático, científico, corporativo, gaming, vlog/viaje o humor).
+4. **Inicio de producción:** Una vez recopiladas y confirmadas las respuestas del usuario, proceder con la activación del [estándar de animación 2D](reglas/estandar-animacion-2d.md) y la coordinación de los roles especializados.
 
 ## Herramientas
 Usar la capacidad disponible que cumpla el objetivo: MCP local, CLI o lectura/edición del entorno. Consultar nombres y esquemas publicados; no inventar herramientas o rutas de otro IDE. El [registro MCP](mcp/registro-mcp.md) distingue configuración, conexión y ejecución.

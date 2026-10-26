@@ -207,6 +207,7 @@ Si el usuario no ha proporcionado la totalidad de los parámetros indispensables
    - Rigs anatómicos universales: puedes importarlos desde video-studio/shared-art/.
 5. Jerarquía y balance de audio (CERO SATURACIÓN Y VOZ PROTAGONISTA):
    - Catálogo de audios: Consulta la selección temática en `video-studio/assets/GUIA_CATALOGO_AUDIOS.md` y `video-studio/assets/catalogo_audios.json`. Usa `python3 video-studio/scripts/buscar_audio.py` para búsquedas inmediatas.
+   - Curaduría según el giro del video: Seleccionar siempre la pista musical y los efectos que armonicen exactamente con la emoción y narrativa del video (drama, ciencia, corporativo, gaming, viajes o humor).
    - Claridad de la voz: El narrador debe escucharse siempre de forma nítida y destacada (volumen 1.0, rango integrado -16 a -19 LUFS).
    - Auto-ducking obligatorio: Atenuar suavemente la música de fondo al 30%-35% (-9 dB) durante la locución activa, permitiendo que la música crezca en las pausas dramáticas.
    - Prohibición estricta de saturación: El pico máximo de la mezcla final debe situarse por debajo de -1.0 dBFS (medido con volumedetect / ebur128).

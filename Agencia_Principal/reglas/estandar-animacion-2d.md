@@ -76,6 +76,13 @@ Todo proyecto canónico debe admitir composiciones verticales (9:16) y horizonta
 3. **Control de Headroom:** El pico máximo de la mezcla en el archivo final MP4 debe situarse estrictamente por debajo de **-1.0 dBFS** (verificable con `ffmpeg -af volumedetect`).
 4. **Catálogo Centralizado de Audios (381 pistas):** Consulta la guía [`video-studio/assets/GUIA_CATALOGO_AUDIOS.md`](../../video-studio/assets/GUIA_CATALOGO_AUDIOS.md) y [`video-studio/assets/catalogo_audios.json`](../../video-studio/assets/catalogo_audios.json).
 5. **CLI de Búsqueda Instantánea:** Utiliza `python3 video-studio/scripts/buscar_audio.py --buscar <query>` para localizar pistas y efectos de sonido con su volumen recomendado.
+6. **Curaduría y Giro Temático del Video (MANDATORIO):** La música y los efectos sonoros deben elegirse siempre en consonancia estricta con el género, tono emocional y peso narrativo del video:
+   - *Dramático / Tensión / Crudo:* Cuerdas orquestales con crescendo, atmósferas oscuras o lluvia con truenos distantes.
+   - *Ciencia / Tecnología / Divulgación:* Pizzicato ágil, marimba o sintetizadores modernos que estimulen la curiosidad intelectual.
+   - *Corporativo / Emprendimiento / Negocios:* Guitarras limpias, ritmo minimalista y confianza profesional.
+   - *Videojuegos / Épico / Batallas:* Soundtracks legendarios orquestales o synth-rock de alto impacto.
+   - *Viajes / Vlogs / Verano:* Tropical house, lofi chillout y beats frescos y optimistas.
+   - *Humor / Parodia / Viral:* Memes virales, reacciones sonoras, cuaks cómicos y discos rayados.
 
 ## 8. Documentación Técnica de Referencia
 Para consultar el manual operativo completo de agentes, convenciones de paths y anti-alucinación, leer:
