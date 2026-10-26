@@ -15,7 +15,8 @@
     "render:helado": "node \"../projects/23 de octubre de 2026/la-ciencia-del-helado/render.mjs\"",
     "render:cafeina-cerebro-2d": "node \"../projects/23 de octubre de 2026/cafeina-cerebro-2d/render.mjs\"",
     "render:napoleon-curiosidades-secretos-2d": "node \"../projects/25 de octubre de 2026/napoleon-curiosidades-secretos-2d/render.mjs\"",
-    "render:curiosidades-gatos-2d": "node \"../projects/26 de octubre de 2026/curiosidades-gatos-2d/render.mjs\""
+    "render:curiosidades-gatos-2d": "node \"../projects/26 de octubre de 2026/curiosidades-gatos-2d/render.mjs\"",
+    "render:curiosidades-pandas-2d": "node \"../projects/26 de octubre de 2026/curiosidades-pandas-2d/render.mjs\""
   },
   "dependencies": {
     "@remotion/cli": "^4.0.218",
