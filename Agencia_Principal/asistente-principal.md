@@ -67,9 +67,10 @@ Ante cualquier solicitud para crear un nuevo video, el asistente principal debe 
          - Parámetros calibrados de Speech Input: Voz base `es-CL-LorenzoNeural`, velocidad `+18%`, tono (pitch) `0` a la mitad, e index-rate `1.0`.
          *(Al añadir nuevos modelos a la carpeta logs de Applio, se sumarán a las opciones).*
      * `[ ]` **ElevenLabs**: Voces premium mediante API externa (clave configurada en `.env`, cuenta gratuita con cuota mensual de 10,000 caracteres).
-       * *Regla si se escoge ElevenLabs:* Consultar qué modelo y voz utilizar.
-         - Modelos multilingües disponibles en la API: `eleven_multilingual_v2` (recomendado para máxima calidad en español), `eleven_flash_v2_5` o `eleven_turbo_v2_5` (menor consumo de tokens).
-         - Voces disponibles en la cuenta: George (narrador cálido/storyteller), Charlie (enérgico/confidente), Liam (creador dinámico), Sarah (profesional/madura), Alice (educativa).
+       * *Regla si se escoge ElevenLabs:* Consultar la voz y el modelo presentando como recomendación estándar por defecto:
+         - **Voz recomendada estándar:** `(Recommended) Charlie` (Enérgico, dinámico y confiado - ideal para curiosidades, retención y dinamismo). Otras opciones: George (narrador cálido/storyteller), Liam (creador dinámico), Sarah (profesional/madura), Alice (educativa).
+         - **Modelo recomendado estándar:** `(Recommended) eleven_flash_v2_5` (Generación ultra rápida y bajo consumo de cuota para maximizar el ahorro de créditos). Otras opciones: `eleven_multilingual_v2` (máxima calidad en español, mayor consumo), `eleven_turbo_v2_5` (balance intermedio).
+         *(Si el usuario no especifica variantes, se aplicará por defecto este estándar: Charlie + eleven_flash_v2_5 para economizar cuota).*
    - **Pregunta 6 (Última pregunta obligatoria - Identidad de marca / Logo animado):**
      Consultar explícitamente si se desea integrar el logo animado (utilizando como estándar de referencia el implementado en la producción `efectos-drogas-jovenes-2d`) en la línea de tiempo para invitar a suscribirse o seguir el canal:
      * `[ ]` Sí, integrar el logo animado de cierre e invitación a seguir/suscribirse
@@ -80,6 +81,14 @@ Ante cualquier solicitud para crear un nuevo video, el asistente principal debe 
 
 5. **Inicio de producción coordinada:**
    Una vez recopiladas y confirmadas las respuestas del usuario, proceder con la activación del [estándar de animación 2D](reglas/estandar-animacion-2d.md), scaffolding (`video-studio/scripts/crear_produccion_2d.py`), storyboard, síntesis de audio, animación SVG y renderizado con los roles especializados.
+
+6. **Entrega Final y Copy Multimodal para Redes Sociales (OBLIGATORIO):**
+   Una vez concluido el renderizado y superada la puerta de calidad, el Asistente Principal **debe incluir siempre como cierre de su respuesta final** un copy optimizado, limpio y directo, listo para copiar y pegar en cualquier red social (TikTok, Instagram Reels, YouTube Shorts, Facebook):
+   - **Titular con gancho:** Una frase corta y magnética que atrape la atención.
+   - **Descripción concisa (micro-copy):** De 2 a 3 líneas explicando el valor o dato más sorprendente del video, evitando bloques sobreestimulantes o paredes de texto.
+   - **Llamada a la acción (CTA):** Pregunta o invitación rápida a comentar y seguir el canal.
+   - **Hashtags de alto alcance:** Selección estratégica de 6 a 10 hashtags temáticos y virales para maximizar el descubrimiento orgánico.
+   - **Auditoría de Créditos de ElevenLabs (MANDATORIO si se usó ElevenLabs):** Si se seleccionó ElevenLabs como motor de síntesis de voz, consultar automáticamente el endpoint de suscripción (`https://api.elevenlabs.io/v1/user/subscription`) e informar al usuario con precisión los créditos/caracteres consumidos, el saldo restante y el límite mensual total.
 
 ## Herramientas
 Usar la capacidad disponible que cumpla el objetivo: MCP local, CLI o lectura/edición del entorno. Consultar nombres y esquemas publicados; no inventar herramientas o rutas de otro IDE. El [registro MCP](mcp/registro-mcp.md) distingue configuración, conexión y ejecución.

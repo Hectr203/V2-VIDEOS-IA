@@ -252,10 +252,10 @@ async def generate_narration(scene, config, sem):
                         model_dir = applio_dir / "logs" / model_name
                         pths = list(model_dir.glob("*.pth")) if model_dir.exists() else []
                         if not pths:
-                            pths = list((applio_dir / "logs").glob(f"*{model_name}*/**/*.pth")) or list((applio_dir / "logs").glob("**/*.pth"))
+                            pths = list((applio_dir / "logs").glob(f"*{{model_name}}*/**/*.pth")) or list((applio_dir / "logs").glob("**/*.pth"))
                         indexes = list(model_dir.glob("*.index")) if model_dir.exists() else []
                         if not indexes:
-                            indexes = list((applio_dir / "logs").glob(f"*{model_name}*/**/*.index"))
+                            indexes = list((applio_dir / "logs").glob(f"*{{model_name}}*/**/*.index"))
                         if pths:
                             converted = target.with_suffix('.converted.wav')
                             py_bin = str(applio_dir / ".venv" / "bin" / "python")
@@ -359,6 +359,24 @@ async def main():
     (SOURCE / "timeline.json").write_text(timeline_json, encoding="utf-8")
     generate_procedural_score(timeline_scenes, current_frame / FPS)
     print(f"Timeline completado: {{current_frame}} frames ({{current_frame / FPS:.2f}}s)")
+    if storyboard.get("voice_provider") == "elevenlabs":
+        try:
+            import urllib.request
+            key = ""
+            env_path = find_studio(HERE) / "backend/.env"
+            if env_path.exists():
+                for line in env_path.read_text(encoding="utf-8").splitlines():
+                    if line.startswith("ELEVENLABS_API_KEY="):
+                        key = line.split("=", 1)[1].strip().strip("\"'")
+                        break
+            if key:
+                req = urllib.request.Request("https://api.elevenlabs.io/v1/user/subscription", headers={{"xi-api-key": key}})
+                with urllib.request.urlopen(req, timeout=15) as resp:
+                    sub = json.loads(resp.read().decode())
+                    rem = sub.get("character_limit", 10000) - sub.get("character_count", 0)
+                    print(f"\\n💳 Créditos ElevenLabs: {{rem:,}} restantes (usados: {{sub.get('character_count', 0):,}} / límite: {{sub.get('character_limit', 10000):,}})")
+        except Exception:
+            pass
 
 
 if __name__ == "__main__":
