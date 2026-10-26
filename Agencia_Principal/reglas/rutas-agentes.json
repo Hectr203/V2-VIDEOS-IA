@@ -81,6 +81,27 @@
         "animacion-2d-remotion",
         "pipeline-produccion-video"
       ]
+    },
+    "agente-replicador-video": {
+      "archivo": "agentes/agente-replicador-video.md",
+      "skills": [
+        "reference-video-replication",
+        "pipeline-produccion-video"
+      ]
+    },
+    "agente-motion-remotion": {
+      "archivo": "agentes/agente-motion-remotion.md",
+      "skills": [
+        "remotion-continuous-motion",
+        "animacion-2d-remotion"
+      ]
+    },
+    "agente-qa-remotion": {
+      "archivo": "agentes/agente-qa-remotion.md",
+      "skills": [
+        "remotion-render-qa",
+        "pipeline-produccion-video"
+      ]
     }
   }
 }

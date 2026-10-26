@@ -1,0 +1,566 @@
+[
+  {
+    "file": "music/ambient_curiosity.mp3",
+    "duration": 60.03,
+    "sample_rate": "44100",
+    "channels": 1
+  },
+  {
+    "file": "sfx/ding.mp3",
+    "duration": 0.63,
+    "sample_rate": "44100",
+    "channels": 1
+  },
+  {
+    "file": "sfx/whoosh.mp3",
+    "duration": 0.39,
+    "sample_rate": "44100",
+    "channels": 1
+  },
+  {
+    "file": "sfx/click.mp3",
+    "duration": 0.08,
+    "sample_rate": "44100",
+    "channels": 1
+  },
+  {
+    "file": "sfx/pop.mp3",
+    "duration": 0.21,
+    "sample_rate": "44100",
+    "channels": 1
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/10 - Para Los Días Lluviosos.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/24 - Lluvia Para Dormir.mp3",
+    "duration": 120.02,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/08 - Mantra De Lluvia.mp3",
+    "duration": 132.05,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/01 - Lluvia Y Brillos.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/22 - La Lluvia Vendra.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/25 - Cascadas de Agua Relajante.mp3",
+    "duration": 361.03,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/13 - Montaña Con Lluvia.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/16 - Momento Calmante.mp3",
+    "duration": 132.05,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/15 - Sonidos De La Lluvia Para La Meditación.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/03 - Peaceful Rain Sounds.mp3",
+    "duration": 129.31,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/21 - Llueve En La Primavera.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/05 - Mid Spring Rain.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/02 - Endless Thunder Dreaming.mp3",
+    "duration": 426.48,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/12 - Ambiente De Lluvia.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/07 - Rain Noise for Peace.mp3",
+    "duration": 132.05,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/14 - Truenos En La Lluvia.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/06 - Atmósfera Calma.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/04 - Aguas Tranquilas.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/17 - Momento Inspirador.mp3",
+    "duration": 129.6,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/19 - Rain for Meditation.mp3",
+    "duration": 129.31,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/11 - Tiempo De Dormir.mp3",
+    "duration": 132.05,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/23 - 6 Horas De Sueño.mp3",
+    "duration": 151.03,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/09 - Día Lluvioso.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/18 - Ohms of Rain.mp3",
+    "duration": 129.6,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Lluvia Y Brillos/20 - Lluvia Produnda.mp3",
+    "duration": 128.06,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/01 - niño gritando - efecto de sonido.mp3",
+    "duration": 4.97,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/39 - Everyone Joins the battle song.mp3",
+    "duration": 162.1,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/31 - AUUGHHH!.mp3",
+    "duration": 9.84,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/38 - niño brasilero cantando pou con audio pobre y saturado.mp3",
+    "duration": 32.52,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/27 - ching cheng han chi con audio pobre [petición de la comunidad].mp3",
+    "duration": 11.09,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/40 - Why are you running sound effect.mp3",
+    "duration": 8.02,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/37 - chino hablando meme.mp3",
+    "duration": 13.58,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/07 - Musica de tutorial saturada.mp3",
+    "duration": 12.72,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/29 - Pou music with poor audio.mp3",
+    "duration": 30.84,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/18 - royalty free para pobres.mp3",
+    "duration": 19.25,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/25 - sonidos randóm 12 + 1.mp3",
+    "duration": 13.97,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/09 - Persona cantando among us drip sonido.mp3",
+    "duration": 10.54,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/19 - webi wabo saturadisimo sonido.mp3",
+    "duration": 20.04,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/06 - Niño cantando meme.mp3",
+    "duration": 6.02,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/34 - cristiano ronaldo siuuu reverse.mp3",
+    "duration": 5.21,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/08 - Cachetadas saturadas.mp3",
+    "duration": 4.32,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/26 - fernanfloo singing cuakuanaka but with poor audio [community request].mp3",
+    "duration": 11.09,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/02 - Audio Wey Nooo Meme Compilation.mp3",
+    "duration": 2.81,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/10 - Música de tutoriales pero pobre.mp3",
+    "duration": 8.23,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/14 - Sonido de parpadeo de five Nights at freddy's.mp3",
+    "duration": 14.14,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/03 - Speedrun.mp3",
+    "duration": 77.59,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/05 - Sonido de desaparecer.mp3",
+    "duration": 1.82,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/28 - jijija saturado [petición de la comunidad].mp3",
+    "duration": 1.42,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/20 - ¡JIJIJA! sonido.mp3",
+    "duration": 1.39,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/11 - Risas mínimalistas en cámara lenta sonido.mp3",
+    "duration": 2.62,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/32 - goofy ahh sounds 💀💀💀.mp3",
+    "duration": 32.09,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/04 - The meaning of life audio.mp3",
+    "duration": 36.36,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/35 - ronaldo siuuu meme distorted.mp3",
+    "duration": 6.53,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/21 - main menu pvz pero con audio pobre.mp3",
+    "duration": 13.56,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/15 - Persona cantando dad de friday Nights at funkin.mp3",
+    "duration": 15.02,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/33 - tre savage rage vs. luv meme audio.mp3",
+    "duration": 8.9,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/24 - piano perturbador de dross sonido.mp3",
+    "duration": 1.32,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/16 - sonidos random #7.mp3",
+    "duration": 13.97,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/22 - morning flowers saturadisimo.mp3",
+    "duration": 13.49,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/17 - sonidos random #8.mp3",
+    "duration": 13.2,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/30 - (Pantalla verde) Efecto TRIGGERED meme con sonido.mp3",
+    "duration": 9.36,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/13 - Sonido incómodo de five Nights at freddy's.mp3",
+    "duration": 7.85,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/12 - Angry birds pero con audio pobre.mp3",
+    "duration": 15.38,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Sonidos memes/23 - tono de nokia saturadisimo.mp3",
+    "duration": 6.34,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/13 - Música Corporativa Para Videos y Publicidad.mp3",
+    "duration": 135.86,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/06 - MUSICA CHILL OUT para TRABAJAR RELAJADO 2022 🖥️[NOT MONETIZABLE]✅ CHILL Music B.mp3",
+    "duration": 121.51,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/02 - MUSICA de AVENTURA para VIDEOS 2022 GRATIS 🛶[NOT MONETIZABLE]✅ Adventure Music .mp3",
+    "duration": 138.84,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/22 - #32 Lights (Official).mp3",
+    "duration": 199.39,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/21 - Luke Bergs - Tropical Soul (Kygo Style) ChillTropical House Copyright Free Music.mp3",
+    "duration": 188.71,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/01 - Música De Fondo Para Videos y Presentaciones.mp3",
+    "duration": 126.55,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/20 - 🎨 Música De Fondo Para Videos Educativos Música Para Presentaciones 🎶.mp3",
+    "duration": 281.64,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/15 - Música Corporativa y Motivadora Para Videos.mp3",
+    "duration": 155.95,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/07 - Música De Fondo Para Videos Música Alegre Para Videos.mp3",
+    "duration": 97.54,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/25 - Summer Day.mp3",
+    "duration": 97.54,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/08 - Wake Up - MBB [ MÚSICA SIN COPYRIGHT ].mp3",
+    "duration": 141.1,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/24 - MUSICA ELECTRÓNICA para DESFILE de Moda 2022💅🏻 [NOT MONETIZABLE] ✅ Free Fashio.mp3",
+    "duration": 120.43,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/18 - #87 Fresh (Official).mp3",
+    "duration": 195.72,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/05 - Música de Fondo Energética y Positiva para Videos.mp3",
+    "duration": 145.75,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/12 - Música De Fondo Inspiradora y Dramática Para Videos.mp3",
+    "duration": 185.47,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/10 - Música De Fondo Para Videos Corporativos y de Emprendimiento.mp3",
+    "duration": 147.82,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/14 - Música de Fondo para Presentaciones Música para Videos.mp3",
+    "duration": 172.39,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/23 - MBB — Wake Up.mp3",
+    "duration": 141.02,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/04 - Música De Fondo Para Presentaciones y Videos Corporativos.mp3",
+    "duration": 144.6,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/16 - Música de Fondo Para Videos Corporativos, Negocios y Presentaciones..mp3",
+    "duration": 200.04,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/17 - MUSICA DANCE para VIDEOS 2020 GRATIS🕺[NO COPYRIGHTS] ✅ ELECTRONIC Music 🎬.mp3",
+    "duration": 138.89,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/03 - Música Alegre para Videos y Presentaciones - Música de Fondo para Videos.mp3",
+    "duration": 114.7,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/09 - MUSICA CORPORATIVA para VIDEOS 2022 GRATIS 💻[NOT MONETIZABLE] ✅ Free Ambient Co.mp3",
+    "duration": 156.02,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/19 - MBB — Good Vibes.mp3",
+    "duration": 134.02,
+    "sample_rate": "48000",
+    "channels": 2
+  },
+  {
+    "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/11 - Música Cinematográfica Moderna Música Instrumental para Videos.mp3",
+    "duration": 183.26,
+    "sample_rate": "48000",
+    "channels": 2
+  }
+]

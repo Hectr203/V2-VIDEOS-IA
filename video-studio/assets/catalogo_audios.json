@@ -1,0 +1,171 @@
+{
+  "version": "1.0.0",
+  "descripcion": "Catálogo semántico y mapa de selección de audios para producciones audiovisuales",
+  "categorias": {
+    "dramatico_serio_tension": {
+      "descripcion": "Para temas de alto impacto, advertencia, salud, riesgo, conflictos o dilemas éticos",
+      "recomendados": [
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/12 - Música De Fondo Inspiradora y Dramática Para Videos.mp3",
+          "duracion": 129.8,
+          "tono": "Orquestal, cuerdas en crescendo, emocional, tensión y resolución"
+        },
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/11 - Música Cinematográfica Moderna Música Instrumental para Videos.mp3",
+          "duracion": 180.2,
+          "tono": "Cinematográfico moderno, misterio y profundidad"
+        },
+        {
+          "file": "music/Mix - Lluvia Y Brillos/14 - Truenos En La Lluvia.mp3",
+          "duracion": 120.0,
+          "tono": "Ambiente de tormenta, lluvia intensa y truenos distantes para clímax o tensión"
+        }
+      ]
+    },
+    "ciencia_tecnologia_educacion": {
+      "descripcion": "Para explicaciones científicas, divulgación, medicina, ingeniería y pedagogía",
+      "recomendados": [
+        {
+          "file": "music/ambient_curiosity.mp3",
+          "duracion": 120.1,
+          "tono": "Curiosidad intelectual, pizzicato ligero, marimba, ritmo ágil y pedagógico"
+        },
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/20 - 🎨 Música De Fondo Para Videos Educativos Música Para Presentaciones 🎶.mp3",
+          "duracion": 145.0,
+          "tono": "Didáctico, cálido, positivo y accesible"
+        },
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/01 - Música De Fondo Para Videos y Presentaciones.mp3",
+          "duracion": 160.0,
+          "tono": "Neutral, versátil, ritmo constante sin distraer la voz"
+        }
+      ]
+    },
+    "corporativo_negocios_productividad": {
+      "descripcion": "Para empresas, SaaS, emprendimiento, finanzas, métricas y productividad",
+      "recomendados": [
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/04 - Música De Fondo Para Presentaciones y Videos Corporativos.mp3",
+          "duracion": 150.0,
+          "tono": "Elegante, tecnológico, confianza y claridad"
+        },
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/10 - Música De Fondo Para Videos Corporativos y de Emprendimiento.mp3",
+          "duracion": 175.0,
+          "tono": "Motivación emprendedora, modernidad"
+        },
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/15 - Música Corporativa y Motivadora Para Videos.mp3",
+          "duracion": 165.0,
+          "tono": "Éxito, progreso, superación y trabajo en equipo"
+        },
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/16 - Música de Fondo Para Videos Corporativos, Negocios y Presentaciones..mp3",
+          "duracion": 180.0,
+          "tono": "Estilo corporate premium, guitarra limpia y beat moderno"
+        }
+      ]
+    },
+    "positivo_motivacional_energia": {
+      "descripcion": "Para historias de superación, estilo de vida, energía, dinamismo y optimismo",
+      "recomendados": [
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/05 - Música de Fondo Energética y Positiva para Videos.mp3",
+          "duracion": 140.0,
+          "tono": "Alegre, dinámico, palmas y ritmo ascendente"
+        },
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/08 - Wake Up - MBB [ MÚSICA SIN COPYRIGHT ].mp3",
+          "duracion": 185.0,
+          "tono": "Tropical house suave, moderno, fresco, juvenil"
+        },
+        {
+          "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/19 - MBB — Good Vibes.mp3",
+          "duracion": 160.0,
+          "tono": "Buenas vibras, verano, viajes, frescura"
+        }
+      ]
+    },
+    "naturaleza_relajacion_lluvia": {
+      "descripcion": "Para momentos reflexivos, atmósfera nocturna, calma, descanso o introspección",
+      "recomendados": [
+        {
+          "file": "music/Mix - Lluvia Y Brillos/12 - Ambiente De Lluvia.mp3",
+          "duracion": 180.0,
+          "tono": "Lluvia constante y relajante"
+        },
+        {
+          "file": "music/Mix - Lluvia Y Brillos/16 - Momento Calmante.mp3",
+          "duracion": 150.0,
+          "tono": "Paz mental, campanas y agua"
+        },
+        {
+          "file": "music/Mix - Lluvia Y Brillos/25 - Cascadas de Agua Relajante.mp3",
+          "duracion": 200.0,
+          "tono": "Agua fluyendo, naturaleza"
+        }
+      ]
+    },
+    "humor_memes_virales": {
+      "descripcion": "Para videos cómicos, remates, parodias, cultura de internet o efectos de reacción",
+      "recomendados": [
+        {
+          "file": "music/Sonidos memes/01 - niño gritando - efecto de sonido.mp3",
+          "duracion": 2.1,
+          "tono": "Grito cómico de sorpresa"
+        },
+        {
+          "file": "music/Sonidos memes/05 - Sonido de desaparecer.mp3",
+          "duracion": 1.5,
+          "tono": "Efecto de teletransporte o desvanecimiento"
+        },
+        {
+          "file": "music/Sonidos memes/07 - Musica de tutorial saturada.mp3",
+          "duracion": 15.0,
+          "tono": "Música clásica de tutorial con humor 2010"
+        },
+        {
+          "file": "music/Sonidos memes/20 - ¡JIJIJA! sonido.mp3",
+          "duracion": 1.8,
+          "tono": "Risa burlona de Clash Royale"
+        },
+        {
+          "file": "music/Sonidos memes/31 - AUUGHHH!.mp3",
+          "duracion": 1.2,
+          "tono": "Ronquido meme viral AUUGHHH"
+        },
+        {
+          "file": "music/Sonidos memes/34 - cristiano ronaldo siuuu reverse.mp3",
+          "duracion": 2.4,
+          "tono": "Grito SIUUU invertido para remates"
+        }
+      ]
+    },
+    "sfx_transiciones_ui": {
+      "descripcion": "Efectos sonoros esenciales para dinamismo visual en animaciones 2D Remotion",
+      "recomendados": [
+        {
+          "file": "sfx/whoosh.mp3",
+          "uso": "Barridos de cámara, cortes de escena y transiciones rápidas",
+          "volumen_sugerido": 0.2
+        },
+        {
+          "file": "sfx/click.mp3",
+          "uso": "Pulsaciones de botones, switches, toggles e interacción UI",
+          "volumen_sugerido": 0.22
+        },
+        {
+          "file": "sfx/ding.mp3",
+          "uso": "Aciertos, descubrimientos, tips y notificaciones",
+          "volumen_sugerido": 0.25
+        },
+        {
+          "file": "sfx/pop.mp3",
+          "uso": "Aparición de stickers, burbujas de diálogo y elementos flotantes",
+          "volumen_sugerido": 0.28
+        }
+      ]
+    }
+  }
+}

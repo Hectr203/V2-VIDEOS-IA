@@ -18,9 +18,12 @@ Para cualquier temática (ciencia, inteligencia artificial, tecnología, econom�
 - **Modelado de sistemas**: En lugar de texto estático, representar los procesos con metáforas mecánicas o biológicas activas (ej. cerraduras y llaves para interacciones moleculares o permisos; redes neuronales con pulsos eléctricos luminosos para procesamiento de datos; órganos o sistemas con ritmos acelerados o desacelerados).
 - **Animaciones matemáticas reactivas**: Toda oscilación o movimiento continuo debe emplear funciones deterministas basadas en el frame actual (`f`): `wave()`, `ease()`, `mix()`, `clamp()`, `seeded()`.
 
-## 3. Arquitectura y Almacenamiento Auto-Contenido por Proyecto
-Para evitar la dispersión de archivos y evitar que `output/`, `remotion/` o carpetas temporales se llenen de basura, **cada proyecto vive 100% auto-contenido en su propia carpeta**:
-`video-studio/projects/<nombre-del-proyecto>/`
+## 3. Arquitectura y Organización por Fecha de Creación
+Para evitar la dispersión de archivos y mantener el orden histórico cuando se acumulan decenas o cientos de producciones, **los proyectos se organizan cronológicamente dentro de carpetas por fecha de creación**:
+`video-studio/projects/<DD de mes de YYYY>/<slug>/`
+*(Ejemplo: `video-studio/projects/25 de octubre de 2026/efectos-drogas-jovenes-2d/`)*
+
+Se mantiene adicionalmente un enlace simbólico en la raíz de `projects/<slug>` para asegurar retrocompatibilidad con scripts de terminal y comandos directos.
 
 Estructura canónica de cada proyecto:
 1. `project.json`: Metadatos del proyecto (título, descripción, resolución, versión, autor).

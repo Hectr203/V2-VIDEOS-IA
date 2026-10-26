@@ -143,5 +143,6 @@ video-studio/public/original_assets/
 video-studio/remotion/public/original_assets/
 resultaaquee_*.mp4
 
-# proyectos de cada persona
+# proyectos de cada persona organizados por fecha
 video-studio/projects/*/
+video-studio/projects/*/*/
