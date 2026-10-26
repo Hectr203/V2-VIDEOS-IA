@@ -6,6 +6,11 @@
     "start": "remotion preview src/index.ts",
     "build": "remotion render src/index.ts DoodleReel out.mp4",
     "render:reference": "remotion render src/index.ts ReferenceReplica ../projects/referencia-2d/output/referencia-2d.mp4 --codec=h264 --crf=18",
+    "render:replica-preview": "remotion render src/index.ts ReferenceReplica ../projects/replica-sebastiankra/output/remotion-preview.mp4 --codec=h264 --crf=18",
+    "render:replica-authored": "remotion render src/index.ts ReferenceReplica ../projects/replica-sebastiankra/output/replica-remotion-sin-voz.mp4 --codec=h264 --crf=18",
+    "render:replica-voice": "remotion render src/index.ts ReferenceReplica ../projects/replica-sebastiankra/output/replica-remotion-con-voz.mp4 --codec=h264 --crf=18 --props=../projects/replica-sebastiankra/voice-props.json",
+    "render:combustion-engine": "remotion render src/index.ts CombustionEngine ../projects/motor-combustion-4-tiempos/output/motor-combustion-60s.mp4 --codec=h264 --crf=18",
+    "finalize:replica": "node ../projects/replica-sebastiankra/scripts/finalize.mjs",
     "render:fentanilo": "node ../projects/fentanilo-la-llave-quimica/render.mjs",
     "render:helado": "node ../projects/la-ciencia-del-helado/render.mjs",
     "render:cafeina-cerebro-2d": "node ../projects/cafeina-cerebro-2d/render.mjs"

@@ -2,6 +2,7 @@ import React from 'react';
 import { Composition } from 'remotion';
 import { DoodleComposition, defaultProps } from './DoodleComposition';
 import { ReferenceReplica, referenceReplicaProps } from './ReferenceReplica';
+import { CombustionEngine, combustionEngineProps } from './CombustionEngine';
 
 export const Root: React.FC = () => {
   return (
@@ -27,9 +28,18 @@ export const Root: React.FC = () => {
         component={ReferenceReplica}
         durationInFrames={referenceReplicaProps.durationInFrames}
         fps={30}
-        width={720}
-        height={1280}
+        width={716}
+        height={1274}
         defaultProps={referenceReplicaProps as any}
+      />
+      <Composition
+        id="CombustionEngine"
+        component={CombustionEngine}
+        durationInFrames={combustionEngineProps.durationInFrames}
+        fps={30}
+        width={716}
+        height={1274}
+        defaultProps={combustionEngineProps as any}
       />
     </>
   );

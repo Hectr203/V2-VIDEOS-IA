@@ -140,3 +140,6 @@ video-studio/backend/projects/*
 video-studio/public/original_assets/
 video-studio/remotion/public/original_assets/
 resultaaquee_*.mp4
+
+# proyectos de cada persona
+video-studio/projects/*/
