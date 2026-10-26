@@ -91,6 +91,8 @@ video-studio/remotion/src/projects/
 video-studio/media/
 video-studio/public/original_assets/
 video-studio/render_checkpoints/
+video-studio/assets/brand-private/*
+!video-studio/assets/brand-private/README.md
 
 
 # ==============================================================================
@@ -104,6 +106,8 @@ video-studio/render_checkpoints/
 checkpoint/
 checkpoints/
 proc_data/
+Applio/
+VibeVoice/
 
 # ==============================================================================
 # SISTEMA, EDITORES E IDEs
@@ -140,3 +144,7 @@ video-studio/backend/projects/*
 video-studio/public/original_assets/
 video-studio/remotion/public/original_assets/
 resultaaquee_*.mp4
+
+# proyectos de cada persona organizados por fecha
+video-studio/projects/*/
+video-studio/projects/*/*/

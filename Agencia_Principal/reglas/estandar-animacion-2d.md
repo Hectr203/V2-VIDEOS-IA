@@ -18,9 +18,12 @@ Para cualquier temática (ciencia, inteligencia artificial, tecnología, econom�
 - **Modelado de sistemas**: En lugar de texto estático, representar los procesos con metáforas mecánicas o biológicas activas (ej. cerraduras y llaves para interacciones moleculares o permisos; redes neuronales con pulsos eléctricos luminosos para procesamiento de datos; órganos o sistemas con ritmos acelerados o desacelerados).
 - **Animaciones matemáticas reactivas**: Toda oscilación o movimiento continuo debe emplear funciones deterministas basadas en el frame actual (`f`): `wave()`, `ease()`, `mix()`, `clamp()`, `seeded()`.
 
-## 3. Arquitectura y Almacenamiento Auto-Contenido por Proyecto
-Para evitar la dispersión de archivos y evitar que `output/`, `remotion/` o carpetas temporales se llenen de basura, **cada proyecto vive 100% auto-contenido en su propia carpeta**:
-`video-studio/projects/<nombre-del-proyecto>/`
+## 3. Arquitectura y Organización por Fecha de Creación
+Para evitar la dispersión de archivos y mantener el orden histórico cuando se acumulan decenas o cientos de producciones, **los proyectos se organizan cronológicamente dentro de carpetas por fecha de creación**:
+`video-studio/projects/<DD de mes de YYYY>/<slug>/`
+*(Ejemplo: `video-studio/projects/25 de octubre de 2026/efectos-drogas-jovenes-2d/`)*
+
+**Queda estrictamente prohibido guardar proyectos, archivos o enlaces simbólicos en la raíz de `video-studio/projects/`. Todo proyecto debe residir forzosamente dentro de su carpeta de fecha de creación (`video-studio/projects/<DD de mes de YYYY>/<slug>/`) para evitar cualquier duplicidad.** Esta regla es validada automáticamente mediante un hook de ciclo de vida.
 
 Estructura canónica de cada proyecto:
 1. `project.json`: Metadatos del proyecto (título, descripción, resolución, versión, autor).
@@ -67,8 +70,23 @@ Todo proyecto canónico debe admitir composiciones verticales (9:16) y horizonta
 - **Ambos formatos simultáneos**: `node render.mjs --aspect=both`.
 - En `Film.tsx`, la composición debe adaptar su viewBox o escala mediante las props de resolución (`width`, `height`).
 
-## 7. Documentación Técnica de Referencia
+## 7. Estándar de Audio, Mezcla y Anti-Saturación
+1. **Claridad de la Narración:** La voz en off debe dominar la mezcla de forma limpia e inteligible en todo momento.
+2. **Auto-Ducking Obligatorio:** En `Film.tsx`, la música de fondo debe descender automáticamente al **35% (-9 dB)** durante cada intervalo donde el narrador pronuncie palabras (`voiceRanges`).
+3. **Control de Headroom:** El pico máximo de la mezcla en el archivo final MP4 debe situarse estrictamente por debajo de **-1.0 dBFS** (verificable con `ffmpeg -af volumedetect`).
+4. **Catálogo Centralizado de Audios (381 pistas):** Consulta la guía [`video-studio/assets/GUIA_CATALOGO_AUDIOS.md`](../../video-studio/assets/GUIA_CATALOGO_AUDIOS.md) y [`video-studio/assets/catalogo_audios.json`](../../video-studio/assets/catalogo_audios.json).
+5. **CLI de Búsqueda Instantánea:** Utiliza `python3 video-studio/scripts/buscar_audio.py --buscar <query>` para localizar pistas y efectos de sonido con su volumen recomendado.
+6. **Curaduría y Giro Temático del Video (MANDATORIO):** La música y los efectos sonoros deben elegirse siempre en consonancia estricta con el género, tono emocional y peso narrativo del video:
+   - *Dramático / Tensión / Crudo:* Cuerdas orquestales con crescendo, atmósferas oscuras o lluvia con truenos distantes.
+   - *Ciencia / Tecnología / Divulgación:* Pizzicato ágil, marimba o sintetizadores modernos que estimulen la curiosidad intelectual.
+   - *Corporativo / Emprendimiento / Negocios:* Guitarras limpias, ritmo minimalista y confianza profesional.
+   - *Videojuegos / Épico / Batallas:* Soundtracks legendarios orquestales o synth-rock de alto impacto.
+   - *Viajes / Vlogs / Verano:* Tropical house, lofi chillout y beats frescos y optimistas.
+   - *Humor / Parodia / Viral:* Memes virales, reacciones sonoras, cuaks cómicos y discos rayados.
+
+## 8. Documentación Técnica de Referencia
 Para consultar el manual operativo completo de agentes, convenciones de paths y anti-alucinación, leer:
 - Documento maestro: [`docs/GUIA_COMPLETA_PRODUCCION_2D.md`](../../docs/GUIA_COMPLETA_PRODUCCION_2D.md)
+- Catálogo de Audios: [`video-studio/assets/GUIA_CATALOGO_AUDIOS.md`](../../video-studio/assets/GUIA_CATALOGO_AUDIOS.md)
 - Manual de agentes en la raíz: [`README.md`](../../README.md)
 

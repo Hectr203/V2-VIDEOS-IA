@@ -556,7 +556,7 @@ def get_tools_status():
     """Diagnóstico del estado de herramientas conectadas."""
     repository_root = Path(__file__).resolve().parents[2]
     remotion_package = repository_root / "video-studio" / "remotion" / "node_modules" / "remotion" / "package.json"
-    vibevoice_dir = repository_root / "VibeVoice"
+    applio_dir = repository_root / "Applio"
     return {
         "remotion": {
             "name": "Remotion 4.x Engine",
@@ -570,11 +570,12 @@ def get_tools_status():
             "path": str(repository_root / "videoAssembler"),
             "description": "Ensamblado con FFmpeg nativo acelerado mediante manifiesto.json"
         },
-        "vibevoice": {
-            "name": "Microsoft VibeVoice",
-            "status": "detected" if vibevoice_dir.is_dir() else "not_found",
-            "path": str(vibevoice_dir),
-            "description": "Detección del código local; no confirma que pesos del modelo o aceleración estén disponibles"
+        "applio": {
+            "name": "Applio (RVC v2)",
+            "status": "connected" if applio_dir.is_dir() else "not_found",
+            "path": str(applio_dir),
+            "url": "http://127.0.0.1:6969",
+            "description": "Motor local de clonación y conversión de voz RVC v2 con interfaz web activa en puerto 6969"
         },
         "omniroute": {
             "name": "OmniRoute AI Proxy (Azure)",

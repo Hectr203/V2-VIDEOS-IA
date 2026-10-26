@@ -3,6 +3,7 @@ import asyncio
 import subprocess
 import urllib.request
 from typing import Dict, Any, List, Optional
+from pathlib import Path
 import edge_tts
 
 import json
@@ -55,6 +56,13 @@ AVAILABLE_VOICE_PROVIDERS = [
         "voices": [
             {"id": "google-latam", "name": "Voz de Google (Latinoamérica)", "gender": "Female"},
             {"id": "google-es", "name": "Voz de Google (España)", "gender": "Female"}
+        ]
+    },
+    {
+        "provider": "applio",
+        "name": "Applio RVC v2 (Modelos de la Comunidad / Clonación)",
+        "voices": [
+            {"id": "Morgan_Freeman", "name": "Morgan Freeman (RVC v2)", "gender": "Male"}
         ]
     }
 ]
@@ -127,6 +135,9 @@ class VoiceHub:
             if not os.getenv("ELEVENLABS_API_KEY"):
                 raise RuntimeError("ELEVENLABS_API_KEY no está configurada")
             return await cls._synthesize_elevenlabs(text, output_audio_path, voice_id)
+
+        if provider in ["applio", "rvc"]:
+            return await cls._synthesize_applio(text, output_audio_path, voice_id)
 
         if provider == "vibevoice":
             return await cls._synthesize_vibevoice(text, output_audio_path, voice_id)
@@ -211,10 +222,76 @@ class VoiceHub:
 
     @classmethod
     async def _synthesize_vibevoice(cls, text: str, output_path: str, voice_id: str) -> Dict[str, Any]:
-        """Fail explicitly until a real local VibeVoice inference adapter is configured."""
+        """Fail explicitly: VibeVoice ha sido reemplazado por Applio."""
         raise NotImplementedError(
-            "VibeVoice está listado como integración futura; no hay adaptador de inferencia configurado."
+            "VibeVoice ha sido reemplazado por Applio (RVC v2); usa provider='applio'."
         )
+
+    @classmethod
+    async def _synthesize_applio(cls, text: str, output_path: str, voice_id: str = "Morgan_Freeman") -> Dict[str, Any]:
+        """Sintetiza base con Edge-TTS y convierte con Applio (RVC v2)."""
+        applio_dir = Path(__file__).resolve().parents[3] / "Applio"
+        if not applio_dir.exists():
+            raise FileNotFoundError(f"Applio no encontrado en {applio_dir}")
+
+        temp_base = output_path + ".base.mp3"
+        base_res = await cls._synthesize_edge_tts(text, temp_base, "es-CL-LorenzoNeural", rate="+18%")
+
+        model_name = voice_id or "Morgan_Freeman"
+        model_dir = applio_dir / "logs" / model_name
+        if not model_dir.exists():
+            candidates = list((applio_dir / "logs").glob(f"*{model_name}*"))
+            model_dir = candidates[0] if candidates else applio_dir / "logs" / "Morgan_Freeman"
+
+        pth_files = list(model_dir.glob("*.pth")) if model_dir.exists() else []
+        if not pth_files:
+            pth_files = list((applio_dir / "logs").glob("**/*.pth"))
+        if not pth_files:
+            raise FileNotFoundError(f"No se encontraron pesos .pth para el modelo {model_name} en Applio/logs")
+
+        pth_path = str(pth_files[0])
+        index_files = list(model_dir.glob("*.index")) if model_dir.exists() else []
+        if not index_files:
+            index_files = list((applio_dir / "logs").glob("**/*.index"))
+        index_path = str(index_files[0]) if index_files else ""
+
+        py_bin = str(applio_dir / ".venv" / "bin" / "python")
+        cmd = [
+            py_bin, "core.py", "infer",
+            "--input-path", temp_base,
+            "--output-path", output_path,
+            "--pth-path", pth_path,
+            "--pitch", "0",
+            "--index-rate", "1.0",
+        ]
+        if index_path:
+            cmd.extend(["--index-path", index_path])
+
+        env = os.environ.copy()
+        lib_path = str(applio_dir / "libs" / "usr" / "lib" / "x86_64-linux-gnu")
+        env["LD_LIBRARY_PATH"] = f"{lib_path}:{env.get('LD_LIBRARY_PATH', '')}"
+
+        proc = await asyncio.create_subprocess_exec(
+            *cmd,
+            cwd=str(applio_dir),
+            env=env,
+            stdout=asyncio.subprocess.PIPE,
+            stderr=asyncio.subprocess.PIPE,
+        )
+        stdout, stderr = await proc.communicate()
+        if proc.returncode != 0:
+            raise RuntimeError(f"Error en inferencia de Applio: {stderr.decode()}")
+
+        if os.path.exists(temp_base):
+            try:
+                os.remove(temp_base)
+            except OSError:
+                pass
+
+        base_res["provider"] = "applio"
+        base_res["voice_id"] = model_name
+        base_res["audio_path"] = output_path
+        return base_res
 
     @classmethod
     async def _synthesize_elevenlabs(cls, text: str, output_path: str, voice_id: str) -> Dict[str, Any]:

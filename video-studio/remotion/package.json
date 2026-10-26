@@ -6,9 +6,18 @@
     "start": "remotion preview src/index.ts",
     "build": "remotion render src/index.ts DoodleReel out.mp4",
     "render:reference": "remotion render src/index.ts ReferenceReplica ../projects/referencia-2d/output/referencia-2d.mp4 --codec=h264 --crf=18",
-    "render:fentanilo": "node ../projects/fentanilo-la-llave-quimica/render.mjs",
-    "render:helado": "node ../projects/la-ciencia-del-helado/render.mjs",
-    "render:cafeina-cerebro-2d": "node ../projects/cafeina-cerebro-2d/render.mjs"
+    "render:replica-preview": "remotion render src/index.ts ReferenceReplica \"../projects/25 de octubre de 2026/replica-sebastiankra/output/remotion-preview.mp4\" --codec=h264 --crf=18",
+    "render:replica-authored": "remotion render src/index.ts ReferenceReplica \"../projects/25 de octubre de 2026/replica-sebastiankra/output/replica-remotion-sin-voz.mp4\" --codec=h264 --crf=18",
+    "render:replica-voice": "remotion render src/index.ts ReferenceReplica \"../projects/25 de octubre de 2026/replica-sebastiankra/output/replica-remotion-con-voz.mp4\" --codec=h264 --crf=18 --props=\"../projects/25 de octubre de 2026/replica-sebastiankra/voice-props.json\"",
+    "render:combustion-engine": "remotion render src/index.ts CombustionEngine \"../projects/25 de octubre de 2026/motor-combustion-4-tiempos/output/motor-combustion-60s.mp4\" --codec=h264 --crf=18",
+    "finalize:replica": "node \"../projects/25 de octubre de 2026/replica-sebastiankra/scripts/finalize.mjs\"",
+    "render:fentanilo": "node \"../projects/23 de octubre de 2026/fentanilo-la-llave-quimica/render.mjs\"",
+    "render:helado": "node \"../projects/23 de octubre de 2026/la-ciencia-del-helado/render.mjs\"",
+    "render:cafeina-cerebro-2d": "node \"../projects/23 de octubre de 2026/cafeina-cerebro-2d/render.mjs\"",
+    "render:napoleon-curiosidades-secretos-2d": "node \"../projects/25 de octubre de 2026/napoleon-curiosidades-secretos-2d/render.mjs\"",
+    "render:curiosidades-gatos-2d": "node \"../projects/26 de octubre de 2026/curiosidades-gatos-2d/render.mjs\"",
+    "render:curiosidades-pandas-2d": "node \"../projects/26 de octubre de 2026/curiosidades-pandas-2d/render.mjs\"",
+    "render:creador-videos-ia-2d": "node \"../projects/26 de octubre de 2026/creador-videos-ia-2d/render.mjs\""
   },
   "dependencies": {
     "@remotion/cli": "^4.0.218",

@@ -1,18 +1,5 @@
 <div align="center">
 
-<img src="docs/portadas/icono-v2-ia-badge.jpg" alt="V2-VIDEOS-IA Logo" width="130" style="border-radius: 20px;" />
-
-# 🎬 Ecosistema Audiovisual y Agencia de Producción IA
-
-**Plataforma integral y arquitectura de producción de video con Inteligencia Artificial.**  
-Combina agentes autónomos, animación vectorial 2D en Remotion con cinemática inversa, síntesis de voz neuronal, banda sonora procedimental y un panel web de control multiformato (9:16 vertical y 16:9 horizontal).
-
-<br />
-
-<img src="docs/portadas/portada-storyboard-pipeline.jpg" alt="V2-VIDEOS-IA Storyboard Banner" width="100%" style="border-radius: 12px;" />
-
-</div>
-
 ---
 
 ## 📌 Documentación de Referencia Rápida
@@ -152,85 +139,47 @@ cd video-studio
 * **Backend API Docs**: `http://localhost:8000/docs` (endpoints `/api/v2/projects`).
 * **Editor Multipista videoAssembler**: `http://localhost:5174`.
 
----
-
-## 🤖 Prompt Maestro Universal para Agentes de IA (Copiar y Pegar)
+## 🤖 Invocación Directa y Prompt Optimizado para Agentes de IA
 
 > [!TIP]
-> Puedes copiar y pegar el siguiente prompt directamente en cualquier asistente de Inteligencia Artificial (Claude, ChatGPT, Gemini, Cursor, Antigravity, etc.) junto con el tema de tu video. La IA sabrá exactamente qué archivos consultar, cómo inicializar la producción, aplicar las reglas cinematográficas y entregar el video listo para publicación sin alucinar dependencias ni romper la estructura del repositorio.
+> **Ya no necesitas copiar ni pegar prompts extensos o complejos.**
+> Toda la inteligencia técnica, roles especializados de animación, curaduría de audio, puertas de calidad pre-render y estándares de Remotion están centralizados en el **Asistente Principal** ([`Agencia_Principal/asistente-principal.md`](Agencia_Principal/asistente-principal.md)).
 
-```markdown
-Actúa como el Agente Especialista en Animación 2D y Producción Audiovisual de este repositorio (V2-VIDEOS-IA).
-Tu misión es crear una producción de video 2D animada completa, auto-contenida y de calidad cinematográfica en Remotion para el siguiente requerimiento:
+Para iniciar la producción de cualquier video desde cero, copia y pega simplemente esta instrucción en el chat del agente:
 
-- NOMBRE_PROYECTO (slug): [ejemplo: cafeina-cerebro-2d]
-- TITULO: [Título descriptivo del video]
-- TEMA / GUION: [Explica aquí el tema, los conceptos clave o el guion detallado]
-- FORMATO: [9:16 vertical (Shorts/TikTok/Reels) | 16:9 horizontal (YouTube) | ambos]
-
-=== REGLAS CRÍTICAS Y MAPA DE DEPENDENCIAS (NO ALUCINAR) ===
-1. Lectura OBLIGATORIA antes de escribir código:
-   - docs/GUIA_COMPLETA_PRODUCCION_2D.md
-   - Agencia_Principal/reglas/estandar-animacion-2d.md
-2. Arquitectura auto-contenida:
-   - Todo el proyecto vive exclusivamente en: video-studio/projects/<slug>/
-   - NUNCA crees archivos o directorios dispersos fuera de projects/<slug>/.
-3. Herramientas y dependencias reales:
-   - Remotion/React están instalados en: video-studio/remotion/node_modules/
-   - Python y Edge-TTS están en: video-studio/backend/.venv/bin/python o python3 del sistema.
-   - NUNCA busques ni instales Three.js, Blender, GSAP, framer-motion ni librerías 3D externas. Toda la animación se resuelve en React con SVG procedural, interpolate(), spring() y funciones matemáticas en el frame (f).
-4. Estándar de arte cinematográfico:
-   - PROHIBIDO el uso de emojis, iconos de fuentes genéricas o cajas rectangulares toscas.
-   - Todo elemento visual relevante debe ser arte vectorial SVG original con gradientes multicapa, sombras proyectadas y filtros.
-   - Rigging de personajes: extremidades con cinemática inversa joint(), ciclo de respiración wave(), ojos con parpadeo estocástico y cabello con retardo físico.
-   - Rigs anatómicos universales: puedes importarlos desde video-studio/shared-art/.
-
-=== RECETA DE EJECUCIÓN PASO A PASO ===
-
-PASO 1: INICIALIZACIÓN (SCAFFOLDING)
-Ejecuta el script generador desde la raíz del repositorio:
-python3 video-studio/scripts/crear_produccion_2d.py <slug> --title "<TITULO>"
-
-PASO 2: STORYBOARD NARRATIVO (storyboard.json)
-Edita video-studio/projects/<slug>/storyboard.json:
-- Diseña entre 10 y 16 escenas cortas con un arco en 5 actos (Gancho, Fundamento, Escalamiento, Riesgo/Inflexión, Cierre).
-- Asigna paletas cromáticas contrastantes por escena (purple, teal, gold, crimson, etc.).
-- Escribe locuciones concisas y define minSeconds (entre 1.5s y 4.0s por escena).
-
-PASO 3: LOCUCIÓN Y AUDIO PROCEDURAL (prepare.py)
-Ejecuta el pipeline de audio y sincronización:
-python3 video-studio/projects/<slug>/prepare.py
-(Esto generará las voces Edge-TTS con WordBoundary en public/<scene_id>.mp3, la música procedural en public/score.wav y el timeline.json exacto a 30 FPS).
-
-PASO 4: ARTE VECTORIAL Y RIGGING SVG (src/art.tsx)
-Personaliza video-studio/projects/<slug>/src/art.tsx:
-- Ilustra los personajes, metáforas conceptuales y diagramas en SVG con capas y gradientes específicos para el tema.
-- Implementa cinemática inversa y funciones reactivas (clamp, ease, mix, wave).
-
-PASO 5: MONTAJE, CÁMARA Y SUBTÍTULOS (src/Film.tsx)
-En video-studio/projects/<slug>/src/Film.tsx:
-- Conecta cada escena mediante <Sequence> sincronizada con timeline.json.
-- Integra subtítulos cinéticos con resaltado dinámico de la palabra activa.
-- Aplica dinamismo sutil de cámara (scale y traslación) para evitar planos estáticos.
-- Asegura que src/index.tsx registre el Root correctamente.
-
-PASO 6: PUERTA OBLIGATORIA DE CONTROL VISUAL (CONTACT SHEET GATE)
-Antes de cualquier render final, genera e inspecciona la hoja de contactos:
-node video-studio/projects/<slug>/render.mjs --stills
-Inspecciona renders/contact-sheet.jpg asegurando:
-- Cero desbordamientos o solapamiento de textos y subtítulos.
-- Composición balanceada y centrado de personajes y diagramas.
-- Contrastes cromáticos y legibilidad óptima.
-
-PASO 7: RENDERIZADO FINAL MULTIFORMATO
-Genera el render de entrega:
-- Vertical 9:16 (Shorts/TikTok): node video-studio/projects/<slug>/render.mjs
-- Horizontal 16:9 (YouTube): node video-studio/projects/<slug>/render.mjs --horizontal
-- Ambos formatos: node video-studio/projects/<slug>/render.mjs --aspect=both
-Valida con ffprobe la duración del MP4 resultante en renders/.
-
-PASO 8: VERIFICACIÓN Y CONTROL DE CALIDAD
-- Limpieza: Verifica que renders/ esté ignorado por Git y no queden archivos basura.
-- Tipado: npx --prefix video-studio/remotion tsc -p ../tsconfig.json --noEmit
-- Commits: Si realizas commits en Git, redacta los mensajes estrictamente en ESPAÑOL (convención commits-espanol).
+```text
+Actúa como el asistente principal en Agencia_Principal/asistente-principal.md para hacer un video: [tu idea o tema aquí]
 ```
+
+*(O simplemente: `Actúa como el asistente principal en Agencia_Principal/asistente-principal.md para hacer un video`)*.
+
+---
+
+### 🔄 ¿Cómo Orquesta el Asistente Principal la Producción?
+
+Al recibir la instrucción, el Asistente Principal ejecuta de inmediato el siguiente flujo garantizado:
+
+1. **Pausa Obligatoria y Cuestionario Interactivo de Requisitos**:Antes de generar código o ejecutar scaffolding, despliega un cuestionario estructurado para recopilar:
+
+   - **¿De qué va a tratar el video?** (Pregunta abierta donde describes libremente la idea o hecho central).
+   - **Giro y enfoque temático** (Científico con humor/cómico, Didáctico/Educativo 2D, Misterio/Curiosidades, Dramático/Crudo, Cultura Pop/Memes o Corporativo/Tech; la IA puede cruzar giros creativos, como explicar ciencia o motores con tonos cómicos y SFX divertidos).
+   - **Formato y relación de aspecto** (`9:16` vertical, `16:9` horizontal o ambos).
+   - **Duración estimada** (30-60s ágil, 60-90s en 5 actos, o +2 min extendido).
+   - **Motor de voz / TTS** (ElevenLabs, VibeVoice o TTS nativo del navegador).
+   - **Inclusión de marca / Logo animado** (Integrar el logo animado de cierre e invitación a seguir/suscribirse según el estándar de `efectos-drogas-jovenes-2d`).
+2. **Adaptación según el Entorno / IDE**:
+
+   - **En Antigravity IDE**: Despliega el cuestionario usando la herramienta interactiva de preguntas (`ask_question`) o genera un **artefacto interactivo editable** dentro del IDE.
+   - **En otros entornos (Cursor, VS Code, CLI, Claude, ChatGPT)**: Si detecta que no está en Antigravity y no hay soporte de artefactos nativos, crea automáticamente el archivo Markdown editable en:
+     ```text
+     video-studio/mis-temas/cuestionario-[tema-o-fecha].md
+     ```
+     con checkboxes `[ ]` para que el usuario lo abra, marque sus opciones con `[x]` y guarde sus respuestas.
+3. **Curaduría Sonora y Ejecución Técnica**:
+
+   - Selecciona música y efectos de sonido de la biblioteca local de 381 audios (`video-studio/assets/catalogo_audios.json` / `buscar_audio.py`) acordes al giro del video.
+   - Inicializa el proyecto autónomo mediante `python3 video-studio/scripts/crear_produccion_2d.py`.
+   - Genera el guion visual (`storyboard.json`), síntesis de voz neuronal y timeline exacto (`prepare.py`).
+   - Ilustra en SVG nativo con cinemática inversa y dinamismo cinemático en Remotion (`art.tsx` y `Film.tsx`).
+   - Ejecuta la puerta de control visual mediante hoja de contactos (`render.mjs --stills`).
+   - Renderiza el resultado final en `9:16`, `16:9` o multiformato con audio balanceado y libre de saturación.

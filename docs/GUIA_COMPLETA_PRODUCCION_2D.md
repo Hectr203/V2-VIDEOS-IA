@@ -259,5 +259,5 @@ El estudio cuenta con una interfaz gráfica para visualizar y gestionar proyecto
 > **R:** Siguiendo la regla institucional `commits-espanol`: todos los mensajes y descripciones de commit deben redactarse estrictamente en **español**, con prefijos convencionales (`feat:`, `fix:`, `chore:`, `docs:`).
 
 ### P: ¿Cómo pedirle a un nuevo agente o LLM que cree un video desde cero?
-> **R:** Utiliza el **Prompt Maestro Universal para Agentes de IA** incluido al final del [`README.md`](../README.md#--prompt-maestro-universal-para-agentes-de-ia-copiar-y-pegar). Solo copia y pega ese bloque en el chat de la IA indicando el tema, slug y formato deseado.
+> **R:** Utiliza el **Prompt Optimizado del Asistente Principal** documentado en el [`README.md`](../README.md#--invocaci%C3%B3n-directa-y-prompt-optimizado-para-agentes-de-ia). Simplemente dile al agente: `Actúa como el asistente principal en Agencia_Principal/asistente-principal.md para hacer un video: [tu tema]` e iniciará automáticamente el cuestionario interactivo de producción.
 
