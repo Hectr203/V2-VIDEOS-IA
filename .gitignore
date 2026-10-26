@@ -91,6 +91,8 @@ video-studio/remotion/src/projects/
 video-studio/media/
 video-studio/public/original_assets/
 video-studio/render_checkpoints/
+video-studio/assets/brand-private/*
+!video-studio/assets/brand-private/README.md
 
 
 # ==============================================================================
