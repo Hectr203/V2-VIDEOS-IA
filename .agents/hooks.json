@@ -25,5 +25,32 @@
         ]
       }
     ]
+  },
+  "block-superpowers-specs": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "run_command|write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .agents/hooks/block_superpowers_specs.py",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "run_command|write_to_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .agents/hooks/block_superpowers_specs.py",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
   }
 }
