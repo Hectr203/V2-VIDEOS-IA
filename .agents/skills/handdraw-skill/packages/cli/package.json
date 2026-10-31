@@ -1,0 +1,6 @@
+{
+  "name": "@handdraw/cli", "version": "0.1.0", "type": "module", "bin": { "handdraw": "./dist/index.js" },
+  "scripts": { "build": "tsc -p tsconfig.json", "validate": "node dist/index.js validate", "render": "node dist/index.js render" },
+  "dependencies": { "@handdraw/audio": "0.1.0", "@handdraw/core": "0.1.0", "@handdraw/renderer": "0.1.0" },
+  "devDependencies": { "@types/node": "^22.0.0", "typescript": "^5.7.0" }
+}

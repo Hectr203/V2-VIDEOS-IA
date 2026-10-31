@@ -1,0 +1,4 @@
+interface:
+  display_name: "纸艺拼贴动画"
+  short_description: "Create fixed-frame editorial paper collage animation prompts"
+  default_prompt: "Use $editorial-paper-collage-animation to animate this image as a 10-second editorial paper collage."

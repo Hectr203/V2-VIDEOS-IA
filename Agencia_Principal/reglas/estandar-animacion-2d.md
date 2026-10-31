@@ -6,12 +6,13 @@ Aplicar la [precedencia](precedencia.md) y el [contrato común](../agentes/contr
 Cualquier agente o inteligencia artificial que trabaje en la generación de videos animados en `video-studio` debe alcanzar el estándar cinematográfico establecido en `fentanilo-2d-v2`:
 - **Prohibido el uso de emojis, iconos de fuentes (FontAwesome, Lucide plano) o cajas rectangulares toscas** como sustituto de ilustración.
 - **Todo elemento visual relevante debe ser arte vectorial SVG original** construido con gradientes multicapa, sombras proyectadas y filtros de iluminación sutiles.
-- **Los personajes deben ser riggeados desde cero**:
+- **Los personajes deben ser riggeados desde cero y exhibir animación viva (PROHIBIDOS TÍTERES DE CARTÓN O FIGURAS RÍGIDAS):**
   - Extremidades articuladas en dos segmentos usando cinemática inversa (`joint()`).
   - Torso con ciclo de respiración (`breathe = wave(f, speed, amp)`).
-  - Ojos con ciclo de parpadeo estocástico (`blink`).
-  - Cabello compuesto por mechones independientes con retardo físico (fase desfasada respecto al movimiento de la cabeza).
-  - Expresiones faciales coherentes con la emoción del guion (`happy`, `pain`, `sleep`, `worry`, `dead`).
+  - Ojos con ciclo de parpadeo estocástico (`blink`) y pupilas reactivas al punto focal de la escena.
+  - Cabello compuesto por mechones independientes con retardo físico y follow-through (fase desfasada respecto a la cabeza).
+  - Expresiones faciales orgánicas con transiciones suaves y overshoot (`happy`, `pain`, `sleep`, `worry`, `dead`, etc.).
+  - Físicas de resorte (*springs*), anticipación previa al movimiento (crouch o contra-giro) y aplastamiento/estiramiento (*squash & stretch*) manteniendo volumen constante. Queda terminantemente prohibido dejar figuras estáticas o recortes planos tiesos.
 - **Integración obligatoria de imágenes del mundo real (Universal):**
   - Para todo video, es forzoso investigar a fondo la temática y descargar imágenes reales y auténticas (fotografías históricas, documentos originales, retratos de creadores o protagonistas, bocetos, patentes, sprites o consolas auténticas), evitando por completo sustitutos sintéticos o ilustraciones genéricas.
   - Las imágenes deben procesarse con recorte limpio y canal alfa transparente (`.png`) en `public/images/<slug>/`.
@@ -99,4 +100,15 @@ Para consultar el manual operativo completo de agentes, convenciones de paths y 
 - Documento maestro: [`docs/GUIA_COMPLETA_PRODUCCION_2D.md`](../../docs/GUIA_COMPLETA_PRODUCCION_2D.md)
 - Catálogo de Audios: [`video-studio/assets/GUIA_CATALOGO_AUDIOS.md`](../../video-studio/assets/GUIA_CATALOGO_AUDIOS.md)
 - Manual de agentes en la raíz: [`README.md`](../../README.md)
+- Suite oficial de habilidades Remotion: [`GUIA-REMOTION-DEV-SKILLS.md`](../skills/remotion-dev-skills/GUIA-REMOTION-DEV-SKILLS.md)
+- Suite de habilidades de Motion y Dirección: [`GUIA-MOTION-VIDEO-SKILLS.md`](../skills/motion-video-skills/GUIA-MOTION-VIDEO-SKILLS.md)
+
+## 9. Estándares Oficiales de Remotion y Motion Skills (`remotion-dev/skills` & `motion-video-skills`)
+1. **Aislamiento de `useCurrentFrame()`:** Mantener `useCurrentFrame()` en los componentes hoja más pequeños que lo requieran (títulos individuales, overlays o visualizadores) para evitar que la composición completa se re-renderice en cada fotograma.
+2. **Propiedades CSS Directas y `perceptual-scale`:** Emplear propiedades directas `scale`, `translate` y `rotate` en lugar de cadenas concatenadas en `transform`. En toda animación de zoom o escala, utilizar `{ output: 'perceptual-scale' }` dentro de `interpolate()` para asegurar aceleración perceptualmente natural.
+3. **Curvas Easing y Físicas de Resorte:** Utilizar `Easing.bezier()` y `Easing.spring()` para desaceleraciones suaves y físicas de impacto creíbles.
+4. **Cero transiciones CSS o Tailwind impuras:** Toda animación debe derivarse determinísticamente del frame (`f`). Prohibir clases como `animate-*` o `transition: all`.
+5. **Animación Orgánica y Expresiva (`character-animation-engine` & `motion-design`):** Todo elemento debe contar con anticipación física previa al movimiento, amortiguación crítica (damping ratio 1.0 estándar, 0.8 con inercia), deformación elástica (squash & stretch) y linework con ebullición sutil a 12 fps para evitar la sensación de títeres de cartón rígidos.
+6. **Dirección Cinematográfica y Beat Sync (`make-awesome-video` & `video-shotcraft`):** Toda producción debe apoyarse en tarjetas de recetas de planos (*shot cards*), encadenamiento con puentes visuales continuos y sincronización rítmica con la pista de audio antes de autorizar el render final.
+7. **Previsualización en Remotion Studio:** Abrir Remotion Studio (`npx remotion studio --no-open`) para inspección interactiva y ajuste de timing antes de solicitar renderizados pesados a disco.
 

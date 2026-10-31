@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "project": { "title": "SaaS 订阅商业模式", "width": 1920, "height": 1080, "fps": 30, "background": "#fffdf8" },
+  "audio": {
+    "narration": [
+      { "text": "SaaS 的核心，不是卖一次软件，而是持续提供服务。", "start": 0.4, "voice": "zh-CN-XiaoxiaoNeural", "rate": "+0%" },
+      { "text": "客户按月订阅，企业获得可预测的经常性收入。", "start": 6.4, "voice": "zh-CN-XiaoxiaoNeural", "rate": "+0%" },
+      { "text": "再把收入投入产品和获客，增长飞轮就开始转动。", "start": 12.4, "voice": "zh-CN-XiaoxiaoNeural", "rate": "+0%" },
+      { "text": "当续费和新增客户同时增长，每月经常性收入就会持续攀升。", "start": 18.4, "voice": "zh-CN-XiaoxiaoNeural", "rate": "+0%" }
+    ]
+  },
+  "scenes": [
+    {
+      "id": "service", "duration": 6, "camera": { "zoom": 1.03, "x": -20, "y": -10 }, "transition": { "type": "fade", "duration": 0.65 },
+      "objects": [
+        { "id": "customer-card", "kind": "shape", "shape": "card", "label": "客户", "labelColor": "#2563eb", "x": 90, "y": 210, "width": 470, "height": 460, "fill": "#eff6ff", "stroke": "#bfdbfe", "radius": 34, "animations": [{ "type": "fade", "start": 0, "duration": 0.5 }] },
+        { "id": "product-card", "kind": "shape", "shape": "card", "label": "持续服务", "labelColor": "#7c3aed", "x": 930, "y": 160, "width": 570, "height": 510, "fill": "#f5f3ff", "stroke": "#ddd6fe", "radius": 34, "animations": [{ "type": "fade", "start": 1.5, "duration": 0.5 }] },
+        { "id": "customer", "kind": "svg", "asset": "customer.svg", "x": 170, "y": 290, "width": 290, "height": 310, "animations": [{ "type": "draw", "start": 0.2, "duration": 1.4 }] },
+        { "id": "arrow", "kind": "svg", "asset": "arrow.svg", "x": 545, "y": 380, "width": 300, "height": 100, "animations": [{ "type": "draw", "start": 1.2, "duration": 0.9 }] },
+        { "id": "app", "kind": "svg", "asset": "app.svg", "x": 1020, "y": 230, "width": 390, "height": 390, "animations": [{ "type": "draw", "start": 1.9, "duration": 1.5 }, { "type": "scale", "start": 3.6, "duration": 0.7, "to": 1.06 }] },
+        { "id": "caption", "kind": "text", "syncWithNarration": 0, "text": "从一次性售卖，到持续服务", "x": 470, "y": 780, "width": 1100, "height": 66, "animations": [{ "type": "write", "start": 3.2, "duration": 1.6 }] }
+      ]
+    },
+    {
+      "id": "recurring-revenue", "duration": 6, "camera": { "zoom": 1.02, "x": -15, "y": -8 }, "transition": { "type": "fade", "duration": 0.65 },
+      "objects": [
+        { "id": "app-card", "kind": "shape", "shape": "card", "label": "软件服务", "labelColor": "#7c3aed", "x": 80, "y": 175, "width": 460, "height": 490, "fill": "#f5f3ff", "stroke": "#ddd6fe", "radius": 34, "animations": [{ "type": "fade", "start": 0, "duration": 0.45 }] },
+        { "id": "calendar-card", "kind": "shape", "shape": "card", "label": "月度订阅", "labelColor": "#ea580c", "x": 690, "y": 175, "width": 480, "height": 490, "fill": "#fff7ed", "stroke": "#fed7aa", "radius": 34, "animations": [{ "type": "fade", "start": 0.8, "duration": 0.45 }] },
+        { "id": "revenue-card", "kind": "shape", "shape": "card", "label": "经常性收入", "labelColor": "#16a34a", "x": 1260, "y": 175, "width": 480, "height": 490, "fill": "#f0fdf4", "stroke": "#bbf7d0", "radius": 34, "animations": [{ "type": "fade", "start": 1.9, "duration": 0.45 }] },
+        { "id": "app", "kind": "svg", "asset": "app.svg", "x": 140, "y": 260, "width": 310, "height": 310, "animations": [{ "type": "draw", "start": 0, "duration": 1.2 }] },
+        { "id": "calendar", "kind": "svg", "asset": "calendar.svg", "x": 770, "y": 250, "width": 310, "height": 310, "animations": [{ "type": "draw", "start": 1.1, "duration": 1.2 }, { "type": "highlight", "start": 2.4, "duration": 0.8 }] },
+        { "id": "revenue", "kind": "svg", "asset": "revenue.svg", "x": 1360, "y": 230, "width": 280, "height": 340, "animations": [{ "type": "draw", "start": 2.3, "duration": 1.5 }, { "type": "scale", "start": 4.1, "duration": 0.8, "to": 1.1 }] },
+        { "id": "caption", "kind": "text", "syncWithNarration": 1, "text": "每月订阅 = 可预测的经常性收入", "x": 350, "y": 780, "width": 1300, "height": 66, "animations": [{ "type": "write", "start": 3.5, "duration": 1.7 }] }
+      ]
+    },
+    {
+      "id": "flywheel", "duration": 6, "camera": { "zoom": 1.04, "x": -25, "y": -14 }, "transition": { "type": "fade", "duration": 0.65 },
+      "objects": [
+        { "id": "flywheel-card", "kind": "shape", "shape": "card", "label": "增长飞轮", "labelColor": "#0f766e", "x": 95, "y": 120, "width": 820, "height": 730, "fill": "#f0fdfa", "stroke": "#99f6e4", "radius": 38, "animations": [{ "type": "fade", "start": 0, "duration": 0.5 }] },
+        { "id": "growth-card", "kind": "shape", "shape": "card", "label": "业务增长", "labelColor": "#db2777", "x": 1050, "y": 175, "width": 520, "height": 480, "fill": "#fdf2f8", "stroke": "#fbcfe8", "radius": 38, "animations": [{ "type": "fade", "start": 1.9, "duration": 0.5 }] },
+        { "id": "flywheel", "kind": "svg", "asset": "flywheel.svg", "x": 180, "y": 170, "width": 650, "height": 650, "animations": [{ "type": "draw", "start": 0, "duration": 2.5 }, { "type": "rotate", "start": 2.6, "duration": 1.6, "to": 8 }] },
+        { "id": "growth", "kind": "svg", "asset": "growth.svg", "x": 1120, "y": 230, "width": 360, "height": 360, "animations": [{ "type": "draw", "start": 2.2, "duration": 1.5 }, { "type": "highlight", "start": 3.8, "duration": 1 }] },
+        { "id": "caption", "kind": "text", "syncWithNarration": 2, "text": "收入 → 产品 → 更多客户 → 增长", "x": 430, "y": 830, "width": 1250, "height": 66, "animations": [{ "type": "write", "start": 3.6, "duration": 1.7 }] }
+      ]
+    },
+    {
+      "id": "metrics", "duration": 6, "camera": { "zoom": 1.03, "x": -18, "y": -12 }, "transition": { "type": "fade", "duration": 0.65 },
+      "objects": [
+        { "id": "metrics-card", "kind": "shape", "shape": "card", "label": "MRR 增长看板", "labelColor": "#1d4ed8", "x": 310, "y": 155, "width": 1300, "height": 570, "fill": "#eff6ff", "stroke": "#bfdbfe", "radius": 40, "animations": [{ "type": "fade", "start": 0, "duration": 0.5 }] },
+        { "id": "baseline", "kind": "shape", "shape": "line", "x": 510, "y": 620, "width": 900, "height": 10, "fill": "#93c5fd", "strokeWidth": 5, "animations": [{ "type": "fade", "start": 0.5, "duration": 0.4 }] },
+        { "id": "bar-one", "kind": "shape", "shape": "bar", "x": 640, "y": 480, "width": 130, "height": 140, "fill": "#60a5fa", "animations": [{ "type": "fade", "start": 0.9, "duration": 0.3 }, { "type": "scale", "start": 0.9, "duration": 0.7, "from": 0.08, "to": 1 }] },
+        { "id": "bar-two", "kind": "shape", "shape": "bar", "x": 900, "y": 390, "width": 130, "height": 230, "fill": "#3b82f6", "animations": [{ "type": "fade", "start": 1.6, "duration": 0.3 }, { "type": "scale", "start": 1.6, "duration": 0.7, "from": 0.08, "to": 1 }] },
+        { "id": "bar-three", "kind": "shape", "shape": "bar", "x": 1160, "y": 270, "width": 130, "height": 350, "fill": "#1d4ed8", "animations": [{ "type": "fade", "start": 2.3, "duration": 0.3 }, { "type": "scale", "start": 2.3, "duration": 0.7, "from": 0.08, "to": 1.08 }, { "type": "highlight", "start": 3.2, "duration": 0.9 }] },
+        { "id": "months", "kind": "text", "text": "第 1 月                 第 2 月                 第 3 月", "x": 590, "y": 650, "width": 840, "height": 31, "animations": [{ "type": "write", "start": 2.8, "duration": 1.2 }] },
+        { "id": "caption", "kind": "text", "syncWithNarration": 3, "text": "MRR 持续增长，让经营更可预测", "x": 420, "y": 830, "width": 1250, "height": 66, "animations": [{ "type": "write", "start": 3.5, "duration": 1.4 }] }
+      ]
+    }
+  ]
+}

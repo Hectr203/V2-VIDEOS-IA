@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=1920, height=1080">
+    <title>Vox-style starter</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: #f2ecdf;
+        color: #161513;
+      }
+    </style>
+  </head>
+  <body>
+    <!--
+      The Vox-style STARTER. One self-contained scene that demonstrates the four
+      core moves: paper slap-in, highlighter swipe, dot-field stutter, sheet-wipe.
+      Duplicate compositions/s1-demo.html, change the copy, chain more scenes here
+      with <div data-composition-src="..."> and you have your own piece.
+
+      To add narration: drop a VO file at assets/vo.mp3, add an <audio> clip like
+      the commented one below, then re-time each scene's data-start to the words.
+    -->
+    <div id="root" data-composition-id="vox-starter" data-start="0" data-duration="6" data-width="1920" data-height="1080">
+
+      <!-- VO track: once you have a VO file in assets/, add an <audio class="clip"
+           data-start data-duration data-volume data-track-index="1"> element here
+           pointing at it, then re-time each scene to the words. (Omitted here so the
+           starter renders silent out of the box — see examples/how-it-works for a
+           full VO-locked build.) -->
+
+      <div data-composition-id="s1-demo" data-composition-src="compositions/s1-demo.html" data-start="0" data-duration="6" data-track-index="0" data-width="1920" data-height="1080"></div>
+    </div>
+
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+      tl.to({}, { duration: 6 }, 0); // root anchor — sub-composition timelines auto-link
+      window.__timelines["vox-starter"] = tl;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,4 @@
+interface:
+  display_name: "纪录片图像提示词"
+  short_description: "Turn documentary scripts into beat tables and image prompts"
+  default_prompt: "Use $documentary-image-prompts to turn this documentary script into a beat table and image prompts."

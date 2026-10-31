@@ -79,28 +79,71 @@
       "archivo": "agentes/agente-animador-2d.md",
       "skills": [
         "animacion-2d-remotion",
-        "pipeline-produccion-video"
+        "pipeline-produccion-video",
+        "remotion-best-practices",
+        "remotion-markup",
+        "remotion-captions",
+        "character-animation-engine",
+        "motion-design"
       ]
     },
     "agente-replicador-video": {
       "archivo": "agentes/agente-replicador-video.md",
       "skills": [
         "reference-video-replication",
-        "pipeline-produccion-video"
+        "pipeline-produccion-video",
+        "remotion-markup",
+        "remotion-captions",
+        "make-awesome-video"
       ]
     },
     "agente-motion-remotion": {
       "archivo": "agentes/agente-motion-remotion.md",
       "skills": [
         "remotion-continuous-motion",
-        "animacion-2d-remotion"
+        "animacion-2d-remotion",
+        "remotion-markup",
+        "remotion-interactivity",
+        "motion-design",
+        "animation-basics"
       ]
     },
     "agente-qa-remotion": {
       "archivo": "agentes/agente-qa-remotion.md",
       "skills": [
         "remotion-render-qa",
+        "pipeline-produccion-video",
+        "remotion-render",
+        "remotion-studio",
+        "make-awesome-video"
+      ]
+    },
+    "agente-director-audiovisual": {
+      "archivo": "agentes/agente-director-audiovisual.md",
+      "skills": [
+        "make-awesome-video",
+        "video-shotcraft",
+        "documentary-narrative-engine",
         "pipeline-produccion-video"
+      ]
+    },
+    "agente-estilo-vox": {
+      "archivo": "agentes/agente-estilo-vox.md",
+      "skills": [
+        "vox-style-animation",
+        "vox-explainer",
+        "documentary-image-prompts",
+        "editorial-paper-collage-animation",
+        "motion"
+      ]
+    },
+    "agente-animacion-viva": {
+      "archivo": "agentes/agente-animacion-viva.md",
+      "skills": [
+        "character-animation-engine",
+        "motion-design",
+        "handdraw-skill",
+        "animation-basics"
       ]
     }
   }

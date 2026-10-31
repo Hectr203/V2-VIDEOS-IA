@@ -1,0 +1,385 @@
+# Talk plus B-roll (for the assistant)
+
+The user may give you only `talk.mp4` (`talk.srt` is optional; without it the scripts transcribe the talk locally). You only write `broll.json`. The scripts compute time, cost, generation, and the final cut. Do not compute milliseconds. Do not compute seconds.
+
+Run one command per step, the command written below. On failure, follow the printed "怎么改" (how to fix) line, edit, and run the same command again.
+
+When the user wants to change something already written, run `node scripts/revise.mjs <project>/broll.json "one sentence"` first. Do not rewrite the whole file.
+
+**Do not run `approve.mjs` for the user.** A person watches the review sheet and approves it.
+
+## The user only has a video: one command
+
+```
+node scripts/talk.mjs <project> --out <folder outside the repo>
+```
+
+`talk.mp4` in the project folder is enough. It runs three steps and skips the ones already done, so the user can keep running the same command:
+
+1. Transcribe: without `talk.srt`, transcribe locally (the first run downloads a model of about 240 MB). An existing `talk.srt` is never overwritten.
+2. Write `broll.json`: if missing, a cheap model writes it (needs `DEEPSEEK_API_KEY` or `LLM_API_KEY`). If present, it is kept; `--rewrite-broll` rewrites it. Without a key, write `broll.json` yourself by these rules, put it in the project folder, and run the same command again.
+3. Render: this is `make-talk` below, with the same arguments passed through. Budget, `--yes`, and review work the same way.
+
+The cheap model writes `provider` as `placeholder`: AI clips become solid-color stand-ins at no cost, and motion clips render for real. To really generate AI clips, add `--provider minimax-h3 --dry-run` to the same command to see the estimate, then replace `--dry-run` with `--yes` after the user agrees.
+
+It never runs `approve.mjs`. Exit codes are the same as `make-talk`; when step 2 (writing `broll.json`) fails because the model API call failed (offline, wrong key, no balance), the exit code is 4.
+
+When you "run the same command again", drop `--rewrite-broll`, `--only` and `--force-redo`: they should take effect once (keeping `--rewrite-broll` writes a new plan nobody has priced, keeping `--only` redoes that clip and pays again every time). When the script stops it prints the full next command; copy that one. `--rewrite-broll` cannot be combined with `--yes`.
+
+## Step by step
+
+0. Without `talk.srt`, transcribe first.
+
+```
+node scripts/broll/transcribe.mjs <project>
+```
+
+You may fix wrong characters in `talk.srt`. Do not split or merge cues: the cue ids would shift and the written `broll.json` would no longer match.
+
+1. List the sentences.
+
+```
+node scripts/broll/list-cues.mjs <project>
+```
+
+2. Write `<project>/broll.json` using the rules below. Use the cue ids from that command (`c1`, `c2`). Do not write milliseconds.
+
+3. Validate. `--max-ai 2` also checks that there are at most 2 AI clips (use the user's limit if they asked for another one).
+
+```
+node scripts/broll/validate.mjs <project> --max-ai 2
+```
+
+Continue only when the exit code is 0.
+
+4. Print the estimate. This does not generate.
+
+```
+node scripts/make-talk.mjs <project> --out <folder outside the repo> --dry-run
+```
+
+Show the user the printed 估价明细 (cost breakdown). `--out` must be outside the repo.
+
+5. Wait for the user to confirm. Add `--yes` only after they agree. When `provider` is `placeholder` or `local`, or every clip is a motion clip, nothing costs money and `--yes` is not needed.
+
+6. Generate. Same command, same `--out`.
+
+```
+node scripts/make-talk.mjs <project> --out <folder outside the repo> --yes
+```
+
+When `provider` is `minimax-h3`, this submits the AI clips. Without `--yes` it stops with exit code 3.
+
+7. Build the review sheet.
+
+```
+node scripts/broll/review-sheet.mjs <project> --out <folder outside the repo>
+```
+
+Open `review.html` in that folder. One row per clip: original sentence, plain, style, prompt, start / mid / end frames, cost, status. Motion clips are marked 「动效，不用审」 (motion, no review needed) and list the on-screen text.
+
+8. Wait. The user runs this themselves after watching:
+
+```
+node scripts/broll/approve.mjs <project> --out <folder outside the repo>
+```
+
+That writes `broll.review.json`. It binds the sha256 of the AI part of `broll.json` and of each `clips/*.mp4`. If either changes, the approval is void and the user must review again. Editing only motion clips does not void it. Do not run this command.
+
+9. Render the final video. Same command, same `--out`. Clips already in the ledger are not submitted again.
+
+```
+node scripts/make-talk.mjs <project> --out <folder outside the repo> --yes
+```
+
+## Two kinds of picture
+
+- Motion clip (`"source": "motion"`): free. Every on-screen word is copied from the spoken sentence, and the script checks it character by character. No generation, no ledger, no review, no "AI-generated" badge.
+- AI clip (`"source": "ai"`, or no `source`): generated by MiniMax H3 in a style. Costs money and needs review. By default a film gets at most 2 (the `--max-ai` flag can change it; follow the "must follow this time" section), only for the sentences that most need a picture.
+
+## Which sentences get a picture
+
+Cover a sentence only when the viewer needs a picture to understand it. Leave the face on screen for the opening, the ending, personal stories, and emotion. Usually 3 to 6 clips.
+
+Never cover `c1`, the last cue, or any id in `keepFace`. Leave at least 1 second of face between clips. All clips together stay at or under 60% of the talk. A motion clip covers at least 1.8 seconds, an AI clip at least 2.5 seconds, both at most 12 seconds. The script checks this. Do not compute milliseconds. Use the cue ids from `list-cues`.
+
+Decide `source` and `template` for each sentence with this table:
+
+| What the sentence does | job | source | template | mode | Do not pick | Why |
+|---|---|---|---|---|---|---|
+| States one exact number (money, time, count, multiple) that is in the sentence | quantify | motion | counter | split or pip | checklist, steps, keyword, compare, AI picture | The sentence is that one number. A list or steps drops the number |
+| Lists two to four things | list | motion | checklist | split or pip; full only with 3 or more items | counter, steps, compare, keyword, AI picture | It lists things. It is not one number, not an order, and not old versus new |
+| Gives an order (first… then… finally) | explain or demonstrate | motion | steps | split or pip; full only with 3 or more items | checklist, counter, compare, keyword, AI picture | There is an order. A list or a compare does not show which step comes first |
+| Contrasts before and after, or two ways, saying the old way first and the new way second (if the new way comes first, do not use compare) | compare | motion | compare | split or pip | checklist, steps, counter, keyword, AI picture | compare is only when the old way is spoken first. If the new way comes first, do not use compare; swapping the columns reverses the meaning |
+| A line or keyword the viewer should remember | stress | motion | keyword | split or pip, never full | checklist, steps, counter, compare, AI picture | Keep one spoken line. Do not split it into a list, steps, or two columns |
+| Points at a place or object, sets a mood, does something by hand, links two things | ground, evoke, demonstrate, connect | ai | none, use the style | full, pip or split | keyword, checklist, steps, counter, compare | The five motion cards cannot show a place, a mood, or an action. Use an AI picture |
+
+If the sentence has only one number, use counter. Do not split it into checklist or steps. Approximate amounts (大概, 左右, 几十, 上千, and the same kind of hedge) are not counter. The counter landing is already aligned to the moment that number is spoken.
+
+Motion clips default to `split` (picture on the top 60%, face on the bottom 40%); on a horizontal talk use `pip`. The speaker stays on screen. A keyword clip in `full` is rejected; `full` is only for a checklist or steps with 3 or more items. Use the same template at most twice per film, and never in two motion clips in a row. If you go over the AI clip limit (2 by default; `--max-ai` can change it, follow the "must follow this time" section), turn the less important ones into motion clips or keep the face.
+
+Leave the face on screen when the sentence has any of these: 我觉得, 我当时, 说实话, 后悔, 我记得, 我以为 (I think, back then, honestly, regret, I remember, I thought). The script warns and does not block. You still remove those clips.
+
+## Motion templates
+
+| template | Use it for | job | slots |
+|---|---|---|---|
+| keyword | A line to remember | stress, explain, evoke | `text` required, 2–12 characters; `hot` optional, ≤6, inside `text` |
+| checklist | Two to four things | list | `title` optional, ≤8; `items` 2–4, each ≤10 |
+| steps | An order | explain, demonstrate | `items` 2–4, each ≤8 |
+| counter | One exact number | quantify | `say` required, the words with the number and its unit as spoken; `from` optional, same unit as `say`; `label` required, ≤12 |
+| compare | Two ways side by side | compare | `labels` required, one of `before-after`, `old-new`, `manual-auto`, `wrong-right`; `left` and `right` 1–2 items each, each ≤10; `verdict` optional, ≤12 |
+
+Character counts: one Chinese character is 1, one ASCII letter or digit is half, spaces do not count.
+
+Rules for motion clips:
+
+- Every string in `slots` is copied from the sentences this clip covers, as consecutive characters. No rewording, no synonyms, no added words. Punctuation may be left out.
+- If a negation sits right before your quote (不, 没, 别, 无, 非, 未, and phrases like 不用, 不要, 不会, 没有, "don't"), include it. If a number has a negation before it, do not use counter; use keyword.
+- Checklist items, steps, and the two compare columns follow the order in which they are spoken.
+- Numbers go only into counter's `say` and `from`, written exactly as in the transcript (「二十五秒」 stays 「二十五秒」, `25 seconds` stays `25 seconds`). Do not change how a number is written. Do not add a number the sentence does not have.
+- Approximate numbers (七八块, "thirty-odd seconds"), ordinals (第几, "third"), and spoken shorthand (一万二) are not counters. Use keyword or keep the face. In an English talk, counter needs digits in the transcript (`25 seconds`); a spelled-out "twenty-five" is not read as a number, so use keyword.
+- `from` should be the cue where the on-screen words start, and `to` the cue with the last on-screen word. If a clip covers unrelated cues before or after, the validator tells you which cue to move to.
+- A transcription mistake shows up on screen as is. Check the sentence first; fix typos in `talk.srt`. Words the transcription was unsure about and nobody has checked yet (the "转写拿不准的字" section of the prompt) must not go into `slots`.
+
+## The five templates, written out
+
+Each example gives the spoken sentence, then a whole clip. Use the cue ids printed by `list-cues`, and copy the words from your own sentence. Do not copy the words of the examples.
+
+keyword, cue c2 "Before it spends money, it gives you a price.":
+
+```json
+{"id": "b01", "from": "c2", "to": "c2", "source": "motion", "mode": "split", "job": "stress", "template": "keyword", "plain": "price first", "slots": {"text": "it gives you a price", "hot": "a price"}}
+```
+
+checklist, cue c4 "You only need two things: the talk video and a budget.":
+
+```json
+{"id": "b02", "from": "c4", "to": "c4", "source": "motion", "mode": "split", "job": "list", "template": "checklist", "plain": "two things", "slots": {"title": "You only need", "items": ["the talk video", "a budget"]}}
+```
+
+steps, cue c6 "First transcribe, then pick lines, then render.":
+
+```json
+{"id": "b03", "from": "c6", "to": "c6", "source": "motion", "mode": "split", "job": "explain", "template": "steps", "plain": "three steps", "slots": {"items": ["First transcribe", "then pick lines", "then render"]}}
+```
+
+counter, cue c8 "The whole video took 25 seconds.":
+
+```json
+{"id": "b04", "from": "c8", "to": "c8", "source": "motion", "mode": "split", "job": "quantify", "template": "counter", "plain": "25 seconds", "slots": {"say": "25 seconds", "label": "The whole video"}}
+```
+
+When the sentence says "from 7 yuan down to 3 yuan", `from` is `7 yuan` and `say` is `3 yuan`. One number per slot.
+
+compare, cue c10 "Before, you cut it by hand; now the script does it.":
+
+```json
+{"id": "b05", "from": "c10", "to": "c10", "source": "motion", "mode": "split", "job": "compare", "template": "compare", "plain": "hand vs script", "slots": {"labels": "manual-auto", "left": ["you cut it by hand"], "right": ["the script does it"]}}
+```
+
+`labels` picks one word pair; the column titles (Manual / Auto) come from the script. The left column is the old way, said first; the right column is the new way, said later, the one that wins. If the sentence says the new way first ("now it's free, before it cost seven yuan"), do not use compare and do not swap the columns; use keyword or checklist.
+
+The same five templates with Chinese sentences are in `SKILL-broll.md`.
+
+## Styles (for AI clips)
+
+| style | Name | Jobs | Cameras | Second styles it pairs with |
+|---|---|---|---|---|
+| `wood-blocks` | Wood blocks (default, 「积木风」) | all 7 | all 7 | `paper-layers` |
+| `clay-stopmotion` | Clay stop-motion | demonstrate, ground, evoke, connect | static, slow-push, pull-back, pan-left, pan-right | `paper-layers` |
+| `paper-layers` | Layered paper | explain, ground, compare, connect | static, slow-push, pan-left, pan-right | `wood-blocks` |
+| `ink-sketch` | Ink sketch (experimental) | Experimental: no reference images yet, `placeholder` previews only, and it cannot be a second style. Do not pick it unless the user names it | | |
+| `brick-diorama` | Plastic bricks (experimental) | Experimental, not the default, kept only for v0.8 files. Do not pick it unless the user names it | | |
+
+The 7 AI jobs: demonstrate, explain, ground, compare, quantify, evoke, connect. `list` and `stress` are for motion clips only.
+
+- `style` is the main style and is required. If the user did not say, write `wood-blocks`.
+- `styleAlt` is an optional second style; pick it only from the "pairs with" column above. The AI clips of a film use at most these two styles.
+- The second style is only for AI clips that explain or compare, and no more than half the AI clips. The first AI clip uses the main style. A clip in the second style has `"look": "alt"`.
+- To make an AI clip open on the end frame of the AI clip before it: the two are next to each other in `clips` with the same `look`, and the later one has `"link": "continue"`. It cannot follow a motion clip.
+- There is one robot in the whole film. `subject` is only 「机器人」 (the robot) or 「机器人和某样东西」 (the robot and one thing); `place` is only a place. The scripts add color, material, and shape from the style and `broll/character.json`; writing them is an error.
+
+## AI clips, written out
+
+Write `plain`, `place`, `subject`, `action`, and `end` in Chinese, even for an English talk: the scripts build the video prompt in Chinese, and `subject` must contain 「机器人」.
+
+One action, cue c12 "Swap the old parts in the storeroom for new ones.":
+
+```json
+{"id": "b06", "from": "c12", "to": "c12", "source": "ai", "mode": "pip", "job": "demonstrate", "plain": "旧零件换成新的", "place": "小仓库", "subject": "机器人", "action": "从架子上取下旧方块换上新方块", "end": "架子变得整整齐齐", "camera": "slow-push"}
+```
+
+(place: small storeroom; action: takes the old blocks off the shelf and puts new ones on; end: the shelf is neat.)
+
+Two beats use `beats` instead of `action` and `end`:
+
+```json
+"beats": [{"action": "拿起一块方块放到桌上", "end": "方块放在桌面中央"}, {"action": "再把一块方块靠上去", "end": "两块方块靠在一起"}]
+```
+
+A comparison in the second style (the top level needs `"styleAlt": "paper-layers"`, and an earlier AI clip must use the main style):
+
+```json
+{"id": "b07", "from": "c14", "to": "c14", "source": "ai", "mode": "split", "job": "compare", "look": "alt", "plain": "两种做法对照", "place": "两张桌子", "subject": "机器人", "action": "看向左边的乱方块再看向右边的齐方块", "end": "机器人站在整齐的那一桌前", "camera": "pan-right"}
+```
+
+## Fields
+
+Top level, only these:
+
+| Field | Write |
+|---|---|
+| version | `2` (v0.8 files with `1` still run, without motion clips, a second style or the new styles. Once an old file is changed to 2, AI clips already generated are generated again with the new prompt and paid again) |
+| style | Main style, default `wood-blocks` |
+| motionTheme | Optional. Motion-look name for this film: `wood`, `clay`, `paper`, `ink`, `cutpaper-meadow`, `cutpaper-dusk`. Omit it to keep the main style's look. `llm_broll --motion-look` writes this field |
+| styleAlt | Second style, optional |
+| thread | One storyline of at most 20 characters, optional. Review sheet only |
+| provider | `placeholder`, `local`, or `minimax-h3`. Applies to AI clips only |
+| quality | `768P` or `2K` |
+| budgetYuan | Budget in yuan |
+| captions | `add`, `none`, or `burned` |
+| keepFace | Cue ids that must stay on the face, for example `["c5"]` |
+| clips | The clip array, 1 to 12, in time order |
+
+Every clip:
+
+| Field | Write |
+|---|---|
+| id | `b01`, `b02`, in order |
+| from / to | Cue ids. One clip may cover several cues in a row |
+| source | `motion` (motion clip) or `ai` (AI clip, may be omitted) |
+| mode | `full` fills the frame. `pip` is a circle at the bottom right. `split` is the picture on the top 60% and the face on the bottom 40%. `split` is vertical only. Motion clips default to `split` (`pip` on a horizontal talk); keyword never uses `full`; `full` is only for a checklist or steps with 3 or more items |
+| job | From the table above |
+| plain | What the picture does. At most 20 characters. Not shown |
+
+A motion clip adds only `template` and `slots`. It has no `place`, `subject`, `camera`, `action`, `end`, `beats`, `look`, `link`, or `file`.
+
+An AI clip adds:
+
+| Field | Write |
+|---|---|
+| place | A place only, for example 「桌面」 (tabletop) or 「小仓库」 (small storeroom). At most 12 characters. No material |
+| subject | Only 「机器人」 or 「机器人和某样东西」. At most 12 characters. No color, no material |
+| camera | `static` `slow-push` `pull-back` `pan-left` `pan-right` `orbit` `top-down`, within what the style allows |
+| action + end | One action and the end frame. action at most 24 characters, end at most 16 |
+| beats | 2 to 4 beats. Each beat has `action` and `end`. Do not also set `action` |
+| look | `main` (main style, default) or `alt` (second style) |
+| link | `new` (default) or `continue` |
+| file | Only for `local`. A video inside the project |
+
+Do not write in AI clips: milliseconds, generated seconds, aspect ratio, resolution, the long style description, a full prompt, reference images, a model name, digits, percent signs, quotes, phrases that ask for on-screen text (「写着」, 「标语」), brand or toy names.
+
+When `captions` is `burned`, the only legal mode is `split`. `full` and `pip` would cover captions already burned into the talk. A landscape talk with `burned` is not supported in this release (split is portrait only); the script stops before calling the model.
+
+Caption position is fixed by the template. `full` and `pip` sit in the lower quarter of the frame (a pip clip whose captions do not fit left of the circle moves them above the circle). `split` sits just above the divider, raised by the number of lines, never over the face.
+
+## Providers
+
+- `placeholder`: AI clips become solid-color stand-ins. Free. No review. No `--yes`.
+- `local`: AI clips use the user's own file. Set `file` to a video inside the project. Free. No review.
+- `minimax-h3`: AI clips are really generated. Style reference images must exist. Stop if the estimate is above `budgetYuan`. Even under budget, `--yes` is required. A final render needs every AI clip approved.
+
+Motion clips are free whatever the provider.
+
+If a style has no reference images yet, `make-talk` stops before submitting (exit code 2, nothing spent) and says which style to switch to or to use motion instead. In this release the three regular styles (`wood-blocks`, `clay-stopmotion`, `paper-layers`) ship with reference images; the ink sketch `ink-sketch` is experimental and has none yet, so with it AI clips can only be previewed with `placeholder`. The maintainer makes reference images, and making them costs money; do not run `make-style-refs.mjs` yourself.
+
+If the same `--out` already holds paid clips from `minimax-h3`, running with `placeholder` or `local` stops (exit code 2) instead of replacing them with placeholders. Add `--provider minimax-h3` back as the message says, or use another `--out`.
+
+## Resume
+
+If a command stops, run it again with the same `--out`. A clip that already has a task id is queried. It is not submitted again.
+
+Redo one AI clip:
+
+```
+node scripts/make-talk.mjs <project> --out <folder outside the repo> --only b03 --yes
+```
+
+Each clip may be redone twice. The third redo needs `--force-redo`, and the log says so. Motion clips are never redone: edit the text and render again.
+
+```
+node scripts/make-talk.mjs <project> --out <folder outside the repo> --only b03 --yes --force-redo
+```
+
+Submit several clips together with `--concurrency 3`. 3 is the default.
+
+## Draft
+
+Use `--draft` to see a composite before review. It applies only to `minimax-h3`. While an AI clip is on screen, the top right says 「B-roll 未审」 (not reviewed). `manifest.json` has `draft: true`.
+
+```
+node scripts/make-talk.mjs <project> --out <folder outside the repo> --yes --draft
+```
+
+`placeholder` and `local` do not need review. Do not pass `--draft` for them.
+
+## Cost
+
+Only AI clips cost money. Use the price table. The API receipt has no money amount.
+
+- 768P: 0.5 yuan per second
+- 2K: 0.8 yuan per second
+- The script rounds the window up and clamps generated length to 4–15 seconds. Do not compute it. The estimate also prints the total seconds of AI video.
+- The ledger stores the actual output seconds. Cost = price × actual seconds.
+- A MiniMax subscription key (starts with `sk-cp-`) cannot pay as you go: H3 video is not in the plan's quota and is paid in credits (768P measured at about 70 credits per second; the MiniMax console is the authority). The estimate prints an extra 「约 N 积分」 (about N credits) line. The budget gate still uses the yuan price table.
+
+## Exit codes
+
+| Code | Meaning | What you do |
+|---|---|---|
+| 0 | Delivered | Hand the output folder to the user |
+| 1 | Validation failed | Follow 怎么改, edit `broll.json`, run validate again. With `talk.mjs` you can also add `--rewrite-broll` to let the model rewrite it (without `--yes`) |
+| 2 | Bad args, missing file, output folder inside the repo, missing key, URL is not https, a style without reference images, no full ffmpeg, would overwrite paid clips, or landscape with burned captions | Follow the printed line. Do not invent a different command |
+| 3 | Over budget, missing `--yes`, or redo limit | Cut AI clips or raise `budgetYuan`. If `--yes` is missing, wait for the user. If the redo limit is hit, tell the user. Do not add `--force-redo` yourself |
+| 4 | Transcription, conversion, generation, check, or render failed; or the model API call failed while writing `broll.json` | Report the reason. For an API failure ask the user to check the key, balance and network. Do not submit again on your own |
+| 5 | Not reviewed | Run review-sheet and give the page to the user. Do not run approve. Add `--draft` only if the user asked for a draft |
+
+## Common errors and fixes
+
+Each validation error is one line, `clip.field：problem`, followed by a 怎么改 (how to fix) line. Change that one thing and leave the rest. The messages are in Chinese; the most common ones:
+
+| The message says | Fix |
+|---|---|
+| 「…」不在这一段盖住的口播里 (not in the spoken words this clip covers) | You reworded the sentence. Use the closest words the message quotes (原句里最接近的), or copy consecutive words from the sentence again |
+| 前面原句是「不用」，摘掉后意思反了 (the negation before it was dropped) | Include the negation, as the message shows; for a counter number with a negation before it, use keyword |
+| 里没有数字 / 里有 2 个数 (no number / two numbers) | counter `say` copies the words with the number, one number per slot. No exact number: use keyword |
+| 这段在报数，AI 生成画面里的数字不可靠 (this clip states a number; AI numbers are unreliable) | Make it `"source": "motion"`, `"template": "counter"`; delete place, subject, action, end, camera |
+| 含数字 / 含引号 / 含「写着」 (contains a digit, a quote, or "written on") | Remove digits, quotes, and on-screen-text requests from the AI fields |
+| 「template」只有动效画面才写 (only motion clips have template) | For motion, add `"source": "motion"` and drop the AI fields; for AI, delete template and slots |
+| motion 段不写「place」 (motion clips have no place) | Delete place, subject, camera, action, end, beats, look, link, file from the motion clip |
+| 短于 1.8 秒 / 短于 2.5 秒 (shorter than 1.8 / 2.5 seconds) | Extend `to` to the next cue, or keep the face |
+| 盖住了不许盖的第一句 c1 (covers the first cue, the last cue, or keepFace) | Move `from` / `to` |
+| 之间只留了 0.68 秒真人画面 (only 0.68 s of face between clips) | Move the later clip's `from` one cue later, or the earlier clip's `to` one cue earlier |
+| 画面上的字要到第 3.8 秒才说出来 (the words are spoken only 3.8 s in) | Set `from` to the cue id in the message |
+| 最后一处字说完后，画面还要停 (the picture stays after the last word) | Set `to` to the cue id in the message |
+| 和上一段 b01 都是 keyword / 已经用了 2 次 (same template as the previous clip / used twice) | Delete the less important clip and keep the face (especially for two numbers in a row), or pick another template |
+| keyword 不用 full / 只有 2 条，用 full 整屏太空 / counter 不用 full (keyword/counter/compare in full, or a short list in full) | Change the motion clip to `split` (`pip` on a horizontal talk) so the speaker stays on screen. `full` is only for a checklist or steps with 3 or more items |
+| AI 画面写了 3 段，这次最多 2 段 (3 AI clips, at most 2) | Keep as many as the limit in the message, the ones that most need a picture; make the rest motion clips or delete them |
+| 右栏比左栏先说出来 / 两栏放反了 (right column said first / columns swapped) | The sentence says the new way first: do not use compare and do not swap the columns; use keyword or checklist |
+| 卡片上的字用了转写时拿不准的字 (card uses words the transcription was unsure about) | Keep those words off the card: pick another sentence, or make it an AI clip or keep the face |
+| 里的数字是隔开说的 (the numbers are said apart) | Two numbers separated by a space, line break or sentence break are not one number. Quote only the number said as one; if unsure, use keyword |
+| 第一段 AI 画面必须用主风格 (the first AI clip must use the main style) | Delete `look` from it; keep the second style for later clips that explain or compare |
+| 不搭配 / 没有叫「…」的风格 (does not pair / no such style) | Set `styleAlt` to a style the message lists, or delete `styleAlt` |
+| 不适合 quantify / 不用 orbit (style does not do this job / camera) | Use a job or camera the message lists; for a number use a motion counter |
+| 写了材质词 / 机器人前面写了颜色 (material word / color before the robot) | `subject` is only 「机器人」; `place` is only a place |
+| 上一段 b01 是动效画面，接不上 (the previous clip is motion; cannot continue) | Delete `link`, or set it to `new` |
+| 写完 broll.json 后字幕分句变了 (cues changed after broll.json was written) | Splitting or merging cues shifts the ids. Run `llm_broll` again, or put the cue boundaries back. Fixing characters is fine |
+| broll.json 解析失败 (broll.json does not parse) | The JSON is broken: check commas and brackets; use only straight double quotes |
+
+Errors while generating and rendering:
+
+- A style has no reference images: stop (exit code 2, nothing spent). Pick one of the fixes in the message: switch to a style that has them (`wood-blocks`, `clay-stopmotion`, `paper-layers`), use motion clips or keep the face, or preview with `placeholder` first. Do not make reference images yourself.
+- No full ffmpeg: stop (exit code 2). Ask the user to `pip install imageio-ffmpeg` or install a system ffmpeg, then run the same command again.
+- Over budget (exit code 3): cut AI clips (motion clips are free), shorten `from` / `to`, or ask the user to raise `budgetYuan`.
+- Auth failure: stop. Ask the user to check `MINIMAX_API_KEY` and that the key and the host are the same region. Do not retry. Do not write the key into a file or a log.
+- Insufficient balance (for a subscription key, not enough credits): stop. Do not submit again. Write it in the report.
+- Content moderation: stop. Tell the user the reason. Change the copy only after they decide to redo. Do not retry on your own.
+- Submit result unknown: stop. Do not submit again. Ask the user to check.
+- Submission rejected by the API (a bad parameter or similar; the ledger says `submit_failed`): stop (exit code 4). Nothing was generated and nothing was charged, and the message says so. Running the same command again does not redo it on its own; the last line of the message is the full command that redoes only this clip (with `--only`). Tell the user the reason, fix it, then run that command. Do not keep retrying on your own.
+- A task id already exists: run the same command again. The script queries and does not resubmit.
+- Download failed: run the same command again. The script fetches a new URL. It does not regenerate.
+- Over 30 minutes: the task id is kept. Run the same command again. Query only.
+- Black frames or a frozen frame: that clip failed the check. Tell the user. Do not redo it on your own.
+- Transcription failed (exit code 4): check what the message says (does the video have sound, is it loud enough); if it still fails, ask the user to supply `talk.srt`.
+- Output folder is inside the repo: point `--out` outside the repo.

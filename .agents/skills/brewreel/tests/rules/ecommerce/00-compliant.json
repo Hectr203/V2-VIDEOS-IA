@@ -1,0 +1,127 @@
+{
+  "name": "痛点解决结构：实拍登记在素材清单、券后价写清领券条件和活动期、compare 刻度方向正确",
+  "storyboard": {
+    "meta": {
+      "title": "t",
+      "product": "暖屿保温杯",
+      "theme": "tech-dark",
+      "industry": "ecommerce",
+      "platform": "douyin",
+      "durationRange": [
+        3,
+        60
+      ],
+      "assets": [
+        {
+          "src": "_assets/photo-c.png",
+          "source": "merchant",
+          "kind": "product"
+        }
+      ],
+      "facts": [
+        {
+          "id": "f1",
+          "text": "实测：95℃热水装满、盖紧、室温 20℃ 静置 6 小时后 68℃（商家自测）"
+        },
+        {
+          "id": "f7",
+          "text": "活动：2026-09-26 至 2026-10-07，领 20 元店铺券后 59 元/只"
+        }
+      ]
+    },
+    "shots": [
+      {
+        "type": "hook",
+        "dur": 2,
+        "mood": 0.3,
+        "params": {
+          "visual": "stat",
+          "text": "6小时",
+          "sub": "实测保温"
+        },
+        "caption": "咖啡放到中午\n就凉了"
+      },
+      {
+        "type": "photoShot",
+        "dur": 3,
+        "mood": 0.3,
+        "params": {
+          "layout": "callouts",
+          "media": [
+            {
+              "source": "merchant",
+              "tag": "实拍",
+              "src": "_assets/photo-c.png"
+            }
+          ],
+          "callouts": [
+            {
+              "text": "内胆316钢"
+            },
+            {
+              "text": "一键弹盖"
+            }
+          ]
+        },
+        "caption": "316不锈钢内胆\n一键弹盖"
+      },
+      {
+        "type": "compare",
+        "dur": 4,
+        "mood": 0.4,
+        "params": {
+          "left": {
+            "title": "普通杯",
+            "items": [
+              "放到中午变凉"
+            ],
+            "tone": "bad",
+            "level": 3
+          },
+          "right": {
+            "title": "暖屿杯",
+            "items": [
+              "中午还温热"
+            ],
+            "tone": "good",
+            "level": 8
+          },
+          "meterLabel": "保温时长"
+        }
+      },
+      {
+        "type": "priceCard",
+        "dur": 4,
+        "mood": 0.3,
+        "params": {
+          "layout": "card",
+          "items": [
+            {
+              "itemId": "p1",
+              "name": "保温杯",
+              "price": 59,
+              "unit": "只"
+            }
+          ],
+          "label": "券后价",
+          "conditions": "需领取20元店铺券",
+          "period": "9.26–10.7"
+        },
+        "caption": "券后59元\n一只焕新用"
+      },
+      {
+        "type": "endCard",
+        "dur": 3,
+        "mood": 0.3,
+        "params": {
+          "brand": "暖屿保温杯",
+          "slogan": "喝口热的\n{再出发}"
+        }
+      }
+    ]
+  },
+  "expect": {
+    "block": [],
+    "blockCount": 0
+  }
+}

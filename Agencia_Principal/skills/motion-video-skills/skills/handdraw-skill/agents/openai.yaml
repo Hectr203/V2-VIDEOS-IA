@@ -1,0 +1,4 @@
+interface:
+  display_name: "HandDraw Skill"
+  short_description: "Create deterministic hand-drawn animation videos"
+  default_prompt: "Use $handdraw-skill to create a whiteboard animation video."

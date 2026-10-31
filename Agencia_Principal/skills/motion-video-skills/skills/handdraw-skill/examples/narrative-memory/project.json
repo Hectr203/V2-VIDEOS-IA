@@ -1,0 +1,29 @@
+{
+  "version": 1,
+  "project": { "title": "第一次看见电脑", "width": 1080, "height": 1920, "fps": 30, "background": "#fffefb", "style": "narrative-sketch" },
+  "audio": { "narration": [
+    { "text": "小时候，我最喜欢蹲在地上弹玻璃珠。", "start": 0.45, "voice": "zh-CN-XiaoxiaoNeural", "rate": "-5%" },
+    { "text": "直到有一天，我在邻居家看见一台旧电脑。", "start": 5.45, "voice": "zh-CN-XiaoxiaoNeural", "rate": "-5%" },
+    { "text": "屏幕亮起来时，我觉得世界突然变大了。", "start": 10.45, "voice": "zh-CN-XiaoxiaoNeural", "rate": "-5%" }
+  ] },
+  "scenes": [
+    { "id": "marbles", "duration": 5, "camera": { "zoom": 1.03, "x": -12, "y": 0 }, "transition": { "type": "fade", "duration": 0.55 }, "objects": [
+      { "id": "words", "kind": "text", "syncWithNarration": 0, "text": "小时候，我最喜欢蹲在地上弹玻璃珠。", "x": 105, "y": 165, "width": 870, "height": 54, "animations": [{ "type": "write", "start": 0, "duration": 1 }] },
+      { "id": "room", "kind": "svg", "asset": "marbles-room.svg", "x": 65, "y": 445, "width": 950, "height": 1000, "animations": [{ "type": "draw", "start": 0.2, "duration": 1.8 }] },
+      { "id": "props", "kind": "svg", "asset": "../../../assets/narrative-library/props/marbles-and-cards.svg", "x": 145, "y": 1040, "width": 620, "height": 430, "animations": [{ "type": "draw", "start": 0.6, "duration": 1.8 }] },
+      { "id": "xiaoyu", "kind": "svg", "asset": "../../../assets/narrative-library/characters/xiaoyu-crouching.svg", "x": 410, "y": 700, "width": 490, "height": 630, "animations": [{ "type": "draw", "start": 0.8, "duration": 2.2 }, { "type": "scale", "start": 3.1, "duration": 0.8, "from": 0.97, "to": 1 }] }
+    ] },
+    { "id": "computer", "duration": 5, "camera": { "zoom": 1.04, "x": -18, "y": -12 }, "transition": { "type": "fade", "duration": 0.55 }, "objects": [
+      { "id": "words", "kind": "text", "syncWithNarration": 1, "text": "直到有一天，我在邻居家看见一台旧电脑。", "x": 105, "y": 165, "width": 870, "height": 54, "animations": [{ "type": "write", "start": 0, "duration": 1 }] },
+      { "id": "room", "kind": "svg", "asset": "computer-room.svg", "x": 65, "y": 445, "width": 950, "height": 1000, "animations": [{ "type": "draw", "start": 0.2, "duration": 1.8 }] },
+      { "id": "computer", "kind": "svg", "asset": "../../../assets/narrative-library/props/old-computer.svg", "x": 130, "y": 900, "width": 590, "height": 470, "animations": [{ "type": "draw", "start": 0.6, "duration": 2.0 }, { "type": "highlight", "start": 3.1, "duration": 0.8 }] },
+      { "id": "xiaoyu", "kind": "svg", "asset": "../../../assets/narrative-library/characters/xiaoyu-standing.svg", "x": 560, "y": 670, "width": 410, "height": 650, "animations": [{ "type": "draw", "start": 0.9, "duration": 2.1 }] }
+    ] },
+    { "id": "wonder", "duration": 5, "camera": { "zoom": 1.06, "x": -22, "y": -20 }, "transition": { "type": "fade", "duration": 0.55 }, "objects": [
+      { "id": "words", "kind": "text", "syncWithNarration": 2, "text": "屏幕亮起来时，我觉得世界突然变大了。", "x": 105, "y": 165, "width": 870, "height": 54, "animations": [{ "type": "write", "start": 0, "duration": 1 }] },
+      { "id": "room", "kind": "svg", "asset": "wonder-room.svg", "x": 65, "y": 445, "width": 950, "height": 1000, "animations": [{ "type": "draw", "start": 0.2, "duration": 1.8 }] },
+      { "id": "computer", "kind": "svg", "asset": "../../../assets/narrative-library/props/desk-computer.svg", "x": 90, "y": 905, "width": 670, "height": 540, "animations": [{ "type": "draw", "start": 0.6, "duration": 2.0 }] },
+      { "id": "xiaoyu", "kind": "svg", "asset": "../../../assets/narrative-library/characters/xiaoyu-sitting.svg", "x": 560, "y": 735, "width": 430, "height": 565, "animations": [{ "type": "draw", "start": 0.9, "duration": 2.2 }, { "type": "scale", "start": 3.0, "duration": 1, "from": 0.96, "to": 1.03 }] }
+    ] }
+  ]
+}

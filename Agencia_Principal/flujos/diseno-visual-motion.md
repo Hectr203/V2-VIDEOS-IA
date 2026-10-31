@@ -9,7 +9,7 @@ Nuevo diseño o interacción visual autorizada.
 Marca, contenido, flujos, perfil y sistema visual existente.
 
 ## Procedimiento
-Definir o reutilizar tokens; ubicar componentes según el perfil, sin imponer estructura desde el flujo. Seleccionar skills de diseño o movimiento solo si corresponde. Usar recursos locales o servicios autorizados y disponibles. Añadir movimiento por intención, conservar teclado/foco y alternativa reducida. Medir rendimiento antes de declarar métricas.
+Definir o reutilizar tokens; ubicar componentes según el perfil, sin imponer estructura desde el flujo. Seleccionar skills de diseño o movimiento solo si corresponde (ej. suite oficial de Remotion `remotion-markup`, `remotion-best-practices` o Emil Kowalski). Usar recursos locales o servicios autorizados y disponibles. Añadir movimiento por intención, conservar teclado/foco y alternativa reducida. Medir rendimiento antes de declarar métricas.
 
 ## Entrega
 Diseño o cambios, intención, evidencia visual y limitaciones.

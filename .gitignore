@@ -123,6 +123,8 @@ Thumbs.db
 !.vscode/settings.json
 .vs/
 *.local
+.claude/
+agent/
 
 # Evidencia volátil local
 .agencia/verificacion-local.json

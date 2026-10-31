@@ -1,0 +1,14 @@
+{
+  "name": "handdraw-skill",
+  "private": true,
+  "version": "0.1.0",
+  "type": "module",
+  "bin": { "handdraw": "./scripts/handdraw.mjs" },
+  "workspaces": ["packages/*"],
+  "scripts": {
+    "build": "npm run build -w @handdraw/core && npm run build -w @handdraw/renderer && npm run build -w @handdraw/audio && npm run build -w @handdraw/cli",
+    "test": "npm run test -w @handdraw/core",
+    "handdraw": "node packages/cli/dist/index.js"
+  },
+  "engines": { "node": ">=20" }
+}

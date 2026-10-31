@@ -30,6 +30,9 @@ Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear 
 - `remotion-render-qa`: lista de verificación de calidad técnica, visual y sonora.
 - `pipeline-produccion-video`: estándares de entrega de `video-studio`.
 - `testing`: criterios de validación estructurada y reproducible.
+- `remotion-render`: protocolos de exportación, flags de renderizado, CRF y concurrencia.
+- `remotion-studio`: previsualización e inspección interactiva previa a renders definitivos.
+- `make-awesome-video`: pasada de crítica visual independiente y verificación contra storyboard.
 
 ## Entrega
 - Hoja de contactos visual validada.

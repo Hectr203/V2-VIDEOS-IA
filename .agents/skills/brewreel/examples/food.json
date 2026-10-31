@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "title": "浮光咖啡 桂花丝绒拿铁上新宣传片",
+    "product": "浮光咖啡",
+    "theme": "warm-emotion",
+    "brandColor": "#3B2A20",
+    "disclaimer": "演示画面以到店为准",
+    "industry": "food",
+    "platform": "shipinhao",
+    "action": "到店点一杯桂花丝绒拿铁 → 现萃浓缩加自熬糖浆出杯",
+    "facts": [
+      {"id": "f1", "text": "新品桂花丝绒拿铁使用现萃浓缩打底", "source": "出品间操作记录（商家自证）"},
+      {"id": "f2", "text": "桂花糖浆为店内自熬，提前48小时腌渍桂花后熬煮", "source": "后厨熬煮流程记录（商家自证）"},
+      {"id": "f3", "text": "桂花丝绒拿铁默认甜度为5档里的第3档（微甜）", "source": "门店菜单标注"}
+    ],
+    "notices": ["图片仅供参考 以实物为准"]
+  },
+  "shots": [
+    {
+      "type": "hook",
+      "dur": 2,
+      "mood": 0.5,
+      "caption": "桂花开的时候\n{这杯}才对味",
+      "params": {"visual": "icon", "icon": "sparkle", "text": "桂花丝绒拿铁", "sub": "秋季限定", "badge": "秋日限定"}
+    },
+    {
+      "type": "photoShot",
+      "dur": 2.5,
+      "mood": 0.35,
+      "caption": "这杯的桂花香\n是{现萃}打的底",
+      "params": {
+        "layout": "hero",
+        "media": [{"source": "drawn", "illust": "food/coffee", "tag": "示意", "label": "桂花丝绒拿铁"}],
+        "title": "桂花丝绒拿铁",
+        "tagline": "现萃浓缩打底",
+        "badge": "新品",
+        "refs": ["f1"]
+      }
+    },
+    {
+      "type": "photoShot",
+      "dur": 3,
+      "mood": 0.3,
+      "caption": "这锅糖浆\n是店里{自熬}的",
+      "params": {
+        "layout": "clip",
+        "media": [{"source": "drawn", "illust": "food/steamer", "tag": "示意", "label": "自熬糖浆"}],
+        "title": "自熬桂花糖浆",
+        "refs": ["f2"]
+      },
+      "note": "行业插画兜底示例：这家虚构店没有真实后厨素材，用 food/steamer 插画代替实拍"
+    },
+    {
+      "type": "steps",
+      "dur": 4,
+      "mood": 0.25,
+      "caption": "到店点这杯，\n{三步就拿到}",
+      "params": {
+        "items": [
+          {"title": "柜台点单", "desc": "选好杯型和甜度", "icon": "check"},
+          {"title": "吧台制作", "desc": "浓缩打底加糖浆", "icon": "sparkle"},
+          {"title": "叫号取杯", "desc": "听到号码来拿", "icon": "bell"}
+        ]
+      },
+      "note": "餐饮是实物/门店行业，不用 mockApp 编点单界面；核心动作靠 photoShot + steps 演出来"
+    },
+    {
+      "type": "meter",
+      "dur": 2.5,
+      "mood": 0.2,
+      "caption": "甜度刻在\n{刚刚好}那格",
+      "params": {"refs": ["f3"], "value": 3, "max": 5, "label": "甜度", "style": "gauge", "higherIs": "good", "word": "微甜", "note": "带一点桂花蜜香尾韵"}
+    },
+    {
+      "type": "priceCard",
+      "dur": 3,
+      "mood": 0.15,
+      "caption": "这几天来\n{活动价}就能喝到",
+      "params": {
+        "layout": "card",
+        "items": [{"itemId": "osmanthus-latte", "name": "桂花丝绒拿铁", "price": 22, "unit": "杯", "note": "中杯装"}],
+        "label": "活动价",
+        "period": "9月26日–10月10日",
+        "limits": ["每人限2杯"],
+        "excludes": "无其他收费",
+        "footnote": "活动价格以到店公示为准"
+      }
+    },
+    {
+      "type": "endCard",
+      "dur": 4,
+      "mood": 0,
+      "params": {
+        "brand": "浮光咖啡",
+        "slogan": "这个秋天\n{先喝一口}再说",
+        "points": ["秋季限定新品", "桂花香丝绒口感"],
+        "icon": "sparkle"
+      }
+    }
+  ]
+}

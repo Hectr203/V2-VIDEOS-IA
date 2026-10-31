@@ -1,0 +1,431 @@
+import fs from 'node:fs';
+import path from 'node:path';
+import {DEFAULT_FREEZE_NOISE, checkClip} from './check-clip.mjs';
+import {decidePaid, isPaidEntry, loadLedger, nextRedoCount, resumeClip, saveLedger} from './ledger.mjs';
+import {clipCost} from './prices.mjs';
+import {prepareLocal} from './providers/local.mjs';
+import {renderPlaceholder} from './providers/placeholder.mjs';
+import {createH3Client, taskFailure} from './providers/minimax-h3.mjs';
+import {framesFor} from './time.mjs';
+
+const now = () => new Date().toISOString();
+
+/** 有限并发。worker 抛错后不再领新任务；已经在跑的会跑完。 */
+export const mapPool = async (items, limit, worker) => {
+  const list = [...items];
+  let cursor = 0;
+  let active = 0;
+  let stop = false;
+  const errors = [];
+  if (!list.length) return;
+  await new Promise((resolve) => {
+    const pump = () => {
+      if (stop && active === 0) return resolve();
+      while (!stop && active < limit && cursor < list.length) {
+        const item = list[cursor];
+        cursor += 1;
+        active += 1;
+        Promise.resolve()
+          .then(() => worker(item))
+          .catch((e) => {
+            errors.push(e);
+            stop = true;
+          })
+          .finally(() => {
+            active -= 1;
+            if ((stop || cursor >= list.length) && active === 0) resolve();
+            else pump();
+          });
+      }
+      if (cursor >= list.length && active === 0) resolve();
+    };
+    pump();
+  });
+  if (errors.length) throw errors[0];
+};
+
+const relTo = (outDir, file) => {
+  if (!file) return file;
+  if (!path.isAbsolute(file)) return file.split(path.sep).join('/');
+  const rel = path.relative(outDir, file);
+  if (rel.startsWith('..') || path.isAbsolute(rel)) return file;
+  return rel.split(path.sep).join('/');
+};
+
+const statusOf = (e) => {
+  if (e.code === 'AUTH') return 'auth';
+  if (e.code === 'BALANCE') return 'balance';
+  if (e.code === 'MODERATION') return 'moderation';
+  if (e.code === 'SUBMIT_UNKNOWN') return 'submit_unknown';
+  if (e.code === 'FAILED') return 'failed';
+  return 'submit_failed';
+};
+
+/** 命令行参数：有空白或引号才加双引号（和 talk.mjs 印下一条命令的写法一样）。 */
+export const shellArg = (s) => (/[\s"]/.test(String(s)) || String(s) === '' ? `"${String(s).replace(/"/g, '\\"')}"` : String(s));
+
+/**
+ * 只重做一段的完整命令。
+ * talkCmd 有值（从 talk.mjs 调进来，环境变量 BREWREEL_TALK_CMD，已经去掉一次性参数）：在它后面加 --only。
+ * 没有：按这次 make-talk 的参数拼，去掉 --only、--force-redo，项目目录和 --out 换成绝对路径，补上 --yes。
+ * @param {{argv?: string[], projectDir: string, outDir: string, id: string, talkCmd?: string, provider?: string}} p
+ */
+export const redoCommandOf = ({argv = null, projectDir, outDir, id, talkCmd = '', provider = ''}) => {
+  const base = String(talkCmd ?? '').trim();
+  if (base) return `${base} --only ${id}`;
+  // 项目目录、--out 用绝对路径放最前面；其余参数按原来的顺序照抄
+  const rest = [];
+  if (Array.isArray(argv)) {
+    for (let i = 0; i < argv.length; i++) {
+      const a = argv[i];
+      if (a === '--only' || a === '--out') i += 1;
+      else if (a === '--provider' || a === '--concurrency') {
+        rest.push(a, argv[i + 1]);
+        i += 1;
+      } else if (a.startsWith('--') && a !== '--force-redo') rest.push(a);
+    }
+  } else if (provider) rest.push('--provider', provider);
+  if (!rest.includes('--yes')) rest.push('--yes');
+  return ['node', 'scripts/make-talk.mjs', projectDir, '--out', outDir, ...rest, '--only', id].map(shellArg).join(' ');
+};
+
+/**
+ * 上次失败、这次不自动重做的说明。
+ * 没有 task id、也不是接口 5xx = 接口没接下这个任务（提交前被拒、或脚本自己拦下）：没生成、没扣费。
+ * 没有 task id 但是 5xx：多半没生成，但说不准，不打包票。有 task id = 已经生成过：重做会重新计费。
+ */
+export const holdMessage = (id, prev, command) => {
+  const why = String(prev?.error?.message || prev?.status || '原因不明').replace(/[。.\s]+$/, '').replace(/。?不自动重做$/, '');
+  if (!prev?.taskId && prev?.error?.code !== 'SERVER') {
+    return `${id} 上次没提交成功（${prev?.status}）：${why}。\n这次没有生成、没有扣费（没有拿到 task id，接口没接下这个任务）。不自动重做：先按上面的原因改好，再跑下面这条，只重做这一段：\n  ${command}`;
+  }
+  if (!prev?.taskId) {
+    return `${id} 上次没提交成功（${prev?.status}）：${why}。没有拿到 task id，多半没有生成；拿不准就先去 MiniMax 后台看一眼。不自动重做。要重做这一段，跑：\n  ${command}`;
+  }
+  return `${id} 上次是 ${prev.status}：${why}。不自动重做。要重做这一段（会重新生成、重新计费），跑：\n  ${command}`;
+};
+
+/**
+ * 按账本把计划里的片段生成到 outDir/clips。
+ * placeholder / local 走原来的同步状态机。minimax-h3 提交成功立刻落盘 task id。
+ */
+export const generateClips = async ({
+  doc,
+  plan,
+  outDir,
+  projectDir,
+  only = null,
+  forceRedo = false,
+  concurrency = 3,
+  client = null,
+  references = null,
+  log = console.log,
+  haltAfterSubmits = 0,
+  pollMs,
+  timeoutMs,
+  sleep,
+  redoCommand = null,
+}) => {
+  /** 只重做这一段的完整命令（make-talk 传它自己那一条；测试和其他调用方用默认拼法）。 */
+  const redoCmd = (id) => (typeof redoCommand === 'function' ? redoCommand(id) : redoCommandOf({projectDir, outDir, id, provider: doc.provider}));
+  const ledgerPath = path.join(outDir, 'ledger.json');
+  const ledger = loadLedger(ledgerPath);
+  let writeChain = Promise.resolve();
+  const persist = () => {
+    writeChain = writeChain.then(() => saveLedger(ledgerPath, ledger));
+    return writeChain;
+  };
+  const clipDir = path.join(outDir, 'clips');
+  const rawDir = path.join(outDir, 'raw');
+  const checkDir = path.join(outDir, 'check');
+  fs.mkdirSync(clipDir, {recursive: true});
+  fs.mkdirSync(rawDir, {recursive: true});
+  fs.mkdirSync(checkDir, {recursive: true});
+  const preset = doc.provider === 'placeholder' ? 'ultrafast' : 'veryfast';
+  // 动效段不生成、不进账本：合成时直接画
+  const aiClips = plan.clips.filter((c) => c.source !== 'motion');
+  if (only && plan.clips.some((c) => c.id === only && c.source === 'motion')) {
+    const err = new Error(`${only} 是动效画面，不用生成，也不进账本。改了它的字直接重新出片就行。`);
+    err.exitCode = 2;
+    throw err;
+  }
+  const selected = only ? aiClips.filter((c) => c.id === only) : aiClips;
+  if (only && !selected.length) {
+    const err = new Error(`--only ${only} 不在这份计划里。先看 broll.plan.json 里的 id。`);
+    err.exitCode = 2;
+    throw err;
+  }
+
+  // 占位片 / 本地文件不许盖掉已经花钱生成的片段（漏写 --provider minimax-h3 再跑一次，就会把付费片和账本悄悄换成占位版）
+  if (doc.provider !== 'minimax-h3') {
+    const paid = aiClips.filter((c) => isPaidEntry(ledger.clips[c.id])).map((c) => c.id);
+    if (paid.length) {
+      const err = new Error(
+        `这个输出目录里已经有 MiniMax H3 生成的付费片段（${paid.join('、')}），现在的来源是 ${doc.provider}，接着跑会把它们换成${doc.provider === 'placeholder' ? '占位片' : '本地文件'}。没有生成，也没有改账本。\n→ 怎么改：要接着用付费片段，命令里加回 --provider minimax-h3；只想看占位排版，换一个 --out 目录。`,
+      );
+      err.exitCode = 2;
+      throw err;
+    }
+  }
+
+  const h3 = doc.provider === 'minimax-h3' && selected.length ? client ?? createH3Client({pollMs, timeoutMs, sleep, log}) : null;
+  const refs = references ?? [];
+  /** 这一段送哪些参考图：计划里按 look 选好的（v2），没有就用调用方给的（v1 / 测试）。 */
+  const refsOf = (clip) => (Array.isArray(clip.refs) && clip.refs.length ? clip.refs : refs);
+  const v2 = doc.version === 2;
+
+  let submittedNow = 0;
+  const runOne = async (clip) => {
+    const prev = ledger.clips[clip.id] ?? null;
+    if (!h3) {
+      const ops = {
+        submit() {
+          if (doc.provider === 'placeholder') {
+            const dest = path.join(rawDir, `${clip.id}.mp4`);
+            renderPlaceholder({
+              id: clip.id,
+              plain: clip.plain,
+              sentence: clip.sentence,
+              width: plan.width,
+              height: plan.height,
+              frames: framesFor(clip.windowMs[1] - clip.windowMs[0], 30),
+              dest,
+            });
+            log(`生成 ${clip.id}（占位片，${clip.genSec} 秒）`);
+            return {taskId: `placeholder-${clip.id}-${clip.requestHash.slice(0, 8)}`, provider: doc.provider, file: relTo(outDir, dest)};
+          }
+          const got = prepareLocal({file: clip.file, projectDir, windowSec: clip.windowSec});
+          log(`采用本地文件 ${clip.id}`);
+          return {taskId: `local-${clip.id}-${clip.requestHash.slice(0, 8)}`, provider: doc.provider, file: got.abs};
+        },
+        query(entry) {
+          const abs = path.isAbsolute(entry.file || '') ? entry.file : path.resolve(outDir, entry.file || '');
+          if (entry.file && fs.existsSync(abs)) return {status: 'downloaded', file: entry.file};
+          return {status: 'submitted'};
+        },
+        check(entry) {
+          return runCheck(clip, entry);
+        },
+      };
+      const step = await resumeClip(prev, clip.requestHash, ops);
+      if (!step.entry.generatedAt) step.entry.generatedAt = step.entry.updatedAt;
+      ledger.clips[clip.id] = step.entry;
+      await persist();
+      if (step.action === 'reuse') log(`复用 ${clip.id}（请求没变，不重新生成）`);
+      return;
+    }
+
+    let action = decidePaid(prev, clip.requestHash, {redo: only === clip.id});
+    if (action === 'stuck') {
+      const err = new Error(`${clip.id} 上次提交结果不明（${prev.status}），不重提。请人工核对后再说。`);
+      err.exitCode = 4;
+      throw err;
+    }
+    if (action === 'hold') {
+      const err = new Error(holdMessage(clip.id, prev, redoCmd(clip.id)));
+      err.exitCode = 4;
+      throw err;
+    }
+    if (action === 'reuse') {
+      log(`复用 ${clip.id}（请求没变，不重新生成）`);
+      return;
+    }
+    if (action === 'redo' || action === 'submit') {
+      // 参考图要在写「提交中」账本之前查：不然缺图的失败会被记成 submit_failed（HOLD），补图后还会白占一次重做次数
+      const list = refsOf(clip);
+      const missing = list.filter((p) => !fs.existsSync(p));
+      if (!list.length || missing.length) {
+        const sid = clip.styleId || doc.style;
+        const what = list.length ? `缺参考图 ${missing.map((p) => path.basename(p)).join('、')}` : '没有参考图';
+        const err = new Error(`${clip.id}：风格 ${sid} ${what}，这一版还不能用它真生成。这一段没有提交，也没有花钱。下一步：换一个已经有参考图的风格，或把这几段改成动效画面 / 留脸，或先用 --provider placeholder 出占位版。参考图由项目维护者出好、随新版本发布，普通用户不用自己出。（维护者出图：node scripts/broll/make-style-refs.mjs --style ${sid} --dry-run）`);
+        err.exitCode = 2;
+        throw err;
+      }
+    }
+    if (action === 'redo') {
+      const redoCount = nextRedoCount(prev, {force: forceRedo, id: clip.id, log});
+      const entry = {
+        requestHash: clip.requestHash,
+        provider: doc.provider,
+        status: 'submitting',
+        taskId: null,
+        file: null,
+        redoCount,
+        estimateYuan: clip.costYuan,
+        genSec: clip.genSec,
+        quality: plan.quality,
+        updatedAt: now(),
+      };
+      ledger.clips[clip.id] = entry;
+      await persist();
+      await submitPaid(clip, entry);
+      return;
+    }
+    if (action === 'submit') {
+      const entry = {
+        requestHash: clip.requestHash,
+        provider: doc.provider,
+        status: 'submitting',
+        taskId: null,
+        file: null,
+        redoCount: 0,
+        estimateYuan: clip.costYuan,
+        genSec: clip.genSec,
+        quality: plan.quality,
+        updatedAt: now(),
+      };
+      ledger.clips[clip.id] = entry;
+      await persist();
+      await submitPaid(clip, entry);
+      return;
+    }
+    if (action === 'query') {
+      log(`续跑 ${clip.id}，task id ${prev.taskId}，只查不重提`);
+      await finishPaid(clip, prev);
+      return;
+    }
+    if (action === 'check') {
+      const checked = runCheck(clip, prev);
+      ledger.clips[clip.id] = {...prev, ...checked, status: 'checked', updatedAt: now()};
+      await persist();
+    }
+  };
+
+  const runCheck = (clip, entry) => {
+    const src = path.isAbsolute(entry.file || '') ? entry.file : path.resolve(outDir, entry.file || '');
+    const dest = path.join(clipDir, `${clip.id}.mp4`);
+    const done = checkClip({
+      src,
+      dest,
+      frames: framesFor(clip.windowMs[1] - clip.windowMs[0], 30),
+      width: plan.width,
+      height: plan.height,
+      frameDir: checkDir,
+      id: clip.id,
+      preset,
+      crf: 18,
+      freezeNoise: Number.isFinite(clip.freezeNoise) ? clip.freezeNoise : DEFAULT_FREEZE_NOISE,
+    });
+    if (done.meta.black > 0) throw Object.assign(new Error(`${clip.id} 有黑帧（${done.meta.black} 段）。换一段画面，或检查源文件是不是黑的。`), {exitCode: 4});
+    if (done.meta.freeze > 0) throw Object.assign(new Error(`${clip.id} 有静帧（${done.meta.freeze} 段）。画面要有变化。`), {exitCode: 4});
+    log(`检查 ${clip.id}：${done.meta.durationSec.toFixed(2)} 秒，黑帧 0，静帧 0`);
+    const meta = {black: done.meta.black, freeze: done.meta.freeze, durationSec: done.meta.durationSec};
+    return {file: relTo(outDir, dest), meta, check: meta, generatedAt: entry.generatedAt ?? now()};
+  };
+
+  const submitPaid = async (clip, entry) => {
+    let taskId;
+    try {
+      // version 2 的提示词开头已经写了「图1是角色参考，图2是材质参考」，不再加 v0.8 的前缀；version 1 照旧
+      taskId = await h3.submit({
+        prompt: v2 ? clip.prompt : `参考所附参考图的材质和机器人造型。${clip.prompt}`,
+        refs: refsOf(clip),
+        resolution: plan.quality,
+        duration: clip.genSec,
+        ratio: plan.aspect,
+        promptExpansion: clip.promptExpansion ?? null,
+        styleId: clip.styleId || doc.style,
+      });
+    } catch (e) {
+      entry.status = statusOf(e);
+      entry.error = {code: e.code || 'API', message: e.message};
+      entry.updatedAt = now();
+      ledger.clips[clip.id] = entry;
+      await persist();
+      if (!e.exitCode) e.exitCode = 4;
+      // 提交前就被拒（参数错误这类）：当场说清没花钱，以及改好后怎么只重做这一段
+      if (entry.status === 'submit_failed' && e.code !== 'SERVER') {
+        const again = only === clip.id ? '' : '再跑同一条命令不会自动重做这一段；';
+        e.message = `${clip.id} 没提交成功：${String(e.message).replace(/[。.\s]+$/, '')}。\n这次没有生成、没有扣费（没有拿到 task id）。${again}先按上面的原因改好，再跑下面这条，只重做这一段：\n  ${redoCmd(clip.id)}`;
+      }
+      throw e;
+    }
+    entry.taskId = taskId;
+    entry.status = 'submitted';
+    entry.submittedAt = now();
+    entry.updatedAt = entry.submittedAt;
+    entry.error = null;
+    ledger.clips[clip.id] = entry;
+    await persist();
+    log(`提交 ${clip.id}，task id ${taskId}`);
+    submittedNow += 1;
+    if (haltAfterSubmits && submittedNow >= haltAfterSubmits) {
+      log(`已提交 ${submittedNow} 段，停在这里`);
+      await new Promise(() => {});
+    }
+    await finishPaid(clip, entry);
+  };
+
+  const finishPaid = async (clip, entry) => {
+    let task;
+    try {
+      task = await h3.poll(entry.taskId, entry.submittedAt || entry.updatedAt);
+    } catch (e) {
+      entry.updatedAt = now();
+      ledger.clips[clip.id] = entry;
+      await persist();
+      const err = new Error(`${clip.id} 查询失败：${e.message}。task id ${entry.taskId} 已保留，再跑同一条命令会继续查，不会重新提交。`);
+      err.exitCode = 4;
+      throw err;
+    }
+    if (task.status === 'timeout') {
+      entry.status = 'timeout';
+      entry.updatedAt = now();
+      ledger.clips[clip.id] = entry;
+      await persist();
+      const err = new Error(`${clip.id} 超过 30 分钟。task id ${entry.taskId} 已保留，再跑会继续查，不会重新提交。`);
+      err.exitCode = 4;
+      throw err;
+    }
+    if (task.status === 'failed' || task.status === 'cancelled') {
+      const fail = taskFailure(task, '');
+      entry.status = fail.code === 'MODERATION' ? 'moderation' : task.status === 'cancelled' ? 'cancelled' : 'failed';
+      entry.error = {code: fail.code, message: fail.message};
+      entry.updatedAt = now();
+      ledger.clips[clip.id] = entry;
+      await persist();
+      fail.exitCode = 4;
+      throw fail;
+    }
+    entry.status = 'succeeded';
+    entry.outputSeconds = Number(task.outputSeconds ?? clip.genSec);
+    entry.costYuan = clipCost(doc.provider, plan.quality, entry.outputSeconds);
+    entry.elapsedSec = task.elapsedSec ?? null;
+    entry.usage = {output_seconds: task.outputSeconds ?? null, input_image_count: task.inputImageCount ?? null};
+    entry.updatedAt = now();
+    ledger.clips[clip.id] = entry;
+    await persist();
+    const raw = path.join(rawDir, `${clip.id}.mp4`);
+    let bytes;
+    try {
+      bytes = await h3.download(entry.taskId, raw, task.url);
+    } catch (e) {
+      entry.updatedAt = now();
+      ledger.clips[clip.id] = entry;
+      await persist();
+      const err = new Error(`${clip.id} 下载失败：${e.message}。task id ${entry.taskId} 还在，再跑会重新查询新链接，不会重新生成。`);
+      err.exitCode = 4;
+      throw err;
+    }
+    entry.status = 'downloaded';
+    entry.file = relTo(outDir, raw);
+    entry.bytes = bytes;
+    entry.generatedAt = entry.generatedAt ?? now();
+    entry.updatedAt = now();
+    ledger.clips[clip.id] = entry;
+    await persist();
+    const spent = task.elapsedSec != null ? `，服务器耗时 ${task.elapsedSec} 秒` : '';
+    log(`${clip.id} 完成${spent}，计费 ${entry.outputSeconds} 秒，按价目表 ${entry.costYuan} 元`);
+    const checked = runCheck(clip, entry);
+    ledger.clips[clip.id] = {...entry, ...checked, status: 'checked', updatedAt: now()};
+    await persist();
+  };
+
+  try {
+    await mapPool(selected, Math.max(1, concurrency), runOne);
+  } catch (e) {
+    await persist();
+    throw e;
+  }
+  return ledger;
+};

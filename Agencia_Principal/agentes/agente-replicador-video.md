@@ -26,6 +26,9 @@ Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear 
 - `reference-video-replication`: flujo metodológico para extracción de métricas, ledger de escenas y reconstrucción en Remotion.
 - `pipeline-produccion-video`: arquitectura de proyectos auto-contenidos bajo `video-studio/projects/`.
 - `remotion-render-qa`: verificación comparativa cuadro a cuadro con respecto a la referencia.
+- `remotion-markup`: reproducción fidedigna de animaciones y transformaciones en Remotion.
+- `remotion-captions`: sincronización y animación de subtítulos extraídos de la referencia.
+- `make-awesome-video`: análisis de referencia, descomposición plano a plano y beat sync.
 
 ## Entrega
 - Manifiesto de referencia: `reference-manifest.json`.

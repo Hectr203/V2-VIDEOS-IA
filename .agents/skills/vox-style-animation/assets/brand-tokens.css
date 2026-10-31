@@ -1,0 +1,192 @@
+/* ============================================================================
+   VOX-STYLE ANIMATION — brand tokens
+   The "printed, not lit" register: cream paper, ink, one yellow marker, and
+   two signal colors. See SKILL.md for the palette rules and references/
+   motion-vocabulary.md for how each class is animated.
+
+   Every color owns exactly ONE meaning — don't add a sixth hue, and don't let
+   red and cobalt share a beat (that collision is the story's "turn").
+   ============================================================================ */
+
+:root {
+  --paper: #f2ecdf;        /* the canvas / the page — background of every scene */
+  --paper-deep: #e9e1cf;   /* sheet-wipe + recessed paper */
+  --ink: #161513;          /* structure / the narrator's voice — type, outlines */
+  --vox-yellow: #ffd200;   /* emphasis / the highlighter — ONE key word per scene */
+  --signal-red: #e5483f;   /* the old world / cost / friction / negation */
+  --cobalt: #2f5fe8;       /* the new capability / the thing that replaces the old */
+
+  /* Hard offset shadow = print depth. Never a soft blur/glow (wrong register). */
+  --shadow-hard: 10px 12px 0 rgba(22, 21, 19, 0.16);
+  --shadow-hard-sm: 5px 6px 0 rgba(22, 21, 19, 0.16);
+}
+
+/* ---------- stage ---------- */
+.paper-stage {
+  position: absolute;
+  inset: 0;
+  background: var(--paper);
+  overflow: hidden;
+}
+
+/* faint print-edge darkening — the Vox version of a vignette (very subtle) */
+.paper-edge {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 62%, rgba(22, 21, 19, 0.07) 100%);
+}
+
+/* deterministic paper grain — pure CSS, no PNG. On every scene. */
+.paper-grain,
+.grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.55;
+  background-image:
+    radial-gradient(circle at 1px 1px, rgba(22, 21, 19, 0.05) 1px, transparent 0),
+    radial-gradient(circle at 3px 2px, rgba(22, 21, 19, 0.035) 1px, transparent 0),
+    radial-gradient(circle at 2px 5px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+  background-size: 3px 3px, 5px 5px, 7px 7px;
+}
+
+/* halftone dot field — the unifying section texture (replaces grids/crosshairs).
+   In the timeline, pan this with ease "steps(duration*12)" — the 12fps "Vox
+   stutter" lives ONLY here (and on hand-drawn pen strokes), never on hero type. */
+.dot-field,
+.dots {
+  position: absolute;
+  pointer-events: none;
+  background-image: radial-gradient(circle, rgba(22, 21, 19, 0.13) 2.2px, transparent 2.6px);
+  background-size: 18px 18px;
+}
+.dot-field.coarse {
+  background-image: radial-gradient(circle, rgba(22, 21, 19, 0.10) 3.5px, transparent 4px);
+  background-size: 30px 30px;
+}
+
+/* ---------- type ---------- */
+.headline {
+  font-family: 'Archivo Black', sans-serif;
+  color: var(--ink);
+  line-height: 0.98;
+  letter-spacing: -0.01em;
+  text-transform: uppercase;
+}
+.editorial {
+  font-family: 'Inter', sans-serif;
+  font-weight: 500;
+  color: var(--ink);
+}
+.scribble {
+  font-family: 'Caveat', cursive;
+  font-weight: 700;
+  color: var(--ink);
+}
+
+/* word-reveal unit (key each .w to a Whisper onset in the timeline) */
+.w {
+  display: inline-block;
+  white-space: pre;
+}
+
+/* highlighter swipe — yellow block behind a key word.
+   Animate .hl-block / --hl-x scaleX 0->1 from the left, 0.45s power2.out.
+   NEVER color-change the text itself — the marker is the whole device. */
+.hl {
+  position: relative;
+  z-index: 0;
+}
+.hl::before,
+.hl-block {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 6% -0.12em -4% -0.12em;
+  background: var(--vox-yellow);
+  transform: scaleX(var(--hl-x, 0));
+  transform-origin: left center;
+}
+
+/* red strike bar — animate scaleX 0->1 in the timeline, 2.5deg tilt.
+   The strike carries ALL negation — never print the word "NOT"/"NO". */
+.strike {
+  position: absolute;
+  height: 0.14em;
+  left: -2%;
+  right: -2%;
+  top: 48%;
+  background: var(--signal-red);
+  transform: rotate(-2.5deg) scaleX(0);
+  transform-origin: left center;
+  border-radius: 2px;
+}
+
+/* ---------- collage furniture ---------- */
+/* Cards/badges settle CROOKED (±0.4–0.8°) — editorial imperfection, never
+   perfectly straight (that reads as an ad, not editorial). */
+.card {
+  position: absolute;
+  background: #fff;
+  border: 4px solid var(--ink);
+  box-shadow: var(--shadow-hard);
+}
+.card.red { border-color: var(--signal-red); }
+.card.cobalt { border-color: var(--cobalt); }
+
+.badge {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--paper-deep);
+  border: 6px solid var(--ink);
+  box-shadow: var(--shadow-hard);
+  overflow: hidden;
+}
+.badge img { width: 100%; height: 100%; display: block; }
+.badge.ring-yellow { border-color: var(--vox-yellow); }
+.badge.ring-cobalt { border-color: var(--cobalt); }
+
+/* full-width paper sheet — the ONE transition device (the collage-wipe).
+   Slide translateX across the cut at ~0.4s power3.in. Same device every time. */
+.sheet-wipe {
+  position: absolute;
+  inset: -5% -110% -5% -110%;
+  background: var(--paper-deep);
+  border-left: 6px solid var(--ink);
+  border-right: 6px solid var(--ink);
+  transform: translateX(-100%);
+}
+
+/* node (new-era / cobalt) — bloom in with scale 0->1 back.out(1.6) + a
+   cobalt connector line drawn via stroke-dashoffset */
+.node {
+  position: absolute;
+  border-radius: 50%;
+  background: #fff;
+  border: 4px solid var(--cobalt);
+  box-shadow: var(--shadow-hard-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: var(--ink);
+  text-align: center;
+}
+
+/* box (old-era / red) — the thing that folds away or gets struck out */
+.dept {
+  position: absolute;
+  background: #fff;
+  border: 4px solid var(--signal-red);
+  box-shadow: var(--shadow-hard-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Inter', sans-serif;
+  font-weight: 700;
+  color: var(--ink);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}

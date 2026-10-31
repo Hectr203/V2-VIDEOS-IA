@@ -1,0 +1,54 @@
+# dependencies / build
+node_modules/
+template/out/
+out/
+template/public/_run/
+template/public/_dev/
+# 出片时临时复制的自由镜头（跑完删；崩溃残留也不提交）
+template/src/shots/_custom/*/
+template/.render.lock
+
+# rendered videos (don't commit; examples ship as images instead)
+*.mp4
+*.mov
+
+# per-project cache written next to talk.mp4 (transcription cache, normalized talk, cues lock)
+.brewreel/
+
+# style reference candidates from make-style-refs --n (pick one, rename, then commit)
+broll/styles/*/refs/*.cand-*.jpg
+
+# style factory drafts — approve-style.mjs copies the chosen pack into broll/styles/<id>/
+broll/styles/_drafts/
+
+# env / secrets
+.env
+.env.*
+.privacy-denylist.local
+
+# test / render scratch output — never commit it.
+# make.mjs --round writes to ../promo-video-skill-tests/<round>/<slug>/ (outside the repo);
+# anything else that lands in promo/ or tests/ (except the regression fixtures) stays local.
+promo/
+/promo-video-skill-tests/
+tests/*
+!tests/rules/
+!tests/validate/
+!tests/originality/
+!tests/broll/
+!tests/lesson/
+tests/**/video.mp4
+tests/**/*.log
+*.rejected.mp4
+
+# OS / editor
+.DS_Store
+Thumbs.db
+
+# Remotion 渲染时在仓库里下载的浏览器缓存
+.remotion/
+
+# 讲课角色档案和成片默认写在仓库外；若被放进仓库，不要提交
+/brewreel-data/
+/brewreel-studio-data/
+/brewreel-studio-out/

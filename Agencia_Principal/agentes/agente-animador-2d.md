@@ -36,6 +36,11 @@ Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear 
 - `animacion-2d-remotion`: para rigging de personajes, cinemática inversa, matemáticas de interpolación y shaders/efectos SVG.
 - `pipeline-produccion-video`: para el flujo estandarizado de producción y verificación de calidad.
 - `design-and-motion`: para coherencia de diseño, contraste y accesibilidad cromática.
+- `remotion-best-practices`: directrices canónicas de Remotion, previsualización en Studio y aislamiento de frames.
+- `remotion-markup`: uso de propiedades directas `scale`/`translate`/`rotate`, `output: 'perceptual-scale'` y resortes.
+- `remotion-captions`: subtítulos cinéticos sincronizados palabra a palabra con la voz narradora.
+- `character-animation-engine`: principios de animación viva para erradicar figuras rígidas y dar expresividad orgánica.
+- `motion-design`: principios clásicos de Disney (squash & stretch, anticipación, arcos y timing).
 
 ## Entrega
 - Proyecto 100% auto-contenido en `video-studio/projects/<nombre-del-proyecto>/`:

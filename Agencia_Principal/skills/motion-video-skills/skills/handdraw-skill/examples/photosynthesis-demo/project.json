@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "project": { "title": "光合作用：植物如何制造能量", "width": 1920, "height": 1080, "fps": 30, "background": "#fffdf8" },
+  "audio": {
+    "narration": [
+      { "text": "阳光照在绿叶上。", "start": 0.5, "voice": "zh-CN-XiaoxiaoNeural", "rate": "+0%" },
+      { "text": "二氧化碳和水，进入叶片。", "start": 5.5, "voice": "zh-CN-XiaoxiaoNeural", "rate": "+0%" },
+      { "text": "植物把它们变成糖分和氧气。", "start": 10.5, "voice": "zh-CN-XiaoxiaoNeural", "rate": "+0%" }
+    ]
+  },
+  "scenes": [
+    {
+      "id": "sunlight", "duration": 5,
+      "objects": [
+        { "id": "sun", "kind": "svg", "asset": "sun.svg", "x": 120, "y": 150, "width": 260, "height": 260, "animations": [{ "type": "draw", "start": 0, "duration": 1.6 }, { "type": "scale", "start": 1.6, "duration": 0.8, "to": 1.12 }] },
+        { "id": "leaf", "kind": "svg", "asset": "leaf.svg", "x": 1220, "y": 230, "width": 380, "height": 380, "animations": [{ "type": "draw", "start": 1.4, "duration": 2 }] },
+        { "id": "ray", "kind": "svg", "asset": "rays.svg", "x": 420, "y": 330, "width": 720, "height": 130, "animations": [{ "type": "draw", "start": 2.4, "duration": 1.6 }] },
+        { "id": "caption", "kind": "text", "text": "阳光照在绿叶上", "x": 600, "y": 730, "width": 900, "height": 70, "animations": [{ "type": "write", "start": 2.8, "duration": 1.5 }] }
+      ]
+    },
+    {
+      "id": "ingredients", "duration": 5,
+      "objects": [
+        { "id": "co2", "kind": "svg", "asset": "co2.svg", "x": 190, "y": 250, "width": 270, "height": 200, "animations": [{ "type": "draw", "start": 0, "duration": 1.3 }, { "type": "move", "start": 1.5, "duration": 1.4, "x": 380, "y": 20 }] },
+        { "id": "water", "kind": "svg", "asset": "water.svg", "x": 240, "y": 580, "width": 210, "height": 250, "animations": [{ "type": "draw", "start": 0.8, "duration": 1.3 }, { "type": "move", "start": 2.1, "duration": 1.3, "x": 320, "y": -100 }] },
+        { "id": "leaf", "kind": "svg", "asset": "leaf.svg", "x": 1120, "y": 250, "width": 400, "height": 400, "animations": [{ "type": "draw", "start": 1.6, "duration": 1.7 }, { "type": "highlight", "start": 3.3, "duration": 0.8 }] },
+        { "id": "caption", "kind": "text", "text": "二氧化碳和水，进入叶片", "x": 500, "y": 800, "width": 1100, "height": 65, "animations": [{ "type": "write", "start": 2.5, "duration": 1.8 }] }
+      ]
+    },
+    {
+      "id": "energy", "duration": 5,
+      "objects": [
+        { "id": "leaf", "kind": "svg", "asset": "leaf.svg", "x": 210, "y": 230, "width": 360, "height": 360, "animations": [{ "type": "draw", "start": 0, "duration": 1.5 }] },
+        { "id": "arrow", "kind": "svg", "asset": "arrow.svg", "x": 620, "y": 370, "width": 310, "height": 100, "animations": [{ "type": "draw", "start": 1.2, "duration": 1 }] },
+        { "id": "sugar", "kind": "svg", "asset": "sugar.svg", "x": 1080, "y": 230, "width": 330, "height": 330, "animations": [{ "type": "draw", "start": 2.1, "duration": 1.5 }, { "type": "scale", "start": 3.6, "duration": 0.7, "to": 1.08 }] },
+        { "id": "caption", "kind": "text", "text": "植物把它们变成糖分和氧气！", "x": 430, "y": 800, "width": 1200, "height": 65, "animations": [{ "type": "write", "start": 3, "duration": 1.5 }] }
+      ]
+    }
+  ]
+}

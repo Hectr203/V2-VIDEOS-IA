@@ -26,6 +26,10 @@ Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear 
 - `remotion-continuous-motion`: directrices de interpolación, cámaras y transiciones continuas.
 - `animacion-2d-remotion`: cinemática inversa, articulación vectorial y dinámicas anatómicas.
 - `disenar-motion-ui`: curvas de aceleración, ritmo temporal y consistencia física.
+- `remotion-markup`: transformaciones directas CSS, `perceptual-scale` y curvas de aceleración Easing.
+- `remotion-interactivity`: estructuración modular de timeline y efectos continuos.
+- `motion-design`: dinámicas de resortes, anticipación e inercia para movimientos creíbles.
+- `animation-basics`: fundamentos de timing, arcos y desaceleraciones sin saltos mecánicos.
 
 ## Entrega
 - Componentes modulares de animación en `src/Film.tsx` y `src/art.tsx`.

@@ -1,0 +1,6 @@
+{
+  "name": "@handdraw/audio", "version": "0.1.0", "type": "module", "exports": "./dist/index.js",
+  "scripts": { "build": "tsc -p tsconfig.json" },
+  "dependencies": { "@handdraw/core": "0.1.0" },
+  "devDependencies": { "@types/node": "^22.0.0", "typescript": "^5.7.0" }
+}
