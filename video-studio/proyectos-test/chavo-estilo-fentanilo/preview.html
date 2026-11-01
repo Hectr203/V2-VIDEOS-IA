@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>El Chavo del 8 — Estilo Fentanilo</title>
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #1a120a; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; font-family: 'Inter', system-ui, sans-serif; color: #fce4cd; }
+    h1 { font-size: 1.4rem; margin: 1.2rem 0 .6rem; letter-spacing: .08em; text-transform: uppercase; opacity: .85; }
+    .stage { border: 2px solid #3a2818; border-radius: 12px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,.45); }
+    .controls { margin: 1rem 0; display: flex; gap: 1rem; align-items: center; }
+    button { background: #e84534; border: none; padding: .5rem 1.2rem; border-radius: 6px; color: white; font-size: .9rem; cursor: pointer; font-weight: 600; }
+    button:hover { background: #f0523f; }
+    select { background: #2a1a0c; color: #fce4cd; border: 1px solid #5a3d24; padding: .4rem .8rem; border-radius: 6px; font-size: .9rem; }
+    .info { font-size: .75rem; opacity: .5; margin-top: .5rem; }
+  </style>
+</head>
+<body>
+  <h1>🎭 El Chavo del 8 — Estilo Fentanilo</h1>
+  <div class="stage">
+    <svg id="canvas" viewBox="0 0 720 1280" width="360" height="640"></svg>
+  </div>
+  <div class="controls">
+    <button id="playBtn">⏸ Pausar</button>
+    <select id="poseSelect">
+      <option value="idle">Parado (idle)</option>
+      <option value="seated" selected>Sentado con carrito</option>
+      <option value="barrel_peek">Asomado en barril</option>
+      <option value="eso_eso">Eso eso eso!</option>
+    </select>
+    <select id="moodSelect">
+      <option value="neutral" selected>Neutral</option>
+      <option value="talk">Hablando</option>
+      <option value="smile">Sonriente</option>
+      <option value="crying">Llorando (pipipipi)</option>
+      <option value="scared">Asustado</option>
+      <option value="determined">Determinado</option>
+    </select>
+  </div>
+  <p class="info">Canvas 720×1280 a 60fps — Estilo vectorial gradiente inspirado en proyecto Fentanilo</p>
+
+  <script>
+    const svg = document.getElementById('canvas');
+    const playBtn = document.getElementById('playBtn');
+    const poseSelect = document.getElementById('poseSelect');
+    const moodSelect = document.getElementById('moodSelect');
+    let frame = 0;
+    let playing = true;
+
+    playBtn.addEventListener('click', () => {
+      playing = !playing;
+      playBtn.textContent = playing ? '⏸ Pausar' : '▶ Reproducir';
+    });
+
+    const clamp = (n, lo=0, hi=1) => Math.min(hi, Math.max(lo, n));
+    const wave = (f, speed=.06, amount=1, phase=0) => Math.sin(f * speed + phase) * amount;
+    const seeded = (n) => { const a = Math.sin(n * 127.1 + 311.7) * 43758.5453; return a - Math.floor(a); };
+
+    function joint(ax,ay,bx,by,l1,l2,bend) {
+      const dx=bx-ax, dy=by-ay;
+      const d=clamp(Math.hypot(dx,dy),1,l1+l2-.01);
+      const angle=Math.atan2(dy,dx)+bend*Math.acos(clamp((l1*l1+d*d-l2*l2)/(2*l1*d),-1,1));
+      return {x:ax+Math.cos(angle)*l1,y:ay+Math.sin(angle)*l1};
+    }
+
+    function spark(x,y,size=12,opacity=1,color='#fff8d9') {
+      return `<path d="M ${x} ${y-size} Q ${x+2} ${y-2} ${x+size} ${y} Q ${x+2} ${y+2} ${x} ${y+size} Q ${x-2} ${y+2} ${x-size} ${y} Q ${x-2} ${y-2} ${x} ${y-size}" fill="${color}" opacity="${opacity}"/>`;
+    }
+
+    function render(f) {
+      const pose = poseSelect.value;
+      const mood = moodSelect.value;
+      const seated = pose === 'seated';
+      const bob = wave(f, .055, seated?1.5:3);
+      const sway = wave(f, .032, seated?.8:1.4);
+      const breatheS = wave(f, .075, .009);
+      const cryT = mood === 'crying' ? wave(f,.45,2) : 0;
+      const blink = f%120 > 113 ? clamp(Math.abs(f%120-116)/3) : 1;
+      const isTalking = mood === 'talk';
+      const mouthOpen = isTalking ? Math.abs(wave(f,.35,5)) : 0;
+
+      const handLx = seated?-60:-97+wave(f,.05,4), handLy = seated?80:113;
+      const handRx = seated?85:101+wave(f,.05,4,2), handRy = seated?75:110;
+      const footLx = seated?-65:-57, footLy = seated?260:333;
+      const footRx = seated?80:52, footRy = seated?230:333;
+
+      function arm(side,ex,ey) {
+        const ax=side*55, ay=-102;
+        const b = joint(ax,ay,ex,ey,100,108,side);
+        return `
+          <path d="M${ax} ${ay} Q${b.x} ${b.y} ${b.x} ${b.y} L${ex} ${ey}" stroke="#a85636" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <path d="M${ax-2} ${ay-2} L${b.x-2} ${b.y-2} L${ex-2} ${ey-2}" stroke="#ce804a" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <ellipse cx="${ex}" cy="${ey-3}" rx="17" ry="20" fill="#ce804a"/>
+          <path d="M${ex-7} ${ey-8} l1-9 m6 8 1-9 m5 10 1-8" stroke="#a95f3b" stroke-width="2" stroke-linecap="round" fill="none"/>
+          <circle cx="${b.x-2}" cy="${b.y-2}" r="6" fill="#e8a36b" opacity=".28"/>`;
+      }
+
+      function leg(side,ex,ey) {
+        const hx=side*37, hy=80;
+        const k = joint(hx,hy,ex,ey,120,115,side);
+        return `
+          <path d="M${hx} ${hy} L${k.x} ${k.y} L${ex} ${ey-16}" stroke="#a95936" stroke-width="38" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M${hx-3} ${hy} L${k.x-3} ${k.y} L${ex-3} ${ey-16}" stroke="#d98d4c" stroke-width="28" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+          <ellipse cx="${k.x-3}" cy="${k.y}" rx="10" ry="7" fill="#efb16f" opacity=".42"/>
+          <g transform="translate(${ex} ${ey}) rotate(${side*4})">
+            <path d="M-16-12 Q-4-18 12-12 L22 6 Q26 18 8 22 L-14 20 Q-22 12-16-12" fill="#6e4a2c"/>
+            <path d="M-16-10 Q-3-14 8-8 L10 12 Q-5 20-17 10Z" fill="#8c6340"/>
+          </g>`;
+      }
+
+      // Eyes
+      function eyes() {
+        const closed = mood === 'crying';
+        let html = '';
+        [-1,1].forEach(side => {
+          html += `<g transform="translate(${side*26} 0)">`;
+          if (closed) {
+            html += `<path d="M-11-2 Q0 8 11-2" stroke="#30243c" stroke-width="4.5" stroke-linecap="round" fill="none"/>`;
+          } else {
+            html += `<g transform="scale(1 ${Math.max(.06,blink)})">
+              <ellipse rx="13" ry="16" fill="#fffbed"/>
+              <ellipse cx="${side===-1?2:0}" cy="2" rx="7.5" ry="11" fill="#1e150f"/>
+              <circle cx="-2" cy="-4" r="3.5" fill="white"/>
+            </g>`;
+          }
+          const browD = mood==='scared'?'M-12-25 Q0-18 12-28':mood==='determined'?'M-12-28 Q0-32 12-24':mood==='crying'?'M-12-18 Q0-28 12-18':'M-12-24 Q0-30 12-25';
+          html += `<path d="${browD}" ${side===1?'transform="scale(-1 1)"':''} stroke="#2a1e14" stroke-width="5" fill="none" stroke-linecap="round"/>`;
+          html += `<ellipse cy="22" cx="${side*5}" rx="10" ry="5.5" fill="#ef7899" opacity=".35"/></g>`;
+        });
+        // Nose
+        html += `<path d="M-2 13 Q-7 26 5 22" stroke="#b5704a" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+        // Mouth
+        if (mood === 'crying') html += `<path d="M-10 34 Q0 22 10 34" fill="none" stroke="#5c2941" stroke-width="4" stroke-linecap="round"/>`;
+        else if (mood === 'smile') html += `<path d="M-14 28 Q0 40 14 28 Q10 50 0 49 Q-11 48-14 28" fill="#682a4b"/><path d="M-8 42 Q0 36 8 42 Q0 52-8 42" fill="#f27b9c"/>`;
+        else if (isTalking) html += `<ellipse cx="0" cy="34" rx="${8+mouthOpen}" ry="${3+mouthOpen*1.2}" fill="#682a4b" stroke="#4a1d33" stroke-width="2"/>`;
+        else html += `<path d="M-9 32 Q0 37 9 32" fill="none" stroke="#5c3a2a" stroke-width="3.5" stroke-linecap="round"/>`;
+        // Tears
+        if (mood === 'crying') {
+          html += `<ellipse cx="-18" cy="${28+(f*3.5)%50}" rx="3" ry="5" fill="#87d4f5" opacity="${(.7-((f*3.5)%50)/80).toFixed(2)}"/>`;
+          html += `<ellipse cx="18" cy="${32+(f*3.2)%45}" rx="2.5" ry="4.5" fill="#87d4f5" opacity="${(.6-((f*3.2)%45)/70).toFixed(2)}"/>`;
+        }
+        return html;
+      }
+
+      // Build backdrop
+      let bg = `<rect width="720" height="1280" fill="url(#bg-vecindad)"/>`;
+      for (let i=0;i<10;i++) {
+        const yy = i*140-80+wave(f,.015,12,i);
+        bg += `<path d="M -60 ${yy} C ${100+wave(f,.01,50,i)} ${yy-100} 320 ${yy+160} 440 ${yy+70} S 640 ${yy-70} 800 ${yy+90}" stroke="${i%2?'#e8852a':'#ffc34c'}" stroke-width="${14+i%3*6}" opacity=".18" fill="none"/>`;
+      }
+      bg += `<rect x="0" y="900" width="720" height="380" fill="#a86a25" opacity=".45"/>`;
+      bg += `<line x1="0" y1="900" x2="720" y2="900" stroke="#6b3e15" stroke-width="4" opacity=".5"/>`;
+      for (let i=0;i<20;i++) {
+        const px=seeded(i+30)*720, py=(seeded(i+80)*1400-f*(.08+seeded(i)*.2)+14000)%1400-60;
+        bg += i%4===0
+          ? spark(px,py,3+seeded(i)*6,.15+Math.abs(wave(f,.025,.35,i)))
+          : `<circle cx="${px}" cy="${py}" r="${1+seeded(i)*3}" fill="#fff8be" opacity="${(.06+seeded(i)*.12).toFixed(3)}"/>`;
+      }
+
+      // Barrel
+      let barrel = '';
+      if (pose === 'seated' || pose === 'barrel_peek') {
+        const bx = seated?-180:-160, by = seated?-60:-40;
+        barrel = `<g transform="translate(${bx}, ${by})">
+          <ellipse cx="0" cy="310" rx="100" ry="22" fill="#000" opacity=".25"/>
+          <path d="M -75,-200 Q -105,40 -78,300 L 78,300 Q 105,40 75,-200 Z" fill="url(#barrel-wood)" stroke="#161514" stroke-width="5" stroke-linejoin="round"/>
+          <path d="M -42,-200 Q -65,40 -45,300" stroke="#351f0f" stroke-width="3" fill="none" opacity=".55"/>
+          <path d="M 15,-200 Q 22,40 15,300" stroke="#351f0f" stroke-width="3" fill="none" opacity=".55"/>
+          <path d="M 42,-200 Q 65,40 45,300" stroke="#351f0f" stroke-width="3" fill="none" opacity=".55"/>
+          <path d="M -78,-145 Q 0,-125 78,-145" stroke="#1a1816" stroke-width="18" fill="none" stroke-linecap="round"/>
+          <path d="M -92,-30 Q 0,-5 92,-30" stroke="#1a1816" stroke-width="20" fill="none" stroke-linecap="round"/>
+          <path d="M -92,120 Q 0,145 92,120" stroke="#1a1816" stroke-width="20" fill="none" stroke-linecap="round"/>
+          <path d="M -80,250 Q 0,272 80,250" stroke="#1a1816" stroke-width="20" fill="none" stroke-linecap="round"/>
+          <ellipse cx="0" cy="-200" rx="75" ry="17" fill="#361f10" stroke="#161514" stroke-width="5"/>
+          <ellipse cx="0" cy="-200" rx="64" ry="11" fill="#180e07"/>
+        </g>`;
+      }
+
+      // Toy car
+      let car = '';
+      if (seated) {
+        const crX = 80+wave(f,.1,.6), crY = handRy+10;
+        car = `<g transform="translate(${crX}, ${crY}) rotate(${wave(f,.08,2)})">
+          <rect x="-28" y="-14" width="56" height="24" rx="5" fill="#f0433a" stroke="#1e2126" stroke-width="3"/>
+          <rect x="-18" y="-12" width="20" height="12" rx="2" fill="#8ed5fa" opacity=".8"/>
+          <circle cx="-18" cy="12" r="6" fill="#1e2126"/><circle cx="-18" cy="12" r="3" fill="#555"/>
+          <circle cx="18" cy="12" r="6" fill="#1e2126"/><circle cx="18" cy="12" r="3" fill="#555"/>
+          <path d="M-26-11 Q-32-22-14-22 L16-22 Q32-22 28-11" fill="#f0433a" stroke="#1e2126" stroke-width="2"/>
+        </g>`;
+      }
+
+      // Hat
+      const hatFlapRot = wave(f,.06,1.5);
+      const hat = `<g transform="translate(0, -72)">
+        <path d="M-68 8 Q-72-30-48-52 Q-20-72 0-72 Q20-72 48-52 Q72-30 68 8Z" fill="url(#chavo-plaid)" stroke="#20241f" stroke-width="3"/>
+        <path d="M-55 6 Q-60 28-35 26 L35 26 Q60 28 55 6Z" fill="#474c46" stroke="#20241f" stroke-width="2.5"/>
+        <path d="M-48 10 Q0 18 48 10" stroke="#9da79c" stroke-width="3" fill="none" opacity=".5"/>
+        <path d="M-60 2 L-78 42 Q-80 58-68 62 L-52 58 L-48 8Z" fill="url(#chavo-plaid)" stroke="#20241f" stroke-width="2.5" transform="rotate(${hatFlapRot})"/>
+        <path d="M60 2 L78 42 Q80 58 68 62 L52 58 L48 8Z" fill="url(#chavo-plaid)" stroke="#20241f" stroke-width="2.5" transform="rotate(${-hatFlapRot})"/>
+        <path d="M-62 8 Q0 18 62 8" stroke="#20241f" stroke-width="5" fill="none"/>
+      </g>`;
+
+      // Shirt stripes (cream bands)
+      let stripes = '';
+      [-105,-55,-5,45].forEach(yy => {
+        stripes += `<rect x="-95" y="${yy}" width="190" height="25" fill="#eae5dc" opacity=".85"/>`;
+      });
+
+      // Assemble character
+      const headRot = wave(f-6,.04,1.4)+cryT*0.5;
+
+      let html = `
+        <defs>
+          <radialGradient id="bg-vecindad" cx="50%" cy="38%" r="75%"><stop stop-color="#ffc85a"/><stop offset=".45" stop-color="#f29f2e"/><stop offset="1" stop-color="#c97418"/></radialGradient>
+          <linearGradient id="chavo-skin" x1="0" x2="1" y2=".5"><stop stop-color="#fad7bd"/><stop offset=".5" stop-color="#dba785"/><stop offset="1" stop-color="#c48a6a"/></linearGradient>
+          <linearGradient id="chavo-skin-face" x1=".1" y1="0" x2=".8" y2="1"><stop stop-color="#fce4cd"/><stop offset="1" stop-color="#d4996e"/></linearGradient>
+          <linearGradient id="chavo-hair" x1="0" x2=".9" y2="1"><stop stop-color="#2a1e14"/><stop offset=".5" stop-color="#1e150f"/><stop offset="1" stop-color="#0f0b08"/></linearGradient>
+          <pattern id="chavo-plaid" width="28" height="28" patternUnits="userSpaceOnUse" patternTransform="rotate(-4)">
+            <rect width="28" height="28" fill="#697268"/>
+            <rect x="0" y="0" width="14" height="14" fill="#383d37"/>
+            <rect x="14" y="14" width="14" height="14" fill="#383d37"/>
+            <rect x="14" y="0" width="14" height="14" fill="#9da79c" opacity=".9"/>
+            <rect x="0" y="14" width="14" height="14" fill="#9da79c" opacity=".9"/>
+            <line x1="0" y1="14" x2="28" y2="14" stroke="#20241f" stroke-width="1.4"/>
+            <line x1="14" y1="0" x2="14" y2="28" stroke="#20241f" stroke-width="1.4"/>
+          </pattern>
+          <linearGradient id="chavo-shirt-brown" x1="0" x2="1" y2=".5"><stop stop-color="#6a482c"/><stop offset=".6" stop-color="#5a3d24"/><stop offset="1" stop-color="#3d2717"/></linearGradient>
+          <linearGradient id="chavo-suspender" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#f0523f"/><stop offset="1" stop-color="#b82f1f"/></linearGradient>
+          <linearGradient id="chavo-pants" x1="0" x2="1" y2=".5"><stop stop-color="#e2ddd5"/><stop offset="1" stop-color="#b5afa5"/></linearGradient>
+          <linearGradient id="barrel-wood" x1="0" y1="0" x2="1" y2="0"><stop offset="0%" stop-color="#4a2f18"/><stop offset="35%" stop-color="#8a5e35"/><stop offset="70%" stop-color="#6c4727"/><stop offset="100%" stop-color="#4a2f18"/></linearGradient>
+          <filter id="drop" x="-30%" y="-30%" width="160%" height="175%"><feDropShadow dx="0" dy="10" stdDeviation="8" flood-color="#2a1407" flood-opacity=".22"/></filter>
+        </defs>
+        ${bg}
+        <g transform="translate(360 ${760+bob}) rotate(${sway+cryT}) scale(1)" filter="url(#drop)">
+          ${barrel}
+          <g fill="url(#chavo-hair)"><path d="M-65-230 Q-100-195-95-90 Q-110-40-76-22 L78-23 Q110-40 95-100 Q98-210 55-242Z"/></g>
+          ${arm(-1,handLx,handLy)}${arm(1,handRx,handRy)}
+          ${pose!=='barrel_peek' ? leg(-1,footLx,footLy)+leg(1,footRx,footRy) : ''}
+          <g transform="scale(1 ${1+breatheS})">
+            <path d="M-48-127 Q-62-122-78-108 L-84-72 Q-70-58-54-68 L-53 55 Q0 78 55 52 L53-69 Q72-58 88-78 L74-110 Q58-123 42-128Z" fill="url(#chavo-shirt-brown)"/>
+            <clipPath id="shirt-clip"><path d="M-48-127 Q-62-122-78-108 L-84-72 Q-70-58-54-68 L-53 55 Q0 78 55 52 L53-69 Q72-58 88-78 L74-110 Q58-123 42-128Z"/></clipPath>
+            <g clip-path="url(#shirt-clip)">${stripes}</g>
+            <path d="M-43-110 Q-22-90-24-28 L-26 35" stroke="#8c6840" stroke-width="12" opacity=".25" fill="none" stroke-linecap="round"/>
+            <path d="M-35-125 L-15 55" stroke="url(#chavo-suspender)" stroke-width="14" stroke-linecap="round"/>
+            <path d="M38-120 L18 52" stroke="url(#chavo-suspender)" stroke-width="14" stroke-linecap="round"/>
+            <path d="M-53 55 Q0 72 55 52" stroke="#e84534" stroke-width="9" fill="none"/>
+            <path d="M-53 55 Q0 72 55 52 L58 100 Q30 118 4 103 L0 92 -4 104 Q-30 116-55 102Z" fill="url(#chavo-pants)"/>
+            <path d="M-50 96 L-12 101 M15 100 52 94" stroke="#9a958b" stroke-width="4"/>
+            <g transform="translate(-28, 78) rotate(-3)">
+              <polygon points="0,0 28,2 25,18 -2,16" fill="#847e75" stroke="#1b1a19" stroke-width="3"/>
+              <line x1="-1" y1="-1" x2="29" y2="1" stroke="#1b1a19" stroke-width="2.5" stroke-dasharray="4,3"/>
+              <line x1="29" y1="1" x2="26" y2="20" stroke="#1b1a19" stroke-width="2.5" stroke-dasharray="4,3"/>
+              <line x1="26" y1="20" x2="-3" y2="18" stroke="#1b1a19" stroke-width="2.5" stroke-dasharray="4,3"/>
+              <line x1="-3" y1="18" x2="-1" y2="-1" stroke="#1b1a19" stroke-width="2.5" stroke-dasharray="4,3"/>
+            </g>
+            <path d="M-18-157 L-18-120 Q0-100 20-120 L20-158Z" fill="url(#chavo-skin)"/>
+          </g>
+          <g transform="translate(0 -215) rotate(${headRot})">
+            <ellipse cx="-62" cy="5" rx="14" ry="20" fill="#c48a6a"/>
+            <ellipse cx="62" cy="5" rx="14" ry="20" fill="#c48a6a"/>
+            <path d="M-63-28 Q-60-78 0-78 Q60-78 63-26 L58 22 Q50 70 0 78 Q-52 68-58 23Z" fill="url(#chavo-skin-face)"/>
+            <path d="M-65-8 Q-85-58-38-85 Q8-112 52-74 Q78-54 66-8 Q38-32 28-62 Q-15-26-65-8" fill="url(#chavo-hair)"/>
+            <path d="M-54-50 Q-18-92 24-78" stroke="#4a3020" stroke-width="6" opacity=".4" fill="none" stroke-linecap="round"/>
+            ${eyes()}
+            ${hat}
+          </g>
+          ${car}
+        </g>
+      `;
+
+      svg.innerHTML = html;
+    }
+
+    function loop() {
+      if (playing) frame++;
+      render(frame);
+      requestAnimationFrame(loop);
+    }
+    loop();
+  </script>
+</body>
+</html>
