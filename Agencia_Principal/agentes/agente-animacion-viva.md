@@ -21,11 +21,16 @@ Toda escena donde intervengan personajes articulados, avatares, metáforas mecá
   - **Acción continuada (*Follow-through*) e inercia:** El cabello, la ropa y las extremidades no frenan en seco; se mueven con retardo de fase.
   - **Arcos de movimiento:** Los recorridos espaciales viajan en parábolas suaves, nunca en líneas rectas mecánicas.
 - Sincronizar los ciclos de respiración, vaivén corporal (*idle sway*) y parpadeo de ojos con el tempo del video, asegurando que ningún personaje quede estático como estatua.
+- **Movimiento Fluido Continuo e Ininterrumpido:** No limitarse a micro-animaciones aisladas; mantener dinámicas fluidas constantes con físicas de resortes (*springs*), curvas de aceleración naturales y transformaciones vivas. Queda estrictamente prohibido mantener planos o personajes estáticos por más de 3 segundos (90 frames a 30 FPS).
+- **Diseño Visual e Ilustración de Grado Editorial:** Componer personajes y elementos bajo los estándares supremos de `ui-ux-pro-max` (paletas y balances) e `impeccable` (patrones y anti-AI-slop).
 - Implementar transiciones fluidas entre estados emocionales (curiosidad, asombro, duda, alegría, esfuerzo) sin cambios bruscos de fotograma.
 - Generar animaciones de pizarra explicativa trazo a trazo cuando se expliquen fórmulas, procesos o esquemas conceptuales.
 
 ## Uso de skills
 Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear obligatoriamente:
+- `emilkowalski-skills`: físicas de resortes (*springs*), amortiguación crítica, curvas de aceleración y fluidez WWDC/Apple.
+- `ui-ux-pro-max`: dirección de arte visual, paletas cromáticas armónicas y balance estético.
+- `impeccable`: patrones de diseño, jerarquía compuesta, orden visual y anti-AI-slop.
 - `character-animation-engine`: motor de animación viva de personajes con 31 emociones, linework orgánico y física elástica.
 - `motion-design`: principios clásicos de Disney adaptados a código, curvas de aceleración y coreografía de movimiento.
 - `handdraw-skill`: animación determinista dibujada a mano, trazo a trazo y pizarras explicativas.

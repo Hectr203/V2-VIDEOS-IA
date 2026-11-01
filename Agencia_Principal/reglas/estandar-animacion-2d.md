@@ -112,3 +112,22 @@ Para consultar el manual operativo completo de agentes, convenciones de paths y 
 6. **Dirección Cinematográfica y Beat Sync (`make-awesome-video` & `video-shotcraft`):** Toda producción debe apoyarse en tarjetas de recetas de planos (*shot cards*), encadenamiento con puentes visuales continuos y sincronización rítmica con la pista de audio antes de autorizar el render final.
 7. **Previsualización en Remotion Studio:** Abrir Remotion Studio (`npx remotion studio --no-open`) para inspección interactiva y ajuste de timing antes de solicitar renderizados pesados a disco.
 
+## 10. Jerarquía Mandatoria de Skills de Diseño Visual y Ritmo Cinematográfico
+
+### A. Jerarquía Suprema de Skills de Diseño (OBLIGATORIA)
+Para todo video, escena y componente visual en `art.tsx` y `Film.tsx`:
+1. **`ui-ux-pro-max` (MANDATORIA SUPREMA PARA DISEÑO VISUAL):**
+   Es la autoridad primaria de diseño visual. Rige la selección de paletas cromáticas armónicas (usando `scripts/search.py`), jerarquías de color (fondos profundos, superficies, roles primario/secundario y acentos de alto contraste), tipografía prémium y balance de composición general. Ninguna escena debe comenzar a programarse sin haber definido su sistema visual bajo UI/UX Pro Max.
+2. **`impeccable` (MANDATORIA PARA PATRONES DE DISEÑO Y DETALLES):**
+   Es el filtro de artesanía y anti-AI-slop. Define jerarquías compuestas, balance tipográfico quirúrgico, degradados suaves y sutiles, espaciado rítmico y pulcritud visual, impidiendo que la pantalla se sature de elementos caóticos o desordenados.
+3. **`emilkowalski-skills` (MANDATORIA PARA FÍSICAS DE MOVIMIENTO Y ANIMACIONES):**
+   Rige la física de resortes (*springs*), amortiguación crítica (damping ratio 1.0 por defecto, 0.8 con inercia), curvas de respuesta y microinteracciones según directrices WWDC/Apple. Hace que el movimiento se sienta fluido, natural, fácil de procesar y sin tirones (*jank*).
+4. **`frontend-design` (MANDATORIA PARA AUDACIA Y CERO ESTÉTICA POWERPOINT):**
+   Aporta audacia estética y una dirección de arte memorable, prohibiendo composiciones corporativas monótonas o genéricas.
+5. **`animacion-2d-remotion` (MANDATORIA PARA RIGGING VECTORIAL Y REMOTION):**
+   Cinemática inversa (IK trigonométrico), rigging anatómico, interpolaciones deterministas (`ease`, `wave`, `mix`, `clamp`) y subtítulos cinéticos palabra a palabra.
+
+### B. Volumen Ágil de Escenas y Cero Síndrome PowerPoint
+- **Prohibición de Pocas Escenas Eternas:** Un video no es una presentación de diapositivas de oficina. Queda terminantemente prohibido estructurar un video de más de 90-120 segundos en solo 6 o 7 escenas estáticas (lo que genera planos inmóviles de 20 segundos que aburren fatalmente al espectador).
+- **Desglose en el Volumen Necesario:** Desglosar el guion en las escenas que la narrativa exija (habitualmente entre 10 y 16 escenas para un video de 1.5 a 2.5 minutos, con cambios de plano cada 6 a 12 segundos).
+- **Movimiento Fluido Continuo e Ininterrumpido:** No limitarse a micro-animaciones pasivas (como pestañear o respirar en el lugar). Toda la escena debe fluir: cámaras activas en movimiento continuo, elementos transformándose, trayectorias continuas y puentes visuales que conecten orgánicamente una escena con la siguiente. Queda prohibido mantener elementos estáticos por más de 3 segundos (90 frames a 30 FPS).
