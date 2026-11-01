@@ -52,5 +52,32 @@
         ]
       }
     ]
+  },
+  "enforce-test-projects-location": {
+    "enabled": true,
+    "PreToolUse": [
+      {
+        "matcher": "run_command|write_to_file|replace_file_content|multi_replace_file_content",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .agents/hooks/enforce_test_projects_location.py",
+            "timeout": 15
+          }
+        ]
+      }
+    ],
+    "PostToolUse": [
+      {
+        "matcher": "run_command|write_to_file",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python3 .agents/hooks/enforce_test_projects_location.py",
+            "timeout": 15
+          }
+        ]
+      }
+    ]
   }
 }

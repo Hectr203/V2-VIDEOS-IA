@@ -18,6 +18,24 @@ Identificar proyecto por ID exacto, objetivo, alcance autorizado y criterios de 
 6. Recibir resultados según [traspaso](plantillas/tarea-agente.md), comprobar criterios y resolver fallos con nueva evidencia. Escalar cuando haga falta una decisión, permiso o recurso externo; no bloquear por un contador arbitrario ni repetir el mismo enfoque.
 7. Cerrar el alcance cumplido con evidencia, límites y pendientes. Actualizar la memoria mínima del proyecto cuando corresponde; no enviar datos a servicios externos sin autorización. No publicar ni desplegar por completar una tarea local.
 
+## Protocolo Mandatorio para Proyectos de Prueba, Experimentos y Rigs (proyectos-test)
+
+Toda solicitud del usuario que consista en realizar **pruebas, réplicas de personajes, experimentos con nuevas skills, tests de animación 2D, prototipos o proyectos que no constituyan una producción de video final oficial** del canal, debe regirse por la siguiente norma estricta:
+
+1. **Ubicación Canónica Obligatoria:**
+   - Todo proyecto de prueba se debe crear forzosamente dentro de:
+     `video-studio/proyectos-test/<nombre-del-test>/`
+   - **Prohibición absoluta:** Queda terminantemente prohibido crear carpetas o archivos de prueba directamente en la raíz de `video-studio/`, en directorios temporales, o dentro de `video-studio/projects/` (que está reservada exclusivamente para producciones completas fechadas bajo el formato `<DD de mes de YYYY>/<slug>`).
+
+2. **Estructura Estándar de un Proyecto Test (`video-studio/proyectos-test/<slug>/`):**
+   - `src/` o `rigs/`: Código fuente TypeScript/React de los personajes, rigs vectoriales SVG o módulos experimentados.
+   - `preview.html`: Visor interactivo ligero a 60 FPS ejecutable directamente en el navegador con controles de reproducción, expresiones y poses.
+   - `renders/`: Fotogramas de prueba y comprobación visual estática generados con Remotion u otras herramientas.
+   - `README.md`: Documentación breve del test, parámetros expuestos, poses y resultados.
+
+3. **Garantía mediante Hook del Workspace:**
+   - La regla está blindada por el hook `.agents/hooks/enforce_test_projects_location.py` registrado en `.agents/hooks.json`, el cual bloquea activamente cualquier intento de escribir proyectos de prueba fuera de `video-studio/proyectos-test/`.
+
 ## Flujo universal e interactivo para producción audiovisual (Videos 2D / Remotion)
 
 ### Invocación con Prompt Simple Optimizado
