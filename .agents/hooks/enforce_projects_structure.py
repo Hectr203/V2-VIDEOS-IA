@@ -7,6 +7,7 @@ Se ejecuta en los puntos de control del ciclo de vida del agente (PreToolUse y P
 import json
 import os
 import re
+import shlex
 import sys
 from pathlib import Path
 
@@ -85,7 +86,11 @@ def handle_pre_tool_use(payload: dict) -> dict:
         # Detectar comandos peligrosos que intenten crear enlaces o carpetas en la raíz
         # Ejemplos: ln -s ... video-studio/projects/<slug>
         #           mkdir video-studio/projects/<slug>
-        for token in command_line.split():
+        try:
+            tokens = shlex.split(command_line)
+        except Exception:
+            tokens = command_line.split()
+        for token in tokens:
             clean_token = token.strip("\"'")
             if "video-studio/projects/" in clean_token:
                 valido, motivo = inspeccionar_path(clean_token)

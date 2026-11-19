@@ -7,7 +7,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .agents/hooks/enforce_projects_structure.py",
+            "command": "python3 /mnt/nvme/V2-VIDEOS-IA/.agents/hooks/enforce_projects_structure.py",
             "timeout": 15
           }
         ]
@@ -19,7 +19,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .agents/hooks/enforce_projects_structure.py",
+            "command": "python3 /mnt/nvme/V2-VIDEOS-IA/.agents/hooks/enforce_projects_structure.py",
             "timeout": 15
           }
         ]
@@ -34,7 +34,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .agents/hooks/block_superpowers_specs.py",
+            "command": "python3 /mnt/nvme/V2-VIDEOS-IA/.agents/hooks/block_superpowers_specs.py",
             "timeout": 15
           }
         ]
@@ -46,7 +46,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .agents/hooks/block_superpowers_specs.py",
+            "command": "python3 /mnt/nvme/V2-VIDEOS-IA/.agents/hooks/block_superpowers_specs.py",
             "timeout": 15
           }
         ]
@@ -61,7 +61,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .agents/hooks/enforce_test_projects_location.py",
+            "command": "python3 /mnt/nvme/V2-VIDEOS-IA/.agents/hooks/enforce_test_projects_location.py",
             "timeout": 15
           }
         ]
@@ -73,7 +73,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "python3 .agents/hooks/enforce_test_projects_location.py",
+            "command": "python3 /mnt/nvme/V2-VIDEOS-IA/.agents/hooks/enforce_test_projects_location.py",
             "timeout": 15
           }
         ]
