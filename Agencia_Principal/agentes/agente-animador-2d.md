@@ -24,7 +24,7 @@ Creación de nuevos videos explicativos, reproducción o réplica animada de pie
 - **Herramientas existentes vs. inexistentes**:
   - Usar los `node_modules` de `video-studio/remotion/` y el Python venv de `video-studio/backend/.venv/`.
   - No buscar Three.js, Blender, After Effects, Lottie ni herramientas externas inventadas.
-  - Reutilizar rigs, cinemática inversa y efectos del catálogo compartido [`video-studio/shared-art/`](../../video-studio/shared-art/).
+  - Reutilizar rigs, cinemática inversa y efectos del catálogo compartido [`video-studio/shared-art/`](../../video-studio/shared-art/), así como las 61 composiciones modulares de [`locomotion-templates`](../skills/locomotion-templates/GUIA-LOCOMOTION-TEMPLATES.md) (adaptando sus props y relación de aspecto 9:16 / 16:9 según el proyecto).
 - Planificar el storyboard escena por escena en `storyboard.json` garantizando narrativa progresiva y paletas cromáticas coherentes.
 - **Volumen Ágil de Escenas y Cero Síndrome PowerPoint (MANDATORIO):**
   Queda prohibido condensar un video largo en un puñado insuficiente de escenas eternas (ej. 7 escenas para 2+ minutos). Generar el volumen de escenas necesario (habitualmente 10 a 16 escenas para un video de 1.5 a 2.5 min, con duraciones ágiles de 6 a 12 segundos por escena), garantizando que las ideas visuales evolucionen constantemente sin estancarse.
@@ -53,6 +53,7 @@ Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear 
 - `design-and-motion`: para coherencia de diseño, contraste y accesibilidad cromática.
 - `remotion-best-practices`: directrices canónicas de Remotion, previsualización en Studio y aislamiento de frames.
 - `remotion-markup`: uso de propiedades directas `scale`/`translate`/`rotate`, `output: 'perceptual-scale'` y resortes.
+- `locomotion-templates`: reutilización y adaptación de 61 templates de producto, SaaS, métricas, tipografía cinética y UI en Remotion (`skills/locomotion-templates/`).
 - `remotion-captions`: subtítulos cinéticos sincronizados palabra a palabra con la voz narradora.
 - `character-animation-engine`: principios de animación viva para erradicar figuras rígidas y dar expresividad orgánica.
 - `motion-design`: principios clásicos de Disney (squash & stretch, anticipación, arcos y timing).

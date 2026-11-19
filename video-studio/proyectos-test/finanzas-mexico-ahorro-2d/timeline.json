@@ -1,0 +1,14 @@
+{
+  "id": "finanzas-mexico-ahorro-2d",
+  "fps": 30,
+  "width": 1080,
+  "height": 1920,
+  "totalFrames": 750,
+  "scenes": [
+    { "id": "01-hook-quincena", "start": 0, "frames": 120 },
+    { "id": "02-regla-50-30-20", "start": 120, "frames": 150 },
+    { "id": "03-cetes-vs-inflacion", "start": 270, "frames": 150 },
+    { "id": "04-gastos-hormiga", "start": 420, "frames": 150 },
+    { "id": "05-automatiza-cierre", "start": 570, "frames": 180 }
+  ]
+}

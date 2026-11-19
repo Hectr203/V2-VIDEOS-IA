@@ -102,6 +102,7 @@ Para consultar el manual operativo completo de agentes, convenciones de paths y 
 - Manual de agentes en la raíz: [`README.md`](../../README.md)
 - Suite oficial de habilidades Remotion: [`GUIA-REMOTION-DEV-SKILLS.md`](../skills/remotion-dev-skills/GUIA-REMOTION-DEV-SKILLS.md)
 - Suite de habilidades de Motion y Dirección: [`GUIA-MOTION-VIDEO-SKILLS.md`](../skills/motion-video-skills/GUIA-MOTION-VIDEO-SKILLS.md)
+- Librería de Templates de Producto y UI en Remotion (61 composiciones): [`GUIA-LOCOMOTION-TEMPLATES.md`](../skills/locomotion-templates/GUIA-LOCOMOTION-TEMPLATES.md)
 
 ## 9. Estándares Oficiales de Remotion y Motion Skills (`remotion-dev/skills` & `motion-video-skills`)
 1. **Aislamiento de `useCurrentFrame()`:** Mantener `useCurrentFrame()` en los componentes hoja más pequeños que lo requieran (títulos individuales, overlays o visualizadores) para evitar que la composición completa se re-renderice en cada fotograma.

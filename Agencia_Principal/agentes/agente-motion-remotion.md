@@ -28,6 +28,7 @@ Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear 
 - `disenar-motion-ui`: curvas de aceleración, ritmo temporal y consistencia física.
 - `remotion-markup`: transformaciones directas CSS, `perceptual-scale` y curvas de aceleración Easing.
 - `remotion-interactivity`: estructuración modular de timeline y efectos continuos.
+- `locomotion-templates`: catálogo de 61 composiciones base en Remotion con `spring()`, `interpolate()` y 6 variantes de estilo para reutilizar o modificar.
 - `motion-design`: dinámicas de resortes, anticipación e inercia para movimientos creíbles.
 - `animation-basics`: fundamentos de timing, arcos y desaceleraciones sin saltos mecánicos.
 
