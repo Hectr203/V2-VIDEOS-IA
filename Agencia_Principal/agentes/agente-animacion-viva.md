@@ -22,7 +22,8 @@ Toda escena donde intervengan personajes articulados, avatares, metáforas mecá
   - **Arcos de movimiento:** Los recorridos espaciales viajan en parábolas suaves, nunca en líneas rectas mecánicas.
 - Sincronizar los ciclos de respiración, vaivén corporal (*idle sway*) y parpadeo de ojos con el tempo del video, asegurando que ningún personaje quede estático como estatua.
 - **Movimiento Fluido Continuo e Ininterrumpido:** No limitarse a micro-animaciones aisladas; mantener dinámicas fluidas constantes con físicas de resortes (*springs*), curvas de aceleración naturales y transformaciones vivas. Queda estrictamente prohibido mantener planos o personajes estáticos por más de 3 segundos (90 frames a 30 FPS).
-- **Diseño Visual e Ilustración de Grado Editorial:** Componer personajes y elementos bajo los estándares supremos de `ui-ux-pro-max` (paletas y balances) e `impeccable` (patrones y anti-AI-slop).
+- **Estándar de Personajes Cartoon Editorial (`estilo-cartoon-editorial-3d`):** Construir y animar personajes desde `video-studio/shared-art/cartoon/` (`solveIK2D`, `CartoonArmIK`, `CartoonLegIK`, `CartoonFaceFeatures`), garantizando que todo personaje nuevo requerido por el tema mantenga exactamente la misma tinta `#0b0d10`, rellenos planos, proporciones, 8 poses naturales y 7 expresiones vivas sin rigidez.
+- **Diseño Visual e Ilustración de Grado Editorial:** Componer personajes y elementos bajo los estándares de `estilo-cartoon-editorial-3d`, `ui-ux-pro-max` (paletas y balances) e `impeccable` (patrones y anti-AI-slop).
 - Implementar transiciones fluidas entre estados emocionales (curiosidad, asombro, duda, alegría, esfuerzo) sin cambios bruscos de fotograma.
 - Generar animaciones de pizarra explicativa trazo a trazo cuando se expliquen fórmulas, procesos o esquemas conceptuales.
 

@@ -2,24 +2,16 @@
 
 Aplicar la [precedencia](precedencia.md) y el [contrato común](../agentes/contrato-agente.md).
 
-## 1. Principio Fundamental de Calidad Visual y Estilo Predominante
-Cualquier agente o inteligencia artificial que trabaje en la generación de videos animados en `video-studio` debe aplicar como **estilo visual predominante por defecto** la skill **`estilo-kiwi-kurzgesagt-3d`** (`Agencia_Principal/skills/estilo-kiwi-kurzgesagt-3d/SKILL.md`, componentes reutilizables en `video-studio/shared-art/`), salvo que el usuario seleccione explícitamente otro estilo:
+## 1. Principio Fundamental de Calidad Visual y Nuevo Estándar Predominante
+Cualquier agente o inteligencia artificial que trabaje en la generación de videos animados en `video-studio` debe aplicar como **estilo visual y de personajes predominante por defecto** la skill **`estilo-cartoon-editorial-3d`** (`Agencia_Principal/skills/estilo-cartoon-editorial-3d/SKILL.md`, biblioteca modular en `video-studio/shared-art/cartoon/`), manteniendo `estilo-kiwi-kurzgesagt-3d` y los demás estilos disponibles cuando el usuario los seleccione explícitamente:
+- **Coherencia estilística absoluta en personajes nuevos:** Todo personaje nuevo requerido por el tema (granjero, profesor, fisiculturista, científico, niño nuevo, médico, etc.) debe diseñarse desde `sharedCartoonStyle.tsx` con el mismo contorno negro tinta uniforme (`#0b0d10`, `4.4px`), rellenos planos *flat cel*, ojos sólidos expresivos, orejas integradas, anatomía completa con pies aterrizados, extremidades IK de 2 segmentos (`solveIK2D`), 8 poses naturales, 7 expresiones con *lip-sync* y adaptaciones preventivas *IP-Safe*.
 - **Cero estética de presentación / Cero pestañas superiores (MANDATORIO):** Queda estrictamente prohibido renderizar encabezados de capítulo, títulos de proyecto en la esquina superior izquierda o contadores de página (`1 / 11`, `03 / 14`) en la esquina superior derecha. Solo se permite la **línea de progreso limpia en la parte inferior** (`KiwiProgressBar`).
-- **Profundidad 3D multipiano y transiciones continuas:** Escenario `perspective: 1200px` + `preserve-3d` sobre fondo compartido continuo (`SharedCosmicBackdrop`), con puentes de cámara motivados (*zoom-dive*, *whip-glide*) y cero cortes secos a negro.
-- **Libre de sesgos y adaptable a cualquier tema:** El sistema de paletas (`KIWI_THEMES`) y rigs articulados (`KiwiCharacterIK`, `FlipCounter3D`, `YellowCallout3D`, `DataPill3D`) se adapta a ciencia, historia, salud, tecnología, finanzas o cultura sin caer en plantillas repetitivas.
-- **Prohibido el uso de iconos planos toscos o cajas rectangulares sin vida** como sustituto de ilustración.
-- **Todo elemento visual relevante debe ser arte vectorial SVG original** construido con gradientes multicapa, sombras proyectadas y filtros de iluminación sutiles.
-- **Los personajes deben ser riggeados desde cero y exhibir animación viva (PROHIBIDOS TÍTERES DE CARTÓN O FIGURAS RÍGIDAS):**
-  - Extremidades articuladas en dos segmentos usando cinemática inversa (`joint()`).
-  - Torso con ciclo de respiración (`breathe = wave(f, speed, amp)`).
-  - Ojos con ciclo de parpadeo estocástico (`blink`) y pupilas reactivas al punto focal de la escena.
-  - Cabello compuesto por mechones independientes con retardo físico y follow-through (fase desfasada respecto a la cabeza).
-  - Expresiones faciales orgánicas con transiciones suaves y overshoot (`happy`, `pain`, `sleep`, `worry`, `dead`, etc.).
-  - Físicas de resorte (*springs*), anticipación previa al movimiento (crouch o contra-giro) y aplastamiento/estiramiento (*squash & stretch*) manteniendo volumen constante. Queda terminantemente prohibido dejar figuras estáticas o recortes planos tiesos.
-- **Integración obligatoria de imágenes del mundo real (Universal):**
-  - Para todo video, es forzoso investigar a fondo la temática y descargar imágenes reales y auténticas (fotografías históricas, documentos originales, retratos de creadores o protagonistas, bocetos, patentes, sprites o consolas auténticas), evitando por completo sustitutos sintéticos o ilustraciones genéricas.
-  - Las imágenes deben procesarse con recorte limpio y canal alfa transparente (`.png`) en `public/images/<slug>/`.
-  - En `art.tsx` y `Film.tsx`, se integran con tratamiento editorial cinematográfico: marcos sutiles, sombras proyectadas (`drop-shadow`), badges cronológicos y micro-animaciones combinadas con la escenografía vectorial SVG.
+- **Profundidad 3D multipiano y transiciones continuas:** Escenario `perspective: 1200px` + `preserve-3d` con puentes de cámara motivados (*zoom-dive*, *whip-glide*), contadores `FlipCounter3D`, recuadros `YellowCallout3D`, píldoras `DataPill3D` y cero cortes secos a negro.
+- **Evaluación narrativa obligatoria previa a producción (`estrategia-narrativa-ganchos-retencion`):** Antes de sintetizar voces, auditar historia, gancho de 0–3s y ritmo con `scripts/evaluar_guion.py` (umbral `>= 80/100`).
+- **Integración Estratégica y Meditada de Recortes Web e Imágenes IA con Gemini (OPCIONAL SEGÚN LA HISTORIA):**
+  - No es forzoso al 100 % en cada video, sino una decisión editorial meditada cuando aporte contexto, enganche o claridad visual.
+  - **Recortes reales de internet:** Descargar y procesar con recorte limpio en `public/images/<slug>/` cuando la historia requiera referencias auténticas (documentos, mapas, fotos históricas u objetos reales).
+  - **Imágenes generadas con IA (Gemini / subagente `image-generator`):** Generar fondos o insertos ilustrativos solo cuando potencien la comprensión de la escena (ej. una erupción volcánica de fondo mientras el personaje cartoon explica en primer plano), cuidando armonía de color y separación clara entre fondo y personaje.
 ## 2. Metáforas Visuales y Explicación de Conceptos Complejos
 Para cualquier temática (ciencia, inteligencia artificial, tecnología, economía, etc.):
 - **Modelado de sistemas**: En lugar de texto estático, representar los procesos con metáforas mecánicas o biológicas activas (ej. cerraduras y llaves para interacciones moleculares o permisos; redes neuronales con pulsos eléctricos luminosos para procesamiento de datos; órganos o sistemas con ritmos acelerados o desacelerados).
@@ -81,15 +73,11 @@ Todo proyecto canónico debe admitir composiciones verticales (9:16) y horizonta
 1. **Claridad de la Narración:** La voz en off debe dominar la mezcla de forma limpia e inteligible en todo momento.
 2. **Auto-Ducking Obligatorio:** En `Film.tsx`, la música de fondo debe descender automáticamente al **35% (-9 dB)** durante cada intervalo donde el narrador pronuncie palabras (`voiceRanges`).
 3. **Control de Headroom:** El pico máximo de la mezcla en el archivo final MP4 debe situarse estrictamente por debajo de **-1.0 dBFS** (verificable con `ffmpeg -af volumedetect`).
-4. **Catálogo Centralizado de Audios (381 pistas):** Consulta la guía [`video-studio/assets/GUIA_CATALOGO_AUDIOS.md`](../../video-studio/assets/GUIA_CATALOGO_AUDIOS.md) y [`video-studio/assets/catalogo_audios.json`](../../video-studio/assets/catalogo_audios.json).
-5. **CLI de Búsqueda Instantánea:** Utiliza `python3 video-studio/scripts/buscar_audio.py --buscar <query>` para localizar pistas y efectos de sonido con su volumen recomendado.
-6. **Curaduría y Giro Temático del Video (MANDATORIO):** La música y los efectos sonoros deben elegirse siempre en consonancia estricta con el género, tono emocional y peso narrativo del video (prohibido reusar la misma música para todo):
-   - *Videojuegos / Gaming / Retro:* Soundtracks legendarios de videojuegos (`Los MEJORES SOUNDTRACKS de los VIDEOJUEGOS`) y SFX auténticos de 8-bit/16-bit (saltos, monedas, power-up, muerte).
-   - *Dramático / Tensión / Crudo:* Cuerdas orquestales con crescendo, atmósferas oscuras o lluvia con truenos distantes.
-   - *Ciencia / Tecnología / Divulgación:* Pizzicato ágil, marimba o sintetizadores modernos que estimulen la curiosidad intelectual.
-   - *Corporativo / Emprendimiento / Negocios:* Guitarras limpias, ritmo minimalista y confianza profesional.
-   - *Viajes / Vlogs / Verano:* Tropical house, lofi chillout y beats frescos y optimistas.
-   - *Humor / Parodia / Viral:* Memes virales, reacciones sonoras, cuaks cómicos y discos rayados.
+4. **Catálogo Centralizado de Audios (414 pistas) e Historial Anti-Repetición:** Consulta [`video-studio/assets/GUIA_CATALOGO_AUDIOS.md`](../../video-studio/assets/GUIA_CATALOGO_AUDIOS.md), [`video-studio/assets/catalogo_audios.json`](../../video-studio/assets/catalogo_audios.json) y el registro anti-repetición `video-studio/assets/audio_usage_history.json`.
+5. **CLI de Curación por Historia y Anti-Repetición (OBLIGATORIO):** Utiliza `python3 video-studio/scripts/buscar_audio.py --historia "<sinopsis y emoción>" --evitar-recientes` para obtener música fresca no repetida y un paquete rico de SFX acordes a la narrativa. Registra cada pista usada con `--registrar-uso <ruta> --proyecto <slug>`.
+6. **Curaduría por Historia y Abundancia de SFX Calibrados (MANDATORIO):**
+   - Prohibido reciclar repetitivamente las mismas pistas de música; rotar entre los 160+ temas musicales y combinar 2–3 pistas con *crossfade* cuando la historia cambie de acto emocional.
+   - **Densidad rica de SFX (12 a 20 micro-SFX por minuto):** Integrar efectos frecuentes y variados (transiciones, pops, dings, chimes, boings, ricochets, lluvia, pasos de página, golpes dramáticos, clicks) normalizados (`loudnorm=I=-22:TP=-6, alimiter=limit=0.45`) y mezclados a `0.16–0.30` para entretener y enganchar **sin sobrepasar jamás la voz de la locución**.
 7. **Análisis Acústico de Decibeles y Calibración Dinámica de Ganancia:**
    - Cada pista de música o SFX posee ganancias masterizadas de fábrica muy dispares (algunas pistas de videojuegos o EDM superan -10 LUFS, mientras piezas acústicas caen a -24 LUFS).
    - En `prepare.py`, es forzoso medir el nivel de decibeles (`ffmpeg -af volumedetect` o `ebur128`) antes del renderizado.

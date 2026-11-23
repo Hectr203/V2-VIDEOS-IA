@@ -145,6 +145,10 @@
         "handdraw-skill",
         "animation-basics"
       ]
+    },
+    "agente-estratega-narrativo": {
+      "archivo": "agentes/agente-estratega-narrativo.md",
+      "skills": []
     }
   }
 }

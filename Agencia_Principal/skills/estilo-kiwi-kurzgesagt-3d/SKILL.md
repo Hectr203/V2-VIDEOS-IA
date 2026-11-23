@@ -1,12 +1,12 @@
 ---
 name: estilo-kiwi-kurzgesagt-3d
-description: Estilo visual y motor de animación predominante por defecto de la agencia (Estilo Kiwi / Kurzgesagt 3D Vivo). Combina personajes vectoriales tipo cápsula con sombreado volumétrico y rim-light, cinemática inversa 2D (IK), física de resortes WWDC, squash & stretch, profundidad espacial 3D multipiano, contadores mecánicos FlipCounter3D, recuadros amarillos, píldoras de datos, transiciones motivadas continuas y cero estética de presentación o pestañas superiores. Usar siempre por defecto en toda nueva producción audiovisual salvo que el usuario elija otro estilo explícitamente.
+description: Estilo visual y motor de animación alternativo seleccionable de la agencia (Estilo Kiwi / Kurzgesagt 3D Vivo). Combina personajes vectoriales tipo cápsula con sombreado volumétrico y rim-light, cinemática inversa 2D (IK), física de resortes WWDC, squash & stretch, profundidad espacial 3D multipiano, contadores mecánicos FlipCounter3D, recuadros amarillos, píldoras de datos, transiciones motivadas continuas y cero estética de presentación o pestañas superiores. Usar cuando el usuario seleccione explícitamente este estilo alternativo en el cuestionario inicial (el estándar por defecto actual es estilo-cartoon-editorial-3d).
 ---
 
-# Estilo Kiwi / Kurzgesagt 3D Vivo (Estándar Predominante por Defecto)
+# Estilo Kiwi / Kurzgesagt 3D Vivo (Estilo Alternativo Seleccionable)
 
-## 1. Principio Rector y Cero Sesgos
-Este es el **estilo gráfico y de movimiento principal y por defecto** para todas las producciones audiovisuales de la agencia en Remotion, a menos que el usuario seleccione explícitamente otro estilo en el cuestionario inicial.
+## 1. Principio Rector y Relación con el Estándar Actual
+Este es un **estilo alternativo seleccionable** dentro del catálogo visual de la agencia en Remotion. El estándar predominante por defecto actual es **`estilo-cartoon-editorial-3d`** (tinta negra y elenco cartoon modular IK); usar este estilo cuando el usuario lo elija expresamente en la Pregunta 7 del cuestionario o solicite estética tipo cápsula volumétrica/Kurzgesagt.
 
 - **Universal y libre de sesgos temáticos:** La arquitectura visual funciona igual de bien para ciencia, medicina, historia, tecnología, finanzas, cultura, psicología o gastronomía. Las paletas atmosféricas se adaptan al tema (morado cósmico por defecto `#0f0428 → #1e0a47`, o variantes temáticas armónicas de alto contraste) conservando siempre la claridad de silueta, limpieza geométrica y profundidad 3D.
 - **100 % Video Cinematográfico (PROHIBIDO parecer presentación o diapositivas):**

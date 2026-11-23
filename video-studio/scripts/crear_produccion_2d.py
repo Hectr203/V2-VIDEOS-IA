@@ -601,7 +601,7 @@ export function joint(a: Point, b: Point, l1: number, l2: number, bend: number):
 '''
     (src_dir / "art.tsx").write_text(art_content, encoding="utf-8")
 
-    # 8. src/Film.tsx (Plantilla Estándar Predominante: Estilo Kiwi / Kurzgesagt 3D Vivo, Cero Pestañas Superiores)
+    # 8. src/Film.tsx (Plantilla Estándar Predominante: Estilo Cartoon Editorial 2D+3D, Cero Pestañas Superiores)
     film_content = f'''import React, {{useEffect, useState}} from 'react';
 import {{
   AbsoluteFill,
@@ -620,14 +620,14 @@ import timelineData from './timeline.json';
 import {{
   ForegroundParticles3D,
   KiwiCaptionsPro,
-  KiwiCharacterIK,
-  KiwiProDefs,
   KiwiProgressBar,
+  Personaje1Base,
   SharedCosmicBackdrop,
   YellowCallout3D,
   kiwiClamp,
   kiwiMix,
   kiwiWave,
+  mouthOpenness,
 }} from '../../../../shared-art';
 
 export const timeline = timelineData;
@@ -649,9 +649,10 @@ function Shot({{scene, index, isHorizontal}}: {{scene: Scene; index: number; isH
   const exitZ = isDive ? kiwiMix(0, 150, exitP) : 0;
   const exitX = isDive ? 0 : kiwiMix(0, -150, exitP);
   const driftZ = interpolate(f, [0, scene.frames], [-20, 32], {{easing: Easing.inOut(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}});
-  const camRotY = kiwiWave(f, 0.022, 4.2, index * 1.1);
-  const camRotX = kiwiWave(f, 0.017, 2.2, index * 0.7);
+  const camRotY = kiwiWave(f, 0.022, 3.8, index * 1.1);
+  const camRotX = kiwiWave(f, 0.017, 2.0, index * 0.7);
   const opacity = kiwiClamp(Math.min(enterP * 1.35, (1 - exitP) * 1.35));
+  const mOpen = mouthOpenness(f, fps, scene.words || []);
 
   return (
     <AbsoluteFill style={{{{opacity}}}}>
@@ -665,12 +666,19 @@ function Shot({{scene, index, isHorizontal}}: {{scene: Scene; index: number; isH
           }}}}
         >
           <svg width={{stageW}} height={{stageH}} viewBox={{`0 0 ${{stageW}} ${{stageH}}`}} style={{{{position: 'absolute', inset: 0}}}}>
-            <KiwiProDefs themeKey="cosmos" />
-            <g transform={{`translate(${{isHorizontal ? 340 : 360}} ${{isHorizontal ? 390 : 590}})`}}>
-              <KiwiCharacterIK x={{0}} y={{0}} f={{f}} scale={{isHorizontal ? 1.08 : 1.18}} />
-            </g>
+            <Personaje1Base
+              x={{isHorizontal ? 340 : 360}}
+              y={{isHorizontal ? 545 : 780}}
+              scale={{isHorizontal ? 0.92 : 1.0}}
+              frame={{f}}
+              animated
+              pose="explicando"
+              mood="hablando"
+              outfit="base"
+              mouthOpen={{mOpen}}
+            />
           </svg>
-          <YellowCallout3D top={{isHorizontal ? 110 : 210}} left={{isHorizontal ? 940 : undefined}} title={{scene.chapter}} sub="Animación Kiwi 3D Viva" delayFrames={{6}} f={{f}} fps={{fps}} />
+          <YellowCallout3D top={{isHorizontal ? 110 : 180}} left={{isHorizontal ? 940 : undefined}} title={{scene.chapter}} sub="Estilo Cartoon Editorial 2D+3D" delayFrames={{6}} f={{f}} fps={{fps}} />
         </div>
       </div>
       <KiwiCaptionsPro words={{scene.words || []}} f={{f}} fps={{fps}} isHorizontal={{isHorizontal}} />

@@ -82,6 +82,13 @@ El [control de calidad](reglas/calidad-entregas.md) añade un registro independi
 
 Los [escenarios operativos](contexts/agency/evaluacion-operativa.md) definen cómo comprobar coordinación, cambios de stack, contenido externo e indisponibilidad de herramientas. Están preparados para ejecución; no se contabilizan como resultados reales sin evidencia.
 
+## Producción Audiovisual 2D+3D (Nuevo Estándar Cartoon Editorial)
+
+- **Estándar visual y de personajes por defecto:** `estilo-cartoon-editorial-3d` (`video-studio/shared-art/cartoon/`). Todos los personajes nuevos según el tema del video (granjero, profesor, fisiculturista, científico, etc.) se crean bajo la misma línea gráfica de tinta negra `#0b0d10`, rellenos planos *flat cel* e IK de 2 segmentos (`estilo-kiwi-kurzgesagt-3d` y los demás estilos siguen disponibles como alternativa en el cuestionario).
+- **Estrategia narrativa, ganchos y evaluación predictiva:** `estrategia-narrativa-ganchos-retencion` + `agentes/agente-estratega-narrativo.md` (`evaluar_guion.py` antes de sintetizar voz).
+- **Curación de audio anti-repetición y SFX ricos:** `python3 ../video-studio/scripts/buscar_audio.py --historia "<sinopsis>" --evitar-recientes` respaldado por `audio_usage_history.json` y 12–20 SFX calibrados/minuto sin tapar la voz.
+- **Imágenes reales e IA (opcional y meditado):** Recortes descargados de internet o fondos/insertos generados con Gemini (`image-generator`) solo cuando ayuden a entender o potenciar la historia.
+
 ## Coordinación persistente
 
 El [plan operativo](reglas/operacion-tareas.md) registra responsables, archivos y dependencias sin iniciar agentes. CLI `tareas` administra transiciones y revisiones; MCP `agencia_plan` consulta el mismo almacén. Un cierre pierde vigencia si cambian sus artefactos, su informe, su evidencia o un antecesor. Las fases anteriores se archivan y las escrituras son transaccionales.

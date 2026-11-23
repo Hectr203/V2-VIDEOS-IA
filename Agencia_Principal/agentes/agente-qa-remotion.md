@@ -20,8 +20,9 @@ Fase final de producción audiovisual, revisión de hojas de contacto (`contact-
 - Inspeccionar niveles de audio:
   - Garantizar que la voz del narrador predomine siempre y no sea enmascarada por la música de fondo.
   - Verificar que el auto-ducking atenúe la música durante la voz activa.
-  - Asegurar que no exista clipping o saturación digital (`max_volume < 0.0 dBFS`).
-  - Verificar que los efectos sonoros (SFX) sean nítidos, calibrados y proporcionados.
+  - Asegurar que no exista clipping o saturación digital (`True Peak < -1.0 dBFS`, sonoridad integrada `-18` a `-19 LUFS`).
+  - Verificar que exista una capa rica y dinámica de efectos sonoros (SFX abundantes y variados acordes a la historia) perfectamente equilibrados sin sobrepasar ni enmascarar la voz narradora, y que la música seleccionada no sea repetitiva respecto a producciones recientes.
+  - Verificar coherencia visual estricta del estándar `estilo-cartoon-editorial-3d` (o el estilo elegido por el usuario), cero pestañas superiores y correcta integración de cualquier recorte web o imagen IA de Gemini utilizada.
 - Comprobar que todos los subtítulos o copias en pantalla sean fieles al guion y estén sincronizados palabra por palabra.
 - Emitir veredicto formal `PASS` o `BLOCK` con lista de defectos indexados por código de tiempo si existen anomalías.
 
