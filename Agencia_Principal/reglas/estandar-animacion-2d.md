@@ -2,9 +2,12 @@
 
 Aplicar la [precedencia](precedencia.md) y el [contrato común](../agentes/contrato-agente.md).
 
-## 1. Principio Fundamental de Calidad Visual
-Cualquier agente o inteligencia artificial que trabaje en la generación de videos animados en `video-studio` debe alcanzar el estándar cinematográfico establecido en `fentanilo-2d-v2`:
-- **Prohibido el uso de emojis, iconos de fuentes (FontAwesome, Lucide plano) o cajas rectangulares toscas** como sustituto de ilustración.
+## 1. Principio Fundamental de Calidad Visual y Estilo Predominante
+Cualquier agente o inteligencia artificial que trabaje en la generación de videos animados en `video-studio` debe aplicar como **estilo visual predominante por defecto** la skill **`estilo-kiwi-kurzgesagt-3d`** (`Agencia_Principal/skills/estilo-kiwi-kurzgesagt-3d/SKILL.md`, componentes reutilizables en `video-studio/shared-art/`), salvo que el usuario seleccione explícitamente otro estilo:
+- **Cero estética de presentación / Cero pestañas superiores (MANDATORIO):** Queda estrictamente prohibido renderizar encabezados de capítulo, títulos de proyecto en la esquina superior izquierda o contadores de página (`1 / 11`, `03 / 14`) en la esquina superior derecha. Solo se permite la **línea de progreso limpia en la parte inferior** (`KiwiProgressBar`).
+- **Profundidad 3D multipiano y transiciones continuas:** Escenario `perspective: 1200px` + `preserve-3d` sobre fondo compartido continuo (`SharedCosmicBackdrop`), con puentes de cámara motivados (*zoom-dive*, *whip-glide*) y cero cortes secos a negro.
+- **Libre de sesgos y adaptable a cualquier tema:** El sistema de paletas (`KIWI_THEMES`) y rigs articulados (`KiwiCharacterIK`, `FlipCounter3D`, `YellowCallout3D`, `DataPill3D`) se adapta a ciencia, historia, salud, tecnología, finanzas o cultura sin caer en plantillas repetitivas.
+- **Prohibido el uso de iconos planos toscos o cajas rectangulares sin vida** como sustituto de ilustración.
 - **Todo elemento visual relevante debe ser arte vectorial SVG original** construido con gradientes multicapa, sombras proyectadas y filtros de iluminación sutiles.
 - **Los personajes deben ser riggeados desde cero y exhibir animación viva (PROHIBIDOS TÍTERES DE CARTÓN O FIGURAS RÍGIDAS):**
   - Extremidades articuladas en dos segmentos usando cinemática inversa (`joint()`).

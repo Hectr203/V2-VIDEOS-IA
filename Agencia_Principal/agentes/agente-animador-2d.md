@@ -31,6 +31,8 @@ Creación de nuevos videos explicativos, reproducción o réplica animada de pie
 - **Movimiento Fluido Continuo y Conexión Total:**
   Más allá de micro-animaciones aisladas (pestañeo/respiración), la escena entera debe tener flujo dinámico continuo (elementos vectoriales transformándose y desplazándose, trayectorias continuas hacia la siguiente escena, cámaras activas). Queda estrictamente prohibido mantener planos o elementos estáticos por más de 3 segundos (90 frames a 30 FPS).
 - **Jerarquía Suprema de Diseño Visual en `art.tsx` y `Film.tsx`:**
+  - `estilo-kiwi-kurzgesagt-3d`: **Estilo Predominante por Defecto** (salvo elección expresa de otro estilo por el usuario). Reutilizar los primitives 3D e IK de `video-studio/shared-art/` (`KiwiCharacterIK`, `KiwiAvatarPro`, `FlipCounter3D`, `YellowCallout3D`, `DataPill3D`, `KiwiCaptionsPro`, `KiwiProgressBar`, `SharedCosmicBackdrop`), sincronizando cada acción con `timeline.json`.
+  - **Cero pestañas o contadores tipo diapositiva (MANDATORIO):** Prohibido colocar títulos de capítulo en la zona superior o contadores `1 / 11` en la esquina superior derecha. Mantener exclusivamente la línea de progreso sutil inferior (`KiwiProgressBar`).
   - `ui-ux-pro-max`: **Mandatoria y Suprema** para la dirección de arte, paletas armónicas, roles de color y balance estético de cada escena.
   - `impeccable`: **Mandatoria** para patrones de diseño, jerarquía compuesta, tipografía cuidada, degradados refinados y erradicación total de "AI-slop".
   - `emilkowalski-skills`: **Mandatoria** para físicas de resortes (*springs*), curvas de aceleración naturales y micro-interacciones orgánicas.

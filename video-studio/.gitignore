@@ -23,6 +23,8 @@ projects/*/renders/
 projects/*/audio_cache/
 projects/*/__pycache__/
 projects/*/*.partial.mp3
+proyectos-test/
+proyectos-test/*
 video_studio.sqlite3*
 remotion/public/voice_*
 remotion/out.mp4

@@ -156,3 +156,23 @@ export function Captions({scene, f}: {scene: Scene; f: number}) {
 ## Entrega y validación
 - El archivo `art.tsx` contiene los componentes modulares y el archivo `Film.tsx` realiza la composición y montaje secuencial.
 - Validar siempre con TypeScript (`tsc --noEmit`).
+
+---
+
+## 6. Nivel Cinemático: Híbrido 3D Espacial + Estilo Editorial Vivo (Kiwi / Kurzgesagt Pro)
+
+Para elevar una animación vectorial plana al máximo nivel visual respetando la limpieza de silueta y claridad editorial:
+
+1. **Escenario 3D Multipiano (`perspective: 1200px`, `preserve-3d`):**
+   - `Z = -260px`: Atmósfera cósmica/haces de luz diagonales con paralaje suave.
+   - `Z = -80px`: Escenografía de profundidad (sofás, tejido celular, paredes arteriales, anillos orbitales inclinados con `rotateX`).
+   - `Z = 0px`: Personajes articulados con **IK 2D (`joint()`)**, respiración constante, parpadeo estocástico, retardo físico en cabello/accesorios (*follow-through*) y sombreado volumétrico sutil (*rim light* + oclusión bajo barbilla y mangas).
+   - `Z = +85px`: Componentes infográficos en relieve 3D real: contadores mecánicos `FlipCounter3D` con volteo `rotateX(0 -> -180deg)`, tarjetas `YellowCallout3D` y píldoras `DataPill3D`.
+   - `Z = +155px`: Partículas frontales y bokeh fuera de foco pasando frente a la lente.
+2. **Coreografía Exacta por Timestamps de Palabras (`timeline.json`):**
+   - Nunca disparar los eventos visuales en frames arbitrarios si existe `scene.words`. Derivar los disparadores (`triggerAt(f, fps, sec)`) directamente del segundo exacto en que se pronuncia cada concepto clave (ej. voltear el contador al decir el número, ejecutar *anticipation → slam → squash & stretch* al decir el verbo de impacto).
+3. **Físicas WWDC / Emil Kowalski + 12 Principios de Disney:**
+   - **UI y entradas limpias:** resorte críticamente amortiguado (`damping: 24, stiffness: 180`), sin rebote artificial.
+   - **Impactos y acciones de personajes:** anticipación opuesta (`4–6 frames`), desplazamiento en arco parabólico, aplastamiento con conservación de área (`sx = 1 + k`, `sy = 1 / sx`) y sobreoscilación física (`damping: 11, stiffness: 220`).
+4. **Transiciones Motivadas Continuas (Cero Cortes Muertos):**
+   - Sustituir fundidos genéricos a negro por puentes de cámara motivados (`zoom-dive`, `whip-slide`, `orbital-glide`) sobre un fondo cósmico compartido continuo entre escenas.

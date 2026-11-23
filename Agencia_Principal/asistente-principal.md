@@ -118,11 +118,17 @@ Ante cualquier solicitud para crear un nuevo video, el asistente principal debe 
        - **Tipografía de Marca Oficial:** `UN DATO` (en crema `#fff4d9`) + `MAS` (en verde lima `#d7f36b`), con el lema inferior: `CURIOSIDADES QUE SORPRENDEN`.
        - **Aislamiento Espacial de Subtítulos y Botón:** La tarjeta de cierre oficial debe ubicarse en la mitad superior/media de la composición (Y: 520 a 540) para garantizar que los subtítulos cinéticos ubicados en la parte inferior (`top: 1040`) NUNCA se sobrepongan ni colisionen con el botón interactivo de seguimiento (`SEGUIR / SIGUIENDO ✓`).
        - Si el proyecto pertenece a otra marca privada, se debe alojar su logotipo en `video-studio/assets/brand-private/` y consultar al usuario sin inventar diseños.
-    - **Pregunta 7 (Tipo y Motor de Animación en Remotion: 2D, 3D o Híbrida - MANDATORIA):**
-      Consultar explícitamente qué estilo tridimensional o bidimensional requiere la producción antes de iniciar el scaffolding:
-      * `[x]` `(Recommended) Animación 2D Vectorial + Templates Modulares (Remotion 2D)`: Ilustración vectorial SVG viva (`animacion-2d-remotion`, `character-animation-engine`), composiciones reutilizables/adaptables de `locomotion-templates`, físicas `spring()` (`emilkowalski-skills`) y dirección visual (`ui-ux-pro-max`, `impeccable`, `frontend-design`).
-      * `[ ]` `Animación 3D en Remotion (Perspectiva Espacial, Profundidad Z y Cámaras 3D)`: Escenarios con profundidad tridimensional determinista en Remotion (`perspective`, `preserve-3d`, rotaciones `rotateX`/`rotateY`/`translateZ`, iluminación volumétrica/especular, tarjetas 3D de `react-bits` y parallax multicapa) sin depender de motores externos no instalados.
-      * `[ ]` `Híbrida (2D + 3D en Remotion) o Comparativa Experimental`: Combina narrativa 2D con piezas/datos 3D, o genera ambas versiones en `video-studio/proyectos-test/` para comparar resultados.
+    - **Pregunta 7 (¿Qué estilo de animación y diseño visual quieres? — MANDATORIA):**
+      Consultar explícitamente qué estilo gráfico y motor de animación desea el usuario antes de iniciar el scaffolding. **Por defecto y de manera predominante** se aplica el estilo **`Estilo Kiwi / Kurzgesagt 3D Vivo`** (`estilo-kiwi-kurzgesagt-3d`), salvo que el usuario elija otra alternativa del catálogo existente:
+      * `[x]` `(Recommended · Por Defecto) Estilo Kiwi / Kurzgesagt 3D Vivo`: Estándar predominante de la agencia (`estilo-kiwi-kurzgesagt-3d`, componentes en `video-studio/shared-art/`). Personajes tipo cápsula volumétricos con *rim-light*, cinemática inversa 2D (`solveIK`), parpadeo y *lip-sync*, *squash & stretch*, profundidad espacial 3D multipiano (`perspective: 1200px`), contadores mecánicos `FlipCounter3D` con volteo `rotateX`, recuadros amarillos, píldoras de datos, subtítulos limpios y transiciones motivadas continuas sin pestañas superiores.
+      * `[ ]` `Animación 2D Vectorial + Templates Modulares (Remotion 2D)`: Ilustración vectorial SVG editorial (`animacion-2d-remotion`, `character-animation-engine`), composiciones reutilizables de `locomotion-templates` y físicas `spring()`.
+      * `[ ]` `Animación 3D Espacial / Infografía Cinematográfica en Remotion`: Escenarios y diagramas técnicos/cortes internos en profundidad Z (`perspective`, `preserve-3d`, tarjetas flotantes de cristal y cámaras orbitales 3D).
+      * `[ ]` `Estilo Editorial / Documental tipo Vox / Paper Collage`: Estética "printed, not lit", tramas *halftone*, texturas de papel, resaltador cinético y collage fotográfico (`vox-style-animation`, `editorial-paper-collage-animation`).
+      * `[ ]` `Híbrida (2D + 3D en Remotion) o Comparativa Experimental`: Combina varios estilos o genera prototipos comparativos dentro de `video-studio/proyectos-test/`.
+
+  - **Regla de Cero Pestañas / Cero Encabezados Tipo Presentación (MANDATORIO EN TODO VIDEO):**
+    * **Prohibición absoluta de encabezados de diapositiva:** Queda terminantemente prohibido mostrar títulos de capítulo, nombres de proyecto en la esquina superior izquierda o contadores de página (`1 / 11`, `03 / 14`) en la esquina superior derecha. Un video es cine/animación fluida, jamás una presentación de diapositivas con pestañas.
+    * **Solo barra de progreso inferior:** Como único indicador sutil de avance temporal se permite la línea de progreso limpia en el borde inferior (`KiwiProgressBar`).
 
   - **Regla de Psicología Humana, Volumen Ágil de Escenas y Movimiento Continuo (MANDATORIO):**
     Para evitar el abandono del espectador, mantener la atención dopamínica activa y **erradicar por completo la sensación de estar viendo una presentación PowerPoint o diapositivas estáticas**:
@@ -143,6 +149,8 @@ Ante cualquier solicitud para crear un nuevo video, el asistente principal debe 
 
    - **Jerarquía Suprema y Mandatoria de Skills de Diseño y Animación:**
      El Asistente Principal y todos los subagentes deben aplicar de manera obligatoria la siguiente jerarquía de diseño para cada escena, elemento visual y composición:
+     0. **`estilo-kiwi-kurzgesagt-3d` (ESTILO VISUAL PREDOMINANTE POR DEFECTO):**
+        Es el lenguaje gráfico y de animación principal de la agencia para todos los videos futuros (salvo que el usuario elija otro estilo explícitamente en la Pregunta 7). Aplica la arquitectura multipiano 3D (`SharedCosmicBackdrop`, `KiwiCharacterIK`, `KiwiAvatarPro`, `FlipCounter3D`, `YellowCallout3D`, `DataPill3D`, `KiwiCaptionsPro`, `KiwiProgressBar`), sincronización exacta a los timestamps de `timeline.json`, transiciones motivadas continuas y prohibición absoluta de pestañas o contadores tipo presentación en la zona superior.
      1. **`ui-ux-pro-max` (SKILL MANDATORIA SUPREMA PARA DISEÑO VISUAL):**
         Es la máxima autoridad de diseño visual de la agencia. Determina la dirección de arte, paletas cromáticas armónicas y balanceadas (consultando `scripts/search.py` para contrastes, roles primarios/secundarios/acento y fondos), tipografía de alta gama, balance visual de la escena, elevaciones, sombras y acabados prémium. Todas las escenas deben ser concebidas bajo los estándares estéticos de UI/UX Pro Max.
      2. **`impeccable` (SKILL MANDATORIA PARA PATRONES DE DISEÑO Y DETALLES):**

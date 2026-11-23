@@ -601,127 +601,122 @@ export function joint(a: Point, b: Point, l1: number, l2: number, bend: number):
 '''
     (src_dir / "art.tsx").write_text(art_content, encoding="utf-8")
 
-    # 8. src/Film.tsx
+    # 8. src/Film.tsx (Plantilla Estándar Predominante: Estilo Kiwi / Kurzgesagt 3D Vivo, Cero Pestañas Superiores)
     film_content = f'''import React, {{useEffect, useState}} from 'react';
-import {{AbsoluteFill, Audio, Sequence, cancelRender, continueRender, delayRender, staticFile, useCurrentFrame}} from 'remotion';
+import {{
+  AbsoluteFill,
+  Audio,
+  Easing,
+  Sequence,
+  cancelRender,
+  continueRender,
+  delayRender,
+  interpolate,
+  staticFile,
+  useCurrentFrame,
+  useVideoConfig,
+}} from 'remotion';
 import timelineData from './timeline.json';
-import {{ArtDefs, Backdrop, Label, ease, mix, clamp}} from './art';
+import {{
+  ForegroundParticles3D,
+  KiwiCaptionsPro,
+  KiwiCharacterIK,
+  KiwiProDefs,
+  KiwiProgressBar,
+  SharedCosmicBackdrop,
+  YellowCallout3D,
+  kiwiClamp,
+  kiwiMix,
+  kiwiWave,
+}} from '../../../../shared-art';
 
 export const timeline = timelineData;
 type Scene = typeof timeline.scenes[number];
 
 const getAsset = (file: string) => staticFile(file.split('/').pop() || file);
 
-function Captions({{scene, f}}: {{scene: Scene; f: number}}) {{
-  const time = f / 30;
-  const words = scene.words || [];
-  if (!words.length) return null;
-  let current = words.findIndex(w => time >= w.start && time < w.end);
-  if (current < 0) current = Math.max(0, words.findIndex(w => w.start > time) - 1);
-  if (time >= words[words.length - 1].end) current = words.length - 1;
-
-  const groups: {{word: string; start: number; end: number}}[][] = [];
-  for (const word of words) {{
-    const last = groups[groups.length - 1];
-    if (!last || last.length >= 5 || last.map(w => w.word).join(' ').length + word.word.length > 30) {{
-      groups.push([word]);
-    }} else {{
-      last.push(word);
-    }}
-  }}
-  const active = words[current];
-  const group = groups.find(g => g.includes(active)) || groups[0];
-  const pop = ease((time - group[0].start) * 12);
-
-  return (
-    <div style={{{{
-      position: 'absolute', left: 48, top: 174, width: 624, textAlign: 'center',
-      fontSize: 35, lineHeight: 1.32, fontWeight: 750, letterSpacing: -0.6,
-      transform: 'translateY(' + mix(6, 0, pop) + 'px)', color: '#fff8f1',
-      textShadow: '0 3px 15px rgba(20,10,42,0.4)'
-    }}}}>
-      {{group.map((w, i) => (
-        <span key={{w.start + '-' + i}} style={{{{
-          display: 'inline-block', padding: '2px 7px', margin: '1px 0', borderRadius: 8,
-          background: w === active ? 'rgba(25,18,52,0.66)' : 'transparent',
-          color: w === active ? '#fff8bb' : '#fff9ef',
-          opacity: time >= w.start ? 1 : 0.58
-        }}}}>{{w.word}} </span>
-      ))}}
-    </div>
-  );
-}}
-
-function Shot({{scene, index}}: {{scene: Scene; index: number}}) {{
+function Shot({{scene, index, isHorizontal}}: {{scene: Scene; index: number; isHorizontal: boolean}}) {{
   const f = useCurrentFrame();
-  const camera = 1 + ease(f / scene.frames) * 0.018;
+  const {{fps}} = useVideoConfig();
+  const stageW = isHorizontal ? 1280 : 720;
+  const stageH = isHorizontal ? 720 : 1280;
+
+  const enterP = interpolate(f, [0, 12], [0, 1], {{easing: Easing.out(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}});
+  const exitP = interpolate(f, [scene.frames - 11, scene.frames], [0, 1], {{easing: Easing.in(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}});
+  const isDive = index % 2 === 0;
+  const enterZ = isDive ? kiwiMix(-170, 0, enterP) : 0;
+  const enterX = isDive ? 0 : kiwiMix(150, 0, enterP);
+  const exitZ = isDive ? kiwiMix(0, 150, exitP) : 0;
+  const exitX = isDive ? 0 : kiwiMix(0, -150, exitP);
+  const driftZ = interpolate(f, [0, scene.frames], [-20, 32], {{easing: Easing.inOut(Easing.cubic), extrapolateLeft: 'clamp', extrapolateRight: 'clamp'}});
+  const camRotY = kiwiWave(f, 0.022, 4.2, index * 1.1);
+  const camRotX = kiwiWave(f, 0.017, 2.2, index * 0.7);
+  const opacity = kiwiClamp(Math.min(enterP * 1.35, (1 - exitP) * 1.35));
+
   return (
-    <AbsoluteFill style={{{{background: scene.palette === 'gold' ? '#f7bc45' : scene.palette === 'teal' ? '#12576a' : '#2c1a50'}}}}>
-      <svg width="720" height="1280" viewBox="0 0 720 1280" style={{{{position: 'absolute', inset: 0, overflow: 'hidden'}}}}>
-        <ArtDefs />
-        <Backdrop palette={{scene.palette}} f={{f}} />
-        <g transform={{'translate(360 730) scale(' + camera + ') translate(-360 -730)'}}>
-          <Label x={{360}} y={{700}} text={{scene.chapter}} size={{26}} />
-        </g>
-        <g fill="#d0bee7" opacity="0.7" fontSize="16" fontWeight="700" letterSpacing="2.2">
-          <text x="48" y="75">{prod_id.upper()}</text>
-          <text x="672" y="75" textAnchor="end">{{String(index + 1).padStart(2, '0')}} / {{timeline.scenes.length}}</text>
-        </g>
-        <rect x="48" y="1213" width="624" height="3" rx="2" fill="#ae92d7" opacity="0.2" />
-        <rect x="48" y="1213" width={{624 * clamp((scene.start + f) / timeline.durationInFrames)}} height="3" rx="2" fill="#c5b5ea" opacity="0.6" />
-      </svg>
-      <Captions scene={{scene}} f={{f}} />
+    <AbsoluteFill style={{{{opacity}}}}>
+      <div style={{{{position: 'absolute', inset: 0, perspective: 1200, perspectiveOrigin: isHorizontal ? '36% 50%' : '50% 48%', overflow: 'hidden'}}}}>
+        <div
+          style={{{{
+            position: 'absolute',
+            inset: 0,
+            transformStyle: 'preserve-3d',
+            transform: `translate3d(${{enterX + exitX}}px, 0px, ${{driftZ + enterZ + exitZ}}px) rotateY(${{camRotY}}deg) rotateX(${{camRotX}}deg)`,
+          }}}}
+        >
+          <svg width={{stageW}} height={{stageH}} viewBox={{`0 0 ${{stageW}} ${{stageH}}`}} style={{{{position: 'absolute', inset: 0}}}}>
+            <KiwiProDefs themeKey="cosmos" />
+            <g transform={{`translate(${{isHorizontal ? 340 : 360}} ${{isHorizontal ? 390 : 590}})`}}>
+              <KiwiCharacterIK x={{0}} y={{0}} f={{f}} scale={{isHorizontal ? 1.08 : 1.18}} />
+            </g>
+          </svg>
+          <YellowCallout3D top={{isHorizontal ? 110 : 210}} left={{isHorizontal ? 940 : undefined}} title={{scene.chapter}} sub="Animación Kiwi 3D Viva" delayFrames={{6}} f={{f}} fps={{fps}} />
+        </div>
+      </div>
+      <KiwiCaptionsPro words={{scene.words || []}} f={{f}} fps={{fps}} isHorizontal={{isHorizontal}} />
     </AbsoluteFill>
   );
 }}
 
 export const {component_name}: React.FC<{{aspectRatio?: '9:16' | '16:9'}}> = ({{aspectRatio = '9:16'}}) => {{
   const isHorizontal = aspectRatio === '16:9';
+  const globalFrame = useCurrentFrame();
+  const {{fps}} = useVideoConfig();
+  const stageW = isHorizontal ? 1280 : 720;
+  const stageH = isHorizontal ? 720 : 1280;
   const [handle] = useState(() => delayRender('Cargando tipografía'));
+
   useEffect(() => {{
     const font = new FontFace('StudioSans', `url(${{getAsset('UbuntuSans.ttf')}})`, {{weight: '100 900'}});
     font.load().then(loaded => {{ document.fonts.add(loaded); continueRender(handle); }}).catch(cancelRender);
   }}, [handle]);
 
+  const musicVolume = (gf: number) => {{
+    const sc = timeline.scenes.find(s => gf >= s.start && gf < s.start + s.frames);
+    if (!sc) return 0.34;
+    const localF = gf - sc.start;
+    const speaking = localF >= 3 && localF <= ((sc as {{voiceDuration?: number}}).voiceDuration || sc.frames / fps) * fps;
+    return speaking ? 0.2 : 0.34;
+  }};
+
   return (
-    <AbsoluteFill style={{{{background: '#21153b', fontFamily: 'StudioSans, sans-serif'}}}}>
-      {{isHorizontal ? (
-        <div style={{{{
-          position: 'absolute',
-          inset: 0,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          background: 'radial-gradient(ellipse at center, #2e1a54 0%, #110924 100%)'
-        }}}}>
-          <div style={{{{
-            position: 'relative',
-            width: 720,
-            height: 1280,
-            transform: 'scale(0.84375)',
-            boxShadow: '0 0 120px rgba(0,0,0,0.7)',
-            borderRadius: 24,
-            overflow: 'hidden'
-          }}}}>
-            {{timeline.scenes.map((scene, i) => (
-              <Sequence key={{scene.id}} from={{scene.start}} durationInFrames={{scene.frames}}>
-                <Shot scene={{scene}} index={{i}} />
-                <Audio src={{getAsset(scene.audio)}} volume={{0.95}} />
-              </Sequence>
-            ))}}
-          </div>
+    <AbsoluteFill style={{{{background: '#0f0428', fontFamily: 'StudioSans, sans-serif'}}}}>
+      <div style={{{{position: 'absolute', width: stageW, height: stageH, transform: 'scale(1.5)', transformOrigin: 'top left'}}}}>
+        {{/* Fondo cósmico continuo compartido (sin pestañas ni encabezados de diapositiva) */}}
+        <SharedCosmicBackdrop globalFrame={{globalFrame}} width={{stageW}} height={{stageH}} />
+        {{timeline.scenes.map((scene, i) => (
+          <Sequence key={{scene.id}} from={{scene.start}} durationInFrames={{scene.frames}}>
+            <Shot scene={{scene}} index={{i}} isHorizontal={{isHorizontal}} />
+            <Audio src={{getAsset(scene.audio)}} volume={{0.96}} />
+          </Sequence>
+        ))}}
+        <div style={{{{position: 'absolute', inset: 0, perspective: 1200, pointerEvents: 'none', overflow: 'hidden'}}}}>
+          <ForegroundParticles3D globalFrame={{globalFrame}} width={{stageW}} height={{stageH}} />
         </div>
-      ) : (
-        <div style={{{{position: 'absolute', width: 720, height: 1280, transform: 'scale(1.5)', transformOrigin: 'top left'}}}}>
-          {{timeline.scenes.map((scene, i) => (
-            <Sequence key={{scene.id}} from={{scene.start}} durationInFrames={{scene.frames}}>
-              <Shot scene={{scene}} index={{i}} />
-              <Audio src={{getAsset(scene.audio)}} volume={{0.95}} />
-            </Sequence>
-          ))}}
-        </div>
-      )}}
-      <Audio src={{getAsset('score.wav')}} volume={{0.8}} />
+        {{/* Única línea de progreso sutil inferior */}}
+        <KiwiProgressBar globalFrame={{globalFrame}} durationInFrames={{timeline.durationInFrames}} width={{stageW}} height={{stageH}} />
+      </div>
+      <Audio src={{getAsset('score.wav')}} volume={{musicVolume}} />
     </AbsoluteFill>
   );
 }};

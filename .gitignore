@@ -151,6 +151,10 @@ resultaaquee_*.mp4
 video-studio/projects/*/
 video-studio/projects/*/*/
 
+# Proyectos de prueba, experimentos y rigs (nunca se suben al repositorio)
+video-studio/proyectos-test/
+video-studio/proyectos-test/*
+
 # Temas y cuestionarios de creadores (privados y confidenciales)
 video-studio/mis-temas/*
 !video-studio/mis-temas/README.md
