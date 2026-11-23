@@ -160,5 +160,10 @@ video-studio/mis-temas/*
 !video-studio/mis-temas/README.md
 !video-studio/mis-temas/.gitkeep
 
+# Ideas e historias generadas personalmente (privadas y excluidas del repositorio)
+video-studio/mis-ideas/*
+!video-studio/mis-ideas/README.md
+!video-studio/mis-ideas/.gitkeep
+
 # Package.json de Remotion (modificado dinámicamente con scripts de cada proyecto)
 video-studio/remotion/package.json

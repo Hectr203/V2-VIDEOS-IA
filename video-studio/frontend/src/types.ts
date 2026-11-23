@@ -61,7 +61,17 @@ export interface ProjectMeta {
 export interface VoiceItem {
   id: string;
   name: string;
+  display_label?: string;
   gender: string;
+  gender_raw?: string;
+  age?: string;
+  age_raw?: string;
+  accent?: string;
+  style?: string;
+  use_case?: string;
+  category?: string;
+  description?: string;
+  preview_url?: string | null;
 }
 
 export interface VoiceProvider {

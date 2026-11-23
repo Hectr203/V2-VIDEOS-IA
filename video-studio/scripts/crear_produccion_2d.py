@@ -225,7 +225,45 @@ async def generate_narration(scene, config, sem):
             try:
                 words = []
                 partial = target.with_suffix('.partial.mp3')
-                is_applio = config.get('voice_provider') == 'applio' or config.get('applio_model')
+                provider = config.get('voice_provider', 'edge-tts')
+                if provider == 'elevenlabs':
+                    import sys as _sys
+                    backend_dir = str(find_studio(HERE) / "backend")
+                    if backend_dir not in _sys.path:
+                        _sys.path.insert(0, backend_dir)
+                    from services.elevenlabs_gateway import get_elevenlabs_gateway
+                    gw = get_elevenlabs_gateway()
+                    voice_id = config.get('voice_id') or config.get('voice', 'IKne3meq5aSn9XLyUdCD')
+                    model_id = config.get('elevenlabs_model') or gw.default_model
+                    res = await asyncio.to_thread(gw.synthesize_with_failover, scene['text'], voice_id, model_id)
+                    partial.write_bytes(res['audio_bytes'])
+                    align = res.get('alignment') or {{}}
+                    chars = align.get('characters') or []
+                    starts = align.get('character_start_times_seconds') or []
+                    ends = align.get('character_end_times_seconds') or []
+                    cur_w, w_start, prev_e = [], None, 0.0
+                    for ch, s, e in zip(chars, starts, ends):
+                        if ch.isspace():
+                            if cur_w:
+                                words.append({{'word': ''.join(cur_w), 'start': round(w_start or 0.0, 3), 'end': round(prev_e, 3)}})
+                                cur_w, w_start = [], None
+                        else:
+                            if w_start is None: w_start = s
+                            cur_w.append(ch); prev_e = e
+                    if cur_w:
+                        words.append({{'word': ''.join(cur_w), 'start': round(w_start or 0.0, 3), 'end': round(prev_e, 3)}})
+                    seconds = get_duration(partial)
+                    if not words and seconds > 0:
+                        raw_w = scene['text'].split()
+                        step = seconds / max(len(raw_w), 1)
+                        words = [{{'word': w, 'start': round(i * step, 3), 'end': round((i + 1) * step, 3)}} for i, w in enumerate(raw_w)]
+                    partial.replace(target)
+                    data = {{'key': key, 'duration': seconds, 'words': words, 'account_used': res['account_used']}}
+                    cache.write_text(json.dumps(data, ensure_ascii=False, indent=2), encoding="utf-8")
+                    print(f"Audio {{scene['id']}} [ElevenLabs/{{res['account_used']}}]: {{seconds:.2f}}s, {{len(words)}} palabras (saldo est.: {{res['remaining_characters_estimate']}})", flush=True)
+                    return data
+
+                is_applio = provider == 'applio' or config.get('applio_model')
                 base_voice = config.get('voice_base', 'es-CL-LorenzoNeural') if is_applio else config['voice']
                 base_rate = config.get('rate_base', '+18%') if is_applio else config['rate']
                 tts = edge_tts.Communicate(scene['text'], base_voice, rate=base_rate, boundary='WordBoundary')
@@ -361,20 +399,16 @@ async def main():
     print(f"Timeline completado: {{current_frame}} frames ({{current_frame / FPS:.2f}}s)")
     if storyboard.get("voice_provider") == "elevenlabs":
         try:
-            import urllib.request
-            key = ""
-            env_path = find_studio(HERE) / "backend/.env"
-            if env_path.exists():
-                for line in env_path.read_text(encoding="utf-8").splitlines():
-                    if line.startswith("ELEVENLABS_API_KEY="):
-                        key = line.split("=", 1)[1].strip().strip("\"'")
-                        break
-            if key:
-                req = urllib.request.Request("https://api.elevenlabs.io/v1/user/subscription", headers={{"xi-api-key": key}})
-                with urllib.request.urlopen(req, timeout=15) as resp:
-                    sub = json.loads(resp.read().decode())
-                    rem = sub.get("character_limit", 10000) - sub.get("character_count", 0)
-                    print(f"\\n💳 Créditos ElevenLabs: {{rem:,}} restantes (usados: {{sub.get('character_count', 0):,}} / límite: {{sub.get('character_limit', 10000):,}})")
+            import sys as _sys
+            backend_dir = str(find_studio(HERE) / "backend")
+            if backend_dir not in _sys.path:
+                _sys.path.insert(0, backend_dir)
+            from services.elevenlabs_gateway import get_elevenlabs_gateway
+            pool = get_elevenlabs_gateway().get_pool_status(force_refresh=True)
+            print(f"\\n💳 Gateway ElevenLabs: {{pool['available_accounts']}}/{{pool['total_accounts']}} cuentas listas | saldo combinado: {{pool['total_remaining_characters']:,}} chars (activa: {{pool['active_account']}})")
+            for acc in pool["accounts"]:
+                rem = f"{{acc['remaining_characters']:,}}" if acc["remaining_characters"] is not None else "n/a"
+                print(f"   - {{acc['account']}} ({{acc['key_hint']}}): {{acc['status']}} | {{rem}} restantes")
         except Exception:
             pass
 

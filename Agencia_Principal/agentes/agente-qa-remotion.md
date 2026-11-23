@@ -22,6 +22,7 @@ Fase final de producción audiovisual, revisión de hojas de contacto (`contact-
   - Verificar que el auto-ducking atenúe la música durante la voz activa.
   - Asegurar que no exista clipping o saturación digital (`True Peak < -1.0 dBFS`, sonoridad integrada `-18` a `-19 LUFS`).
   - Verificar que exista una capa rica y dinámica de efectos sonoros (SFX abundantes y variados acordes a la historia) perfectamente equilibrados sin sobrepasar ni enmascarar la voz narradora, y que la música seleccionada no sea repetitiva respecto a producciones recientes.
+  - Auditar el audio con "oídos objetivos" antes de dar `PASS`: ejecutar `earshot measure <render.mp4>` (y `earshot timeline` / `earshot sheet` si el extra `[listen]` está instalado) para comprobar LUFS, True Peak dBTP y desfases de sincronía en milisegundos, y usar los controles de `real-sfx` (`critique.py`, `verify.py`, `levels.py`) cuando se haya aplicado mezcla de SFX frame-a-frame para descartar duplicación sintética (*doubling*), enmascaramiento o golpes fuera de cuadro.
   - Verificar coherencia visual estricta del estándar `estilo-cartoon-editorial-3d` (o el estilo elegido por el usuario), cero pestañas superiores y correcta integración de cualquier recorte web o imagen IA de Gemini utilizada.
 - Comprobar que todos los subtítulos o copias en pantalla sean fieles al guion y estén sincronizados palabra por palabra.
 - Emitir veredicto formal `PASS` o `BLOCK` con lista de defectos indexados por código de tiempo si existen anomalías.
@@ -34,6 +35,8 @@ Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear 
 - `remotion-render`: protocolos de exportación, flags de renderizado, CRF y concurrencia.
 - `remotion-studio`: previsualización e inspección interactiva previa a renders definitivos.
 - `make-awesome-video`: pasada de crítica visual independiente y verificación contra storyboard.
+- `earshot`: telemetría acústica BS.1770 (LUFS, True Peak, espectro, ataques y desfases) para auditar el audio sin estar "sordo".
+- `real-sfx`: verificación de sincronía frame-a-frame, niveles por rol, detección de enmascaramiento y ausencia de duplicación sintética (`critique.py`, `verify.py`, `levels.py`).
 
 ## Entrega
 - Hoja de contactos visual validada.

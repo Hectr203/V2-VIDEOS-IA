@@ -85,6 +85,10 @@ Todo proyecto canónico debe admitir composiciones verticales (9:16) y horizonta
    - Normalizar los SFX y limitar picos a -6 dBFS para mantener transiciones de alto impacto sin saturación ni sustos auditivos.
    - Auto-ducking en `Film.tsx`: reducción al 30-35% durante el habla y ganancia completa en pausas dramáticas.
    - El master final renderizado debe cumplir rigurosamente el estándar EBU R128 (-18 a -19 LUFS integrado, True Peak < -1.0 dBFS).
+8. **Tríada de Diseño Sonoro Pro (`earshot` + `real-sfx` + `openverse-audio` + `real-sound`):**
+   - **Oídos acústicos y síntesis limpia (`earshot` / `real-sound`):** Usar `earshot measure <archivo>` para auditar sonoridad, picos y ataques (`peak_s`) antes de entregar, y `earshot make "<sonido>"` / `earshot make --set film` cuando haga falta fabricar un SFX limpio aprendido de dominio público.
+   - **Sincronía cuadro a cuadro (`real-sfx`):** Usar `Agencia_Principal/skills/audio-pro-skills/real-sfx/scripts/` (indexado a `video-studio/assets/sfx` + `uisfx` CC0) para detectar momentos visuales, colocar efectos reales en el fotograma exacto con `--voice-safe --duck` y validar cero duplicación sintética (`critique.py`).
+   - **Catálogo abierto de 5M+ audios (`openverse-audio`):** Cuando falte un efecto o ambiente específico en los 414 audios locales, descargar grabaciones CC0/PDM/CC-BY mediante `buscar_openverse.py` con trazabilidad automática en `CREDITS.md`.
 
 ## 8. Documentación Técnica de Referencia
 Para consultar el manual operativo completo de agentes, convenciones de paths y anti-alucinación, leer:

@@ -1,0 +1,10 @@
+---
+name: real-sound
+description: Build premium, realistic soundtracks for code-made videos and animations from real licensed recordings - launch films, product and feature videos, UI walkthroughs, logo stings, explainers, trailers and animated shorts made with Remotion, HyperFrames, three.js, GSAP or any renderer. Use this whenever a video or animation needs sound design, SFX, foley, ambience, music, a soundtrack, a score, UI click / whoosh / riser / impact / logo-sting sounds, or a music edit to picture; whenever a synthesized or "random" sounding soundtrack must be replaced with real recordings; or when the user asks to source, license, credit, mix, master, critique or mux audio for a film. It covers cue lists from the picture, sourcing from Freesound / Mixkit / composer libraries with licence checks, a music edit at bar lines, a JSON sound design rendered by a deterministic mixer, measured QA (clicks, masking, harshness, sync, loudness) plus earshot listening, a multi-agent critique, mastering, credits and the mux.
+---
+
+Entrada generada. Antes de actuar, lee la [fuente canónica](../../../skills/audio-pro-skills/earshot-suite/skills/real-sound/SKILL.md).
+Resuelve scripts, referencias y recursos desde el directorio de esa fuente.
+Aplica la precedencia de reglas de la agencia; no cargues variantes con el mismo nombre.
+Selecciona por objetivo, entradas y exclusiones conforme al [contrato común](../../../agentes/contrato-agente.md).
+Recibe la tarea concreta como contexto; no ejecuta todas las herramientas ni amplía autorización.

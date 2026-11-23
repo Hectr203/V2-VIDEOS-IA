@@ -1,5 +1,5 @@
 {
-  "updated_at": "2026-11-23T00:06:40",
+  "updated_at": "2026-11-23T00:27:41",
   "usos_por_pista": {
     "music/Mix - Música De Fondo Para Videos y Presentaciones/12 - Música De Fondo Inspiradora y Dramática Para Videos.mp3": 3,
     "music/Mix - Música De Fondo Para Videos y Presentaciones/05 - Música de Fondo Energética y Positiva para Videos.mp3": 3,
@@ -24,9 +24,27 @@
     "music/MUSICA para VIDEOS de VIAJE 2020 🏖/33 - Fredji Happy Life MUSICA SIN COPYRIGHT.mp3": 1,
     "music/Terror y Drama/Inception BWONG Sound(MP3_70K).mp3": 1,
     "music/Terror y Drama/Minecraft Sonido De Cueva 1(MP3_160K).mp3": 1,
-    "music/Mix - Lluvia Y Brillos/14 - Truenos En La Lluvia.mp3": 1
+    "music/Mix - Lluvia Y Brillos/14 - Truenos En La Lluvia.mp3": 1,
+    "music/Mix - Música De Fondo Para Videos y Presentaciones/08 - Wake Up - MBB [ MÚSICA SIN COPYRIGHT ].mp3": 1,
+    "music/Mix - Música De Fondo Para Videos y Presentaciones/22 - #32 Lights (Official).mp3": 1,
+    "music/Los MEJORES SOUNDTRACKS de los VIDEOJUEGOS/81 - Super Mario Galaxy - Comet Observatory Medley.mp3": 1
   },
   "recientes": [
+    {
+      "proyecto": "como-funcionan-los-ojos",
+      "file": "music/Los MEJORES SOUNDTRACKS de los VIDEOJUEGOS/81 - Super Mario Galaxy - Comet Observatory Medley.mp3",
+      "fecha": "2026-11-23"
+    },
+    {
+      "proyecto": "como-funcionan-los-ojos",
+      "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/22 - #32 Lights (Official).mp3",
+      "fecha": "2026-11-23"
+    },
+    {
+      "proyecto": "como-funcionan-los-ojos",
+      "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/08 - Wake Up - MBB [ MÚSICA SIN COPYRIGHT ].mp3",
+      "fecha": "2026-11-23"
+    },
     {
       "proyecto": "chavo-historia-libro-crudo",
       "file": "music/Mix - Música De Fondo Para Videos y Presentaciones/12 - Música De Fondo Inspiradora y Dramática Para Videos.mp3"

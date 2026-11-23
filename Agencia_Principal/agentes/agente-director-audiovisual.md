@@ -25,7 +25,11 @@ Fase de concepción, storyboard, ritmo audiovisual, dirección de planos cinemá
 - **Identidad Oficial Un Dato Más:** Exigir en el cierre el uso estricto del componente oficial canónico `BrandUnDatoMasCard` (berenjena `#321c3a`, lima `#d7f36b` y crema `#fff4d9`), verificando que los subtítulos en el tercio inferior nunca colisionen con los botones interactivos.
 - Emplear tarjetas de recetas de planos (*shot cards*) para componer encuadres dinámicos (planos detalle, planos medios, paneos de cámara, sobrevuelos).
 - Mapear los cortes y golpes de animación a los beats de la música y la locución (*beat sync*).
-- **Curaduría Anti-Repetición basada en Historias + SFX Abundantes (OBLIGATORIO):** Ejecutar `python3 video-studio/scripts/buscar_audio.py --historia "<sinopsis y tono>" --evitar-recientes` para evitar repetir pistas usadas en videos previos, registrar los usos con `--registrar-uso`, combinar pistas con *crossfade* por acto narrativo e inyectar una partitura rica de **12 a 20 micro-SFX por minuto** calibrados a volumen `0.16–0.30` (entretenidos y nítidos sin tapar jamás la voz).
+- **Curaduría Anti-Repetición basada en Historias + Tríada de Diseño Sonoro Pro (OBLIGATORIO):**
+  1. Ejecutar `python3 video-studio/scripts/buscar_audio.py --historia "<sinopsis y tono>" --evitar-recientes` para seleccionar música fresca y SFX locales sin repetir pistas recientes (registrando siempre con `--registrar-uso`).
+  2. Cuando falte un efecto real en la biblioteca local, buscar y descargar audios CC0/PDM/CC-BY desde la API oficial de Openverse con `openverse-audio` (`buscar_openverse.py`), generando trazabilidad automática en `CREDITS.md`.
+  3. Usar `earshot` (`earshot make`, `earshot kit`, `earshot measure`) y `real-sound` para sintetizar/ajustar SFX limpios aprendidos de dominio público con medición exacta de ataque (`peak_s`), LUFS y cero clips cuando no haya grabación.
+  4. Usar `real-sfx` (`look.py`, `find_moments.py`, `from_cues.py`, `mix.py --voice-safe --duck`, `critique.py`) sobre los renders o mapas de cues para colocar efectos reales en el **fotograma exacto**, proteger la locución y la música, e inyectar una partitura rica de **12 a 20 micro-SFX por minuto** calibrados a `0.16–0.30` sin tapar jamás la voz.
 - **Decisión Meditada de Recortes Web y Fondos IA (Gemini):** Evaluar junto al agente estratega narrativo en qué escenas conviene integrar recortes descargados de internet o fondos generados con Gemini (`image-generator`) para reforzar claridad e impacto sin sobrecargar.
 - Coordinar previamente con el [agente estratega narrativo](agente-estratega-narrativo.md) (`estrategia-narrativa-ganchos-retencion`) para asegurar un gancho 0–3s `>= 80/100` antes de aprobar el storyboard final.
 - Realizar pasadas de crítica visual independiente sobre las hojas de contacto antes del render final, emitiendo notas de dirección de cámara y ajustes de encuadre.
@@ -40,6 +44,10 @@ Aplicar [selección común](../reglas/seleccion-skills.md). Descubrir y emplear 
 - `video-shotcraft`: tarjetas de recetas de planos (*shot cards*), template Ink Press y sincronización de SFX.
 - `documentary-narrative-engine`: estructura dramática, ganchos de retención y beats narrativos.
 - `pipeline-produccion-video`: arquitectura estándar de proyectos auto-contenidos en `video-studio`.
+- `earshot`: medición acústica exacta (LUFS, dBTP, desfases ms) y fabricación de SFX limpios desde 922 diseños/kit `film`.
+- `real-sound`: arquitectura de diseño sonoro real con cue lists, verificación de licencias y mezcla determinista.
+- `real-sfx`: detección de momentos visuales y colocación frame-a-frame de SFX reales desde `video-studio/assets/sfx` (+ `uisfx` CC0) con `--voice-safe` y `--duck`.
+- `openverse-audio`: búsqueda y descarga directa de más de 5M de audios libres (`CC0`/`PDM`/`CC-BY`) con `CREDITS.md` automático.
 
 ## Entrega
 - Registro de planos y storyboard cinemático con especificación de transiciones y movimientos de cámara.

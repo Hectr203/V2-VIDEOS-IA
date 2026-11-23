@@ -13,6 +13,7 @@ from pydantic import BaseModel, Field
 from services.render_jobs import RenderJobStore
 
 from services.voice_hub import VoiceHub
+from services.elevenlabs_gateway import get_elevenlabs_gateway
 from services.project_manager import ProjectManager, PROJECTS_DIR
 from services.omniroute_client import OMNIROUTE_API_KEY, OMNIROUTE_BASE_URL
 from services.render_service import render_project, render_single_scene
@@ -91,6 +92,28 @@ def health():
 @app.get("/api/voice-catalog")
 def get_voice_catalog():
     return {"providers": VoiceHub.get_catalog()}
+
+@app.get("/api/elevenlabs/voices")
+def list_elevenlabs_voices(
+    age: Optional[str] = None,
+    gender: Optional[str] = None,
+    search: Optional[str] = None,
+):
+    """Lista las voces disponibles de ElevenLabs con metadatos (edad, género, acento, estilo y preview)."""
+    gateway = get_elevenlabs_gateway()
+    if not gateway.has_keys():
+        gateway.reload_from_env()
+    try:
+        return gateway.list_voices(age=age, gender=gender, search=search)
+    except Exception as error:
+        raise HTTPException(status_code=503, detail=str(error)) from error
+
+@app.get("/api/elevenlabs/gateway/status")
+def get_elevenlabs_gateway_status(refresh: bool = True):
+    """Consulta el estado de salud y créditos restantes del pool multi-cuenta de ElevenLabs (sin exponer claves)."""
+    gateway = get_elevenlabs_gateway()
+    gateway.reload_from_env()
+    return gateway.get_pool_status(force_refresh=refresh)
 
 @app.get("/api/assets")
 def get_assets():
@@ -582,6 +605,13 @@ def get_tools_status():
             "status": "configured" if OMNIROUTE_API_KEY else "not_configured",
             "url": OMNIROUTE_BASE_URL,
             "description": "La etiqueta indica únicamente si hay una clave configurada; la conectividad se comprueba al generar contenido"
+        },
+        "elevenlabs_gateway": {
+            "name": "ElevenLabs Multi-Account Gateway",
+            "status": "configured" if get_elevenlabs_gateway().configured_count > 0 else "not_configured",
+            "accounts_configured": get_elevenlabs_gateway().configured_count,
+            "min_credits_threshold": get_elevenlabs_gateway().min_credits_threshold,
+            "description": "Rotación automática por saldo disponible; usa /api/elevenlabs/gateway/status para verificar créditos en vivo"
         },
         "tella_style": {
             "name": "Tella Style Engine",

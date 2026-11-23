@@ -15,6 +15,8 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
   const [targetDuration, setTargetDuration] = useState<number>(60);
   const [selectedProvider, setSelectedProvider] = useState('edge-tts');
   const [selectedVoice, setSelectedVoice] = useState('es-ES-AlvaroNeural');
+  const [voiceAgeFilter, setVoiceAgeFilter] = useState<string>('all');
+  const [voiceSearch, setVoiceSearch] = useState<string>('');
   const [outputFormat, setOutputFormat] = useState<'vertical' | 'horizontal'>('vertical');
   const [selectedStyle, _setSelectedStyle] = useState('curiosity');
   const [isGenerating, setIsGenerating] = useState(false);
@@ -36,8 +38,24 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
     'La ingeniería detrás de los submarinos nucleares',
   ];
 
-  const currentProviderVoices =
+  const rawProviderVoices =
     voiceProviders.find((p) => p.provider === selectedProvider)?.voices || [];
+
+  const currentProviderVoices = rawProviderVoices.filter((v) => {
+    if (selectedProvider !== 'elevenlabs') return true;
+    const matchesAge =
+      voiceAgeFilter === 'all' || (v.age_raw || '').includes(voiceAgeFilter);
+    const q = voiceSearch.trim().toLowerCase();
+    const matchesSearch =
+      !q ||
+      v.name.toLowerCase().includes(q) ||
+      (v.display_label || '').toLowerCase().includes(q) ||
+      (v.style || '').toLowerCase().includes(q) ||
+      (v.accent || '').toLowerCase().includes(q);
+    return matchesAge && matchesSearch;
+  });
+
+  const selectedVoiceObj = rawProviderVoices.find((v) => v.id === selectedVoice);
 
   const handleGenerateScript = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -188,10 +206,52 @@ export const QuickGenerator: React.FC<QuickGeneratorProps> = ({
             >
               {currentProviderVoices.map((v) => (
                 <option key={v.id} value={v.id}>
-                  {v.name}
+                  {v.display_label || v.name}
                 </option>
               ))}
             </select>
+
+            {selectedProvider === 'elevenlabs' && (
+              <div className="mt-2 space-y-2">
+                <div className="flex flex-wrap gap-1.5 items-center">
+                  {[
+                    { key: 'all', label: 'Todas' },
+                    { key: 'young', label: 'Joven' },
+                    { key: 'middle_aged', label: 'Adulto' },
+                    { key: 'old', label: 'Mayor' },
+                  ].map((f) => (
+                    <button
+                      key={f.key}
+                      type="button"
+                      onClick={() => {
+                        setVoiceAgeFilter(f.key);
+                        const next = rawProviderVoices.find(
+                          (v) => f.key === 'all' || (v.age_raw || '').includes(f.key)
+                        );
+                        if (next) setSelectedVoice(next.id);
+                      }}
+                      className={`px-2.5 py-1 rounded-lg text-[11px] font-bold border transition ${
+                        voiceAgeFilter === f.key
+                          ? 'bg-sky-400 text-slate-950 border-sky-400'
+                          : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-600'
+                      }`}
+                    >
+                      {f.label}
+                    </button>
+                  ))}
+                  <input
+                    type="text"
+                    value={voiceSearch}
+                    onChange={(e) => setVoiceSearch(e.target.value)}
+                    placeholder="Filtrar estilo/nombre..."
+                    className="flex-1 min-w-[130px] bg-slate-950 border border-slate-800 rounded-lg px-2.5 py-1 text-[11px] text-white placeholder-slate-500 focus:outline-none focus:border-sky-400"
+                  />
+                </div>
+                {selectedVoiceObj?.preview_url && (
+                  <audio controls src={selectedVoiceObj.preview_url} className="w-full h-8 opacity-90" />
+                )}
+              </div>
+            )}
           </div>
         </div>
 

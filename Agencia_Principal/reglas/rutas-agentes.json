@@ -57,7 +57,17 @@
     },
     "redes-sociales": {
       "archivo": "agentes/redes-sociales.md",
-      "skills": []
+      "skills": [
+        "preproduccion-social-video",
+        "niche-research",
+        "content-strategy",
+        "social",
+        "customer-research",
+        "viral-short-form-ideas",
+        "viral-captions-and-ctas",
+        "post-scorer",
+        "voice-builder"
+      ]
     },
     "agente-frontend": {
       "archivo": "agentes/agente-frontend.md",
@@ -115,7 +125,9 @@
         "pipeline-produccion-video",
         "remotion-render",
         "remotion-studio",
-        "make-awesome-video"
+        "make-awesome-video",
+        "earshot",
+        "real-sfx"
       ]
     },
     "agente-director-audiovisual": {
@@ -124,7 +136,11 @@
         "make-awesome-video",
         "video-shotcraft",
         "documentary-narrative-engine",
-        "pipeline-produccion-video"
+        "pipeline-produccion-video",
+        "earshot",
+        "real-sound",
+        "real-sfx",
+        "openverse-audio"
       ]
     },
     "agente-estilo-vox": {
@@ -148,7 +164,19 @@
     },
     "agente-estratega-narrativo": {
       "archivo": "agentes/agente-estratega-narrativo.md",
-      "skills": []
+      "skills": [
+        "preproduccion-social-video",
+        "estrategia-narrativa-ganchos-retencion",
+        "viral-hooks",
+        "viral-short-form",
+        "yt-viral",
+        "yt-script",
+        "yt-package",
+        "reels-scripting",
+        "interview-me",
+        "idea-refine",
+        "documentary-narrative-engine"
+      ]
     }
   }
 }

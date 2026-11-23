@@ -7,16 +7,10 @@ from pathlib import Path
 import edge_tts
 
 import json
+from services.elevenlabs_gateway import get_elevenlabs_gateway, load_backend_env
 
 # Cargar .env si existe
-env_path = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.env"))
-if os.path.exists(env_path):
-    with open(env_path, "r", encoding="utf-8") as f:
-        for line in f:
-            line = line.strip()
-            if line and not line.startswith("#") and "=" in line:
-                k, v = line.split("=", 1)
-                os.environ.setdefault(k.strip(), v.strip())
+load_backend_env()
 
 # Lista unificada de voces disponibles por proveedor
 AVAILABLE_VOICE_PROVIDERS = [
@@ -89,27 +83,20 @@ class VoiceHub:
     def get_catalog(cls) -> List[Dict[str, Any]]:
         catalog = [{**provider, "voices": list(provider["voices"])} for provider in AVAILABLE_VOICE_PROVIDERS]
         elevenlabs = next(provider for provider in catalog if provider["provider"] == "elevenlabs")
-        api_key = os.getenv("ELEVENLABS_API_KEY")
-        if not api_key:
+        gateway = get_elevenlabs_gateway()
+        if not gateway.has_keys():
+            gateway.reload_from_env()
+        if not gateway.has_keys():
             elevenlabs["voices"] = []
-            elevenlabs["name"] = "ElevenLabs (configura ELEVENLABS_API_KEY)"
+            elevenlabs["name"] = "ElevenLabs (configura ELEVENLABS_API_KEY_1..6 o ELEVENLABS_API_KEY)"
             return catalog
-        request = urllib.request.Request(
-            "https://api.elevenlabs.io/v1/voices",
-            headers={"xi-api-key": api_key, "Accept": "application/json"},
-        )
         try:
-            with urllib.request.urlopen(request, timeout=15) as response:
-                data = json.loads(response.read().decode("utf-8"))
-            elevenlabs["voices"] = [
-                {
-                    "id": voice["voice_id"],
-                    "name": voice.get("name", voice["voice_id"]),
-                    "gender": (voice.get("labels") or {}).get("gender", "Unknown"),
-                }
-                for voice in data.get("voices", [])
-                if voice.get("voice_id")
-            ]
+            voice_res = gateway.list_voices()
+            elevenlabs["voices"] = voice_res["voices"]
+            n_keys = gateway.configured_count
+            elevenlabs["name"] = (
+                f"ElevenLabs Gateway ({n_keys} cuenta{'s' if n_keys != 1 else ''} · {voice_res['total']} voces)"
+            )
         except Exception as error:
             elevenlabs["voices"] = []
             elevenlabs["name"] = f"ElevenLabs (no disponible: {error})"
@@ -123,18 +110,22 @@ class VoiceHub:
         provider: str = "edge-tts",
         voice_id: str = "es-ES-AlvaroNeural",
         rate: str = "+4%",
-        pitch: str = "+0Hz"
+        pitch: str = "+0Hz",
+        model_id: Optional[str] = None,
     ) -> Dict[str, Any]:
         """
-        Sintetiza audio con el proveedor elegido. Si un proveedor externo falla o no está configurado,
-        ejecuta fallback a Edge-TTS para garantizar que el flujo de video nunca se detenga.
+        Sintetiza audio con el proveedor elegido. En ElevenLabs utiliza automáticamente el Gateway
+        con verificación de saldo y rotación multi-cuenta.
         """
         os.makedirs(os.path.dirname(output_audio_path), exist_ok=True)
 
         if provider == "elevenlabs":
-            if not os.getenv("ELEVENLABS_API_KEY"):
-                raise RuntimeError("ELEVENLABS_API_KEY no está configurada")
-            return await cls._synthesize_elevenlabs(text, output_audio_path, voice_id)
+            gateway = get_elevenlabs_gateway()
+            if not gateway.has_keys():
+                gateway.reload_from_env()
+            if not gateway.has_keys():
+                raise RuntimeError("No hay API keys de ElevenLabs configuradas en video-studio/backend/.env")
+            return await cls._synthesize_elevenlabs(text, output_audio_path, voice_id, model_id=model_id)
 
         if provider in ["applio", "rvc"]:
             return await cls._synthesize_applio(text, output_audio_path, voice_id)
@@ -294,45 +285,31 @@ class VoiceHub:
         return base_res
 
     @classmethod
-    async def _synthesize_elevenlabs(cls, text: str, output_path: str, voice_id: str) -> Dict[str, Any]:
-        """Integración de alta precisión con ElevenLabs API (alineación palabra por palabra y audio HD)."""
-        import urllib.request
-        import base64
-        api_key = os.getenv("ELEVENLABS_API_KEY")
-        if not api_key:
-            raise ValueError("ELEVENLABS_API_KEY no configurada")
+    async def _synthesize_elevenlabs(
+        cls,
+        text: str,
+        output_path: str,
+        voice_id: str,
+        model_id: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """Integración resiliente con ElevenLabs vía Gateway multi-cuenta (verificación de saldo y rotación automática)."""
+        gateway = get_elevenlabs_gateway()
+        if not gateway.has_keys():
+            gateway.reload_from_env()
 
-        if not voice_id or len(voice_id) < 10:
-            raise ValueError("Selecciona una voz válida de ElevenLabs desde el catálogo")
-
-        url = f"https://api.elevenlabs.io/v1/text-to-speech/{voice_id}/with-timestamps"
-        payload = json.dumps({
-            "text": text,
-            "model_id": "eleven_multilingual_v2",
-            "voice_settings": {
-                "stability": 0.5,
-                "similarity_boost": 0.8
-            }
-        }).encode("utf-8")
-
-        req = urllib.request.Request(
-            url, data=payload,
-            headers={"xi-api-key": api_key, "Content-Type": "application/json"}
+        result = await asyncio.to_thread(
+            gateway.synthesize_with_failover,
+            text,
+            voice_id,
+            model_id,
         )
 
-        def _call():
-            with urllib.request.urlopen(req, timeout=40) as resp:
-                return json.loads(resp.read().decode("utf-8"))
-
-        data = await asyncio.to_thread(_call)
-
-        audio_bytes = base64.b64decode(data.get("audio_base64", ""))
         with open(output_path, "wb") as f:
-            f.write(audio_bytes)
+            f.write(result["audio_bytes"])
 
         duration = get_audio_duration(output_path)
 
-        align = data.get("alignment", {})
+        align = result.get("alignment", {})
         chars = align.get("characters", [])
         starts = align.get("character_start_times_seconds", [])
         ends = align.get("character_end_times_seconds", [])
@@ -375,6 +352,10 @@ class VoiceHub:
         return {
             "provider": "elevenlabs",
             "voice_id": voice_id,
+            "model_id": result["model_id"],
+            "account_used": result["account_used"],
+            "remaining_characters_estimate": result["remaining_characters_estimate"],
+            "rotations": result["rotations"],
             "audio_path": output_path,
             "duration": duration,
             "words": word_timestamps
